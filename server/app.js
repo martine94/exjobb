@@ -53,7 +53,8 @@ app.post('/register_student',urlEncodedParcer, function (req, resp) {
     };
     console.log(response)
     //Fixa så man kommer dit man ska efter post
-    resp.end(JSON.stringify(response));
+    //resp.end(JSON.stringify(response));
+    resp.redirect(303,'http://127.0.0.1/Student.html');
     //resp.end();
 });
 
