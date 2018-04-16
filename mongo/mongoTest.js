@@ -91,7 +91,22 @@ function login(table, usr, psw)
   });
 }
 
-//createTestDb(myaccounts, addCompany);
+function showContent(table)
+{
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    let dbo = db.db("db");
+   
+    dbo.collection(table).find({},{_id: 0}).toArray(function(err, result) {
+      if (err) throw err;
+     
+      console.log(result);
+      db.close();
+    });
+  });
+}
+//createTestDb(myaccounts, addStudent);
 
 //login("company", "a", "a");
 
+//showContent("student");
