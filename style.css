@@ -125,8 +125,9 @@ input:focus{
 }
 .banner > .banner-image{
 	width:100%;
-	height:30%;
-	display:block;
+	height:350px;
+    display:block;    
+    
 }
 
 
@@ -160,7 +161,7 @@ input:focus{
 .information {
     display: none; 
     padding:25px;
-    background-color: #6AA092;
+    background-color: #07669C;
     color:white;
 }
 
