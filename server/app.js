@@ -24,8 +24,9 @@ app.post('/register_company',urlEncodedParcer, function (req, resp) {
         password:req.body.psw
     };
     console.log(response)
-    //Fixa så man inte kommer åt helvete efter submit
-    resp.end(JSON.stringify(response));
+    //Fixa så man kommer dit man ska efter post
+    //resp.end(JSON.stringify(response));
+    resp.redirect(303,'http://127.0.0.1/Company.html');
 
     //Kalla på databasgrejer
 });
@@ -51,7 +52,7 @@ app.post('/register_student',urlEncodedParcer, function (req, resp) {
         gender:ugender
     };
     console.log(response)
-    //Fixa så man inte kommer åt helvete efter submit
+    //Fixa så man kommer dit man ska efter post
     resp.end(JSON.stringify(response));
     //resp.end();
 });
@@ -64,8 +65,11 @@ app.post('/login_student',urlEncodedParcer, function (req, resp) {
         password:req.body.psw
     };
     console.log(response)
-    //Fixa så man inte kommer åt helvete efter submit
-    resp.end(JSON.stringify(response));
+    //Fixa så man kommer dit man ska efter post
+    //resp.end(JSON.stringify(response));
+    //resp.end();
+    resp.redirect(303,'http://127.0.0.1/index.html');
+    //skicka vidare till inloggad eller inte inloggad
 });
 
 app.delete('/app_delete', function (req, resp) {
@@ -76,7 +80,7 @@ app.delete('/app_delete', function (req, resp) {
 var server = app.listen(80, function () {
     var host = server.address().address;
     var port = server.address().port;
-    console.log('Express app listening at http://%s:%s', host, port);
+    console.log("Express app listening at http://%s:%s", host, port);
 });
 
 server.on('connection',conn=>{
