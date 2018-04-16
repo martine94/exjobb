@@ -14,6 +14,14 @@ let mystudents = [
   { _user: 'j', password: 'j'}
 ];
 
+function createTestDb(content, func)
+{
+  for(stuff in content)
+  {
+    func(content[stuff]);
+  }
+}
+
 function addStudent(student)
 {
   MongoClient.connect(url, function(err, db) {
@@ -38,14 +46,38 @@ function addStudent(student)
   });
 }
 
-function loginStudent(usr, psw)
+function addCompany(company)
+{
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    let dbo = db.db("db");
+
+    dbo.collection("company").ensureIndex({_user: 1}, {unique : true});
+
+    dbo.collection("company").insertOne(company, function(err, res) {
+      if (err) {
+          console.log(err);
+          throw err;
+      }
+      console.log("Number of documents inserted: " + res.insertedCount);
+      db.close();
+
+      if(res.insertedCount === 1)
+        return true;
+      else
+        return false;
+    });
+  });
+}
+
+function login(table, usr, psw)
 {
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     let dbo = db.db("db");
     let query = { _user: usr, password: psw };
    
-    dbo.collection("student").find(query).toArray(function(err, result) {
+    dbo.collection(table).find(query).toArray(function(err, result) {
       if (err) throw err;
      
       console.log(result.length);
@@ -59,5 +91,7 @@ function loginStudent(usr, psw)
   });
 }
 
-addStudent({ _user: 'y', password: 'y'});
+//createTestDb(mystudents, addCompany);
+
+//login("student", "a", "b");
 
