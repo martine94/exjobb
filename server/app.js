@@ -11,7 +11,7 @@ app.get('/app_get', function (req, resp) {
     console.log("GET request");
     resp.send('Nothing to GET');
 });
-app.post('/register_company.html',urlEncodedParcer, function (req, resp) {
+app.post('/register_company',urlEncodedParcer, function (req, resp) {
     console.log("POST request");
     response={
         //format: [variabelnamn]:req.body.[inmatningsfönstrets namn]
@@ -19,11 +19,34 @@ app.post('/register_company.html',urlEncodedParcer, function (req, resp) {
         //last_name:req.body.last_name
         cname:req.body.cname,
         caddress:req.body.cadress,
-        ccity:req.body.ccity
+        ccity:req.body.ccity,
+        uwebpage:req.body.uwebpage,
+        uemail:req.body.uemail,
+        uname:req.body.uname,
+        password:req.body.psw
     };
     console.log(response)
     //Fixa så man inte kommer åt helvete efter submit
-    resp.end();
+    resp.end(JSON.stringify(response));
+});
+
+app.post('/register_student',urlEncodedParcer, function (req, resp) {
+    console.log("POST request");
+    response={
+        //format: [variabelnamn]:req.body.[inmatningsfönstrets namn]
+        //first_name:req.body.first_name,
+        //last_name:req.body.last_name
+        cname:req.body.cname,
+        caddress:req.body.cadress,
+        ccity:req.body.ccity,
+        uwebpage:req.body.uwebpage,
+        uemail:req.body.uemail,
+        uname:req.body.uname,
+        password:req.body.psw
+    };
+    console.log(response)
+    //Fixa så man inte kommer åt helvete efter submit
+    resp.end(JSON.stringify(response));
 });
 
 app.delete('/app_delete', function (req, resp) {
