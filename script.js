@@ -111,3 +111,14 @@ window.onload=function(){
     showAboutUsInfo();
     
     }
+
+    testFunc = function(x){
+        if(x === 'x')
+            return 'x';
+        else
+            return 'y';
+    }
+
+if(typeof exports != 'undefined'){
+    exports.testFunc = testFunc;
+}
