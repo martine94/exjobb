@@ -24,15 +24,8 @@ function addStudent(student)
 
     dbo.collection("student").insertOne(student, function(err, res) {
       if (err) {
-        if(err.code === 11000)
-        {
-          console.log("Användarnamnet är upptaget!");
-          return false;
-        }
-        else{
           console.log(err);
           throw err;
-        }
       }
       console.log("Number of documents inserted: " + res.insertedCount);
       db.close();
