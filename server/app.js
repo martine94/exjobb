@@ -52,8 +52,8 @@ app.post('/register_student',urlEncodedParcer, function (req, resp) {
     };
     console.log(response)
     //Fixa så man inte kommer åt helvete efter submit
-    //resp.end(JSON.stringify(response));
-    resp.end();
+    resp.end(JSON.stringify(response));
+    //resp.end();
 });
 
 app.post('/login_student',urlEncodedParcer, function (req, resp) {
