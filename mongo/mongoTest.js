@@ -1,7 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 
-let mystudents = [
+let myaccounts = [
   { _user: 'a', password: 'a'},
   { _user: 'b', password: 'b'},
   { _user: 'c', password: 'c'},
@@ -91,7 +91,7 @@ function login(table, usr, psw)
   });
 }
 
-//createTestDb(mystudents, addCompany);
+//createTestDb(myaccounts, addCompany);
 
-//login("student", "a", "b");
+//login("company", "a", "a");
 
