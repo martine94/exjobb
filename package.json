@@ -1,0 +1,14 @@
+{
+  "name": "mongo",
+  "version": "1.0.0",
+  "description": "Test projekt för mongodb",
+  "main": "mongoTest.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mongoDB"
+  ],
+  "author": "Johan Henriksson och Anna Forsberg",
+  "license": "MIT"
+}
