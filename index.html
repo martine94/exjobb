@@ -96,12 +96,12 @@
 			<p class="r1"> Registrera Student </p><br><br>
 			<h3>Personlig information</h3>
 			<input type="text" placeholder="Förnamn" name="ufname" required>
-			<input type="text" placeholder="Efternamn" name="ufname" required>
+			<input type="text" placeholder="Efternamn" name="ulname" required>
 			<input type="text" placeholder="Stad" name="ucity" required>
 			<input type="text" placeholder="Utbildning" name="ueducation" required>
 			<div> Kön:
-			<input type="radio" name="gender" value="male"> Man
-  			<input type="radio" name="gender" value="female"> Kvinna
+			<input type="radio" name="gender_male" value="male"> Man
+  			<input type="radio" name="gender_female" value="female"> Kvinna
   			</div>
 			
 			<h3>Användaruppgifter</h3>
@@ -115,7 +115,7 @@
 	</form>
 
 	<!-- Log In Modal  -->
-	<form action="Student.html" method="POST">
+	<form action="login_student" method="POST">
 	<div id="logInModal" class="modal">
 		<div class="modal-content">
 			<span id="closeLogInModal" class="close">&times;</span>

@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser=require('body-parser');
-var urlEncodedParcer=bodyParser.urlencoded({extended:false});
+var urlEncodedParcer=bodyParser.urlencoded({extended:true});
 
 
 //Ändra till express.static('../') för att nå riktiga sidan
@@ -12,11 +12,9 @@ app.get('/app_get', function (req, resp) {
     resp.send('Nothing to GET');
 });
 app.post('/register_company',urlEncodedParcer, function (req, resp) {
-    console.log("POST request");
+    console.log("company register POST request");
     response={
         //format: [variabelnamn]:req.body.[inmatningsfönstrets namn]
-        //first_name:req.body.first_name,
-        //last_name:req.body.last_name
         cname:req.body.cname,
         caddress:req.body.cadress,
         ccity:req.body.ccity,
@@ -28,19 +26,40 @@ app.post('/register_company',urlEncodedParcer, function (req, resp) {
     console.log(response)
     //Fixa så man inte kommer åt helvete efter submit
     resp.end(JSON.stringify(response));
+
+    //Kalla på databasgrejer
 });
 
 app.post('/register_student',urlEncodedParcer, function (req, resp) {
-    console.log("POST request");
+    console.log("student register POST request");
+    var ugender="";
+    console.log(JSON.stringify(req.body.gender_male));
+    if(req.body.gender_male){
+        ugender="male";
+    } else{
+        ugender="female";
+    }
     response={
         //format: [variabelnamn]:req.body.[inmatningsfönstrets namn]
-        //first_name:req.body.first_name,
-        //last_name:req.body.last_name
-        cname:req.body.cname,
-        caddress:req.body.cadress,
-        ccity:req.body.ccity,
-        uwebpage:req.body.uwebpage,
+        name:req.body.ufname,
+        lastname:req.body.ulname,
+        city:req.body.ucity,
+        ueducation:req.body.ueducation,
         uemail:req.body.uemail,
+        uname:req.body.uname,
+        password:req.body.psw,
+        gender:ugender
+    };
+    console.log(response)
+    //Fixa så man inte kommer åt helvete efter submit
+    //resp.end(JSON.stringify(response));
+    resp.end();
+});
+
+app.post('/login_student',urlEncodedParcer, function (req, resp) {
+    console.log("student register POST request");
+    response={
+        //format: [variabelnamn]:req.body.[inmatningsfönstrets namn]
         uname:req.body.uname,
         password:req.body.psw
     };
