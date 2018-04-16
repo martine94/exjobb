@@ -53,7 +53,8 @@ app.post('/register_student',urlEncodedParcer, function (req, resp) {
     };
     console.log(response)
     //Fixa så man kommer dit man ska efter post
-    resp.end(JSON.stringify(response));
+    //resp.end(JSON.stringify(response));
+    resp.redirect(303,'http://127.0.0.1/Student.html');
     //resp.end();
 });
 
@@ -68,7 +69,22 @@ app.post('/login_student',urlEncodedParcer, function (req, resp) {
     //Fixa så man kommer dit man ska efter post
     //resp.end(JSON.stringify(response));
     //resp.end();
-    resp.redirect(303,'http://127.0.0.1/index.html');
+    resp.redirect(303,'http://127.0.0.1/Student.html');
+    //skicka vidare till inloggad eller inte inloggad
+});
+
+app.post('/login_company',urlEncodedParcer, function (req, resp) {
+    console.log("student register POST request");
+    response={
+        //format: [variabelnamn]:req.body.[inmatningsfönstrets namn]
+        uname:req.body.uname,
+        password:req.body.psw
+    };
+    console.log(response)
+    //Fixa så man kommer dit man ska efter post
+    //resp.end(JSON.stringify(response));
+    //resp.end();
+    resp.redirect(303,'http://127.0.0.1/Company.html');
     //skicka vidare till inloggad eller inte inloggad
 });
 
