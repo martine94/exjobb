@@ -25,8 +25,8 @@
 			<div>
 				<button id="logInBtn" class="menuBtn"> Logga in</button>
 				<ul id="logInContainer" class="dropDownContainer">
-					<li><a class="showDropDownMenu">Företag</a></li>
-					<li><a class="showDropDownMenu">Student</a></li>
+					<li><a class="showDropDownMenu" id="companyLoginBtn">Företag</a></li>
+					<li><a class="showDropDownMenu" id="studentLoginBtn">Student</a></li>
 				</ul>
 			</div>	
 		</div>
@@ -116,7 +116,7 @@
 
 	<!-- Log In Modal  -->
 	<form action="login_student" method="POST">
-	<div id="logInModal" class="modal">
+	<!--<div id="logInModal" class="modal">
 		<div class="modal-content">
 			<span id="closeLogInModal" class="close">&times;</span>
 			
@@ -127,8 +127,36 @@
 				<button class="submitBtn" type="submit">LOGGA IN</button>
 			</div>
 		</div>
-	</div>
+	</div> -->
+	<div id="LoginStudentModal" class="modal">
+			<div class="modal-content">
+				<span id="closeLIStudentModal" class="close">&times;</span>
+				
+				<div class="modalLogInContainer">
+					<input type="text" placeholder="Användarnamn" name="uname" required>
+					<input type="password" placeholder="Lösenord" name="psw" required>
+	
+					<button class="submitBtn" type="submit">LOGGA IN</button>
+				</div>
+			</div>
+		</div>
 	</form>
+
+	<!-- Log In Company Modal  -->
+	<form action="Company.html">
+        <div id="LoginCompanyModal" class="modal">
+            <div class="modal-content">
+                <span id="closeLICompanyModal" class="close">&times;</span>
+                
+                <div class="modalLogInContainer">
+                    <input type="text" placeholder="Användarnamn" name="uname" id="CompName" required>
+                    <input type="password" placeholder="Lösenord" name="psw" required>
+    
+                    <button class="submitBtn" type="submit">LOGGA IN</button>
+                </div>
+            </div>
+        </div>
+        </form>
 </div>
 
 
