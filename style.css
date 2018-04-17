@@ -18,9 +18,9 @@ li{
 	font-style: italic;
 	font-size: 40px;
 	text-align: center;
-	color:white;
+	color:#FE5F55;
     position: absolute;
-    top: 30%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -76,6 +76,7 @@ p.r1{
 	display:inline-flex;
 	position: fixed;
 	box-shadow: 0 0 10px 0 grey;
+	z-index: 99;
 
 }
 .logo{
@@ -135,16 +136,16 @@ input:focus{
 }
 
 .banner{
-	width:100%;
+	width: 100%;
+	height: 300px;
 	display: block;
+	background-image: url("https://www.oru.se/globalassets/oru-sv/jobba-hos-oss/lediga-jobb.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
 
 }
-.banner > .banner-image{
-	width:100%;
-	height:350px;
-    display:block;    
-    
-}
+
 
 
 
@@ -177,8 +178,8 @@ input:focus{
 .information {
     display: none; 
     padding:25px;
-    background-color: #07669C;
-    color:white;
+    background-color: rgb(91, 172, 212);
+    color:rgb(43, 42, 42);
 }
 
 /* Modal Content/Box */
