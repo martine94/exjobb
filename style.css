@@ -121,6 +121,15 @@ img {
 		background-position: bottom;
 		background-size: 100%;
 	}
+	.bannerCompany{
+		width: 100%;
+		height: 300px;
+		display: block;
+		background-image: url("https://www.oru.se/contentassets/342643f3f3cc4abc8a16746642f8c74a/ou.jpg");
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 100%;
+	}
 #myInput {
 		background-image: url("https://www.shareicon.net/download/2015/10/03/110917_search_512x512.png");
 		background-position: 10px 10px;
