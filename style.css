@@ -55,6 +55,8 @@ p.r1{
 	text-align: center;
 }
 
+
+  
 .companyOptions{
 	border: #07669C;
 	border-radius: 100% 50px 50px 50px;
@@ -77,6 +79,7 @@ p.r1{
 	position: fixed;
 	box-shadow: 0 0 10px 0 grey;
 	z-index: 99;
+	height: 45px;
 
 }
 .logo{
@@ -86,6 +89,7 @@ p.r1{
 	font-weight: bold;
 	margin-top: auto;
 	position: fixed;
+	
 }
 
 .navmenu{
@@ -178,7 +182,7 @@ input:focus{
 
 .information {
     display: none; 
-    padding:25px;
+    padding:25px 150px 25px 150px;
     background-color: rgb(91, 172, 212);
     color:rgb(43, 42, 42);
 }
