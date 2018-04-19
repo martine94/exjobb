@@ -59,6 +59,7 @@ window.onload=function(){
     //companyAddProfile.addEventListener("click", goToCompanysize(2));
     
     //button functions
+   
     function dropRegister(){
                             //    alert(cName);
         document.getElementById("registerContainer").style.display="block";
@@ -139,7 +140,55 @@ window.onload=function(){
         document.getElementById("forStudentsInfo").style.display="block";
          
     }
-    
+
+    function workAnnouncement(num){
+                for(var i =0; i< num; i++){
+                    document.getElementById("testDiv").innerHTML += 
+                    "<div class='jobs'>"
+                    +"<h1>"+"Detta är jobannons nr :"+ (i+1) +"</h1>"
+                    +"Detta är bara lite text..."
+                    +"</div>";
+                }
+        
+        
+    } 
+    function workAnnouncement2(num){
+        console.log("hur");
+        document.getElementById("testDiv");
+        
+        for(var i =0; i< num; i++){
+            var newDiv=document.createElement("div");
+            newDiv.className="jobs2";
+            var newh1=document.createElement("h1");
+            var newA=document.createElement("a");
+           newh1.innerHTML="Rubrik "+(i+1);
+           testDiv.appendChild(newDiv);
+           newDiv.appendChild(newh1);
+
+
+
+        }
+
+
+}     
+    workAnnouncement(5);
+    workAnnouncement2(3);
+        /*function hank(){
+
+        var numOfWindows = 3;
+        for(var i =0; i< numOfWindows; i++){
+            document.getElementById("testDiv").innerHTML += "<a class>"+"nu,ber of windows is: "+ numOfWindows +"</a>"+
+            "<div class='banner'>"+"Anna äger" +"</div>";
+        }
+
+
+    }   
+    hank();
+    */
     showAboutUsInfo();
-    
+
+
+
+
     }
+

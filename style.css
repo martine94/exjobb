@@ -12,32 +12,17 @@ li{
 	width:6.25em;
 	height: 1.5625em;
 }
-
-.banner-text {
-	font-family: Arial Nova Cond Light;
-	font-style: italic;
-	font-size: 40px;
-	text-align: center;
-	color:white;
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
 p.r1{
 	font-size:32px;
-
 	text-decoration: underline;
 	position: absolute;
     left: 50%;
     transform: translate(-50%, -50%);
-
 }
-
 .menuBtn{
 	border:none;
 	outline: none;
-	background:white;
+	background:transparent;
 	text-align: left;
 	width:100px;
 	height: 25px;
@@ -54,7 +39,14 @@ p.r1{
 	font-size: 25px;
 	text-align: center;
 }
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
 
+
+
+  
 .companyOptions{
 	border: #07669C;
 	border-radius: 100% 50px 50px 50px;
@@ -64,11 +56,13 @@ p.r1{
 	color: white;
 	text-align: left;
 	margin-top: 20px;
-	width:60%;
+	width:20%;
 	left: 200px;
 	height: 50px;
 	font-size: 25px;
 	text-align: center;
+	display: inline;
+
 }
 
 .topbar{
@@ -76,6 +70,8 @@ p.r1{
 	display:inline-flex;
 	position: fixed;
 	box-shadow: 0 0 10px 0 grey;
+	z-index: 99;
+	height: 45px;
 
 }
 .logo{
@@ -85,10 +81,12 @@ p.r1{
 	font-weight: bold;
 	margin-top: auto;
 	position: fixed;
+	
 }
 
 .navmenu{
-	background-color: #ffffff;
+	background-image: linear-gradient(139deg, rgb(255, 255, 255) 0%, rgb(130, 174, 216) 100%);
+	
 	color:black;
 	padding: 10px 0 5px 0;
 	display: inline-flex;
@@ -110,18 +108,97 @@ p.r1{
 .showDropDownMenu{
 	display: inline-block;
 	outline: none;
-	background:white;
+	background:rgb(143, 183, 221);
 	width: 80px;
 	height:35px;
 }
 
+
+.banner{
+		width: 100%;
+		height: 300px;
+		display: block;
+		background-image: url("http://www.young.lv/ru/wp-content/uploads/2016/01/programmer1.jpg");
+		background-repeat: no-repeat;
+		background-position: bottom;
+		background-size: 100%;
+	}
+	.bannerCompany{
+		width: 100%;
+		height: 300px;
+		display: block;
+		background-image: url("https://www.oru.se/contentassets/342643f3f3cc4abc8a16746642f8c74a/ou.jpg");
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 100%;
+	}
+#myInput {
+		background-image: url("https://www.shareicon.net/download/2015/10/03/110917_search_512x512.png");
+		background-position: 10px 10px;
+		background-repeat: no-repeat;
+		background-size: 5%;
+		
+
+		width: 100%;
+		font-size: 16px;
+		padding: 12px 20px 12px 40px;
+		border: 1px solid #ddd;
+		margin-bottom: 12px;
+	  }
+	  
+	  #onTopOfBannerImage {
+		 position: absolute;
+		 width:600px;
+		 height:50px;
+		 top: 20%;
+		 left: 50%;
+		  transform: translate(-50%, -50%);
+		  color:white;
+		  text-align: center;
+	  }	
+
+.lowNavMenu{
+	background-color:white;
+	color:#000000;
+	padding: 10px 0 0 0;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	box-shadow: 0 0 1px 0 grey;
+}
+
+
+.information {
+    display: none; 
+    padding:25px 150px 25px 150px; 
+	/* background-color: rgb(196, 219, 240);orufärg */ 
+	background-color: rgb(240, 240, 240);
+    color:rgb(43, 42, 42);
+}
+
+
+.banner-text {
+	font-family: Arial Nova Cond Light;
+	font-style: italic;
+	font-size: 40px;
+	text-align: center;
+	color:rgb(46, 120, 186);
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
 /*hover design*/
+
 .showDropDownMenu:hover, 
 .menuBtn:hover, 
 .close:hover
 {
-    cursor: pointer;
-	color:#FE5F55;
+	cursor: pointer;
+	color:rgb(21, 21, 151);
+	/* color:#FE5F55; */
 }
 
 
@@ -132,31 +209,6 @@ input:focus{
 	border:none;
 	outline: none;
 	background-color:#D3D3D3;
-}
-
-.banner{
-	width:100%;
-	display: block;
-
-}
-.banner > .banner-image{
-	width:100%;
-	height:350px;
-    display:block;    
-    
-}
-
-
-
-
-.lowNavMenu{
-	background-color: white;
-	color:#000000;
-	padding: 10px 0 0 0;
-	display: flex;
-	justify-content: center;
-	width: 100%;
-	box-shadow: 0 0 1px 0 grey;
 }
 
 
@@ -174,12 +226,6 @@ input:focus{
     background-color: rgba(0,0,0,0.4); 
 }
 
-.information {
-    display: none; 
-    padding:25px;
-    background-color: #07669C;
-    color:white;
-}
 
 /* Modal Content/Box */
 .modal-content {
@@ -206,4 +252,35 @@ input[type=text],input[type=password]{
     font-weight: bold;
 }
 
+.designKeyWords{
+	background-color: #07669C;
+	border-block-end-color: #aaa;
+	margin-top: 0.01em;
+	border-radius: 0.3cm;
+	color: antiquewhite;
+	width: 20%;
+	text-align: center;
+}
 
+
+.jobs{
+	background-color: white;
+	width: 50%;
+}
+.jobs2{
+	background-color: green;
+	width: 50%;
+}
+
+.companyPage{
+	display: inline-flex;	
+}
+.companyContent{
+	display: inline-flex;
+	justify-content: flex-end;
+}
+.CompanyButtons{
+	display: inline-flex;
+	justify-content: flex-start;
+	
+}

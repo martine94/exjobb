@@ -1,55 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<title>Skynet matchmakers|Welcome</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<script type="text/javascript" src="Company.js"></script>
+        <meta charset="utf-8">
+        <title>Skynet matchmakers|Welcome</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="Company.js"></script>
 </head>
+
 <body>
-	<div class="topbar">	
-		<div class="logo">
-			SKYNET
-        </div>
-        </div>
-
-		<div class="navmenu">
-                <div>
-                    <label id="companyName">Inloggad som:</label>
-                </div>	
-            </div>
-
-        <div class="banner">
-                <img class="banner-image" src="https://www.oru.se/contentassets/342643f3f3cc4abc8a16746642f8c74a/ou.jpg">
-                <h1 class ="banner-text">Exjobb har aldrig varit enklare!</h1>
-        </div>
-        <div> <!-- placeholder namn--> 
-                <button class="companyOptions" type="submit" id = "ad">Lägg till anons</button>
-
-        </div>
-        <div>
-                <button class="companyOptions" type="submit" id = "offers">Aktiva erbjudanden</button>
-
-        </div>
-        <div>
-                <button class="companyOptions" type="submit" id = "profile">Redigera profil</button>
+        <div class="topbar">
+                <div class="logo">
+                        SKYNET
+                </div>
+                <div class="navmenu">
+                        <div>
+                                <label id="companyName">Inloggad som:</label>
+                        </div>
+                </div>
 
         </div>
 
+
+        <div class="bannerCompany">
+                <!-- <img class="banner-image" src="https://www.oru.se/contentassets/342643f3f3cc4abc8a16746642f8c74a/ou.jpg"> -->
+        </div>
+        <div id="companyPage">
+                <div id="CompanyButtons">
+                        <div>
+                                <!-- placeholder namn-->
+                                <button class="companyOptions" type="submit" id="ad">Lägg till anons</button>
+
+                        </div>
+                        <div>
+                                <button class="companyOptions" type="submit" id="offers">Aktiva erbjudanden</button>
+
+                        </div>
+                        <div>
+                                <button class="companyOptions" type="submit" id="profile">Redigera profil</button>
+
+                        </div>
+                </div>
+                <div id="companyContent">
+                        <button>HEJ</button>
+                </div>
+        </div>
         <form>
                 <div id="CompanyAds" class="modal">
                         <div class="modal-content">
-                            <span id="closeCompAds" class="close">&times;</span>
-                            
-                            <div class="modalLogInContainer">
-                                <label for="Headline">Titel ex-jobb:</label><input type="text" placeholder="" name="Headline" id="Headline" required>
-                                <label for="Subject">Beskrivning av ex-jobb:</label><input type="text" placeholder="Ämne" name="Subject" id="Subject" required>
-                                <label for="KeyWords">Beskrivning av ex-jobb:</label><input type="text" placeholder="Ämne" name="KeyWords" id="KeyWords" required>
-                
-                                <button class="submitBtn" type="submit">LOGGA IN</button>
-                            </div>
+                                <span id="closeCompAds" class="close">&times;</span>
+
+                                <div class="modalLogInContainer">
+                                        <label for="Headline">Titel ex-jobb:</label>
+                                        <input type="text" placeholder="" name="Headline" id="Headline"
+                                                required>
+                                        <label for="Subject">Beskrivning av ex-jobb:</label>
+                                        <input type="text" placeholder="Ämne" name="Subject"
+                                                id="Subject" required>
+                                        <label for="KeyWords">Nyckelord:</label>
+                                        <input type="text" placeholder="Ämne" name="KeyWords"
+                                                id="KeyWords" required>
+                                        <button type="button" id="AddKeyWord" name=AddKeyWord>lägg till nyckelord</button>
+                                        <div id="KeyWordList">
+
+                                        </div>
+
+                                        <button class="submitBtn" type="submit">LOGGA IN</button>
+                                </div>
                         </div>
-                    </div>            
+                </div>
         </form>
 </body>
 

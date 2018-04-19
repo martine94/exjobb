@@ -6,6 +6,7 @@ window.onload=function(){
     var companyAddOffers = document.getElementById('offers');
     var companyAddProfile = document.getElementById('profile');
     var closeCompAds = document.getElementById('closeCompAds');
+    var AddKeyWord = document.getElementById('AddKeyWord');
     //button events
 
     //company window
@@ -13,6 +14,7 @@ window.onload=function(){
     companyAddOffers.addEventListener("click", (e)=>goToCompanysize(1));
     companyAddProfile.addEventListener("click", (e)=>goToCompanysize(2));
     closeCompAds.addEventListener("click", closeCompanyAds);
+    AddKeyWord.addEventListener("click",addKeyWord);
     
     //button functions
     
@@ -29,6 +31,14 @@ window.onload=function(){
         }
     }
 
+    function addKeyWord(){
+        var KeyWord=document.getElementById("KeyWords").value;
+        var KeyWordList=document.getElementById("KeyWordList");
+        var newKeyWord=document.createElement('p');
+        newKeyWord.className="designKeyWords";
+        newKeyWord.innerHTML=KeyWord;
+        KeyWordList.appendChild(newKeyWord);
+    }
 
     // When the user clicks on <span> (x), close the modal    
     function closeCompanyAds() {
