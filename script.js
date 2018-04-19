@@ -59,6 +59,7 @@ window.onload=function(){
     //companyAddProfile.addEventListener("click", goToCompanysize(2));
     
     //button functions
+   
     function dropRegister(){
                             //    alert(cName);
         document.getElementById("registerContainer").style.display="block";
@@ -139,7 +140,35 @@ window.onload=function(){
         document.getElementById("forStudentsInfo").style.display="block";
          
     }
-    
+
+    function workAnnouncement(num){
+                for(var i =0; i< num; i++){
+                    document.getElementById("testDiv").innerHTML += 
+                    "<div class='jobs'>"
+                    +"<h1>"+"Detta är jobannons nr :"+ (i+1) +"</h1>"
+                    +"Detta är bara lite text..."
+                    +"</div>";
+                }
+        
+        
+            }   
+    workAnnouncement(5);
+        /*function hank(){
+
+        var numOfWindows = 3;
+        for(var i =0; i< numOfWindows; i++){
+            document.getElementById("testDiv").innerHTML += "<a class>"+"nu,ber of windows is: "+ numOfWindows +"</a>"+
+            "<div class='banner'>"+"Anna äger" +"</div>";
+        }
+
+
+    }   
+    hank();
+    */
     showAboutUsInfo();
-    
+
+
+
+
     }
+

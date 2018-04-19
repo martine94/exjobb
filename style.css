@@ -187,7 +187,10 @@ img {
     transform: translate(-50%, -50%);
 }
 
-
+.jobs{
+	background-color: white;
+	width: 50%;
+}
 /*hover design*/
 
 .showDropDownMenu:hover, 
