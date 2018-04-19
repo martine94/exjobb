@@ -191,10 +191,17 @@ img {
 
 
 /*hover design*/
-
+.cMenuBtn:hover,
 .showDropDownMenu:hover, 
 .menuBtn:hover, 
 .close:hover
+{
+	cursor: pointer;
+	color:rgb(21, 21, 151);
+	/* color:#FE5F55; */
+}
+
+.floating-box:hover
 {
 	cursor: pointer;
 	color:rgb(21, 21, 151);

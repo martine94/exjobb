@@ -31,6 +31,12 @@ window.onload=function(){
         }
     }
 
+    
+
+    function removeKeyWord(){
+
+    }
+
     function addKeyWord(){
         var KeyWord=document.getElementById("KeyWords").value;
         if(KeyWord != ""){
