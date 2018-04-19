@@ -331,8 +331,18 @@ input[type=text],input[type=password]{
 	width: 50%;
 }
 .jobs2{
-	background-color: green;
-	width: 50%;
+	background-color: rgb(240, 238, 238);
+	width: 100%;
+	margin: 5px;
+	padding: 0 50px 0 50px;
+	border-top:    1px solid rgb(141, 141, 139);
+	border-bottom:    1px solid  rgb(141, 141, 139);
+
+
+}
+.jobs2:hover{
+	background-color: rgb(228, 228, 228);
+	
 }
 
 .companyPage{
@@ -369,13 +379,8 @@ input[type=text],input[type=password]{
 	
 	
 	.left {
-	
 	width: 45%;
-	
-	background-color: 
-	rgb(190, 
-	190, 190);
-	
+	background-color: rgb(190, 190, 190);
 	}
 	
 	.middle{
@@ -384,9 +389,7 @@ input[type=text],input[type=password]{
 	
 	
 	.right {
-	
 	width: 85%;
-	
 	}
 	
 	
@@ -399,27 +402,13 @@ input[type=text],input[type=password]{
 .cMenuBtn{
 
 	border:none;
-
-	outline: 
-	none;
-
+	outline: none;
 	background:rgb(69, 70, 114);
-
-	text-align: 
-	left;
-
+	text-align: left;
 	width:100%;
-
-	height: 
-	50px;
-
-	margin: 
-	1px;
-
-	font-size: 
-	16px;
-
-	text-align: 
-	center;
+	height: 50px;
+	margin: 1px;
+	font-size: 16px;
+	text-align: center;
 
 }

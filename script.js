@@ -143,7 +143,7 @@ window.onload=function(){
 
     function workAnnouncement(num){
                 for(var i =0; i< num; i++){
-                    document.getElementById("testDiv").innerHTML += 
+                    document.getElementById("workAnnouncement").innerHTML += 
                     "<div class='jobs'>"
                     +"<h1>"+"Detta är jobannons nr :"+ (i+1) +"</h1>"
                     +"Detta är bara lite text..."
@@ -153,25 +153,38 @@ window.onload=function(){
         
     } 
     function workAnnouncement2(num){
-
-        document.getElementById("testDiv");
+        console.log(1);
+        workAnnouncement=document.getElementById("workAnnouncement");
         
         for(var i =0; i< num; i++){
-            var newDiv=document.createElement("div");
-            newDiv.className="jobs2";
-            var newh1=document.createElement("h1");
-            var newA=document.createElement("a");
-           newh1.innerHTML="Rubrik "+(i+1);
-           testDiv.appendChild(newDiv);
-           newDiv.appendChild(newh1);
+            var outerDiv=document.createElement("div");
+            outerDiv.className="jobs2";
+            console.log(1);
+        
+            var top=document.createElement("div"); //topbar
+            var logo=document.createElement("div");//div med plats för logga
+            //var logga=document.createElement("imgage");//ladda in logga
+            var header=document.createElement("div");//rubrik
+            var info=document.createElement("p");
+           info.innerHTML="information om jobbet blablalbla....";//här ska vi hämta info egentligen
+           var newlog=document.createElement("p");
+           newlog.innerHTML="logga";
+            var newh1=document.createElement("h2");
+           newh1.innerHTML="Rubrik "+(i+1);//ladda in rubrik
+           
+           workAnnouncement.appendChild(outerDiv);
+           outerDiv.appendChild(top);
+           outerDiv.appendChild(info);
+           top.appendChild(newlog);
+           top.appendChild(newh1);
 
-
-
+           
+       
         }
 
 
 }     
-    workAnnouncement(5);
+    //workAnnouncement(5);
     workAnnouncement2(3);
 
     showAboutUsInfo();
