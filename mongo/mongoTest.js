@@ -50,6 +50,7 @@ function createTestDb(content, func)
   }
 }
 
+
 function addStudent(student)
 {
   MongoClient.connect(url, function(err, db) {
@@ -103,3 +104,4 @@ function addCompany(company)
 // login("student", "b", "b", function(result){
 //   console.log("Callback from callback function: " + result);
 // });
+//createTestDb(myaccounts,addStudent);
