@@ -11,8 +11,8 @@ module.exports = {
       
       console.log("Connected to database!");
 
-      let dbo = db.db(database);
-      let query = { _user: usr, password: psw };
+      var dbo = db.db(database);
+      var query = { _user: usr, password: psw };
       
       dbo.collection(table).find(query).toArray(function(err, result) {
         if (err) throw err;
@@ -32,7 +32,7 @@ function addStudent(student)
 {
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
-    let dbo = db.db("db");
+    var dbo = db.db("db");
 
     dbo.collection("student").ensureIndex({_user: 1}, {unique : true});
 
@@ -56,7 +56,7 @@ function addCompany(company)
 {
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
-    let dbo = db.db("db");
+    var dbo = db.db("db");
 
     dbo.collection("company").ensureIndex({_user: 1}, {unique : true});
 
