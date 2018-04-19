@@ -153,7 +153,7 @@ window.onload=function(){
         
     } 
     function workAnnouncement2(num){
-        console.log("hur");
+
         document.getElementById("testDiv");
         
         for(var i =0; i< num; i++){
@@ -173,18 +173,7 @@ window.onload=function(){
 }     
     workAnnouncement(5);
     workAnnouncement2(3);
-        /*function hank(){
 
-        var numOfWindows = 3;
-        for(var i =0; i< numOfWindows; i++){
-            document.getElementById("testDiv").innerHTML += "<a class>"+"nu,ber of windows is: "+ numOfWindows +"</a>"+
-            "<div class='banner'>"+"Anna äger" +"</div>";
-        }
-
-
-    }   
-    hank();
-    */
     showAboutUsInfo();
 
 
