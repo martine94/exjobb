@@ -35,7 +35,7 @@ window.onload=function(){
         var KeyWord=document.getElementById("KeyWords").value;
         var KeyWordList=document.getElementById("KeyWordList");
         var newKeyWord=document.createElement('p');
-        newKeyWord.className="listObject";
+        newKeyWord.className="designKeyWords";
         newKeyWord.innerHTML=KeyWord;
         KeyWordList.appendChild(newKeyWord);
     }
