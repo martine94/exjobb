@@ -153,6 +153,7 @@ window.onload=function(){
         
     } 
     function workAnnouncement2(num){
+        console.log("hur");
         document.getElementById("testDiv");
         
         for(var i =0; i< num; i++){
