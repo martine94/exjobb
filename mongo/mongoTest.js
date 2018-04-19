@@ -1,5 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
+var database = "db";
 
 let myaccounts = [
   { _user: 'a', password: 'a'},
@@ -13,6 +14,33 @@ let myaccounts = [
   { _user: 'i', password: 'i'},
   { _user: 'j', password: 'j'}
 ];
+
+module.exports = {
+
+login : function(table, usr, psw, callback){
+  
+  MongoClient.connect(url, async function(err, db) {
+    if (err) throw err;
+    
+    console.log("Connected to database!");
+
+    let dbo = db.db(database);
+    let query = { _user: usr, password: psw };
+    
+    dbo.collection(table).find(query).toArray(function(err, result) {
+      if (err) throw err;
+
+      console.log("Entered collection success!");
+      
+      db.close();
+
+      callback(result);
+    });
+ });
+}
+
+
+};
 
 function createTestDb(content, func)
 {
@@ -70,28 +98,8 @@ function addCompany(company)
   });
 }
 
-function login(table, usr, psw)
-{
-  MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    let dbo = db.db("db");
-    let query = { _user: usr, password: psw };
-   
-    dbo.collection(table).find(query).toArray(function(err, result) {
-      if (err) throw err;
-     
-      console.log(result.length);
-      db.close();
-     
-      if(result.length === 1)
-        return true;
-      else
-        return false;
-    });
-  });
-}
-
 //createTestDb(myaccounts, addCompany);
 
-//login("company", "a", "a");
-
+// login("student", "b", "b", function(result){
+//   console.log("Callback from callback function: " + result);
+// });
