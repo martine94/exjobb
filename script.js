@@ -151,8 +151,27 @@ window.onload=function(){
                 }
         
         
-            }   
+    } 
+    function workAnnouncement2(num){
+        document.getElementById("testDiv");
+        
+        for(var i =0; i< num; i++){
+            var newDiv=document.createElement("div");
+            newDiv.className="jobs2";
+            var newh1=document.createElement("h1");
+            var newA=document.createElement("a");
+           newh1.innerHTML="Rubrik "+(i+1);
+           testDiv.appendChild(newDiv);
+           newDiv.appendChild(newh1);
+
+
+
+        }
+
+
+}     
     workAnnouncement(5);
+    workAnnouncement2(3);
         /*function hank(){
 
         var numOfWindows = 3;

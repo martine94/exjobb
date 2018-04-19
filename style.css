@@ -187,10 +187,7 @@ img {
     transform: translate(-50%, -50%);
 }
 
-.jobs{
-	background-color: white;
-	width: 50%;
-}
+
 /*hover design*/
 
 .showDropDownMenu:hover, 
@@ -254,3 +251,11 @@ input[type=text],input[type=password]{
 }
 
 
+.jobs{
+	background-color: white;
+	width: 50%;
+}
+.jobs2{
+	background-color: green;
+	width: 50%;
+}
