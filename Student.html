@@ -1,22 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<title>Skynet matchmakers|Welcome</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<script type="text/javascript" src="foretag.js"></script>
+        <meta charset="utf-8">
+        <title>Skynet matchmakers|Welcome</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="student.js"></script>
 </head>
+
 <body>
-	<div class="topbar">	
-		<div class="logo">
-			SKYNET
-		</div>
+        <div class="topbar">
+                <div class="logo">
+                        SKYNET
+                </div>
+                <div class="navmenu">
+                        <div>
+                                <label id="studentName">Inloggad som:</label>
+                        </div>
+                </div>
 
-		<div class="navmenu">
-			<div>
-                <label id="companyName">Inloggad som:</label>
-			</div>	
-		</div>
+        </div>
 
-	</div>
+
+  
+        <div
+        class="bannerStudent">
+        <!-- <img class="banner-image" src="https://cdn.pixabay.com/photo/2018/04/17/10/15/company-3327152_960_720.jpg"> -->
+        </div>
+        <div
+        class="studentlownavmenu">
+        <button
+        class="cMenuBtn"
+        type="submit"
+        id="interests">Mina intresseanmälningar</button>
+        <button
+        class="cMenuBtn"
+        type="submit"
+        id="edit">Redigera information</button>
+        <button
+        class="cMenuBtn"
+        type="submit"
+        id="recomended">Rekomenderade jobb</button>
+        </div>
+        </div>
+        </div>
+        </div>
+        <form>
+                <div id="editInfo" class="modal">
+                        <div class="modal-content">
+                                <span id="CloseEdit" class="close">&times;</span>
+
+                                <div class="modalLogInContainer">
+                                        <label for="Headline">Email:</label>
+                                        <input type="text" placeholder="" name="Headline" id="Headline"
+                                                required>
+                                        <label for="Subject">Lösenord:</label>
+                                        <input type="text" placeholder="Ämne" name="Subject"
+                                                id="Subject" required>
+                                        <label for="KeyWords">Kompetenser:</label>
+                                        <input type="text" placeholder="Ämne" name="KeyWords"
+                                                id="KeyWords" required>
+                                        <button type="button" id="AddKeyWord" name=AddKeyWord>lägg till kompetens</button>
+                                        <div id="KeyWordList">
+
+                                        </div>
+
+                                        <button class="submitBtn" type="submit">Bekräfta</button>
+                                </div>
+                        </div>
+                </div>
+        </form>
+</body>
+
 </html>
