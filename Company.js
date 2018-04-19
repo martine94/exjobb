@@ -34,10 +34,14 @@ window.onload=function(){
     function addKeyWord(){
         var KeyWord=document.getElementById("KeyWords").value;
         var KeyWordList=document.getElementById("KeyWordList");
-        var newKeyWord=document.createElement('p');
-        newKeyWord.className="designKeyWords";
-        newKeyWord.innerHTML=KeyWord;
-        KeyWordList.appendChild(newKeyWord);
+        var floatingBox=document.createElement('div');
+        floatingBox.className="floating-box";
+        floatingBox.innerHTML=KeyWord;
+        var closeButton = document.createElement('button');
+        closeButton.className = "closeButton";
+        closeButton.innerHTML = "X";
+        KeyWordList.appendChild(floatingBox);
+        floatingBox.appendChild(closeButton);
     }
 
     // When the user clicks on <span> (x), close the modal    
