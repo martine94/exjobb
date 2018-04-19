@@ -5,6 +5,11 @@ var Mongo = require('../mongo/mongoTest.js');
 var urlEncodedParcer = bodyParser.urlencoded({ extended: true });
 
 
+var ipAdress="127.0.0.1"; //Används om man vill köra lokalt
+//var ipAdress="dgustafsson.ml";
+var serverAddress="http://"+ipAdress; 
+var portNumber="2000";
+
 //Ändra till express.static('../') för att nå riktiga sidan
 //app.use(express.static('./copyPlattform/'))
 app.use(express.static('../'));
@@ -27,7 +32,8 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
     console.log(response)
     //Fixa så man kommer dit man ska efter post
     //resp.end(JSON.stringify(response));
-    resp.redirect(303, 'http://127.0.0.1/Company.html');
+    var redirectAddress=serverAddress+'/Company.html';
+    resp.redirect(303, redirectAddress);
 
     //Kalla på databasgrejer
 });
@@ -55,7 +61,8 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
     console.log(response)
     //Fixa så man kommer dit man ska efter post
     //resp.end(JSON.stringify(response));
-    resp.redirect(303, 'http://127.0.0.1/Student.html');
+    var redirectAddress=serverAddress+'/Student.html';
+    resp.redirect(303, redirectAddress);
     //resp.end();
 });
 
@@ -76,7 +83,8 @@ app.post('/login_student', urlEncodedParcer, function (req, resp) {
 
         if(result.length == 1){
             console.log("Login successfull!");
-            resp.redirect(303, 'http://127.0.0.1/Student.html');
+            var redirectAddress=serverAddress+'/Student.html';
+            resp.redirect(303, redirectAddress);
         }
         else{
             console.log("Wrong password or username!");
@@ -109,7 +117,8 @@ app.post('/login_company', urlEncodedParcer, function (req, resp) {
 
         if(result.length == 1){
             console.log("Login successfull!");
-            resp.redirect(303, 'http://127.0.0.1/Company.html');
+            var redirectAddress=serverAddress+'/Company.html';
+            resp.redirect(303, redirectAddress);
         }
         else{
             console.log("Wrong password or username!");
@@ -123,11 +132,17 @@ app.delete('/app_delete', function (req, resp) {
     resp.send("Delete request sent");
 });
 
-var server = app.listen(80, function () {
+var server = app.listen(portNumber, function () {
+    var host = ipAdress;//server.address().address; 
+    var port = portNumber;//server.address().port;
+    console.log("Express app listening at http://%s:%s", host, port);
+});
+
+/*var server = app.listen(2000, function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log("Express app listening at http://%s:%s", host, port);
-});
+});*/
 
 server.on('connection', conn => {
     console.log("Connection recieved");
