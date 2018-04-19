@@ -141,31 +141,27 @@ window.onload=function(){
          
     }
 
+
     function workAnnouncement(num){
-                for(var i =0; i< num; i++){
-                    document.getElementById("workAnnouncement").innerHTML += 
-                    "<div class='jobs'>"
-                    +"<h1>"+"Detta är jobannons nr :"+ (i+1) +"</h1>"
-                    +"Detta är bara lite text..."
-                    +"</div>";
-                }
-        
-        
-    } 
-    function workAnnouncement2(num){
         console.log(1);
         workAnnouncement=document.getElementById("workAnnouncement");
         
         for(var i =0; i< num; i++){
             var outerDiv=document.createElement("div");
-            outerDiv.className="jobs2";
+            outerDiv.className="jobs";
             console.log(1);
         
             var top=document.createElement("div"); //topbar
+            top.className="adTop";
+            
             var logo=document.createElement("div");//div med plats för logga
             //var logga=document.createElement("imgage");//ladda in logga
+            logo.className="adLogo";
             var header=document.createElement("div");//rubrik
+            header.className="adHeader";
+
             var info=document.createElement("p");
+            info.className="adInfo";
            info.innerHTML="information om jobbet blablalbla....";//här ska vi hämta info egentligen
            var newlog=document.createElement("p");
            newlog.innerHTML="logga";
@@ -175,8 +171,10 @@ window.onload=function(){
            workAnnouncement.appendChild(outerDiv);
            outerDiv.appendChild(top);
            outerDiv.appendChild(info);
-           top.appendChild(newlog);
-           top.appendChild(newh1);
+           top.appendChild(logo);
+           top.appendChild(header);
+           logo.appendChild(newlog);
+           header.appendChild(newh1);
 
            
        
@@ -184,12 +182,9 @@ window.onload=function(){
 
 
 }     
-    //workAnnouncement(5);
-    workAnnouncement2(3);
+    workAnnouncement(3);
 
     showAboutUsInfo();
-
-
 
 
     }
