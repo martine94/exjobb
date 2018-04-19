@@ -31,17 +31,30 @@ window.onload=function(){
         }
     }
 
+    
+
+    function removeKeyWord(){
+
+    }
+
     function addKeyWord(){
         var KeyWord=document.getElementById("KeyWords").value;
+        if(KeyWord != ""){
         var KeyWordList=document.getElementById("KeyWordList");
         var floatingBox=document.createElement('div');
         floatingBox.className="floating-box";
+        
+        var closeButton = document.createElement('span');
+        closeButton.className = "close";
+        floatingBox.append(closeButton);
         floatingBox.innerHTML=KeyWord;
-        var closeButton = document.createElement('button');
-        closeButton.className = "closeButton";
-        closeButton.innerHTML = "X";
+        
         KeyWordList.appendChild(floatingBox);
-        floatingBox.appendChild(closeButton);
+        for(let i = 0; i < KeyWordList.childElementCount; i++){
+            alert(KeyWordList.childNodes[i]);
+        }
+    }
+        
     }
 
     // When the user clicks on <span> (x), close the modal    

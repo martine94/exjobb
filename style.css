@@ -222,10 +222,17 @@ img {
 
 
 /*hover design*/
-
+.cMenuBtn:hover,
 .showDropDownMenu:hover, 
 .menuBtn:hover, 
 .close:hover
+{
+	cursor: pointer;
+	color:rgb(21, 21, 151);
+	/* color:#FE5F55; */
+}
+
+.floating-box:hover
 {
 	cursor: pointer;
 	color:rgb(21, 21, 151);
@@ -297,19 +304,20 @@ input[type=text],input[type=password]{
 	display: inline-block;
 	width: 150px;
 	background-color: #07669C;
-	color: gold;
-	text-align: center;
+	color: lightyellow;
 	height: 75px;
 	margin: 10px;
-	border-radius: 2cm;
+	text-align: center;
+	column-span: initial;
+	border-radius: 2cm; 
 	font-size: 25px;
-	border: 3px solid black;
+	border: 3px solid lightblue;
 
 }
 
 .closeButton{
 	position: relative;
-	border-radius: 0cm 0.3cm;
+	border-radius: 0cm 0.3cm 0cm;
 	top: 1px;
 	right: 1px;
 	color: ghostwhite;
