@@ -237,9 +237,9 @@ img {
 
 
 
-.menuBtn:focus{
+/* .menuBtn:focus{
 	color:#FE5F55;
-}
+} */
 input:focus{
 	border:none;
 	outline: none;
