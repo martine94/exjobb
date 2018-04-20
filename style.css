@@ -46,7 +46,7 @@ p.r1{
 	
 		border:none;
 		outline: none;
-		background:rgb(69, 70, 114);
+		/* background:rgb(69, 70, 114); */
 		text-align: left;
 		width:100%;
 		height: 50px;
