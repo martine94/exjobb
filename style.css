@@ -183,7 +183,7 @@ img {
 	  }	
 
 .lowNavMenu{
-	background-color:white;
+	
 	color:#000000;
 	padding: 10px 0 0 0;
 	display: flex;
@@ -197,7 +197,7 @@ img {
     display: none; 
     padding:25px 150px 25px 150px; 
 	/* background-color: rgb(196, 219, 240);orufärg */ 
-	background-color: rgb(240, 240, 240);
+	/* background-color: rgb(240, 240, 240); */
     color:rgb(43, 42, 42);
 }
 
@@ -415,6 +415,9 @@ input[type=text],input[type=password]{
 }
 .adHeader{
 	margin-left: 10px;
+}
+.bColorBlue{
+	background-color: rgb(74,150,205);
 }
 
 
