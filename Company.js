@@ -56,6 +56,7 @@ window.onload=function(){
         var paragraph = document.createElement('p');
         paragraph.innerHTML = "";        
         floatingBox.innerHTML=KeyWord;
+        KeyWord.value = "";
         floatingBox.appendChild(paragraph);
         floatingBox.addEventListener('click', (e)=>removeKeyWord(floatingBox));
         floatingBox.addEventListener('mouseover', (e)=>infoKeyWord(paragraph, 1));

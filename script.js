@@ -141,53 +141,50 @@ window.onload=function(){
          
     }
 
+
     function workAnnouncement(num){
-                for(var i =0; i< num; i++){
-                    document.getElementById("testDiv").innerHTML += 
-                    "<div class='jobs'>"
-                    +"<h1>"+"Detta är jobannons nr :"+ (i+1) +"</h1>"
-                    +"Detta är bara lite text..."
-                    +"</div>";
-                }
-        
-        
-    } 
-    function workAnnouncement2(num){
-        console.log("hur");
-        document.getElementById("testDiv");
+        console.log(1);
+        workAnnouncement=document.getElementById("workAnnouncement");
         
         for(var i =0; i< num; i++){
-            var newDiv=document.createElement("div");
-            newDiv.className="jobs2";
-            var newh1=document.createElement("h1");
-            var newA=document.createElement("a");
-           newh1.innerHTML="Rubrik "+(i+1);
-           testDiv.appendChild(newDiv);
-           newDiv.appendChild(newh1);
+            var outerDiv=document.createElement("div");
+            outerDiv.className="jobs";
+            console.log(1);
+        
+            var top=document.createElement("div"); //topbar
+            top.className="adTop";
+            
+            var logo=document.createElement("div");//div med plats för logga
+            //var logga=document.createElement("imgage");//ladda in logga
+            logo.className="adLogo";
+            var header=document.createElement("div");//rubrik
+            header.className="adHeader";
 
+            var info=document.createElement("p");
+            info.className="adInfo";
+           info.innerHTML="information om jobbet blablalbla....";//här ska vi hämta info egentligen
+           var newlog=document.createElement("p");
+           newlog.innerHTML="logga";
+            var newh1=document.createElement("h2");
+           newh1.innerHTML="Rubrik "+(i+1);//ladda in rubrik
+           
+           workAnnouncement.appendChild(outerDiv);
+           outerDiv.appendChild(top);
+           outerDiv.appendChild(info);
+           top.appendChild(logo);
+           top.appendChild(header);
+           logo.appendChild(newlog);
+           header.appendChild(newh1);
 
-
+           
+       
         }
 
 
 }     
-    workAnnouncement(5);
-    workAnnouncement2(3);
-        /*function hank(){
+    workAnnouncement(3);
 
-        var numOfWindows = 3;
-        for(var i =0; i< numOfWindows; i++){
-            document.getElementById("testDiv").innerHTML += "<a class>"+"nu,ber of windows is: "+ numOfWindows +"</a>"+
-            "<div class='banner'>"+"Anna äger" +"</div>";
-        }
-
-
-    }   
-    hank();
-    */
     showAboutUsInfo();
-
-
 
 
     }
