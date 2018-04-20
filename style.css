@@ -429,6 +429,9 @@ input[type=text],input[type=password]{
 	float: right;
 }
 
+.margin25{
+	margin:25px;
+}
 
 footer{
 background-color:black;

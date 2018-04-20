@@ -175,7 +175,7 @@ window.onload=function(){
            outerDiv.appendChild(top);
            outerDiv.appendChild(info);
            outerDiv.appendChild(readBtn);
-           readBtn.className="bColorBlue menuBtn floatRight";
+           readBtn.className="bColorBlue menuBtn margin25 floatRight";
            top.appendChild(logo);
            top.appendChild(header);
            logo.appendChild(newlog);
