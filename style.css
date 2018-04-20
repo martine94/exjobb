@@ -30,7 +30,8 @@ p.r1{
 .submitBtn{
 	border:none;
 	outline: none;
-	background:#FE5F55;
+	/* background:#FE5F55; */
+	background-color: rgb(74,150,205);
 	color: white;
 	text-align: left;
 	margin-top: 20px;
