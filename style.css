@@ -326,7 +326,7 @@ input[type=text],input[type=password]{
 
 
 .jobs{
-	background-color: rgb(240, 238, 238);
+	background-color: rgb(255, 255, 255);
 	width: 100%;
 	margin: 5px;
 	padding: 0 50px 0 50px;
@@ -336,7 +336,7 @@ input[type=text],input[type=password]{
 
 }
 .jobs:hover{
-	background-color: rgb(228, 228, 228);
+	background-color: rgb(250, 250, 250);
 	
 }
 
