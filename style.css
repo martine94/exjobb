@@ -219,6 +219,7 @@ img {
 .cMenuBtn:hover,
 .showDropDownMenu:hover, 
 .menuBtn:hover, 
+.floating-box:hover,
 .close:hover
 {
 	cursor: pointer;
@@ -226,12 +227,7 @@ img {
 	/* color:#FE5F55; */
 }
 
-.floating-box:hover
-{
-	cursor: pointer;
-	color:rgb(21, 21, 151);
-	/* color:#FE5F55; */
-}
+
 
 
 .menuBtn:focus{
@@ -294,18 +290,18 @@ input[type=text],input[type=password]{
 	text-align: center;
 }
 
-.floating-box{
+.floating-box, .paragraph{
 	display: inline-block;
-	width: 150px;
-	background-color: #07669C;
+	width: 20%;
+	background-color: rgb(104, 189, 238);
 	color: lightyellow;
 	height: 75px;
 	margin: 10px;
 	text-align: center;
 	column-span: initial;
 	border-radius: 2cm; 
-	font-size: 25px;
-	border: 3px solid lightblue;
+	font-size: 18px;
+	border: 3px solid rgb(104, 210, 238);
 
 }
 
