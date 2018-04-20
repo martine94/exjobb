@@ -222,7 +222,8 @@ img {
 .close:hover
 {
 	cursor: pointer;
-	color:rgb(21, 21, 151);
+	/* color:rgb(21, 21, 151); */
+	color:white;
 	/* color:#FE5F55; */
 }
 
