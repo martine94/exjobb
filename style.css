@@ -23,7 +23,8 @@ p.r1{
 	border:none;
 	outline: none;
 	background:transparent;
-	text-align: left;
+	/* text-align: left; */
+	text-align: center;
 	width:100px;
 	height: 25px;
 }
@@ -423,15 +424,11 @@ input[type=text],input[type=password]{
 .bColorBlue{
 	background-color: rgb(74,150,205);
 }
-.txtCenter{
-	text-align: center;
-}
+
 .floatRight{
 	float: right;
 }
-.margin50{
-	margin:50px;
-}
+
 
 footer{
 background-color:black;
