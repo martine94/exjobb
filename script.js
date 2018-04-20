@@ -167,10 +167,15 @@ window.onload=function(){
            newlog.innerHTML="logga";
             var newh1=document.createElement("h2");
            newh1.innerHTML="Rubrik "+(i+1);//ladda in rubrik
+           var readBtn=document.createElement("button");
+           readBtn.innerHTML="Läs mer";
+
            
            workAnnouncement.appendChild(outerDiv);
            outerDiv.appendChild(top);
            outerDiv.appendChild(info);
+           outerDiv.appendChild(readBtn);
+           readBtn.className="bColorBlue menuBtn txtCenter floatRight";
            top.appendChild(logo);
            top.appendChild(header);
            logo.appendChild(newlog);
