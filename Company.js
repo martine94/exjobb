@@ -7,6 +7,7 @@ window.onload=function(){
     var companyAddProfile = document.getElementById('profile');
     var closeCompAds = document.getElementById('closeCompAds');
     var AddKeyWord = document.getElementById('AddKeyWord');
+    var list =[];
     //button events
 
     //company window
@@ -33,8 +34,17 @@ window.onload=function(){
 
     
 
-    function removeKeyWord(){
+    function removeKeyWord(e){
+        e.parentNode.removeChild(e);
+    }
 
+    function infoKeyWord(e, visible){
+        if(visible===1){
+            e.innerHTML = "Klicka för att ta bort";
+        }
+        else if(visible === 0){
+        e.innerHTML = "";
+        }            
     }
 
     function addKeyWord(){
@@ -43,16 +53,15 @@ window.onload=function(){
         var KeyWordList=document.getElementById("KeyWordList");
         var floatingBox=document.createElement('div');
         floatingBox.className="floating-box";
-        
-        var closeButton = document.createElement('span');
-        closeButton.className = "close";
-        floatingBox.append(closeButton);
+        var paragraph = document.createElement('p');
+        paragraph.innerHTML = "";        
         floatingBox.innerHTML=KeyWord;
-        
+        floatingBox.appendChild(paragraph);
+        floatingBox.addEventListener('click', (e)=>removeKeyWord(floatingBox));
+        floatingBox.addEventListener('mouseover', (e)=>infoKeyWord(paragraph, 1));
+        floatingBox.addEventListener('mouseleave', (e)=>infoKeyWord(paragraph, 0));
         KeyWordList.appendChild(floatingBox);
-        for(let i = 0; i < KeyWordList.childElementCount; i++){
-            alert(KeyWordList.childNodes[i]);
-        }
+        
     }
         
     }
