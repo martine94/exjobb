@@ -329,7 +329,7 @@ input[type=text],input[type=password]{
 	background-color: rgb(255, 255, 255);
 	width: 100%;
 	margin: 5px;
-	padding: 0 50px 0 50px;
+	
 	border-top:    1px solid rgb(141, 141, 139);
 	border-bottom:    1px solid  rgb(141, 141, 139);
 
@@ -411,6 +411,7 @@ input[type=text],input[type=password]{
 	background-color:white;
 	width:70px;
 	height:70px;
+	margin: 5px;
 }
 .adInfo{
 	margin-left:70px; 
