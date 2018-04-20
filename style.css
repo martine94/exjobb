@@ -219,12 +219,17 @@ img {
 .cMenuBtn:hover,
 .showDropDownMenu:hover, 
 .menuBtn:hover, 
-.floating-box:hover,
 .close:hover
 {
 	cursor: pointer;
 	color:rgb(21, 21, 151);
 	/* color:#FE5F55; */
+}
+
+.floating-box:hover{
+	cursor: pointer;
+	background-color:rgb(250, 11, 11);
+	color: #aaa;
 }
 
 
@@ -293,6 +298,7 @@ input[type=text],input[type=password]{
 .floating-box, .paragraph{
 	display: inline-block;
 	width: 20%;
+	height: 10%;
 	background-color: rgb(104, 189, 238);
 	color: lightyellow;
 	height: 75px;
