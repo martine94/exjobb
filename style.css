@@ -19,9 +19,6 @@ p.r1{
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.bColorBlue{
-	background-color: rgb(74,150,205);
-}
 
 .menuBtn{
 	border:none;
@@ -345,4 +342,7 @@ footer{
 background-color:black;
 height:100px;
 color:  white;	
+}
+.bColorBlue{
+	background-color: rgb(74,150,205);
 }
