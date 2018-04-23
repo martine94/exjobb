@@ -27,13 +27,6 @@ app.get('/app_get', function (req, resp, next) {
     resp.send('Nothing to GET');
 });
 
-app.get('/register_company', function (req, resp) {
-    console.log("GET request");
-    req.body.getElementById("registerCompanyModal").style.display="block";
-    //document.getElementById("registerCompanyModal").style.display="block";
-    next();
-});
-
 app.get('/loggedIn',function(req,resp){
     if(req.session&&req.session.user){
         console.log("found session");
@@ -71,15 +64,14 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
                 console.log(result);
                 if(result.code === 11000)
                 {
-                    var redirectAddress=serverAddress+'/index.html';
-                    console.log(req);
-                    //resp.send(400, redirectAddress);
+                    resp.redirect('back');
                     //req.body.uname.value = "Fel användarnamn";
                 }
             }
             else{
-                var redirectAddress=serverAddress+'/Company.html';
+                var redirectAddress=serverAddress + ':' + portNumber +'/Company.html';
                 console.log("Success!");
+                console.log(redirectAddress);
                 resp.redirect(303, redirectAddress);
             }
         });
@@ -113,7 +105,7 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
         gender: ugender
     };
     console.log(response)
-    var redirectAddress=serverAddress+'/Student.html';
+    var redirectAddress=serverAddress + ':' + portNumber +'/Student.html';
     resp.redirect(303, redirectAddress);
 });
 
@@ -168,7 +160,7 @@ app.post('/login_company', urlEncodedParcer, function (req, resp) {
 
         if(result.length == 1){
             console.log("Login successfull!");
-            var redirectAddress=serverAddress+'/Company.html';
+            var redirectAddress=serverAddress + ':' + portNumber +'/Company.html';
             req.session.user=result; // för session
             console.log(req.session.user);
             resp.redirect(303, redirectAddress);

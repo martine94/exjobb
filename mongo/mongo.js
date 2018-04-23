@@ -12,7 +12,7 @@ module.exports = {
       console.log("Connected to database!");
 
       var dbo = db.db(database);
-      var query = { _user: usr, password: psw };
+      var query = { userName: usr, password: psw };
       
       dbo.collection(table).find(query).toArray(function(err, result) {
         if (err) throw err;
@@ -32,7 +32,7 @@ module.exports = {
       if (err) callback(err);
       var dbo = db.db("db");
 
-      dbo.collection("company").ensureIndex({userName: 1}, {unique : true});
+      //dbo.collection("company").ensureIndex({userName: 1}, {unique : true});
 
       dbo.collection("company").insertOne(company, function(err, res) {
         if (err) {
