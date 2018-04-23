@@ -8,14 +8,24 @@ window.onload=function(){
     var closeCompAds = document.getElementById('closeCompAds');
     var AddKeyWord = document.getElementById('AddKeyWord');
     var AddProj = document.getElementById('addProj');
+    var headLine = document.getElementById("Headline");
+    var subject = document.getElementById("Subject");
     var KeyList = [];
-    // class Company{
-    //     constructor(title, description,keyWords){
-    //     this.title=title;
-    //     this.description=description;
-    //     this.keyWords=keyWords;
-    //     }
-    // }
+    class Company{
+        constructor(title, description,keyWords){
+        this.title=title;
+        this.description=description;
+        this.keyWords=keyWords;
+        }
+
+        print() {
+            let str = "";
+            str += "Title: " + this.title + "\n";
+            str += "Description: " + this.description + "\n";
+            str += "List: " + this.keyWords.toString() + "\n";
+            return str;
+        }
+    }
     
     var keyWordStack= document.getElementById('KeyWordStack');
     var KeyWordList=document.getElementById("KeyWordList");
@@ -28,6 +38,7 @@ window.onload=function(){
     var keyWord7= document.getElementById('KeyWord7');
     var keyWord8= document.getElementById('KeyWord8');
     var keyWord9= document.getElementById('KeyWord9');
+    
     //button events
 
     //company window
@@ -136,8 +147,8 @@ window.onload=function(){
    function saveExamJob(){
        alert(KeyList);
 
-    
-    var c1 = new Company();
+    var c1 = new Company(headLine.value, subject.value, KeyList);
+    alert(c1.print());
    }
 
     }
