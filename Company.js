@@ -1,5 +1,7 @@
+
 window.onload=function(){
     //buttons
+    var visit = 0;
     var cName=localStorage.getItem("Loginname"); //Detta är för att passa användarnamnet till nästa fönster.
     var companyAddAd = document.getElementById('ad');
     var companyAddOffers = document.getElementById('offers');
@@ -7,14 +9,23 @@ window.onload=function(){
     var closeCompAds = document.getElementById('closeCompAds');
     var AddKeyWord = document.getElementById('AddKeyWord');
     var AddProj = document.getElementById('addProj');
+    var title = document.getElementById('Headline');
+    var subject = document.getElementById('Subject');
     var KeyList = [];
-    // class Company{
-    //     constructor(title, description,keyWords){
-    //     this.title=title;
-    //     this.description=description;
-    //     this.keyWords=keyWords;
-    //     }
-    // }
+    class Company{
+        constructor(title, description,keyWords){
+        this.title=title;
+        this.description=description;
+        this.keyWords=keyWords;
+        }
+        print(){
+            str = "";
+            str+="Title: " + this.title + "\n";
+            str+="Subject: " + this.subject + "\n";
+            str+= this.keyWords.toString() + "\n";
+            return str;
+        }
+    }
     
     var keyWordStack= document.getElementById('KeyWordStack');
     var KeyWordList=document.getElementById("KeyWordList");
@@ -27,6 +38,8 @@ window.onload=function(){
     var keyWord7= document.getElementById('KeyWord7');
     var keyWord8= document.getElementById('KeyWord8');
     var keyWord9= document.getElementById('KeyWord9');
+    var addToInterists = document.getElementsByClassName('floating-box2');
+    alert(addToInterists);
     //button events
 
     //company window
@@ -35,16 +48,36 @@ window.onload=function(){
     companyAddProfile.addEventListener("click", (e)=>goToCompanysize(2));
     closeCompAds.addEventListener("click", closeCompanyAds);
     //keyWordStack.addEventListener('load',loadStack);
+
     keyWord1.addEventListener('click',(e)=>swapContainer(keyWord1, e));
+    keyWord1.addEventListener('mouseover', (e)=>infoKeyWord(keyWord1, 1));
+    keyWord1.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord1, 0));
     keyWord2.addEventListener('click',(e)=>swapContainer(keyWord2));
+    keyWord2.addEventListener('mouseover', (e)=>infoKeyWord(keyWord2, 1));
+    keyWord2.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord2, 0));
     keyWord3.addEventListener('click',(e)=>swapContainer(keyWord3));
+    keyWord3.addEventListener('mouseover', (e)=>infoKeyWord(keyWord3, 1));
+    keyWord3.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord3, 0));
     keyWord4.addEventListener('click',(e)=>swapContainer(keyWord4));
+    keyWord4.addEventListener('mouseover', (e)=>infoKeyWord(keyWord4, 1));
+    keyWord4.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord4, 0));
     keyWord5.addEventListener('click',(e)=>swapContainer(keyWord5));
+    keyWord5.addEventListener('mouseover', (e)=>infoKeyWord(keyWord5, 1));
+    keyWord5.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord5, 0));
     keyWord6.addEventListener('click',(e)=>swapContainer(keyWord6));
+    keyWord6.addEventListener('mouseover', (e)=>infoKeyWord(keyWord6, 1));
+    keyWord6.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord6, 0));
     keyWord7.addEventListener('click',(e)=>swapContainer(keyWord7));
+    keyWord7.addEventListener('mouseover', (e)=>infoKeyWord(keyWord7, 1));
+    keyWord7.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord7, 0));
     keyWord8.addEventListener('click',(e)=>swapContainer(keyWord8));
+    keyWord8.addEventListener('mouseover', (e)=>infoKeyWord(keyWord8, 1));
+    keyWord8.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord8, 0));
     keyWord9.addEventListener('click',(e)=>swapContainer(keyWord9));
+    keyWord9.addEventListener('mouseover', (e)=>infoKeyWord(keyWord9, 1));
+    keyWord9.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord9, 0));
     AddProj.addEventListener('click',(e)=>saveExamJob(AddProj));
+
     //button functions
     
     // When the user clicks on <span> (x), close the modal
@@ -67,13 +100,41 @@ window.onload=function(){
     }
 
     function infoKeyWord(e, visible){
-        if(visible===1){
-            e.innerHTML = "Klicka för att ta bort";
+        let index;
+        for(let i = 0; i < e.childElementCount;i++){
+
         }
-        else if(visible === 0){
-        e.innerHTML = "";
-        }            
+        if(e.className === "floating-box2"){
+        if(visible === 1 && visit === 0){
+            visit++;
+            var p =document.createElement('p');
+            p.id = "para";
+            p.innerHTML = "Klicka -> Lägg till";
+            e.appendChild(p);
+        }
+        else{
+            let p = document.getElementById('para');
+            p.parentElement.removeChild(p);
+            visit = 0;
+        }
     }
+    else{
+        if(visible === 1 && visit === 0){
+            visit++;
+            var p =document.createElement('p');
+            p.id = "para";
+            p.innerHTML = "Klicka -> Ta bort";
+            e.appendChild(p);
+        }
+        else{
+            let p = document.getElementById('para');
+            p.parentElement.removeChild(p);
+            visit = 0;
+        }
+    }
+                   
+    }
+
 
     function addKeyWord(){
         var KeyWord=document.getElementById("KeyWords").value;
@@ -112,7 +173,8 @@ window.onload=function(){
             KeyList.push(element.innerHTML);
             element.className = "floating-box3";
             KeyWordList.appendChild(element);
-            KeyWordStack.removeChild(element);        
+            KeyWordStack.removeChild(element); 
+            visit = 0;       
             console.log(element);
        }
        else if(element.className === "floating-box3"){ 
@@ -122,6 +184,7 @@ window.onload=function(){
                     index = i;
             }
             element.className = "floating-box2";
+            visit = 0;       
             KeyList.splice(index,1);
             keyWordStack.appendChild(element);
             KeyWordList.removeChild(element);
@@ -131,11 +194,9 @@ window.onload=function(){
 
    }
 
-   function saveExamJob(){
-       alert(KeyList);
-
-    
-    var c1 = new Company();
+   function saveExamJob(){    
+    var c1 = new Company(title.value, subject.value, KeyList);
+    alert(c1.print());
    }
 
     }
