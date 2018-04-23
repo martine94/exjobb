@@ -92,14 +92,13 @@ okRegCompany.addEventListener("click",checkPasswordCompany);
         let cName = document.getElementsByName('CompName').value;
         localStorage.setItem('Loginname', 'Eskil');
     }
+
     function openLoginStudentModal() {
         document.getElementById("LoginStudentModal").style.display="block";
     }
 
-    
     function openRegisterCompanyModal() {
-        
-        //document.getElementById("registerCompanyModal").style.display="block";
+        document.getElementById("registerCompanyModal").style.display="block";
     }
     function openRegisterStudentModal() {
         document.getElementById("registerStudentModal").style.display="block";
