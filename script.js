@@ -98,7 +98,8 @@ okRegCompany.addEventListener("click",checkPasswordCompany);
 
     
     function openRegisterCompanyModal() {
-        document.getElementById("registerCompanyModal").style.display="block";
+        
+        //document.getElementById("registerCompanyModal").style.display="block";
     }
     function openRegisterStudentModal() {
         document.getElementById("registerStudentModal").style.display="block";
@@ -199,18 +200,7 @@ okRegCompany.addEventListener("click",checkPasswordCompany);
     workAnnouncement(3);
 
     showAboutUsInfo();
-}
 
-//test exempel "dont wipe :'("
 
-testFunc = function(x){
-    if(x === 'x')
-        return 'x';
-    else
-        return 'y';
-}
-
-if(typeof exports != 'undefined'){
-    exports.testFunc = testFunc;
-}
+    }
 
