@@ -1,14 +1,14 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var Mongo = require('../mongo/mongoTest.js');
+var Mongo = require('../mongo/mongo.js');
 var urlEncodedParcer = bodyParser.urlencoded({ extended: true });
 var session =require('client-sessions'); //kommentera ut denna om ni inte har Sessions installerat
 var cookieParser=require('cookie-parser');
-//var ipAdress="127.0.0.1"; //Används om man vill köra lokalt
+var ipAdress="127.0.0.1"; //Används om man vill köra lokalt
 //.ml buggar ibland, kör isåfall med 90.231.125.248
 //var ipAdress="dgustafsson.ml";
-var ipAdress="90.231.125.248:2000";
+//var ipAdress="90.231.125.248:2000";
 var serverAddress="http://"+ipAdress; 
 var portNumber="2000";
 
@@ -39,17 +39,47 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
     console.log("company register POST request");
     response = {
         //format: [variabelnamn]:req.body.[inmatningsfönstrets namn]
-        cname: req.body.cname,
-        caddress: req.body.cadress,
-        ccity: req.body.ccity,
-        uwebpage: req.body.uwebpage,
-        uemail: req.body.uemail,
-        uname: req.body.uname,
+        companyName: req.body.cname,
+        companyAddress: req.body.cadress,
+        companyCity: req.body.ccity,
+        companyEmail: req.body.uemail,
+        userName: req.body.uname,
         password: req.body.psw
     };
     console.log(response)
-    var redirectAddress=serverAddress+'/Company.html';
-    resp.redirect(303, redirectAddress);
+    //Fixa så man kommer dit man ska efter post
+    
+    try{
+        Mongo.addCompany(response, function(result){
+            if(result instanceof Error){
+                console.log("Error!");
+                console.log(result);
+                if(result.code === 11000)
+                {
+                    var redirectAddress=serverAddress+'/index.html';
+                    console.log("Failure!");
+                    resp.redirect('back');
+                    
+                    console.log("Failure 2!");
+                    //req.body.uname.value = "Fel användarnamn";
+                }
+            }
+            else{
+                var redirectAddress=serverAddress+'/Company.html';
+                console.log("Success!");
+                resp.redirect(303, redirectAddress);
+            }
+                
+        });
+    }
+    catch(error){
+        console.log("Caught error!");
+        console.log(error.name);
+    }
+    
+    //resp.end(JSON.stringify(response));
+    
+    
 
     //Kalla på databasgrejer
 });
