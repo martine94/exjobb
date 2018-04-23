@@ -17,6 +17,8 @@ window.onload=function(){
     var studentRegBtn=document.getElementById("studentRegBtn");
     var companyLoginBtn=document.getElementById("companyLoginBtn");
     var studentLoginBtn=document.getElementById("studentLoginBtn");
+    var studentLoginBtn=document.getElementById("studentLoginBtn");
+    var okRegCompany=document.getElementById("okRegCompany");
     //var companyAddAd = document.getElementById('ad');
     //var companyAddOffers = document.getElementById('offers');
     //var companyAddProfile = document.getElementById('profile');
@@ -52,7 +54,14 @@ window.onload=function(){
     aboutBtn.addEventListener("click", showAboutUsInfo);
     companyBtn.addEventListener("click", showForCompaniesInfo);
     studentBtn.addEventListener("click", showForStudentsInfo);
+okRegCompany.addEventListener("click",checkPasswordCompany);
 
+    function checkPasswordCompany(){
+        if(document.getElementById("pswC").value!=document.getElementById("psw2C").value){
+            document.getElementById("psw2C").value="";
+            document.getElementById("psw2C").placeholder="Fel lösenord";
+        }
+    }
     //company window
     //companyAddAd.addEventListener("click", goToCompanysize(0));
     //companyAddOffers.addEventListener("click", goToCompanysize(1));
@@ -190,7 +199,18 @@ window.onload=function(){
     workAnnouncement(3);
 
     showAboutUsInfo();
+}
 
+//test exempel "dont wipe :'("
 
-    }
+testFunc = function(x){
+    if(x === 'x')
+        return 'x';
+    else
+        return 'y';
+}
+
+if(typeof exports != 'undefined'){
+    exports.testFunc = testFunc;
+}
 
