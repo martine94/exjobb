@@ -1,4 +1,3 @@
-
 window.onload=function(){
     //buttons
     var cName=localStorage.getItem("Loginname"); //Detta är för att passa användarnamnet till nästa fönster.
@@ -7,28 +6,18 @@ window.onload=function(){
     var companyAddProfile = document.getElementById('profile');
     var closeCompAds = document.getElementById('closeCompAds');
     var AddKeyWord = document.getElementById('AddKeyWord');
-    var list =[];
     var AddProj = document.getElementById('addProj');
-    var headLine = document.getElementById("Headline");
-    var subject = document.getElementById("Subject");
     var KeyList = [];
-    class Company{
-        constructor(title, description,keyWords){
-        this.title=title;
-        this.description=description;
-        this.keyWords=keyWords;
-        }
-
-        print() {
-            let str = "";
-            str += "Title: " + this.title + "\n";
-            str += "Description: " + this.description + "\n";
-            str += "List: " + this.keyWords.toString() + "\n";
-            return str;
-        }
-    }
+    // class Company{
+    //     constructor(title, description,keyWords){
+    //     this.title=title;
+    //     this.description=description;
+    //     this.keyWords=keyWords;
+    //     }
+    // }
     
     var keyWordStack= document.getElementById('KeyWordStack');
+    var KeyWordList=document.getElementById("KeyWordList");
     var keyWord1= document.getElementById('KeyWord1');
     var keyWord2= document.getElementById('KeyWord2');
     var keyWord3= document.getElementById('KeyWord3');
@@ -38,7 +27,6 @@ window.onload=function(){
     var keyWord7= document.getElementById('KeyWord7');
     var keyWord8= document.getElementById('KeyWord8');
     var keyWord9= document.getElementById('KeyWord9');
-    
     //button events
 
     //company window
@@ -46,9 +34,8 @@ window.onload=function(){
     companyAddOffers.addEventListener("click", (e)=>goToCompanysize(1));
     companyAddProfile.addEventListener("click", (e)=>goToCompanysize(2));
     closeCompAds.addEventListener("click", closeCompanyAds);
-    AddKeyWord.addEventListener("click",addKeyWord);
     //keyWordStack.addEventListener('load',loadStack);
-    keyWord1.addEventListener('click',(e)=>swapContainer(keyWord1));
+    keyWord1.addEventListener('click',(e)=>swapContainer(keyWord1, e));
     keyWord2.addEventListener('click',(e)=>swapContainer(keyWord2));
     keyWord3.addEventListener('click',(e)=>swapContainer(keyWord3));
     keyWord4.addEventListener('click',(e)=>swapContainer(keyWord4));
@@ -57,6 +44,7 @@ window.onload=function(){
     keyWord7.addEventListener('click',(e)=>swapContainer(keyWord7));
     keyWord8.addEventListener('click',(e)=>swapContainer(keyWord8));
     keyWord9.addEventListener('click',(e)=>swapContainer(keyWord9));
+    AddProj.addEventListener('click',(e)=>saveExamJob(AddProj));
     //button functions
     
     // When the user clicks on <span> (x), close the modal
@@ -87,11 +75,9 @@ window.onload=function(){
         }            
     }
 
-
     function addKeyWord(){
         var KeyWord=document.getElementById("KeyWords").value;
         if(KeyWord != ""){
-        var KeyWordList=document.getElementById("KeyWordList");
         var floatingBox=document.createElement('div');
         floatingBox.className="floating-box bColorBlue darkerBlueOnHov";
         var paragraph = document.createElement('p');
@@ -113,42 +99,43 @@ window.onload=function(){
         document.getElementById("CompanyAds").style.display="none";
    }
 
-   function swapContainer(element){
+   function swapContainer(element, e){
+   
        let occur = 0;
        //let a = "this :";
        console.log(keyWordStack);
+       console.log(e);
        let stackSize = keyWordStack.childElementCount;
-       for(let i = 0; i < stackSize; i++){
-           
-            if(element.id === keyWordStack.childNodes[i].id){
-                KeyWordList.appendChild(element);
-                KeyWordStack.removeChild(element);
-                console.log(element);
-                occur++;
-            }
-                       
-            
-            //a+= keyWordStack.childNodes[i].innerHTML + " : ";
-       }
-         
-    //    console.log(occur);
-    //    console.log(a);
 
-       if(occur === 0){
-            keyWordStack.appendChild(element);
-            KeyWordList.removeChild(element); 
-            console.log(element);             
-            keyWordStack.appendChild(element);            
+    
+       if(element.className === "floating-box2"){
+            KeyList.push(element.innerHTML);
+            element.className = "floating-box3";
+            KeyWordList.appendChild(element);
+            KeyWordStack.removeChild(element);        
+            console.log(element);
        }
-       occur = 0;
+       else if(element.className === "floating-box3"){ 
+           let index = 0;
+            for(let i = 0; i < KeyList.length; i++){
+                if(KeyList[i] === element.innerHTML)
+                    index = i;
+            }
+            element.className = "floating-box2";
+            KeyList.splice(index,1);
+            keyWordStack.appendChild(element);
+            KeyWordList.removeChild(element);
+            
+            console.log(element);  
+       }
+
    }
 
-   
    function saveExamJob(){
        alert(KeyList);
 
-    var c1 = new Company(headLine.value, subject.value, KeyList);
-    alert(c1.print());
+    
+    var c1 = new Company();
    }
 
     }
