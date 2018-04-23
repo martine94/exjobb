@@ -24,7 +24,29 @@ module.exports = {
         callback(result);
       });
     });
-  }
+  },
+
+  addCompany: function(company, callback)
+  {
+    MongoClient.connect(url, function(err, db) {
+      if (err) callback(err);
+      var dbo = db.db("db");
+
+      dbo.collection("company").ensureIndex({userName: 1}, {unique : true});
+
+      dbo.collection("company").insertOne(company, function(err, res) {
+        if (err) {
+          db.close();
+          callback(err);
+        }
+        else{
+          console.log("Number of documents inserted: " + res.insertedCount);
+          db.close();
+          callback(res);
+        }
+      });
+    });
+}
 
 };
 

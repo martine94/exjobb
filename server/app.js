@@ -73,7 +73,7 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
                 {
                     var redirectAddress=serverAddress+'/index.html';
                     console.log(req);
-                    resp.send(400, redirectAddress);
+                    //resp.send(400, redirectAddress);
                     //req.body.uname.value = "Fel användarnamn";
                 }
             }
@@ -82,7 +82,6 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
                 console.log("Success!");
                 resp.redirect(303, redirectAddress);
             }
-                
         });
     }
     catch(error){
@@ -91,10 +90,6 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
     }
     
     //resp.end(JSON.stringify(response));
-    
-    
-
-    //Kalla på databasgrejer
 });
 
 app.post('/register_student', urlEncodedParcer, function (req, resp) {
