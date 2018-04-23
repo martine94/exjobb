@@ -21,10 +21,19 @@ app.use(session({
 }));
 //Ändra till express.static('../') för att nå riktiga sidan
 app.use(express.static('../'));
-app.get('/app_get', function (req, resp) {
+
+app.get('/app_get', function (req, resp, next) {
     console.log("GET request");
     resp.send('Nothing to GET');
 });
+
+app.get('/register_company', function (req, resp) {
+    console.log("GET request");
+    req.body.getElementById("registerCompanyModal").style.display="block";
+    //document.getElementById("registerCompanyModal").style.display="block";
+    next();
+});
+
 app.get('/loggedIn',function(req,resp){
     if(req.session&&req.session.user){
         console.log("found session");
@@ -35,6 +44,7 @@ app.get('/loggedIn',function(req,resp){
         resp.redirect('');
     }
 });
+
 app.post('/register_company', urlEncodedParcer, function (req, resp) {
     console.log("company register POST request");
     response = {
@@ -57,10 +67,8 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
                 if(result.code === 11000)
                 {
                     var redirectAddress=serverAddress+'/index.html';
-                    console.log("Failure!");
-                    resp.redirect('back');
-                    
-                    console.log("Failure 2!");
+                    console.log(req);
+                    resp.send(400, redirectAddress);
                     //req.body.uname.value = "Fel användarnamn";
                 }
             }
