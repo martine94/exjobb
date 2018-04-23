@@ -9,13 +9,13 @@ window.onload=function(){
     var AddKeyWord = document.getElementById('AddKeyWord');
     var AddProj = document.getElementById('addProj');
     var KeyList = [];
-    class Company{
-        constructor(title, description,keyWords){
-        this.title=title;
-        this.description=description;
-        this.keyWords=keyWords;
-        }
-    }
+    // class Company{
+    //     constructor(title, description,keyWords){
+    //     this.title=title;
+    //     this.description=description;
+    //     this.keyWords=keyWords;
+    //     }
+    // }
     
     var keyWordStack= document.getElementById('KeyWordStack');
     var KeyWordList=document.getElementById("KeyWordList");
@@ -103,33 +103,39 @@ window.onload=function(){
    }
 
    function swapContainer(element, e){
+   
        let occur = 0;
        //let a = "this :";
        console.log(keyWordStack);
        console.log(e);
        let stackSize = keyWordStack.childElementCount;
+
     
        if(element.className === "floating-box2"){
-        element.className = "floating-box3";
-        KeyWordList.appendChild(element);
-        KeyWordStack.removeChild(element);
-        KeyList.push(element);
-        alert(KeyList.values[0]);
-        
-        console.log(element);
+            KeyList.push(element.innerHTML);
+            element.className = "floating-box3";
+            KeyWordList.appendChild(element);
+            KeyWordStack.removeChild(element);        
+            console.log(element);
        }
-       else if(element.className === "floating-box3"){
+       else if(element.className === "floating-box3"){ 
+           let index = 0;
+            for(let i = 0; i < KeyList.length; i++){
+                if(KeyList[i] === element.innerHTML)
+                    index = i;
+            }
             element.className = "floating-box2";
+            KeyList.splice(index,1);
             keyWordStack.appendChild(element);
             KeyWordList.removeChild(element);
-            KeyList.splice(element,1); 
+            
             console.log(element);  
        }
 
    }
 
    function saveExamJob(){
-       alert(KeyList.toLocaleString);
+       alert(KeyList);
 
     
     var c1 = new Company();
