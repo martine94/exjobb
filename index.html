@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,7 +16,7 @@
 		</div>
 
 
-		<div class="navmenu">
+		<div class="navMenu">
 			<div>
 				<button id="registerBtn" class="menuBtn"> Registrera</button>
 				<ul id="registerContainer" class="dropDownContainer">
@@ -51,22 +51,18 @@
 			<h1>Exjobb har aldrig varit enklare!</h1>
 			<input type="text" id="myInput" placeholder="Vad letar du efter...">
 		</div>
-
-		<!--<img class="banner-image" src="https://www.oru.se/globalassets/oru-sv/jobba-hos-oss/lediga-jobb.jpg">-->
-
 	</div>
 
-	<div class="lowNavMenu">
-		<button id="aboutBtn" class="menuBtn"> Om Oss</button>
+	<div class="lowNavMenu bColorBlue">
+		<button id="aboutBtn" class="menuBtn bColorBlue darkerBlueOnHov"> Om Oss</button>
 
-		<button id="companyBtn" class="menuBtn"> För Företag</button>
-		<button id="studentBtn" class="menuBtn"> För Studenter</button>
+		<button id="companyBtn" class="menuBtn bColorBlue darkerBlueOnHov"> För Företag</button>
+		<button id="studentBtn" class="menuBtn bColorBlue darkerBlueOnHov"> För Studenter</button>
 	</div>
 	<div class="info-container">
 		<!-- About Us Information  -->
 		<div id="aboutUsInfo" class="information">
-			<div id="testDiv">
-				<h1>Test av två olika js funktioner</h1>
+			<div id="workAnnouncement">
 			</div>
 			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque
 				penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,
@@ -180,7 +176,7 @@
 				<input type="text" placeholder="Användarnamn" name="uname" required>
 				<input type="password" placeholder="Lösenord" name="psw" required>
 
-				<button class="submitBtn" type="submit">Registrera</button>
+				<button class="submitBtn bColorBlue" type="submit">Registrera</button>
 			</div>
 		</div>
 	</form>
@@ -208,25 +204,13 @@
 				<input type="text" placeholder="Användarnamn" name="uname" required>
 				<input type="password" placeholder="Lösenord" name="psw" required>
 
-				<button class="submitBtn" type="submit">Registrera</button>
+				<button class="submitBtn bColorBlue" type="submit">Registrera</button>
 			</div>
 		</div>
 	</form>
 
 	<!-- Log In Modal  -->
 	<form action="login_student" method="POST">
-		<!--<div id="logInModal" class="modal">
-		<div class="modal-content">
-			<span id="closeLogInModal" class="close">&times;</span>
-			
-			<div class="modalLogInContainer">
-				<input type="text" placeholder="Användarnamn" name="uname" required>
-				<input type="password" placeholder="Lösenord" name="psw" required>
-
-				<button class="submitBtn" type="submit">LOGGA IN</button>
-			</div>
-		</div>
-	</div> -->
 		<div id="LoginStudentModal" class="modal">
 			<div class="modal-content">
 				<span id="closeLIStudentModal" class="close">&times;</span>
@@ -235,7 +219,7 @@
 					<input type="text" placeholder="Användarnamn" name="uname" required>
 					<input type="password" placeholder="Lösenord" name="psw" required>
 
-					<button class="submitBtn" type="submit">LOGGA IN</button>
+					<button class="submitBtn bColorBlue" type="submit">LOGGA IN</button>
 				</div>
 			</div>
 		</div>
@@ -251,7 +235,7 @@
 					<input type="text" placeholder="Användarnamn" name="uname" id="CompName" required>
 					<input type="password" placeholder="Lösenord" name="psw" required>
 
-					<button class="submitBtn" type="submit">LOGGA IN</button>
+					<button class="submitBtn bColorBlue" type="submit">LOGGA IN</button>
 				</div>
 			</div>
 		</div>
@@ -259,7 +243,9 @@
 	</div>
 
 
-
+<footer>
+	<p>&copy Skynet 2018</p>
+</footer>
 </body>
 
 
