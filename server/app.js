@@ -17,20 +17,26 @@ app.get('/app_get', function (req, resp) {
     console.log("GET request");
     resp.send('Nothing to GET');
 });
+
 app.post('/register_company', urlEncodedParcer, function (req, resp) {
     console.log("company register POST request");
     response = {
         //format: [variabelnamn]:req.body.[inmatningsfönstrets namn]
-        cname: req.body.cname,
-        caddress: req.body.cadress,
-        ccity: req.body.ccity,
-        uwebpage: req.body.uwebpage,
-        uemail: req.body.uemail,
-        uname: req.body.uname,
+        companyName: req.body.cname,
+        companyAddress: req.body.cadress,
+        companyCity: req.body.ccity,
+        companyEmail: req.body.uemail,
+        userName: req.body.uname,
         password: req.body.psw
     };
     console.log(response)
     //Fixa så man kommer dit man ska efter post
+    Mongo.addCompany(response, function(result){
+        if(result.insertedCount === 1)
+            console.log("Success!");
+        else
+            console.log("Failure!");
+    });
     //resp.end(JSON.stringify(response));
     var redirectAddress=serverAddress+'/Company.html';
     resp.redirect(303, redirectAddress);
