@@ -28,26 +28,24 @@ module.exports = {
 
 };
 
-function addStudent(student)
+function addStudent(student, callback)
 {
   MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
+    if (err){
+      console.log(err);
+    }
     var dbo = db.db("db");
 
     dbo.collection("student").ensureIndex({_user: 1}, {unique : true});
 
     dbo.collection("student").insertOne(student, function(err, res) {
       if (err) {
-          console.log(err);
-          throw err;
+        console.log(err);
       }
-      console.log("Number of documents inserted: " + res.insertedCount);
+      
       db.close();
 
-      if(res.insertedCount === 1)
-        return true;
-      else
-        return false;
+      callback(res);
     });
   });
 }
