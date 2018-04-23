@@ -6,7 +6,7 @@ var urlEncodedParcer = bodyParser.urlencoded({ extended: true });
 var session =require('client-sessions'); //kommentera ut denna om ni inte har Sessions installerat
 var cookieParser=require('cookie-parser');
 var ipAdress="127.0.0.1"; //Används om man vill köra lokalt
-//.ml buggar ibland, kör isåfall med 90.231.125.248
+//dgustafsson.ml buggar ibland, kör med 90.231.125.248
 //var ipAdress="dgustafsson.ml";
 //var ipAdress="90.231.125.248:2000";
 var serverAddress="http://"+ipAdress; 
