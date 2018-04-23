@@ -278,6 +278,40 @@ input[type=text],input[type=password]{
 
 }
 
+.floating-box2, .paragraph{
+		display: inline-block;
+		color: black;
+		width: 20%;
+		height: 10%;
+		/* background-color: rgb(104, 189, 238); */
+		/* color: rgb(255, 255, 255); */
+		height: 75px;
+		margin: 10px;
+		text-align: center;
+		column-span: initial;
+		border-radius: 2cm; 
+		font-size: 18px;
+		border: 3px solid rgb(57, 135, 190);
+	
+	}
+	
+	.floating-box3, .paragraph{
+		display: inline-block;
+		color: black;
+		width: 20%;
+		height: 10%;
+		/* background-color: rgb(104, 189, 238); */
+		/* color: rgb(255, 255, 255); */
+		height: 75px;
+		margin: 10px;
+		text-align: center;
+		column-span: initial;
+		border-radius: 2cm; 
+		font-size: 18px;
+		border: 3px solid rgb(57, 135, 190);
+	
+	}
+
 .closeButton{
 	position: relative;
 	border-radius: 0cm 0.3cm 0cm;

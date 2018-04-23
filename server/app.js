@@ -44,6 +44,11 @@ app.get('/loggedIn',function(req,resp){
         resp.redirect('');
     }
 });
+app.get('/logout',function(req,resp){
+    req.session.reset();
+    var redirectAddress=serverAddress+'/index.html';
+    resp.redirect(redirectAddress);
+});
 
 app.post('/register_company', urlEncodedParcer, function (req, resp) {
     console.log("company register POST request");
@@ -169,6 +174,8 @@ app.post('/login_company', urlEncodedParcer, function (req, resp) {
         if(result.length == 1){
             console.log("Login successfull!");
             var redirectAddress=serverAddress+'/Company.html';
+            req.session.user=result; // för session
+            console.log(req.session.user);
             resp.redirect(303, redirectAddress);
         }
         else{
