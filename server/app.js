@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var Mongo = require('../mongo/mongoTest.js');
+var Mongo = require('../mongo/mongo.js');
 var urlEncodedParcer = bodyParser.urlencoded({ extended: true });
 //var session =require('client-session'); //kommentera ut denna om ni inte har Sessions installerat
 
