@@ -35,7 +35,6 @@ window.onload=function(){
     companyAddOffers.addEventListener("click", (e)=>goToCompanysize(1));
     companyAddProfile.addEventListener("click", (e)=>goToCompanysize(2));
     closeCompAds.addEventListener("click", closeCompanyAds);
-    AddKeyWord.addEventListener("click",addKeyWord);
     //keyWordStack.addEventListener('load',loadStack);
     keyWord1.addEventListener('click',(e)=>swapContainer(keyWord1, e));
     keyWord2.addEventListener('click',(e)=>swapContainer(keyWord2));
