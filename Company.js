@@ -7,9 +7,7 @@ window.onload=function(){
     var companyAddProfile = document.getElementById('profile');
     var closeCompAds = document.getElementById('closeCompAds');
     var AddKeyWord = document.getElementById('AddKeyWord');
-<<<<<<< HEAD
     var list =[];
-=======
     var AddProj = document.getElementById('addProj');
     var headLine = document.getElementById("Headline");
     var subject = document.getElementById("Subject");
@@ -30,7 +28,6 @@ window.onload=function(){
         }
     }
     
->>>>>>> 212db501330b16fef2b8d3bfffeb3e4a52c421bb
     var keyWordStack= document.getElementById('KeyWordStack');
     var keyWord1= document.getElementById('KeyWord1');
     var keyWord2= document.getElementById('KeyWord2');
@@ -146,15 +143,12 @@ window.onload=function(){
        occur = 0;
    }
 
-<<<<<<< HEAD
    
-=======
    function saveExamJob(){
        alert(KeyList);
 
     var c1 = new Company(headLine.value, subject.value, KeyList);
     alert(c1.print());
    }
->>>>>>> 212db501330b16fef2b8d3bfffeb3e4a52c421bb
 
     }
