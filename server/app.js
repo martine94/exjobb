@@ -3,19 +3,37 @@ var app = express();
 var bodyParser = require('body-parser');
 var Mongo = require('../mongo/mongoTest.js');
 var urlEncodedParcer = bodyParser.urlencoded({ extended: true });
-var session =require('client-session'); //kommentera ut denna om ni inte har Sessions installerat
-
-var ipAdress="127.0.0.1"; //Används om man vill köra lokalt
+var session =require('client-sessions'); //kommentera ut denna om ni inte har Sessions installerat
+var cookieParser=require('cookie-parser');
+//var ipAdress="127.0.0.1"; //Används om man vill köra lokalt
+//.ml buggar ibland, kör isåfall med 90.231.125.248
 //var ipAdress="dgustafsson.ml";
+var ipAdress="90.231.125.248:2000";
 var serverAddress="http://"+ipAdress; 
 var portNumber="2000";
 
+
+app.use(session({
+    cookieName: 'session',
+    secret: 'random_string_goes_here',
+    duration: 30*60*1000,
+    activeDuration: 5*60*1000,
+}));
 //Ändra till express.static('../') för att nå riktiga sidan
-//app.use(express.static('./copyPlattform/'))
 app.use(express.static('../'));
 app.get('/app_get', function (req, resp) {
     console.log("GET request");
     resp.send('Nothing to GET');
+});
+app.get('/loggedIn',function(req,resp){
+    if(req.session&&req.session.user){
+        console.log("found session");
+        console.log(req.session.user);
+        resp.end();
+    }else{
+        console.log("redirect2");
+        resp.redirect('');
+    }
 });
 app.post('/register_company', urlEncodedParcer, function (req, resp) {
     console.log("company register POST request");
@@ -30,8 +48,6 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
         password: req.body.psw
     };
     console.log(response)
-    //Fixa så man kommer dit man ska efter post
-    //resp.end(JSON.stringify(response));
     var redirectAddress=serverAddress+'/Company.html';
     resp.redirect(303, redirectAddress);
 
@@ -59,11 +75,8 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
         gender: ugender
     };
     console.log(response)
-    //Fixa så man kommer dit man ska efter post
-    //resp.end(JSON.stringify(response));
     var redirectAddress=serverAddress+'/Student.html';
     resp.redirect(303, redirectAddress);
-    //resp.end();
 });
 
 app.post('/login_student', urlEncodedParcer, function (req, resp) {
@@ -78,12 +91,12 @@ app.post('/login_student', urlEncodedParcer, function (req, resp) {
     //Fixa så man kommer dit man ska efter post
 
     Mongo.login("student", response.uname, response.password, function(result){
-        
         console.log("Result has length: " + result.length);
-
         if(result.length == 1){
             console.log("Login successfull!");
             var redirectAddress=serverAddress+'/Student.html';
+            req.session.user=result; // för session
+            console.log(req.session.user);
             resp.redirect(303, redirectAddress);
         }
         else{
