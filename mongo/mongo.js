@@ -28,25 +28,30 @@ module.exports = {
 
   addCompany : function(company, callback)
   {
-  MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("db");
-
-    dbo.collection("company").ensureIndex({userName: 1}, {unique : true});
-
-    dbo.collection("company").insertOne(company, function(err, res) {
+    MongoClient.connect(url, function(err, db) {
       if (err) {
-          console.log(err);
-          throw err;
+        console.log("Connect error!");
+        callback(err);
       }
-      console.log("Number of documents inserted: " + res.insertedCount);
-      db.close();
-
-      callback(res);
+      var dbo = db.db("db");
+      
+      //dbo.collection("company").ensureIndex({userName: 1}, {unique : true});
+      
+      dbo.collection("company").insertOne(company, function(err, res) {
+        if (err) {
+            console.log("Collection error!");
+            db.close();
+            callback(err);
+        }else{
+          console.log("Number of documents inserted: " + res.insertedCount);
+          db.close();
+  
+          callback(res);
+        }
+        
+      });
     });
-  });
   }
-
 };
 
 function addStudent(student, callback)

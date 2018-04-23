@@ -1,9 +1,9 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var Mongo = require('../mongo/mongoTest.js');
+var Mongo = require('../mongo/mongo.js');
 var urlEncodedParcer = bodyParser.urlencoded({ extended: true });
-var session =require('client-session'); //kommentera ut denna om ni inte har Sessions installerat
+//var session =require('client-session'); //kommentera ut denna om ni inte har Sessions installerat
 
 var ipAdress="127.0.0.1"; //Används om man vill köra lokalt
 //var ipAdress="dgustafsson.ml";
@@ -31,15 +31,38 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
     };
     console.log(response)
     //Fixa så man kommer dit man ska efter post
-    Mongo.addCompany(response, function(result){
-        if(result.insertedCount === 1)
-            console.log("Success!");
-        else
-            console.log("Failure!");
-    });
+    
+    try{
+        Mongo.addCompany(response, function(result){
+            if(result instanceof Error){
+                console.log("Error!");
+                console.log(result);
+                if(result.code === 11000)
+                {
+                    var redirectAddress=serverAddress+'/index.html';
+                    console.log("Failure!");
+                    resp.redirect('back');
+                    
+                    console.log("Failure 2!");
+                    //req.body.uname.value = "Fel användarnamn";
+                }
+            }
+            else{
+                var redirectAddress=serverAddress+'/Company.html';
+                console.log("Success!");
+                resp.redirect(303, redirectAddress);
+            }
+                
+        });
+    }
+    catch(error){
+        console.log("Caught error!");
+        console.log(error.name);
+    }
+    
     //resp.end(JSON.stringify(response));
-    var redirectAddress=serverAddress+'/Company.html';
-    resp.redirect(303, redirectAddress);
+    
+    
 
     //Kalla på databasgrejer
 });
