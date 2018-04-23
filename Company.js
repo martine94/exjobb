@@ -7,8 +7,18 @@ window.onload=function(){
     var companyAddProfile = document.getElementById('profile');
     var closeCompAds = document.getElementById('closeCompAds');
     var AddKeyWord = document.getElementById('AddKeyWord');
-    var list =[];
+    var AddProj = document.getElementById('addProj');
+    var KeyList = [];
+    class Company{
+        constructor(title, description,keyWords){
+        this.title=title;
+        this.description=description;
+        this.keyWords=keyWords;
+        }
+    }
+    
     var keyWordStack= document.getElementById('KeyWordStack');
+    var KeyWordList=document.getElementById("KeyWordList");
     var keyWord1= document.getElementById('KeyWord1');
     var keyWord2= document.getElementById('KeyWord2');
     var keyWord3= document.getElementById('KeyWord3');
@@ -27,7 +37,7 @@ window.onload=function(){
     closeCompAds.addEventListener("click", closeCompanyAds);
     AddKeyWord.addEventListener("click",addKeyWord);
     //keyWordStack.addEventListener('load',loadStack);
-    keyWord1.addEventListener('click',(e)=>swapContainer(keyWord1));
+    keyWord1.addEventListener('click',(e)=>swapContainer(keyWord1, e));
     keyWord2.addEventListener('click',(e)=>swapContainer(keyWord2));
     keyWord3.addEventListener('click',(e)=>swapContainer(keyWord3));
     keyWord4.addEventListener('click',(e)=>swapContainer(keyWord4));
@@ -36,6 +46,7 @@ window.onload=function(){
     keyWord7.addEventListener('click',(e)=>swapContainer(keyWord7));
     keyWord8.addEventListener('click',(e)=>swapContainer(keyWord8));
     keyWord9.addEventListener('click',(e)=>swapContainer(keyWord9));
+    AddProj.addEventListener('click',(e)=>saveExamJob(AddProj));
     //button functions
     
     // When the user clicks on <span> (x), close the modal
@@ -70,7 +81,6 @@ window.onload=function(){
     function addKeyWord(){
         var KeyWord=document.getElementById("KeyWords").value;
         if(KeyWord != ""){
-        var KeyWordList=document.getElementById("KeyWordList");
         var floatingBox=document.createElement('div');
         floatingBox.className="floating-box bColorBlue darkerBlueOnHov";
         var paragraph = document.createElement('p');
@@ -92,36 +102,37 @@ window.onload=function(){
         document.getElementById("CompanyAds").style.display="none";
    }
 
-   function swapContainer(element){
+   function swapContainer(element, e){
        let occur = 0;
        //let a = "this :";
        console.log(keyWordStack);
+       console.log(e);
        let stackSize = keyWordStack.childElementCount;
-       for(let i = 0; i < stackSize; i++){
-           
-            if(element.id === keyWordStack.childNodes[i].id){
-                KeyWordList.appendChild(element);
-                KeyWordStack.removeChild(element);
-                console.log(element);
-                occur++;
-            }
-                       
-            
-            //a+= keyWordStack.childNodes[i].innerHTML + " : ";
+    
+       if(element.className === "floating-box2"){
+        element.className = "floating-box3";
+        KeyWordList.appendChild(element);
+        KeyWordStack.removeChild(element);
+        KeyList.push(element);
+        alert(KeyList.values[0]);
+        
+        console.log(element);
        }
-         
-    //    console.log(occur);
-    //    console.log(a);
-
-       if(occur === 0){
+       else if(element.className === "floating-box3"){
+            element.className = "floating-box2";
             keyWordStack.appendChild(element);
-            KeyWordList.removeChild(element); 
-            console.log(element);             
-            keyWordStack.appendChild(element);            
+            KeyWordList.removeChild(element);
+            KeyList.splice(element,1); 
+            console.log(element);  
        }
-       occur = 0;
+
    }
 
-   
+   function saveExamJob(){
+       alert(KeyList.toLocaleString);
+
+    
+    var c1 = new Company();
+   }
 
     }
