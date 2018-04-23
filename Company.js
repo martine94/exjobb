@@ -19,9 +19,9 @@ window.onload=function(){
         this.keyWords=keyWords;
         }
         print(){
-            str = "";
+            let str = "";
             str+="Title: " + this.title + "\n";
-            str+="Subject: " + this.subject + "\n";
+            str+="Subject: " + this.description + "\n";
             str+= this.keyWords.toString() + "\n";
             return str;
         }
@@ -39,7 +39,6 @@ window.onload=function(){
     var keyWord8= document.getElementById('KeyWord8');
     var keyWord9= document.getElementById('KeyWord9');
     var addToInterists = document.getElementsByClassName('floating-box2');
-    alert(addToInterists);
     //button events
 
     //company window
@@ -50,32 +49,32 @@ window.onload=function(){
     //keyWordStack.addEventListener('load',loadStack);
 
     keyWord1.addEventListener('click',(e)=>swapContainer(keyWord1, e));
-    keyWord1.addEventListener('mouseover', (e)=>infoKeyWord(keyWord1, 1));
-    keyWord1.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord1, 0));
+    // keyWord1.addEventListener('mouseover', (e)=>infoKeyWord(keyWord1, 1));
+    // keyWord1.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord1, 0));
     keyWord2.addEventListener('click',(e)=>swapContainer(keyWord2));
-    keyWord2.addEventListener('mouseover', (e)=>infoKeyWord(keyWord2, 1));
-    keyWord2.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord2, 0));
+    // keyWord2.addEventListener('mouseover', (e)=>infoKeyWord(keyWord2, 1));
+    // keyWord2.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord2, 0));
     keyWord3.addEventListener('click',(e)=>swapContainer(keyWord3));
-    keyWord3.addEventListener('mouseover', (e)=>infoKeyWord(keyWord3, 1));
-    keyWord3.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord3, 0));
+    // keyWord3.addEventListener('mouseover', (e)=>infoKeyWord(keyWord3, 1));
+    // keyWord3.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord3, 0));
     keyWord4.addEventListener('click',(e)=>swapContainer(keyWord4));
-    keyWord4.addEventListener('mouseover', (e)=>infoKeyWord(keyWord4, 1));
-    keyWord4.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord4, 0));
+    // keyWord4.addEventListener('mouseover', (e)=>infoKeyWord(keyWord4, 1));
+    // keyWord4.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord4, 0));
     keyWord5.addEventListener('click',(e)=>swapContainer(keyWord5));
-    keyWord5.addEventListener('mouseover', (e)=>infoKeyWord(keyWord5, 1));
-    keyWord5.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord5, 0));
+    // keyWord5.addEventListener('mouseover', (e)=>infoKeyWord(keyWord5, 1));
+    // keyWord5.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord5, 0));
     keyWord6.addEventListener('click',(e)=>swapContainer(keyWord6));
-    keyWord6.addEventListener('mouseover', (e)=>infoKeyWord(keyWord6, 1));
-    keyWord6.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord6, 0));
+    // keyWord6.addEventListener('mouseover', (e)=>infoKeyWord(keyWord6, 1));
+    // keyWord6.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord6, 0));
     keyWord7.addEventListener('click',(e)=>swapContainer(keyWord7));
-    keyWord7.addEventListener('mouseover', (e)=>infoKeyWord(keyWord7, 1));
-    keyWord7.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord7, 0));
+    // keyWord7.addEventListener('mouseover', (e)=>infoKeyWord(keyWord7, 1));
+    // keyWord7.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord7, 0));
     keyWord8.addEventListener('click',(e)=>swapContainer(keyWord8));
-    keyWord8.addEventListener('mouseover', (e)=>infoKeyWord(keyWord8, 1));
-    keyWord8.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord8, 0));
+    // keyWord8.addEventListener('mouseover', (e)=>infoKeyWord(keyWord8, 1));
+    // keyWord8.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord8, 0));
     keyWord9.addEventListener('click',(e)=>swapContainer(keyWord9));
-    keyWord9.addEventListener('mouseover', (e)=>infoKeyWord(keyWord9, 1));
-    keyWord9.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord9, 0));
+    // keyWord9.addEventListener('mouseover', (e)=>infoKeyWord(keyWord9, 1));
+    // keyWord9.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord9, 0));
     AddProj.addEventListener('click',(e)=>saveExamJob(AddProj));
 
     //button functions
