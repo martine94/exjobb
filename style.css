@@ -24,6 +24,7 @@ p.r1{
 	
 	color: #DA2128;
 	font-size: 1em;
+	font-weight: bold;
 	border:none;
 	outline: none;
 	background:transparent;
@@ -102,6 +103,8 @@ img {
 
 
 .showDropDownMenu{
+	color: #DA2128;
+	font-size: 1em;
 	display: inline-block;
 	outline: none;
 	background:rgb(184, 212, 236);
