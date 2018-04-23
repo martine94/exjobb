@@ -3,12 +3,12 @@ var app = express();
 var bodyParser = require('body-parser');
 var Mongo = require('../mongo/mongoTest.js');
 var urlEncodedParcer = bodyParser.urlencoded({ extended: true });
-
+var session =require('client-session'); //kommentera ut denna om ni inte har Sessions installerat
 
 var ipAdress="127.0.0.1"; //Används om man vill köra lokalt
-//var ipAdress="90.231.125.248";
-var serverAddress='http://'+ipAdress; 
-var portNumber="1999";
+//var ipAdress="dgustafsson.ml";
+var serverAddress="http://"+ipAdress; 
+var portNumber="2000";
 
 //Ändra till express.static('../') för att nå riktiga sidan
 //app.use(express.static('./copyPlattform/'))
@@ -38,7 +38,7 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
             console.log("Failure!");
     });
     //resp.end(JSON.stringify(response));
-    var redirectAddress=serverAddress+':'+portNumber+'/Company.html';
+    var redirectAddress=serverAddress+'/Company.html';
     resp.redirect(303, redirectAddress);
 
     //Kalla på databasgrejer
@@ -67,7 +67,7 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
     console.log(response)
     //Fixa så man kommer dit man ska efter post
     //resp.end(JSON.stringify(response));
-    var redirectAddress=serverAddress+':'+portNumber+'/Student.html';
+    var redirectAddress=serverAddress+'/Student.html';
     resp.redirect(303, redirectAddress);
     //resp.end();
 });
@@ -89,15 +89,11 @@ app.post('/login_student', urlEncodedParcer, function (req, resp) {
 
         if(result.length == 1){
             console.log("Login successfull!");
-            var redirectAddress=serverAddress+':'+portNumber+'/Student.html';
+            var redirectAddress=serverAddress+'/Student.html';
             resp.redirect(303, redirectAddress);
         }
         else{
             console.log("Wrong password or username!");
-            //Tillsvidare
-            var redirectAddress=serverAddress+':'+portNumber;
-            resp.redirect(303, redirectAddress);
-
         }
     });
 
@@ -127,7 +123,7 @@ app.post('/login_company', urlEncodedParcer, function (req, resp) {
 
         if(result.length == 1){
             console.log("Login successfull!");
-            var redirectAddress=serverAddress+':'+portNumber+'/Company.html';
+            var redirectAddress=serverAddress+'/Company.html';
             resp.redirect(303, redirectAddress);
         }
         else{
