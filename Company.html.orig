@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="utf-8">
+        <title>Skynet matchmakers|Company pages</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="Company.js"></script>
+</head>
+
+<body>
+        <div class="topbar">
+                <div class="logo">
+                        SKYNET
+                </div>
+                <div class="navMenu">
+                        <div>
+                                <button id="logOutCompanyBtn" class="menuBtn"> Namn: </button>
+                                <!-- <label id="companyName">Inloggad som:</label> -->
+                        </div>
+                </div>
+
+        </div>
+
+
+
+        <div class="bannerCompany">
+        </div>
+        <div class="studentlownavmenu">
+                <button class="cMenuBtn" type="submit" id="ad">Lägg till annons</button>
+                <button class="cMenuBtn" type="submit" id="offers">Aktiva erbjudanden</button>
+                <button class="cMenuBtn" type="submit" id="profile">Redigera profil</button>
+
+                <div class="companyPage">
+                        <!-- <div class="companyPage">
+                <div class="column left">
+                        <div class="cMenu">
+                                <div>
+                                        <button class="cMenuBtn" type="submit" id="ad">Lägg till anons</button>
+                                </div>
+                                <div>
+                                        <button class="cMenuBtn" type="submit" id="offers">Aktiva erbjudanden</button>
+                                </div>
+                                <div>
+                                        <button class="cMenuBtn" type="submit" id="profile">Redigera profil</button>
+                                </div>
+                        </div>
+                </div>
+                <div class="column right">
+                        <h2>Innehåll</h2>
+                        <p>balbalbla</p>
+                        <p>balbalbla</p>
+                        <p>balbalbla</p>
+                </div>
+        </div>
+        </div> -->
+        <div class="lowNavMenu bColorBlue">
+                <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="ad">Lägg till annons</button>
+                <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="offers">Aktiva erbjudanden</button>
+                <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="profile">Redigera profil</button>
+	</div>
+                        <form>
+                                <div id="CompanyAds" class="modal">
+                                        <div class="modal-content">
+                                                <span id="closeCompAds" class="close">&times;</span>
+
+                                                <div class="modalLogInContainer" .bColorBlue>
+                                                        <label for="Headline">Titel ex-jobb:</label>
+                                                        <input type="text" placeholder="" name="Headline" id="Headline" required>
+                                                        <label for="Subject">Beskrivning av ex-jobb:</label>
+                                                        <input type="text" placeholder="Ämne" name="Subject" id="Subject" required>
+                                                        <label for="KeyWords">Nyckelord:</label>
+                                                        <input type="text" placeholder="Ämne" name="KeyWords" id="KeyWords" required>
+                                                        <button type="button" id="AddKeyWord" name=AddKeyWord>lägg till nyckelord</button>
+                                                        <br>
+                                                        <div id="KeyWordStack">
+                                                                <div id="KeyWord1" class="floating-box">C#</div>
+                                                                <div id="KeyWord2" class="floating-box">C</div>
+                                                                <div id="KeyWord3" class="floating-box">C++</div>
+                                                                <div id="KeyWord4" class="floating-box">Python</div>
+                                                                <div id="KeyWord5" class="floating-box">Hårdvara</div>
+                                                                <div id="KeyWord6" class="floating-box">Mjukvara</div>
+                                                                <div id="KeyWord7" class="floating-box">Javascript</div>
+                                                                <div id="KeyWord8" class="floating-box">Java</div>
+                                                                <div id="KeyWord9" class="floating-box">Dokumentation</div>
+
+
+                                                        </div>
+
+
+
+                                                        
+                                                        <label class="bColorBlue">Intresseinformation</label>
+                                                        <div id="KeyWordList" class="modalLogInContainer">
+
+                                                        </div>
+                                                        <button class="submitBtn" type="submit">Lägg till Examensarbete</button>
+                                                        <button type="button" id="AddKeyWord" name=AddKeyWord>Lägg till nyckelord</button>
+                                                        <div id="KeyWordList">
+
+                                                        </div>
+
+                                                        <button class="submitBtn bColorBlue darkerBlueOnHov" type="submit">Lägg till Examensarbete</button>
+                                                </div>
+                                        </div>
+                                </div>
+                        </form>
+</body>
+
+</html>
