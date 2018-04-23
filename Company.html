@@ -3,7 +3,7 @@
 
 <head>
         <meta charset="utf-8">
-        <title>Skynet matchmakers|Welcome</title>
+        <title>Skynet matchmakers|Company pages</title>
         <link rel="stylesheet" type="text/css" href="style.css">
         <script type="text/javascript" src="Company.js"></script>
 </head>
@@ -13,9 +13,10 @@
                 <div class="logo">
                         SKYNET
                 </div>
-                <div class="navmenu">
+                <div class="navMenu">
                         <div>
-                                <label id="companyName">Inloggad som:</label>
+                                <button id="logOutCompanyBtn" class="menuBtn"> Namn: </button>
+                                <!-- <label id="companyName">Inloggad som:</label> -->
                         </div>
                 </div>
 
@@ -24,36 +25,12 @@
 
 
         <div class="bannerCompany">
-                <!-- <img class="banner-image" src="https://www.oru.se/contentassets/342643f3f3cc4abc8a16746642f8c74a/ou.jpg"> -->
         </div>
-        <div class="studentlownavmenu">
-                <button class="cMenuBtn" type="submit" id="ad">Lägg till annons</button>
-                <button class="cMenuBtn" type="submit" id="offers">Aktiva erbjudanden</button>
-                <button class="cMenuBtn" type="submit" id="profile">Redigera profil</button>
-
-                <div class="companyPage">
-                        <!-- <div class="companyPage">
-                <div class="column left">
-                        <div class="cMenu">
-                                <div>
-                                        <button class="cMenuBtn" type="submit" id="ad">Lägg till anons</button>
-                                </div>
-                                <div>
-                                        <button class="cMenuBtn" type="submit" id="offers">Aktiva erbjudanden</button>
-                                </div>
-                                <div>
-                                        <button class="cMenuBtn" type="submit" id="profile">Redigera profil</button>
-                                </div>
-                        </div>
-                </div>
-                <div class="column right">
-                        <h2>Innehåll</h2>
-                        <p>balbalbla</p>
-                        <p>balbalbla</p>
-                        <p>balbalbla</p>
-                </div>
-        </div>
-        </div> -->
+        <div class="lowNavMenu bColorBlue">
+                <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="ad">Lägg till annons</button>
+                <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="offers">Aktiva erbjudanden</button>
+                <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="profile">Redigera profil</button>
+	</div>
                         <form>
                                 <div id="CompanyAds" class="modal">
                                         <div class="modal-content">
@@ -66,7 +43,7 @@
                                                         <input type="text" placeholder="Ämne" name="Subject" id="Subject" required>
                                                         <label for="KeyWords">Nyckelord:</label>
                                                         <input type="text" placeholder="Ämne" name="KeyWords" id="KeyWords" required>
-                                                        <button type="button" id="AddKeyWord" name=AddKeyWord>lägg till nyckelord</button>
+                                                        <button type="button" id="AddKeyWord" name=AddKeyWord>Lägg till nyckelord</button>
                                                         <br>
                                                         <div id="KeyWordStack">
                                                                 <div id="KeyWord1" class="floating-box">C#</div>
@@ -82,6 +59,7 @@
 
                                                         </div>
 
+                                                        <button class="submitBtn bColorBlue darkerBlueOnHov" type="submit">Lägg till Examensarbete</button>
 
 
                                                         
