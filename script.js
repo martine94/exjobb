@@ -98,7 +98,8 @@ okRegCompany.addEventListener("click",checkPasswordCompany);
 
     
     function openRegisterCompanyModal() {
-        document.getElementById("registerCompanyModal").style.display="block";
+        
+        //document.getElementById("registerCompanyModal").style.display="block";
     }
     function openRegisterStudentModal() {
         document.getElementById("registerStudentModal").style.display="block";
