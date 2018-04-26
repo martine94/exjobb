@@ -32,7 +32,7 @@ module.exports = {
       if (err) callback(err);
       var dbo = db.db("db");
 
-      //dbo.collection("company").ensureIndex({userName: 1}, {unique : true});
+      dbo.collection("company").ensureIndex({userName: 1}, {unique : true});
 
       dbo.collection("company").insertOne(company, function(err, res) {
         if (err) {
