@@ -151,7 +151,7 @@ okRegCompany.addEventListener("click",checkPasswordCompany);
     }
 
 
-    function workAnnouncement(num){
+    function workAnnouncement(num, rubrik, information){
         console.log(1);
         workAnnouncement=document.getElementById("workAnnouncement");
         
@@ -171,11 +171,11 @@ okRegCompany.addEventListener("click",checkPasswordCompany);
 
             var info=document.createElement("p");
             info.className="adInfo";
-           info.innerHTML="information om jobbet blablalbla....";//här ska vi hämta info egentligen
+           info.innerHTML=information;//här ska vi hämta info egentligen
            var newlog=document.createElement("p");
            newlog.innerHTML="logga";
             var newh1=document.createElement("h2");
-           newh1.innerHTML="Rubrik "+(i+1);//ladda in rubrik
+           newh1.innerHTML=rubrik;//ladda in rubrik
            var readBtn=document.createElement("button");
            readBtn.innerHTML="Läs mer";
 
@@ -196,7 +196,7 @@ okRegCompany.addEventListener("click",checkPasswordCompany);
 
 
 }     
-    workAnnouncement(3);
+    workAnnouncement(3,"Rubrik","vllbalblalb abllablalba lbalbla");
 
     showAboutUsInfo();
 
