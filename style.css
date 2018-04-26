@@ -453,6 +453,13 @@ color:  white;
 
 .KeyWordStack{
 	background-color: lightgreen;
-	width: 20%;
+	width: 30%;
 	display: block;
+}
+
+.content{
+	padding: 0 18px;
+	display: none;
+	overflow: hidden;
+	background-color: saddlebrown;
 }
