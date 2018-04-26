@@ -40,6 +40,7 @@ p.r1{
 .mediumBtn{
 	border:none;
 	outline: none;
+	color: white;
 	background:transparent;
 	text-align: center;
 	width:8.6em;
@@ -450,3 +451,8 @@ color:  white;
 	background-origin: padding-box;
 }
 
+.KeyWordStack{
+	background-color: lightgreen;
+	width: 20%;
+	display: block;
+}
