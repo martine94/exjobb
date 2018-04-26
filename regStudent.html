@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="utf-8">
+        <title>Skynet matchmakers|Student pages</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <!-- <script type="text/javascript" src="student.js"></script> -->
+</head>
+
+<body style="background-color:rgb(46, 46, 46);">
+        <div class=logInOrReg>
+        <button class="close margin25" onclick="location.href='index.html'">x</button>
+        <form action="register_student" method="POST">
+                <div id="registerCompanyModal">
+                    <div class="modal-content">
+                        
+                            <p class="r1"> Registrera Student </p>
+                            <br>
+                            <br>
+                            <h3>Personlig information</h3>
+                            <input type="text" placeholder="Förnamn" name="ufname" required>
+                            <input type="text" placeholder="Efternamn" name="ulname" required>
+                            <input type="text" placeholder="Stad" name="ucity" required>
+                            <input type="text" placeholder="Utbildning" name="ueducation" required>
+                            <div> Kön:
+                                <input type="radio" name="gender_male" value="male"> Man
+                                <input type="radio" name="gender_female" value="female"> Kvinna
+                            </div>
+            
+                            <h3>Användaruppgifter</h3>
+                            <input type="text" placeholder="E-post" name="uemail" required>
+                            <input type="text" placeholder="Användarnamn" name="uname" required>
+                            <input type="password" placeholder="Lösenord" name="psw" required>
+            
+                            <button class="submitBtn bColorBlue" type="submit">Registrera</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+</body>
+
+</html>
