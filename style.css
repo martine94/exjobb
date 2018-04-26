@@ -17,6 +17,10 @@ li{
 	width:6.25em;
 	height: 1.5625em;
 }
+a:link {
+    text-decoration: none;
+}
+
 p.r1{
 	font-size:2em;
 	text-decoration: underline;
