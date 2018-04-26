@@ -38,7 +38,7 @@ window.onload=function(){
     var keyWord7= document.getElementById('KeyWord7');
     var keyWord8= document.getElementById('KeyWord8');
     var keyWord9= document.getElementById('KeyWord9');
-    var addToInterists = document.getElementsByClassName('floating-box2');
+    var addToInterists = document.getElementsByClassName('floating-box2');    
     var programmingLanguage = document.getElementById('ProgrammingLanguage');
     //programmingLanguage.children().hide();  
     //button events
