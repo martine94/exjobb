@@ -445,14 +445,15 @@ color:  white;
 }
 
 .containerOfKeyWords{
-	border-radius: 2.5em;
 	font-size: 2em;
+	width: 100%;
 	background-color: beige;
 	background-origin: padding-box;
 }
 
 .KeyWordStack{
 	background-color: lightgreen;
+	box-shadow: 2px 9px 9px #999;
 	width: 30%;
 	display: block;
 }
@@ -460,6 +461,15 @@ color:  white;
 .content{
 	padding: 0 18px;
 	display: none;
+	box-shadow: 2px 2px 2px #999;	
 	overflow: hidden;
-	background-color: saddlebrown;
+	background-color: #FFFFFF;
+}
+.containerOfKeyWords2{
+	font-size: 2.5em;
+	width: 100%;
+	color: #FFFFFF;
+	background-color: rgb(74,150,205);
+	box-shadow: 2px 9px 9px #999;	
+	background-origin: padding-box;
 }

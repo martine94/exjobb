@@ -29,57 +29,103 @@ window.onload=function(){
     
     var keyWordStack= document.getElementById('KeyWordStack');
     var KeyWordList=document.getElementById("KeyWordList");
-    var keyWord1= document.getElementById('KeyWord1');
-    var keyWord2= document.getElementById('KeyWord2');
-    var keyWord3= document.getElementById('KeyWord3');
-    var keyWord4= document.getElementById('KeyWord4');
-    var keyWord5= document.getElementById('KeyWord5');
-    var keyWord6= document.getElementById('KeyWord6');
-    var keyWord7= document.getElementById('KeyWord7');
-    var keyWord8= document.getElementById('KeyWord8');
-    var keyWord9= document.getElementById('KeyWord9');
+    //var keyWord1= document.getElementById('KeyWord1');
+   //var keyWord2= document.getElementById('KeyWord2');
+   //var keyWord3= document.getElementById('KeyWord3');
+   //var keyWord4= document.getElementById('KeyWord4');
+   //var keyWord5= document.getElementById('KeyWord5');
+   //var keyWord6= document.getElementById('KeyWord6');
+   //var keyWord7= document.getElementById('KeyWord7');
+   //var keyWord8= document.getElementById('KeyWord8');
+   //var keyWord9= document.getElementById('KeyWord9');
+    var show = [0,0,0,0];
     var addToInterists = document.getElementsByClassName('floating-box2');
-    var programmingLanguage = document.getElementById('ProgrammingLanguage');
+
+    var programmingLanguagebtn = document.getElementById('ProgrammingLanguageBtn');
+    var typebtn = document.getElementById('TypeBtn');
+    var operatinSystembtn = document.getElementById('OperationSystemBtn');
+    var restbtn = document.getElementById('RestBtn');
+
+
     //programmingLanguage.children().hide();  
     //button events
-
+    
     //company window
+
+    programmingLanguagebtn.addEventListener("click", (e)=> ShowHide(0));
+    typebtn.addEventListener("click", (e)=> ShowHide(1));
+    operatinSystembtn.addEventListener("click", (e)=> ShowHide(2));
+    restbtn.addEventListener("click", (e)=> ShowHide(3));
+
     companyAddAd.addEventListener("click", (e)=>goToCompanysize(0));
     companyAddOffers.addEventListener("click", (e)=>goToCompanysize(1));
     companyAddProfile.addEventListener("click", (e)=>goToCompanysize(2));
+
     closeCompAds.addEventListener("click", closeCompanyAds);
     //keyWordStack.addEventListener('load',loadStack);
 
-    keyWord1.addEventListener('click',(e)=>swapContainer(keyWord1, e));
-    // keyWord1.addEventListener('mouseover', (e)=>infoKeyWord(keyWord1, 1));
-    // keyWord1.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord1, 0));
-    keyWord2.addEventListener('click',(e)=>swapContainer(keyWord2));
-    // keyWord2.addEventListener('mouseover', (e)=>infoKeyWord(keyWord2, 1));
-    // keyWord2.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord2, 0));
-    keyWord3.addEventListener('click',(e)=>swapContainer(keyWord3));
-    // keyWord3.addEventListener('mouseover', (e)=>infoKeyWord(keyWord3, 1));
-    // keyWord3.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord3, 0));
-    keyWord4.addEventListener('click',(e)=>swapContainer(keyWord4));
-    // keyWord4.addEventListener('mouseover', (e)=>infoKeyWord(keyWord4, 1));
-    // keyWord4.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord4, 0));
-    keyWord5.addEventListener('click',(e)=>swapContainer(keyWord5));
-    // keyWord5.addEventListener('mouseover', (e)=>infoKeyWord(keyWord5, 1));
-    // keyWord5.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord5, 0));
-    keyWord6.addEventListener('click',(e)=>swapContainer(keyWord6));
-    // keyWord6.addEventListener('mouseover', (e)=>infoKeyWord(keyWord6, 1));
-    // keyWord6.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord6, 0));
-    keyWord7.addEventListener('click',(e)=>swapContainer(keyWord7));
-    // keyWord7.addEventListener('mouseover', (e)=>infoKeyWord(keyWord7, 1));
-    // keyWord7.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord7, 0));
-    keyWord8.addEventListener('click',(e)=>swapContainer(keyWord8));
-    // keyWord8.addEventListener('mouseover', (e)=>infoKeyWord(keyWord8, 1));
-    // keyWord8.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord8, 0));
-    keyWord9.addEventListener('click',(e)=>swapContainer(keyWord9));
+    // //keyWord1.addEventListener('click',(e)=>swapContainer(keyWord1, e));
+    // // keyWord1.addEventListener('mouseover', (e)=>infoKeyWord(keyWord1, 1));
+    // // keyWord1.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord1, 0));
+    // keyWord2.addEventListener('click',(e)=>swapContainer(keyWord2));
+    // // keyWord2.addEventListener('mouseover', (e)=>infoKeyWord(keyWord2, 1));
+    // // keyWord2.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord2, 0));
+    // keyWord3.addEventListener('click',(e)=>swapContainer(keyWord3));
+    // // keyWord3.addEventListener('mouseover', (e)=>infoKeyWord(keyWord3, 1));
+    // // keyWord3.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord3, 0));
+    // keyWord4.addEventListener('click',(e)=>swapContainer(keyWord4));
+    // // keyWord4.addEventListener('mouseover', (e)=>infoKeyWord(keyWord4, 1));
+    // // keyWord4.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord4, 0));
+    // keyWord5.addEventListener('click',(e)=>swapContainer(keyWord5));
+    // // keyWord5.addEventListener('mouseover', (e)=>infoKeyWord(keyWord5, 1));
+    // // keyWord5.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord5, 0));
+    // keyWord6.addEventListener('click',(e)=>swapContainer(keyWord6));
+    // // keyWord6.addEventListener('mouseover', (e)=>infoKeyWord(keyWord6, 1));
+    // // keyWord6.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord6, 0));
+    // keyWord7.addEventListener('click',(e)=>swapContainer(keyWord7));
+    // // keyWord7.addEventListener('mouseover', (e)=>infoKeyWord(keyWord7, 1));
+    // // keyWord7.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord7, 0));
+    // keyWord8.addEventListener('click',(e)=>swapContainer(keyWord8));
+    // // keyWord8.addEventListener('mouseover', (e)=>infoKeyWord(keyWord8, 1));
+    // // keyWord8.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord8, 0));
+    // keyWord9.addEventListener('click',(e)=>swapContainer(keyWord9));
     // keyWord9.addEventListener('mouseover', (e)=>infoKeyWord(keyWord9, 1));
     // keyWord9.addEventListener('mouseleave', (e)=>infoKeyWord(keyWord9, 0));
     AddProj.addEventListener('click',(e)=>saveExamJob(AddProj));
 
     //button functions
+
+    function ShowHide(index){
+        if(index === 0){
+            var cont = document.getElementById("ProgrammingLanguage");
+            if(cont.style.display === "block")
+                cont.style.display = "none";
+            else
+                cont.style.display = "block";
+            
+        }
+        else if(index === 1){
+            let cont = document.getElementById("Types");
+            if(cont.style.display === "block")
+                cont.style.display = "none";
+            else
+                cont.style.display = "block";
+        }
+        else if(index === 2){
+            let cont = document.getElementById("operationsystems");
+            if(cont.style.display === "block")
+                cont.style.display = "none";
+            else
+                cont.style.display = "block";
+        }
+        else if(index === 3){
+            let cont = document.getElementById("TheRest");
+            if(cont.style.display === "block")
+                cont.style.display = "none";
+            else
+                cont.style.display = "block";
+        }
+    }
     
     // When the user clicks on <span> (x), close the modal
     function goToCompanysize(choice){
