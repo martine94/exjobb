@@ -67,6 +67,7 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
                 {
                     console.log("back");
                     resp.redirect('back');
+                    //resp.redirect('#');
                     //req.body.uname.value = "Fel användarnamn";
                 }
             }
