@@ -13,12 +13,12 @@ window.onload=function(){
     var aboutBtn=document.getElementById("aboutBtn");
     var companyBtn=document.getElementById("companyBtn");
     var studentBtn=document.getElementById("studentBtn");
-    var companyRegBtn=document.getElementById("companyRegBtn");
-    var studentRegBtn=document.getElementById("studentRegBtn");
+    // var companyRegBtn=document.getElementById("companyRegBtn");
+    // var studentRegBtn=document.getElementById("studentRegBtn");
     var companyLoginBtn=document.getElementById("companyLoginBtn");
     var studentLoginBtn=document.getElementById("studentLoginBtn");
     var studentLoginBtn=document.getElementById("studentLoginBtn");
-    var okRegCompany=document.getElementById("okRegCompany");
+    // var okRegCompany=document.getElementById("okRegCompany");
     //var companyAddAd = document.getElementById('ad');
     //var companyAddOffers = document.getElementById('offers');
     //var companyAddProfile = document.getElementById('profile');
@@ -32,8 +32,8 @@ window.onload=function(){
     regContainer.addEventListener("mouseleave", hideRegister);
     
     //regContainer.addEventListener("click",openRegisterModal);
-    companyRegBtn.addEventListener("click",openRegisterCompanyModal);
-    studentRegBtn.addEventListener("click",openRegisterStudentModal);
+    // companyRegBtn.addEventListener("click",openRegisterCompanyModal);
+    // studentRegBtn.addEventListener("click",openRegisterStudentModal);
     
     companyLoginBtn.addEventListener("click",openLoginCompanyModal);
     studentLoginBtn.addEventListener("click",openLoginStudentModal);
@@ -45,8 +45,8 @@ window.onload=function(){
     logInContainer.addEventListener("mouseleave", hideLogIn);
     //logInContainer.addEventListener("click",openLogInModal);
     
-    closeRegCompanyModal.addEventListener("click", closeRegisterCompanyModal);
-    closeRegStudentModal.addEventListener("click", closeRegisterStudentModal);
+    // closeRegCompanyModal.addEventListener("click", closeRegisterCompanyModal);
+    // closeRegStudentModal.addEventListener("click", closeRegisterStudentModal);
     closeLICompanyModal.addEventListener("click", closeLogInCompanyModal);
     closeLIStudentModal.addEventListener("click", closeLogInStudentModal);
     
@@ -54,14 +54,14 @@ window.onload=function(){
     aboutBtn.addEventListener("click", showAboutUsInfo);
     companyBtn.addEventListener("click", showForCompaniesInfo);
     studentBtn.addEventListener("click", showForStudentsInfo);
-okRegCompany.addEventListener("click",checkPasswordCompany);
+    // okRegCompany.addEventListener("click",checkPasswordCompany);
 
-    function checkPasswordCompany(){
-        if(document.getElementById("pswC").value!=document.getElementById("psw2C").value){
-            document.getElementById("psw2C").value="";
-            document.getElementById("psw2C").placeholder="Fel lösenord";
-        }
-    }
+    // function checkPasswordCompany(){
+    //     if(document.getElementById("pswC").value!=document.getElementById("psw2C").value){
+    //         document.getElementById("psw2C").value="";
+    //         document.getElementById("psw2C").placeholder="Fel lösenord";
+    //     }
+    // }
     //company window
     //companyAddAd.addEventListener("click", goToCompanysize(0));
     //companyAddOffers.addEventListener("click", goToCompanysize(1));
@@ -97,17 +97,17 @@ okRegCompany.addEventListener("click",checkPasswordCompany);
         document.getElementById("LoginStudentModal").style.display="block";
     }
 
-    function openRegisterCompanyModal() {
-        document.getElementById("registerCompanyModal").style.display="block";
-    }
+    // function openRegisterCompanyModal() {
+    //     document.getElementById("registerCompanyModal").style.display="block";
+    // }
     function openRegisterStudentModal() {
         document.getElementById("registerStudentModal").style.display="block";
     }
     
     // When the user clicks on <span> (x), close the modal
-    function closeRegisterCompanyModal() {
-         document.getElementById("registerCompanyModal").style.display="none";
-    }
+    // function closeRegisterCompanyModal() {
+    //      document.getElementById("registerCompanyModal").style.display="none";
+    // }
     function closeRegisterStudentModal() {
          document.getElementById("registerStudentModal").style.display="none";
     }
