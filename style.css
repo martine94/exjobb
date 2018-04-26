@@ -88,11 +88,7 @@ img {
 }
 
 .navMenu{
-	/*background-image: linear-gradient(289deg, rgb(74,150,205) 0%, rgb(93, 187, 255) 100%);*/
 	background: rgb(74,150,205);
-	border-bottom: black;
-	border-bottom-width: 1pt;
-	border-bottom-style: outset;
 
 	color:black;
 	display: inline-flex;
@@ -181,7 +177,7 @@ img {
 	justify-content: center;
 	width: 100%;
 	height: 1.8em;
-	box-shadow: 0 0 0.1pt 0 black;
+	/*box-shadow: 0 0 0.1pt 0 black;*/
 	/*background-image: linear-gradient(289deg, rgb(74,150,205) 0%, rgb(93, 187, 255) 100%);*/
 	background: rgb(74,150,205);
 }
