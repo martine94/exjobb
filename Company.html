@@ -30,45 +30,67 @@
                 <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="ad">Lägg till annons</button>
                 <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="offers">Aktiva erbjudanden</button>
                 <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="profile">Redigera profil</button>
-	</div>
-                        <form>
-                                <div id="CompanyAds" class="modal">
-                                        <div class="modal-content">
-                                                <span id="closeCompAds" class="close">&times;</span>
+        </div>
+        <form>
+                <div id="CompanyAds" class="modal">
+                        <div class="modal-content">
+                                <span id="closeCompAds" class="close">&times;</span>
 
-                                                <div class="modalLogInContainer" .bColorBlue>
-                                                        <label for="Headline">Titel ex-jobb:</label>
-                                                        <input type="text" placeholder="" name="Headline" id="Headline" required>
-                                                        <label for="Subject">Beskrivning av ex-jobb:</label>
-                                                        <input type="text" placeholder="Ämne" name="Subject" id="Subject" required>
-                                                        <br>
-                                                        <div id="KeyWordStack">
-                                                                <div id="KeyWord1" class="floating-box2">C#</div>
-                                                                <div id="KeyWord2" class="floating-box2">C</div>
-                                                                <div id="KeyWord3" class="floating-box2">C++</div>
-                                                                <div id="KeyWord4" class="floating-box2">Python</div>
-                                                                <div id="KeyWord5" class="floating-box2">Hårdvara</div>
-                                                                <div id="KeyWord6" class="floating-box2">Mjukvara</div>
-                                                                <div id="KeyWord7" class="floating-box2">Javascript</div>
-                                                                <div id="KeyWord8" class="floating-box2">Java</div>
-                                                                <div id="KeyWord9" class="floating-box2">Dokumentation</div>
-
-
-                                                        </div>
-
-                                                        <!--<button class="submitBtn bColorBlue darkerBlueOnHov" type="button">Tillagda nyckelord</button>!-->
-
-
-                                                        
-                                                        <label class="containerOfKeyWords">Tillagda nyckelord</label>
-                                                        <div id="KeyWordList" class="containerOfKeyWords">
-
-                                                        </div>
-                                                        <button class="submitBtn" type="button" id = "addProj">Lägg till Examensarbete</button>
+                                <div class="modalLogInContainer" .bColorBlue>
+                                        <label for="Headline">Titel ex-jobb:</label>
+                                        <input type="text" placeholder="" name="Headline" id="Headline" required>
+                                        <label for="Subject">Beskrivning av ex-jobb:</label>
+                                        <input type="text" placeholder="Ämne" name="Subject" id="Subject" required>
+                                        <br>
+                                        <div id="KeyWordStack">
+                                                <button id="click" class="containerOfKeyWords">Programmeringsspråk</button>
+                                                <div id="ProgrammingLanguage">
+                                                        <input type="checkbox" id="C">
+                                                        <label for="C">C</label>
+                                                        <input type="checkbox" id="C#">
+                                                        <label for="C#">C#</label>
+                                                        <input type="checkbox" id="C++">
+                                                        <label for="C++">C++</label>
+                                                        <input type="checkbox" id="Java">
+                                                        <label for="Java">Java</label>
+                                                        <input type="checkbox" id="Javascript">
+                                                        <label for="Javascript">Javascript</label>
+                                                        <input type="checkbox" id="Python">
+                                                        <label for="Python">Java</label>
                                                 </div>
+                                                <button class="containerOfKeyWords">Typ</button>
+                                                <div>
+                                                                <input type="checkbox" id="Hårdvara">
+                                                                <label for="Hårdvara">Hårdvara</label>
+                                                                <input type="checkbox" id="Mjukvara">
+                                                                <label for="Mjukvara">Mjukvara</label>
+                                                </div>
+                                                <button class="containerOfKeyWords">Operativsystem</button>
+                                                <div id="operationsystems">
+                                                                <input type="checkbox" id="Linux">
+                                                                <label for="Linux">Linux</label>
+                                                                <input type="checkbox" id="Windows">
+                                                                <label for="Windows">Windows</label>
+                                                </div>
+                                                <div>
+                                                        <div id="KeyWord11" class="floating-box2">Dokumentation</div>
+                                                </div>
+
                                         </div>
+
+                                        <!--<button class="submitBtn bColorBlue darkerBlueOnHov" type="button">Tillagda nyckelord</button>!-->
+
+
+
+                                        <label class="containerOfKeyWords">Tillagda nyckelord</label>
+                                        <div id="KeyWordList" class="containerOfKeyWords">
+
+                                        </div>
+                                        <button class="submitBtn" type="button" id="addProj">Lägg till Examensarbete</button>
                                 </div>
-                        </form>
+                        </div>
+                </div>
+        </form>
 </body>
 
 </html>
