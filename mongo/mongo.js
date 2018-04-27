@@ -25,6 +25,16 @@ module.exports = {
       });
     });
   },
+  getUserData: function (callback) {
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db(database);
+      dbo.collection('company').find().toArray(function (err, result) {
+        db.close();
+        callback(result);
+      });
+    });
+  },
 
   addCompany: function(company, callback)
   {
