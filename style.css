@@ -243,7 +243,7 @@ input:focus{
 
 .modal {
 	font-family: Calibri;
-    display: none; 
+    /* display: none;  */
     position: fixed;
     z-index: 900; 
     left: 0;

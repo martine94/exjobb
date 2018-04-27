@@ -11,6 +11,7 @@ var ipAdress="127.0.0.1:2000"; //Används om man vill köra lokalt
 //var ipAdress="90.231.125.248:2000";
 var serverAddress="http://"+ipAdress; 
 var portNumber="2000";
+var path=require('path');
 
 
 app.use(session({
@@ -21,6 +22,23 @@ app.use(session({
 }));
 //Ändra till express.static('../') för att nå riktiga sidan
 app.use(express.static('../'));
+
+app.get('/loadRegComp', function(req,res){
+    console.log("Get /regCompany request");
+    res.sendFile(path.join(__dirname, '../', '/regCompany.html'));
+});
+app.get('/loadRegStudent', function(req,res){
+    console.log("Get /regStud request");
+    res.sendFile(path.join(__dirname, '../', '/regStudent.html'));
+});
+app.get('/loadLogInStudent', function(req,res){
+    console.log("Get /reglogStud request");
+    res.sendFile(path.join(__dirname, '../', '/logInStudent.html'));
+});
+app.get('/loadLogInComp', function(req,res){
+    console.log("Get /reglogComp request");
+    res.sendFile(path.join(__dirname, '../', '/logInComp.html'));
+});
 
 app.get('/app_get', function (req, resp, next) {
     console.log("GET request");

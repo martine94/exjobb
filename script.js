@@ -19,6 +19,7 @@ window.onload=function(){
     var companyLoginBtn=document.getElementById("companyLoginBtn");
     var studentLoginBtn=document.getElementById("studentLoginBtn");
     var studentLoginBtn=document.getElementById("studentLoginBtn");
+    var closeModal;    
     //#endregion
    
     //#region eventlisteners
@@ -34,22 +35,12 @@ window.onload=function(){
     logInBtn.addEventListener("mouseleave", hideLogIn);
     logInContainer.addEventListener("mouseover", dropLogIn);
     logInContainer.addEventListener("mouseleave", hideLogIn);
-    closeRegCompanyModal.addEventListener("click", closeRegisterCompanyModal);
-    closeRegStudentModal.addEventListener("click", closeRegisterStudentModal);
-    closeLICompanyModal.addEventListener("click", closeLogInCompanyModal);
-    closeLIStudentModal.addEventListener("click", closeLogInStudentModal);
     aboutBtn.addEventListener("click", showAboutUsInfo);
     companyBtn.addEventListener("click", showForCompaniesInfo);
     studentBtn.addEventListener("click", showForStudentsInfo);
-    okRegCompany.addEventListener("click",checkPasswordCompany);
+
     //#endregion
-    
-    function checkPasswordCompany(){
-        if(document.getElementById("pswC").value!=document.getElementById("psw2C").value){
-            document.getElementById("psw2C").value="";
-            document.getElementById("psw2C").placeholder="Fel lösenord";
-        }
-    }   
+    //#region functions drop-down registers
     function dropRegister(){
         document.getElementById("registerContainer").style.display="block";
     }
@@ -65,41 +56,79 @@ window.onload=function(){
     function hideLogIn(){
             document.getElementById("logInContainer").style.display="none";
     }
-    
+    //#endregion
 
+    //#region open fill close Modal
     function openLoginCompanyModal() {
-        document.getElementById("LoginCompanyModal").style.display="block";
-        let cName = document.getElementsByName('CompName').value;
-        localStorage.setItem('Loginname', 'Eskil');
+        var xhttp=new XMLHttpRequest();
+        xhttp.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200){
+                document.getElementById("modal-test").innerHTML=this.response;
+            
+           closeModal=document.getElementById("closeModal");
+           closeModal.addEventListener("click",closeModalf);
+           openModalf();
+         }
+           
+        };
+        xhttp.open("GET","loadLogInComp",true);
+        xhttp.send();
     }
-
     function openLoginStudentModal() {
-        document.getElementById("LoginStudentModal").style.display="block";
+        var xhttp=new XMLHttpRequest();
+        xhttp.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200){
+                document.getElementById("modal-test").innerHTML=this.response;
+            
+           closeModal=document.getElementById("closeModal");
+           closeModal.addEventListener("click",closeModalf);
+           openModalf();
+         }
+           
+        };
+        xhttp.open("GET","loadLogInStudent",true);
+        xhttp.send();
     }
-
     function openRegisterCompanyModal() {
-        document.getElementById("registerCompanyModal").style.display="block";
-    }
+            var xhttp=new XMLHttpRequest();
+            xhttp.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                    document.getElementById("modal-test").innerHTML=this.response;
+                
+            closeModal=document.getElementById("closeModal");
+            closeModal.addEventListener("click",closeModalf);
+            openModalf();
+            }
+            
+            };
+            xhttp.open("GET","loadRegComp",true);
+            xhttp.send();
+        }
     function openRegisterStudentModal() {
-        document.getElementById("registerStudentModal").style.display="block";
+        console.log("hej");
+        var xhttp=new XMLHttpRequest();
+        xhttp.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200){
+                document.getElementById("modal-test").innerHTML=this.response;
+           closeModal=document.getElementById("closeModal");
+           closeModal.addEventListener("click",closeModalf);
+           openModalf();
+         }
+           
+        };
+        xhttp.open("GET","loadRegStudent",true);
+        xhttp.send();
     }
 
-    function closeRegisterCompanyModal() {
-         document.getElementById("registerCompanyModal").style.display="none";
+    function closeModalf(){
+        document.getElementById("modal-test").style.display="none";
     }
-    function closeRegisterStudentModal() {
-         document.getElementById("registerStudentModal").style.display="none";
+    function openModalf(){
+        document.getElementById("modal-test").style.display="block";
     }
-    
-    function closeLogInCompanyModal() {
-         document.getElementById("LoginCompanyModal").style.display="none";
-    }
-
-    function closeLogInStudentModal() {
-        document.getElementById("LoginStudentModal").style.display="none";
-    }
-
-    function showAboutUsInfo() {
+//#endregion
+   
+function showAboutUsInfo() {
         
         document.getElementById("forStudentsInfo").style.display="none";
         document.getElementById("forCompaniesInfo").style.display="none";
