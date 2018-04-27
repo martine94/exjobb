@@ -3,14 +3,9 @@ window.onload=function(){
 
     //#region buttons
     var regBtn=document.getElementById("registerBtn");
-    var cName=document.getElementById("CompName");
     var regContainer=document.getElementById("registerContainer");
     var logInBtn=document.getElementById("logInBtn");
     var logInContainer=document.getElementById("logInContainer");
-    var closeRegCompanyModal=document.getElementById("closeRegCompanyModal");
-    var closeRegStudentModal=document.getElementById("closeRegStudentModal");
-    var closeLIStudentModal=document.getElementById("closeLIStudentModal");
-    var closeLICompanyModal=document.getElementById("closeLICompanyModal");
     var aboutBtn=document.getElementById("aboutBtn");
     var companyBtn=document.getElementById("companyBtn");
     var studentBtn=document.getElementById("studentBtn");
@@ -18,7 +13,7 @@ window.onload=function(){
     var studentRegBtn=document.getElementById("studentRegBtn");
     var companyLoginBtn=document.getElementById("companyLoginBtn");
     var studentLoginBtn=document.getElementById("studentLoginBtn");
-    var studentLoginBtn=document.getElementById("studentLoginBtn");
+
     var closeModal;    
     //#endregion
    
