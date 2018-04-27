@@ -14,7 +14,12 @@ window.onload=function(){
     var companyLoginBtn=document.getElementById("companyLoginBtn");
     var studentLoginBtn=document.getElementById("studentLoginBtn");
 
-    var closeModal;    
+    //buttons that don't exist on load
+    var closeModal;  
+    var RegCBtnOK;
+    var RegSBtnOK;
+    var logginCBtnOK;
+    var logginSBtnOK;  
     //#endregion
    
     //#region eventlisteners
@@ -54,6 +59,47 @@ window.onload=function(){
     //#endregion
 
     //#region open fill close Modal
+    
+    function LogInCompany(){
+        var username = document.getElementById("cName").value;
+        var password = document.getElementById("cPsw").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                if(this.response === "false"){
+                    console.log("Fel användarnamn eller lösenord");
+                    document.getElementById("errLogIn").innerHTML="* Fel användarnamn eller lösenord";
+                }else{
+                    console.log("Du är nu inloggad");
+                    window.location.replace("Company.html");
+                    closeModal();
+                }
+            }
+        };
+        xhttp.open("GET", "logginComp?username="+username+"&password="+password, true);
+        xhttp.send();
+    }
+
+    function LogInStudent(){
+        var username = document.getElementById("sName").value;
+        var password = document.getElementById("sPsw").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                if(this.response === "false"){
+                    console.log("Fel användarnamn eller lösenord");
+                    document.getElementById("errLogIn").innerHTML="* Fel användarnamn eller lösenord";
+                }else{
+                    console.log("Du är nu inloggad");
+                    window.location.replace("Student.html");
+                    closeModal();
+                }
+            }
+        };
+        xhttp.open("GET", "logginStudent?_user="+username+"&password="+password, true);
+        xhttp.send();
+    }
+
     function openLoginCompanyModal() {
         var xhttp=new XMLHttpRequest();
         xhttp.onreadystatechange=function(){
@@ -63,6 +109,8 @@ window.onload=function(){
            closeModal=document.getElementById("closeModal");
            closeModal.addEventListener("click",closeModalf);
            openModalf();
+           logginCBtnOK=document.getElementById("OKLogInComp");
+           logginCBtnOK.addEventListener("click",LogInCompany);
          }
            
         };
@@ -78,6 +126,8 @@ window.onload=function(){
            closeModal=document.getElementById("closeModal");
            closeModal.addEventListener("click",closeModalf);
            openModalf();
+           logginSBtnOK=document.getElementById("OKLogInStudent");
+           logginSBtnOK.addEventListener("click",LogInStudent);
          }
            
         };

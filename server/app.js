@@ -219,6 +219,40 @@ var server = app.listen(portNumber, function () {
     console.log("Express app listening at http://%s:%s", host, port);
 });
 
+app.get('/logginComp', urlEncodedParcer, function(req, res){
+    console.log("GET /loggin request");
+    console.log(req.query);
+    console.log("Checking if " + req.query["username"] + " and password " +req.query["password"]+ ".");
+    Mongo.findOne("company", {username: req.query["userName"]}, function(result){
+        if(result.length === 0){
+            res.send("false");
+        }else{
+            if(result[0].password === req.query["password"])
+            {
+                res.send("true");
+            }else{
+                res.send("false");
+            }
+        }
+    });
+});
+
+app.get('/logginStudent', urlEncodedParcer, function(req, res){
+    console.log("GET /loggin request");
+    console.log(req.query);
+    Mongo.findOne("student", {_user: req.query["_user"]}, function(result){
+        if(result.length === 0){
+            res.send("false");
+        }else{
+            if(result[0].password === req.query["password"])
+            {
+                res.send("true");
+            }else{
+                res.send("false");
+            }
+        }
+    });
+});
 /*var server = app.listen(2000, function () {
     var host = server.address().address;
     var port = server.address().port;

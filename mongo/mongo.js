@@ -36,6 +36,27 @@ module.exports = {
     });
   },
 
+  findOne : function(table, query, callback){
+    
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      
+      console.log("Connected to database!");
+
+      var dbo = db.db(database);
+      console.log(query);
+      dbo.collection(table).find(query).toArray(function(err, result) {
+        if (err) throw err;
+
+        console.log("Entered collection success!");
+        
+        db.close();
+        console.log(result);
+        callback(result);
+      });
+    });
+  },
+
   addCompany: function(company, callback)
   {
     MongoClient.connect(url, function(err, db) {
