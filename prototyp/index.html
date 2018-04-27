@@ -1,0 +1,46 @@
+<html>
+    <head>
+    <title>Prototyp</title>
+    </head>
+    <body>
+        <div id="textDiv"></div>
+        <form action="register_company" method="POST">
+                <div id="registerCompanyModal">
+                    <div class="modal-content">
+                        
+                        <p class="r1"> Registrera Företag </p>
+                        <br>
+                        <br>
+                        <h3>Företagsinformation</h3>
+                        <input type="text" placeholder="Företagsnamn" name="cname" required>
+                        <input type="text" placeholder="Adress" name="cadress" required>
+                        <input type="text" placeholder="Stad" name="ccity" required>
+                        <!-- <input type="text" placeholder="Hemsida" name="uwebpage"> -->
+                        <h3>Användaruppgifter</h3>
+                        <input type="text" placeholder="E-post" name="uemail" required>
+                        <input type="text" placeholder="Användarnamn" name="uname" required>
+                        <input type="password" placeholder="Lösenord" id="pswC" name="psw" required>
+                        <input type="password" placeholder="Upprepa lösenord" id="psw2C" name="psw2" required>
+        
+                        <button id="okRegCompany" class="submitBtn bColorBlue" type="submit">Registrera</button>
+                    </div>
+                </div>
+            </form>
+            <div class=logInOrReg>
+                    <button class="close floatRight" onclick="location.href='index.html'">x</button>
+                    <form action="login_company" method="POST">
+                            <div class="modalLogInContainer ">
+                                    <div class="modal-content">
+                                    
+                                        <p class="r1"> Logga in som företag </p><br><br><br>
+                                        <input type="text" placeholder="Användarnamn" name="uname" id="CompName" required>
+                                        <input type="password" placeholder="Lösenord" name="psw" required>
+                    
+                                        <button class="submitBtn bColorBlue" type="submit">LOGGA IN</button>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+
+    </body>
+</html>

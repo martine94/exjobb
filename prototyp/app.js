@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var Mongo = require('../mongo/mongo.js');
+var Mongo = require('./mongo.js');
 var urlEncodedParcer = bodyParser.urlencoded({ extended: true });
 var session =require('client-sessions'); //kommentera ut denna om ni inte har Sessions installerat
 var cookieParser=require('cookie-parser');
@@ -20,12 +20,58 @@ app.use(session({
     activeDuration: 5*60*1000,
 }));
 //Ändra till express.static('../') för att nå riktiga sidan
-app.use(express.static('../'));
+app.use(express.static('./'));
 
 app.get('/app_get', function (req, resp, next) {
     console.log("GET request");
     resp.send('Nothing to GET');
 });
+app.get("/search", function (req, res){  
+  
+    MongoClient.connect('mongodb://127.0.0.1:27017', function(err, db) {
+    if (err) throw err;
+      console.log("Connected to Database");
+  
+  
+      var query = {};
+  
+    //insert record
+    db.collection('urlinfo').insert(query, function(err, records) {
+      if (err) throw err;
+      };
+  
+      db.collection('urlinfo').find({}, function(err, products){
+        if(err){
+            console.log(err);
+            res.json(err);
+        }
+        else{
+            res.json(products);
+        }
+    });   console.log(products);
+   res.json(products);
+  
+    });
+    db.close();
+  });
+    console.log(res.body);
+  
+  });
+  app.use(errorHandler({
+    dumpExceptions: true,
+    showStack: true
+  }));
+  //Search page
+  app.use(methodOverride());
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
+  app.use(express.static(publicDir));
+  app.use(errorHandler({
+    dumpExceptions: true,
+    showStack: true
+  }));
 
 app.get('/loggedIn',function(req,resp){
     if(req.session&&req.session.user){
@@ -36,21 +82,6 @@ app.get('/loggedIn',function(req,resp){
     }else{
         console.log("redirect2");
         resp.redirect('');
-    }
-});
-app.get('/userData', function (req, res) {
-    console.log("GET /userData.html request");
-    /*Mongo.getUserData(function(result){
-        console.log(result);
-        res.send(result);
-    });*/
-    if(req.session&&req.session.user){
-        console.log("found session");
-        console.log(req.session.user);
-        res.send(JSON.stringify(req.session.user));
-    }else{
-        console.log("not logged in");
-        res.send("You are not logged in.")
     }
 });
 app.get('/logout',function(req,resp){
