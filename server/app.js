@@ -223,6 +223,7 @@ app.get('/logginComp', urlEncodedParcer, function(req, res){
         }else{
             if(result[0].password === req.query["password"])
             {
+                req.session.user=result[0]; // för session
                 res.send("true");
             }else{
                 res.send("false");
