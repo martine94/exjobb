@@ -240,6 +240,10 @@ input:focus{
 	background-color: rgb(233, 231, 231);
 }
 
+.errInput{
+	background-color: rgb(212, 131, 142);
+	
+}
 
 .modal {
 	font-family: Calibri;

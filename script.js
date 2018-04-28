@@ -20,6 +20,16 @@ window.onload=function(){
     var RegSBtnOK;
     var logginCBtnOK;
     var logginSBtnOK;  
+    
+
+    // var cname;
+    // var caddress;
+    // var ccity;
+    // var uemail;
+    // var uname;
+    // var psw;
+    // var psw2;
+    var inputs;
     //#endregion
    
     //#region eventlisteners
@@ -134,14 +144,32 @@ window.onload=function(){
         xhttp.open("GET","loadLogInStudent",true);
         xhttp.send();
     }
+
     function openRegisterCompanyModal() {
             var xhttp=new XMLHttpRequest();
             xhttp.onreadystatechange=function(){
                 if(this.readyState==4 && this.status==200){
                     document.getElementById("modal-test").innerHTML=this.response;
-                
+            
+   
             closeModal=document.getElementById("closeModal");
             closeModal.addEventListener("click",closeModalf);
+
+            var cname=document.getElementById("cname");
+            var caddress=document.getElementById("caddress");
+            var ccity=document.getElementById("ccity");
+            var uemail=document.getElementById("uemail");
+            var uname=document.getElementById("uname");
+            var psw=document.getElementById("psw");
+            var psw2=document.getElementById("psw2");
+            var inputs=[cname,caddress,ccity,uemail,cname,psw,psw2];
+            console.log(inputs);
+            RegCBtnOK=document.getElementById("okRegCompany");
+            RegCBtnOK.addEventListener("click",checkValidRegCInput); 
+            
+            // ("click", function(){
+            //     some_function(someVar);
+            // }, false);
             openModalf();
             }
             
@@ -171,6 +199,20 @@ window.onload=function(){
     function openModalf(){
         document.getElementById("modal-test").style.display="block";
     }
+
+    function checkValidRegCInput(){
+        inputs=[cname,caddress,ccity,uemail,uname,psw,psw2];
+        var i;
+        for(i=0;i<inputs.length;i++){
+            if(inputs[i].value==""){
+                inputs[i].className="errInput";
+            }
+            else{
+                inputs[i].className="";
+            }
+        }
+
+            }
 //#endregion
    
 function showAboutUsInfo() {
