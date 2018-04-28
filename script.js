@@ -1,36 +1,36 @@
 
-window.onload=function(){
+window.onload = function () {
 
     //#region buttons
-    var regBtn=document.getElementById("registerBtn");
-    var regContainer=document.getElementById("registerContainer");
-    var logInBtn=document.getElementById("logInBtn");
-    var logInContainer=document.getElementById("logInContainer");
-    var aboutBtn=document.getElementById("aboutBtn");
-    var companyBtn=document.getElementById("companyBtn");
-    var studentBtn=document.getElementById("studentBtn");
-    var companyRegBtn=document.getElementById("companyRegBtn");
-    var studentRegBtn=document.getElementById("studentRegBtn");
-    var companyLoginBtn=document.getElementById("companyLoginBtn");
-    var studentLoginBtn=document.getElementById("studentLoginBtn");
+    var regBtn = document.getElementById("registerBtn");
+    var regContainer = document.getElementById("registerContainer");
+    var logInBtn = document.getElementById("logInBtn");
+    var logInContainer = document.getElementById("logInContainer");
+    var aboutBtn = document.getElementById("aboutBtn");
+    var companyBtn = document.getElementById("companyBtn");
+    var studentBtn = document.getElementById("studentBtn");
+    var companyRegBtn = document.getElementById("companyRegBtn");
+    var studentRegBtn = document.getElementById("studentRegBtn");
+    var companyLoginBtn = document.getElementById("companyLoginBtn");
+    var studentLoginBtn = document.getElementById("studentLoginBtn");
 
     //buttons that don't exist on load
-    var closeModal;  
+    var closeModal;
     var RegCBtnOK;
     var RegSBtnOK;
     var logginCBtnOK;
-    var logginSBtnOK;  
+    var logginSBtnOK;
     //#endregion
-   
+
     //#region eventlisteners
     regBtn.addEventListener("mouseover", dropRegister);
     regBtn.addEventListener("mouseleave", hideRegister);
     regContainer.addEventListener("mouseover", dropRegister);
     regContainer.addEventListener("mouseleave", hideRegister);
-    companyRegBtn.addEventListener("click",openRegisterCompanyModal);
-    studentRegBtn.addEventListener("click",openRegisterStudentModal);  
-    companyLoginBtn.addEventListener("click",openLoginCompanyModal);
-    studentLoginBtn.addEventListener("click",openLoginStudentModal);
+    companyRegBtn.addEventListener("click", openRegisterCompanyModal);
+    studentRegBtn.addEventListener("click", openRegisterStudentModal);
+    companyLoginBtn.addEventListener("click", openLoginCompanyModal);
+    studentLoginBtn.addEventListener("click", openLoginStudentModal);
     logInBtn.addEventListener("mouseover", dropLogIn);
     logInBtn.addEventListener("mouseleave", hideLogIn);
     logInContainer.addEventListener("mouseover", dropLogIn);
@@ -41,211 +41,238 @@ window.onload=function(){
 
     //#endregion
     //#region functions drop-down registers
-    function dropRegister(){
-        document.getElementById("registerContainer").style.display="block";
+    function dropRegister() {
+        document.getElementById("registerContainer").style.display = "block";
     }
-    
-    function hideRegister(){
-        document.getElementById("registerContainer").style.display="none";	
+
+    function hideRegister() {
+        document.getElementById("registerContainer").style.display = "none";
     }
-    
-    function dropLogIn(){
-            document.getElementById("logInContainer").style.display="block";
+
+    function dropLogIn() {
+        document.getElementById("logInContainer").style.display = "block";
     }
-    
-    function hideLogIn(){
-            document.getElementById("logInContainer").style.display="none";
+
+    function hideLogIn() {
+        document.getElementById("logInContainer").style.display = "none";
     }
     //#endregion
 
     //#region open fill close Modal
-    
-    function LogInCompany(){
+
+    function LogInCompany() {
         var username = document.getElementById("cName").value;
         var password = document.getElementById("cPsw").value;
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                if(this.response === "false"){
+                if (this.response === "false") {
                     console.log("Fel användarnamn eller lösenord");
-                    document.getElementById("errLogIn").innerHTML="* Fel användarnamn eller lösenord";
-                }else{
+                    document.getElementById("errLogIn").innerHTML = "* Fel användarnamn eller lösenord";
+                } else {
                     console.log("Du är nu inloggad");
                     window.location.replace("Company.html");
                     closeModal();
                 }
             }
         };
-        xhttp.open("GET", "logginComp?username="+username+"&password="+password, true);
+        xhttp.open("GET", "logginComp?username=" + username + "&password=" + password, true);
         xhttp.send();
     }
 
-    function LogInStudent(){
+    function LogInStudent() {
         var username = document.getElementById("sName").value;
         var password = document.getElementById("sPsw").value;
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                if(this.response === "false"){
+                if (this.response === "false") {
                     console.log("Fel användarnamn eller lösenord");
-                    document.getElementById("errLogIn").innerHTML="* Fel användarnamn eller lösenord";
-                }else{
+                    document.getElementById("errLogIn").innerHTML = "* Fel användarnamn eller lösenord";
+                } else {
                     console.log("Du är nu inloggad");
                     window.location.replace("Student.html");
                     closeModal();
                 }
             }
         };
-        xhttp.open("GET", "logginStudent?_user="+username+"&password="+password, true);
+        xhttp.open("GET", "logginStudent?_user=" + username + "&password=" + password, true);
         xhttp.send();
     }
 
     function openLoginCompanyModal() {
-        var xhttp=new XMLHttpRequest();
-        xhttp.onreadystatechange=function(){
-            if(this.readyState==4 && this.status==200){
-                document.getElementById("modal-test").innerHTML=this.response;
-            
-           closeModal=document.getElementById("closeModal");
-           closeModal.addEventListener("click",closeModalf);
-           openModalf();
-           logginCBtnOK=document.getElementById("OKLogInComp");
-           logginCBtnOK.addEventListener("click",LogInCompany);
-         }
-           
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("modal-test").innerHTML = this.response;
+
+                closeModal = document.getElementById("closeModal");
+                closeModal.addEventListener("click", closeModalf);
+                openModalf();
+                logginCBtnOK = document.getElementById("OKLogInComp");
+                logginCBtnOK.addEventListener("click", LogInCompany);
+            }
+
         };
-        xhttp.open("GET","loadLogInComp",true);
+        xhttp.open("GET", "loadLogInComp", true);
         xhttp.send();
     }
     function openLoginStudentModal() {
-        var xhttp=new XMLHttpRequest();
-        xhttp.onreadystatechange=function(){
-            if(this.readyState==4 && this.status==200){
-                document.getElementById("modal-test").innerHTML=this.response;
-            
-           closeModal=document.getElementById("closeModal");
-           closeModal.addEventListener("click",closeModalf);
-           openModalf();
-           logginSBtnOK=document.getElementById("OKLogInStudent");
-           logginSBtnOK.addEventListener("click",LogInStudent);
-         }
-           
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("modal-test").innerHTML = this.response;
+
+                closeModal = document.getElementById("closeModal");
+                closeModal.addEventListener("click", closeModalf);
+                openModalf();
+                logginSBtnOK = document.getElementById("OKLogInStudent");
+                logginSBtnOK.addEventListener("click", LogInStudent);
+            }
+
         };
-        xhttp.open("GET","loadLogInStudent",true);
+        xhttp.open("GET", "loadLogInStudent", true);
         xhttp.send();
     }
     function openRegisterCompanyModal() {
-            var xhttp=new XMLHttpRequest();
-            xhttp.onreadystatechange=function(){
-                if(this.readyState==4 && this.status==200){
-                    document.getElementById("modal-test").innerHTML=this.response;
-                
-            closeModal=document.getElementById("closeModal");
-            closeModal.addEventListener("click",closeModalf);
-            openModalf();
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("modal-test").innerHTML = this.response;
+
+                closeModal = document.getElementById("closeModal");
+                closeModal.addEventListener("click", closeModalf);
+
+                RegCBtnOK = document.getElementById("okRegCompany");
+                RegCBtnOK.addEventListener("click", register_company);
+                openModalf();
             }
-            
-            };
-            xhttp.open("GET","loadRegComp",true);
-            xhttp.send();
+
+        };
+        xhttp.open("GET", "loadRegComp", true);
+        xhttp.send();
+    }
+    function register_company() {
+        console.log("click");
+        var cname = document.getElementById("nameC").value;
+        var cuname = document.getElementById("unameC").value;
+        var psw = document.getElementById("pswC").value;
+        var ccity= document.getElementById("cityC").value;
+        var cemail= document.getElementById("emailC").value;
+        var caddress= document.getElementById("addressC").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.response === "false") {
+                    console.log("Fel");
+                    document.getElementById("modal-test").innerHTML = "* Fel ";
+                } else {
+                    console.log("Du är nu registrerad");
+                    window.location.replace("Company.html");
+                    closeModal();
+                }
+            }
         }
+        xhttp.open("POST", "register_company?cname=" + cname + "&psw=" + psw + "&cuname=" + cuname + "&caddress=" + caddress + "&cemail=" + cemail+ "&ccity=" + ccity, true);
+        xhttp.send();
+    }
     function openRegisterStudentModal() {
         console.log("hej");
-        var xhttp=new XMLHttpRequest();
-        xhttp.onreadystatechange=function(){
-            if(this.readyState==4 && this.status==200){
-                document.getElementById("modal-test").innerHTML=this.response;
-           closeModal=document.getElementById("closeModal");
-           closeModal.addEventListener("click",closeModalf);
-           openModalf();
-         }
-           
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("modal-test").innerHTML = this.response;
+                closeModal = document.getElementById("closeModal");
+                closeModal.addEventListener("click", closeModalf);
+                openModalf();
+            }
+
         };
-        xhttp.open("GET","loadRegStudent",true);
+        xhttp.open("GET", "loadRegStudent", true);
         xhttp.send();
     }
 
-    function closeModalf(){
-        document.getElementById("modal-test").style.display="none";
+    function closeModalf() {
+        document.getElementById("modal-test").style.display = "none";
     }
-    function openModalf(){
-        document.getElementById("modal-test").style.display="block";
+    function openModalf() {
+        document.getElementById("modal-test").style.display = "block";
     }
-//#endregion
-   
-function showAboutUsInfo() {
-        
-        document.getElementById("forStudentsInfo").style.display="none";
-        document.getElementById("forCompaniesInfo").style.display="none";
-    
-        document.getElementById("aboutUsInfo").style.display="block";
+    //#endregion
+
+    function showAboutUsInfo() {
+
+        document.getElementById("forStudentsInfo").style.display = "none";
+        document.getElementById("forCompaniesInfo").style.display = "none";
+
+        document.getElementById("aboutUsInfo").style.display = "block";
     }
-    
+
     function showForCompaniesInfo() {
-         document.getElementById("aboutUsInfo").style.display="none";
-         document.getElementById("forStudentsInfo").style.display="none";
-    
-        document.getElementById("forCompaniesInfo").style.display="block";
+        document.getElementById("aboutUsInfo").style.display = "none";
+        document.getElementById("forStudentsInfo").style.display = "none";
+
+        document.getElementById("forCompaniesInfo").style.display = "block";
     }
-    
+
     function showForStudentsInfo() {
-        document.getElementById("aboutUsInfo").style.display="none";
-        document.getElementById("forCompaniesInfo").style.display="none";
-    
-        document.getElementById("forStudentsInfo").style.display="block";
-         
+        document.getElementById("aboutUsInfo").style.display = "none";
+        document.getElementById("forCompaniesInfo").style.display = "none";
+
+        document.getElementById("forStudentsInfo").style.display = "block";
+
     }
 
 
-    function workAnnouncement(num, rubrik, information){
+    function workAnnouncement(num, rubrik, information) {
         console.log(1);
-        workAnnouncement=document.getElementById("workAnnouncement");
-        
-        for(var i =0; i< num; i++){
-            var outerDiv=document.createElement("div");
-            outerDiv.className="jobs";
+        workAnnouncement = document.getElementById("workAnnouncement");
+
+        for (var i = 0; i < num; i++) {
+            var outerDiv = document.createElement("div");
+            outerDiv.className = "jobs";
             console.log(1);
-        
-            var top=document.createElement("div"); //topbar
-            top.className="adTop";
-            
-            var logo=document.createElement("div");//div med plats för logga
+
+            var top = document.createElement("div"); //topbar
+            top.className = "adTop";
+
+            var logo = document.createElement("div");//div med plats för logga
             //var logga=document.createElement("imgage");//ladda in logga
-            logo.className="adLogo";
-            var header=document.createElement("div");//rubrik
-            header.className="adHeader";
+            logo.className = "adLogo";
+            var header = document.createElement("div");//rubrik
+            header.className = "adHeader";
 
-            var info=document.createElement("p");
-            info.className="adInfo";
-           info.innerHTML=information;//här ska vi hämta info egentligen
-           var newlog=document.createElement("p");
-           newlog.innerHTML="logga";
-            var newh1=document.createElement("h2");
-           newh1.innerHTML=rubrik;//ladda in rubrik
-           var readBtn=document.createElement("button");
-           readBtn.innerHTML="Läs mer";
+            var info = document.createElement("p");
+            info.className = "adInfo";
+            info.innerHTML = information;//här ska vi hämta info egentligen
+            var newlog = document.createElement("p");
+            newlog.innerHTML = "logga";
+            var newh1 = document.createElement("h2");
+            newh1.innerHTML = rubrik;//ladda in rubrik
+            var readBtn = document.createElement("button");
+            readBtn.innerHTML = "Läs mer";
 
-           
-           workAnnouncement.appendChild(outerDiv);
-           outerDiv.appendChild(top);
-           outerDiv.appendChild(info);
-           outerDiv.appendChild(readBtn);
-           readBtn.className="bColorBlue mediumBtn margin25 floatRight darkerBlueOnHov";
-           top.appendChild(logo);
-           top.appendChild(header);
-           logo.appendChild(newlog);
-           header.appendChild(newh1);
 
-           
-       
+            workAnnouncement.appendChild(outerDiv);
+            outerDiv.appendChild(top);
+            outerDiv.appendChild(info);
+            outerDiv.appendChild(readBtn);
+            readBtn.className = "bColorBlue mediumBtn margin25 floatRight darkerBlueOnHov";
+            top.appendChild(logo);
+            top.appendChild(header);
+            logo.appendChild(newlog);
+            header.appendChild(newh1);
+
+
+
         }
 
 
-}     
-    workAnnouncement(3,"Rubrik","vllbalblalb abllablalba lbalbla");
+    }
+    workAnnouncement(3, "Rubrik", "vllbalblalb abllablalba lbalbla");
 
     showAboutUsInfo();
 
 
-    }
+}
 

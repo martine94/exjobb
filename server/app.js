@@ -81,12 +81,12 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
     console.log("company register POST request");
     response = {
         //format: [variabelnamn]:req.body.[inmatningsfönstrets namn]
-        companyName: req.body.cname,
-        companyAddress: req.body.cadress,
-        companyCity: req.body.ccity,
-        companyEmail: req.body.uemail,
-        userName: req.body.uname,
-        password: req.body.psw
+        companyName: req.query["cname"],//req.body.cname,
+        companyAddress: req.query["caddress"],
+        companyCity: req.query["ccity"],
+        companyEmail: req.query["cemail"],
+        userName: req.query["cuname"],//req.body.uname,
+        password: req.query["psw"]//req.body.psw
     };
     console.log(response)
     //Fixa så man kommer dit man ska efter post
@@ -99,7 +99,8 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
                 if(result.code === 11000)
                 {
                     console.log("back");
-                    resp.redirect('back');
+                    //resp.redirect('back');
+                    resp.send("false");
                     //resp.redirect('#');
                     //req.body.uname.value = "Fel användarnamn";
                 }
@@ -108,7 +109,9 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
                 var redirectAddress=serverAddress+'/Company.html';
                 console.log("Success!");
                 console.log(redirectAddress);
-                resp.redirect(303, redirectAddress);
+                //resp.redirect(303, redirectAddress);
+                req.session.user=response; // för session
+                resp.send("true");
             }
         });
     }
@@ -179,16 +182,10 @@ app.post('/login_student', urlEncodedParcer, function (req, resp) {
 app.post('/login_company', urlEncodedParcer, function (req, resp) {
     console.log("student register POST request");
     response = {
-        //format: [variabelnamn]:req.body.[inmatningsfönstrets namn]
         uname: req.body.uname,
         password: req.body.psw
     };
     console.log(response)
-    //Fixa så man kommer dit man ska efter post
-    //resp.end(JSON.stringify(response));
-    //resp.end();
-    
-    //skicka vidare till inloggad eller inte inloggad
 
     Mongo.login("company", response.uname, response.password, function(result){
         
@@ -223,7 +220,8 @@ app.get('/logginComp', urlEncodedParcer, function(req, res){
     console.log("GET /loggin request");
     console.log(req.query);
     console.log("Checking if " + req.query["username"] + " and password " +req.query["password"]+ ".");
-    Mongo.findOne("company", {username: req.query["userName"]}, function(result){
+    Mongo.findOne("company", {userName: req.query["username"]}, function(result){
+        console.log(JSON.stringify(result));
         if(result.length === 0){
             res.send("false");
         }else{
@@ -232,6 +230,7 @@ app.get('/logginComp', urlEncodedParcer, function(req, res){
                 res.send("true");
             }else{
                 res.send("false");
+                console.log(JSON.stringify(result[0].password));
             }
         }
     });
