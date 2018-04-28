@@ -188,6 +188,9 @@ window.onload = function () {
         if(ok===1){
             register_company();
         }
+        else{
+            document.getElementById("errorReg").innerHTML="*Fel input";
+        }
 
         }
     function register_company() {
