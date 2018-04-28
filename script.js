@@ -20,6 +20,17 @@ window.onload = function () {
     var RegSBtnOK;
     var logginCBtnOK;
     var logginSBtnOK;
+    var logginSBtnOK;  
+    
+
+    // var cname;
+    // var caddress;
+    // var ccity;
+    // var uemail;
+    // var uname;
+    // var psw;
+    // var psw2;
+    var inputs;
     //#endregion
 
     //#region eventlisteners
@@ -134,6 +145,7 @@ window.onload = function () {
         xhttp.open("GET", "loadLogInStudent", true);
         xhttp.send();
     }
+
     function openRegisterCompanyModal() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -198,14 +210,34 @@ window.onload = function () {
     function openModalf() {
         document.getElementById("modal-test").style.display = "block";
     }
-    //#endregion
 
-    function showAboutUsInfo() {
+    function checkValidRegCInput(){
+        inputs=[cname,caddress,ccity,uemail,uname,psw,psw2];
+        var i;
+        // var ok=1;
+        for(i=0;i<inputs.length;i++){
+            if(inputs[i].value==""){
+                inputs[i].className="errInput";
+                // ok=0;
+            }
+            else{
+                inputs[i].className="";
+            }
+        }
 
-        document.getElementById("forStudentsInfo").style.display = "none";
-        document.getElementById("forCompaniesInfo").style.display = "none";
+        // if(ok=1){
+        //     //registrera företag
+        // }
 
-        document.getElementById("aboutUsInfo").style.display = "block";
+            }
+//#endregion
+   
+function showAboutUsInfo() {
+        
+        document.getElementById("forStudentsInfo").style.display="none";
+        document.getElementById("forCompaniesInfo").style.display="none";
+    
+        document.getElementById("aboutUsInfo").style.display="block";
     }
 
     function showForCompaniesInfo() {

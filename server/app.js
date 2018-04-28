@@ -99,17 +99,13 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
                 if(result.code === 11000)
                 {
                     console.log("back");
-                    //resp.redirect('back');
                     resp.send("false");
-                    //resp.redirect('#');
-                    //req.body.uname.value = "Fel användarnamn";
                 }
             }
             else{
                 var redirectAddress=serverAddress+'/Company.html';
                 console.log("Success!");
                 console.log(redirectAddress);
-                //resp.redirect(303, redirectAddress);
                 req.session.user=response; // för session
                 resp.send("true");
             }
