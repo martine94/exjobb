@@ -203,14 +203,20 @@ window.onload=function(){
     function checkValidRegCInput(){
         inputs=[cname,caddress,ccity,uemail,uname,psw,psw2];
         var i;
+        // var ok=1;
         for(i=0;i<inputs.length;i++){
             if(inputs[i].value==""){
                 inputs[i].className="errInput";
+                // ok=0;
             }
             else{
                 inputs[i].className="";
             }
         }
+
+        // if(ok=1){
+        //     //registrera företag
+        // }
 
             }
 //#endregion
