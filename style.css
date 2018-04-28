@@ -242,6 +242,7 @@ input:focus{
 
 .errInput{
 	background-color: rgb(212, 131, 142);
+	border:1px solid red;
 	
 }
 

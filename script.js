@@ -156,7 +156,7 @@ window.onload = function () {
                 closeModal.addEventListener("click", closeModalf);
 
                 RegCBtnOK = document.getElementById("okRegCompany");
-                RegCBtnOK.addEventListener("click", register_company);
+                RegCBtnOK.addEventListener("click", checkValidRegCompanyInput);
                 openModalf();
             }
 
@@ -164,6 +164,32 @@ window.onload = function () {
         xhttp.open("GET", "loadRegComp", true);
         xhttp.send();
     }
+    function checkValidRegCompanyInput(){
+        var cname = document.getElementById("nameC");
+        var cuname = document.getElementById("unameC");
+        var psw = document.getElementById("pswC");
+        var ccity= document.getElementById("cityC");
+        var cemail= document.getElementById("emailC");
+        var caddress= document.getElementById("addressC");
+        var psw2=document.getElementById("psw2C");
+        inputs=[cname,caddress,ccity,cemail,cuname,psw,psw2];
+
+        var i;
+        var ok=1;
+        for(i=0;i<inputs.length;i++){
+            if(inputs[i].value==""){
+                inputs[i].className="errInput";
+                ok=0;
+            }
+            else{
+                inputs[i].className="";
+            }
+        }
+        if(ok===1){
+            register_company();
+        }
+
+        }
     function register_company() {
         console.log("click");
         var cname = document.getElementById("nameC").value;
@@ -211,25 +237,7 @@ window.onload = function () {
         document.getElementById("modal-test").style.display = "block";
     }
 
-    function checkValidRegCInput(){
-        inputs=[cname,caddress,ccity,uemail,uname,psw,psw2];
-        var i;
-        // var ok=1;
-        for(i=0;i<inputs.length;i++){
-            if(inputs[i].value==""){
-                inputs[i].className="errInput";
-                // ok=0;
-            }
-            else{
-                inputs[i].className="";
-            }
-        }
-
-        // if(ok=1){
-        //     //registrera företag
-        // }
-
-            }
+  
 //#endregion
    
 function showAboutUsInfo() {
