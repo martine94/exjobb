@@ -80,16 +80,14 @@ app.get('/logout',function(req,resp){
 app.post('/register_company', urlEncodedParcer, function (req, resp) {
     console.log("company register POST request");
     response = {
-        //format: [variabelnamn]:req.body.[inmatningsfönstrets namn]
-        companyName: req.query["cname"],//req.body.cname,
+        companyName: req.query["cname"],
         companyAddress: req.query["caddress"],
         companyCity: req.query["ccity"],
         companyEmail: req.query["cemail"],
-        userName: req.query["cuname"],//req.body.uname,
-        password: req.query["psw"]//req.body.psw
+        userName: req.query["cuname"],
+        password: req.query["psw"]
     };
     console.log(response)
-    //Fixa så man kommer dit man ska efter post
     
     try{
         Mongo.addCompany(response, function(result){
@@ -103,9 +101,9 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
                 }
             }
             else{
-                var redirectAddress=serverAddress+'/Company.html';
+               // var redirectAddress=serverAddress+'/Company.html';
                 console.log("Success!");
-                console.log(redirectAddress);
+                //console.log(redirectAddress);
                 req.session.user=response; // för session
                 resp.send("true");
             }
@@ -121,27 +119,39 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
 
 app.post('/register_student', urlEncodedParcer, function (req, resp) {
     console.log("student register POST request");
-    var ugender = "";
-    console.log(JSON.stringify(req.body.gender_male));
-    if (req.body.gender_male) {
-        ugender = "male";
-    } else {
-        ugender = "female";
-    }
     response = {
-        //format: [variabelnamn]:req.body.[inmatningsfönstrets namn]
-        name: req.body.ufname,
-        lastname: req.body.ulname,
-        city: req.body.ucity,
-        ueducation: req.body.ueducation,
-        uemail: req.body.uemail,
-        uname: req.body.uname,
-        password: req.body.psw,
-        gender: ugender
+        name: req.query["ufname"],
+        lastname: req.query["ulname"],
+        city: req.query["ucity"],
+        ueducation: req.query["uedu"],
+        uemail: req.query["uemail"],
+        uname: req.query["uname"],
+        password: req.query["psw"],
+        gender: req.query["gender"]
     };
     console.log(response)
-    var redirectAddress=serverAddress + '/Student.html';
-    resp.redirect(303, redirectAddress);
+    try{
+        Mongo.addStudent(response, function(result){
+            if(result instanceof Error){
+                console.log("Error!");
+                console.log(result);
+                if(result.code === 11000)
+                {
+                    console.log("back");
+                    resp.send("false");
+                }
+            }
+            else{
+                console.log("Success!");
+                req.session.user=response; // för session
+                resp.send("true");
+            }
+        });
+    }
+    catch(error){
+        console.log("Caught error!");
+        console.log(error.name);
+    }
 });
 
 app.post('/login_student', urlEncodedParcer, function (req, resp) {
@@ -168,11 +178,6 @@ app.post('/login_student', urlEncodedParcer, function (req, resp) {
             console.log("Wrong password or username!");
         }
     });
-
-    //resp.end(JSON.stringify(response));
-    //resp.end();
-
-    //skicka vidare till inloggad eller inte inloggad
 });
 
 app.post('/login_company', urlEncodedParcer, function (req, resp) {
@@ -236,7 +241,7 @@ app.get('/logginComp', urlEncodedParcer, function(req, res){
 app.get('/logginStudent', urlEncodedParcer, function(req, res){
     console.log("GET /loggin request");
     console.log(req.query);
-    Mongo.findOne("student", {_user: req.query["_user"]}, function(result){
+    Mongo.findOne("student", {uname: req.query["_user"]}, function(result){
         if(result.length === 0){
             res.send("false");
         }else{

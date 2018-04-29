@@ -225,11 +225,46 @@ window.onload = function () {
                 document.getElementById("modal-test").innerHTML = this.response;
                 closeModal = document.getElementById("closeModal");
                 closeModal.addEventListener("click", closeModalf);
+
+                RegSBtnOK = document.getElementById("okRegStudent");
+                RegSBtnOK.addEventListener("click", register_student);
                 openModalf();
             }
 
         };
         xhttp.open("GET", "loadRegStudent", true);
+        xhttp.send();
+    }
+    function register_student() {
+        console.log("click");
+        var ufname = document.getElementById("ufnameS").value;
+        var ulname = document.getElementById("ulnameS").value;
+        var ucity = document.getElementById("ucityS").value;
+        var uedu= document.getElementById("ueducationS").value;
+        var uemail= document.getElementById("uemailS").value;
+        var uname= document.getElementById("unameS").value;
+        var psw= document.getElementById("pswS").value;
+        var gender="";
+        if(document.getElementById("maleS").value===1){
+            gender="male";
+        } else{
+            gender="female";
+        }
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.response === "false") {
+                    console.log("Fel");
+                    document.getElementById("modal-test").innerHTML = "* Fel ";
+                } else {
+                    console.log("Du är nu registrerad");
+                    window.location.replace("Student.html");
+                    closeModal();
+                }
+            }
+        }
+        xhttp.open("POST", "register_student?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu + "&uemail=" + uemail+ "&uname=" + uname + "&psw=" + psw + "&gender=" + gender, true);
         xhttp.send();
     }
 

@@ -77,6 +77,29 @@ module.exports = {
         }
       });
     });
+},
+
+addStudent: function(student, callback)
+  {
+    MongoClient.connect(url, function(err, db) {
+      if (err) callback(err);
+      var dbo = db.db("db");
+
+      dbo.collection("student").ensureIndex({uname: 1}, {unique : true});
+
+      dbo.collection("student").insertOne(student, function(err, res) {
+        if (err) {
+          db.close();
+          console.log(JSON.stringify(student));
+          callback(err);
+        }
+        else{
+          console.log("Number of documents inserted: " + res.insertedCount);
+          db.close();
+          callback(res);
+        }
+      });
+    });
 }
 
 };
