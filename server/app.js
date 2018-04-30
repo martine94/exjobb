@@ -112,9 +112,7 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
                 }
             }
             else{
-               // var redirectAddress=serverAddress+'/Company.html';
                 console.log("Success!");
-                //console.log(redirectAddress);
                 req.session.user=response; // för session
                 resp.send("true");
             }
@@ -124,8 +122,6 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
         console.log("Caught error!");
         console.log(error.name);
     }
-    
-    //resp.end(JSON.stringify(response));
 });
 
 app.post('/register_student', urlEncodedParcer, function (req, resp) {
@@ -258,6 +254,7 @@ app.get('/logginStudent', urlEncodedParcer, function(req, res){
         }else{
             if(result[0].password === req.query["password"])
             {
+                req.session.user=result[0];
                 res.send("true");
             }else{
                 res.send("false");

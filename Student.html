@@ -6,11 +6,12 @@
     <title>Skynet matchmakers|Student pages</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="student.js"></script>
+    <script type="text/javascript" src="studentUser.js"></script>
 </head>
 
 <body>
     <div class="topbar">
-        
+
         <div class="logo" onclick="location.href='index.html';">
             <b>SKYNET</b>
         </div>
@@ -41,6 +42,23 @@
         <label for="Education">utbildning</label>
         <br>
     </div>
+    <div id="userData">
+        <div id="idS">
+            <a>ID: </a>
+        </div>
+        <div id="ufnameS">
+            <a>Name: </a>
+        </div>
+        <div id="ulnameS">
+            <a>Efternamt: </a>
+        </div>
+        <div id="eduS">
+            <a>Utbildning: </a>
+        </div>
+        <div id="emailS">
+            <a>Email: </a>
+        </div>
+    </div>
     <br>
     <div>
         <label>Kompetenser</label>
@@ -61,20 +79,20 @@
                     <input type="text" placeholder="Ämne" name="Subject" id="Subject" required>
                     <br>
                     <div id="KeyWordStack">
-                            <button type="button" data-toggle="collapse" data-target="nyckelord">Nyckelord</button>
-                            <div id="nyckelord" class="collapse">
-                                <input type="checkbox" id="C">
-                                <label for="C">C</label>
-                                <input type="checkbox" id="C++">
-                                <label for="C++">C++</label>
-                                <input type="checkbox" id="C#">
-                                <label for="C#">C#</label>
-                                <input type="checkbox" id="Java">
-                                <label for="Java">Java</label>
-                                <input type="checkbox" id="Javascript">
-                                <label for="Javascript">Javascript</label>
-                                <input type="checkbox" id="Assembly">
-                                <label for="Assembly">Assembly</label>
+                        <button type="button" data-toggle="collapse" data-target="nyckelord">Nyckelord</button>
+                        <div id="nyckelord" class="collapse">
+                            <input type="checkbox" id="C">
+                            <label for="C">C</label>
+                            <input type="checkbox" id="C++">
+                            <label for="C++">C++</label>
+                            <input type="checkbox" id="C#">
+                            <label for="C#">C#</label>
+                            <input type="checkbox" id="Java">
+                            <label for="Java">Java</label>
+                            <input type="checkbox" id="Javascript">
+                            <label for="Javascript">Javascript</label>
+                            <input type="checkbox" id="Assembly">
+                            <label for="Assembly">Assembly</label>
                         </div>
                         <div>
                             <input type="checkbox" id="VHDL">
