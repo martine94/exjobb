@@ -31,5 +31,31 @@ window.onload=function(){
         xhttp.open("GET","userData",true)
         xhttp.send();
     }
-    listUserData();
+    function listUserDataFromDB(){
+        var xhttp=new XMLHttpRequest();
+        xhttp.onreadystatechange=function(res){
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                removeBrace = this.responseText.replace(/[\[\]']+/g, "");
+                var obj=JSON.parse(removeBrace);
+                var user={
+                    id: obj._id,
+                    name: obj.name,
+                    ulname: obj.lastname,
+                    edu: obj.ueducation,
+                    email: obj.uemail,
+                    pw: obj.password
+                }
+                document.getElementById("idS").innerHTML += user.id;
+                document.getElementById("ufnameS").innerHTML += user.name;
+                document.getElementById("ulnameS").innerHTML += user.ulname;
+                document.getElementById("eduS").innerHTML += user.edu;
+                document.getElementById("emailS").innerHTML += user.email;
+            }
+        };
+        xhttp.open("GET","userDataFromDBStudent",true)
+        xhttp.send();
+    }
+    //listUserData();
+    listUserDataFromDB();
 }
