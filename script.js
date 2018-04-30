@@ -298,7 +298,16 @@ window.onload = function () {
                document.getElementById("option-page-content").innerHTML = this.response;
                 document.getElementById("aboutUsInfo").style.display="block";
                 work_Announcement=document.getElementById("workAnnouncement");
-                workAnnouncements(3, "Rubrik", "vllbalblalb abllablalba lbalbla");
+
+                var logos=["https://vignette.wikia.nocookie.net/logopedia/images/c/c4/Saab_logo.png/revision/latest?cb=20110725204741",
+                "https://informedinfrastructure.com/wp-content/uploads/2017/03/atlascorp-e1493039342950.png"];
+                var jobb=
+                [["https://vignette.wikia.nocookie.net/logopedia/images/c/c4/Saab_logo.png/revision/latest?cb=20110725204741",
+                "SAAB", "Är du i början av din karriär och söker efter spännande karriärmöjligheter? Vill du utveckla och bredda dina kunskaper i mjukvaruutveckling i ett ledande och storslaget företag? Tag då chansen att bli en del av Saab och utveckla Cockpit i Gripen E!Om företagetSaab är ett globalt försvars- och säkerhetsföretag verksamt inom flyg-, land- och marinförsvar, civil säkerhet och kommersiell flygteknik."],
+            ["https://informedinfrastructure.com/wp-content/uploads/2017/03/atlascorp-e1493039342950.png","Atlas Copco","Är du utvecklaren med förkärlek för stora maskiner och avancerad teknik? Hos Epiroc har du då möjlighet att leva ut dina intressen till fullo när de nu söker utvecklare till deras nya avdelning Platform Development, avdelningen där man jobbar med att synka en fungerande plattform för samtliga Epirocs maskiner. "]
+            ];
+                workAnnouncements(2,jobb);
+                // workAnnouncements2(3, "Rubrik", "vllbalblalb abllablalba lbalbla");
             }
         };
         xhttp.open("GET", "loadAboutUs", true);
@@ -330,8 +339,55 @@ window.onload = function () {
 
     }
 
+    function workAnnouncements(num, jobb) {
+        console.log(jobb);
+        workAnnouncement = work_Announcement;
 
-    function workAnnouncements(num, rubrik, information) {
+        for (var i = 0; i < num; i++) {
+            
+            var outerDiv = document.createElement("div");
+            outerDiv.className = "jobs";
+
+            var top = document.createElement("div"); //topbar
+            top.className = "adTop";
+
+            //var logo = document.createElement("div");//div med plats för logga
+            var logo=document.createElement("img");//ladda in logga
+            
+            logo.className = "adLogo";
+            var header = document.createElement("div");//rubrik
+            header.className = "adHeader";
+
+            var info = document.createElement("div");
+            info.className = "adInfo";
+           
+            var newlog = document.createElement("p");
+            newlog.innerHTML = "logga";
+            var newh1 = document.createElement("h2");
+           
+            var readBtn = document.createElement("button");
+            readBtn.innerHTML = "Läs mer";
+
+
+            workAnnouncement.appendChild(outerDiv);
+            outerDiv.appendChild(top);
+            outerDiv.appendChild(info);
+            outerDiv.appendChild(readBtn);
+            readBtn.className = "bColorBlue mediumBtn margin25 floatRight darkerBlueOnHov";
+            top.appendChild(logo);
+            top.appendChild(header);
+            logo.appendChild(newlog);
+            header.appendChild(newh1);
+             
+            logo.src=jobb[i][0]; //ladda in logga
+            newh1.innerHTML = jobb[i][1];//ladda in rubrik
+            info.innerHTML = jobb[i][2];//här ska vi hämta info egentligen
+            
+        }
+
+
+    }
+    function workAnnouncements2(num, rubrik, information) {
         console.log(1);
         workAnnouncement = work_Announcement;
 
