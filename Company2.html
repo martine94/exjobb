@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="utf-8">
+        <title>Skynet matchmakers|Company pages</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="Company.js"></script>
+        <script type="text/javascript" src="companyUser.js"></script>
+
+</head>
+
+<body>
+        <div class="topbar">
+                <div class="logo">
+                        SKYNET
+                </div>
+                <div class="navMenu">
+                        <div>
+                                <button id="logOutCompanyBtn" class="menuBtn"> Namn: </button>
+                                <!-- <label id="companyName">Inloggad som:</label> -->
+                        </div>
+                </div>
+
+        </div>
+
+
+
+        <div class="bannerCompany">
+        </div>
+        <div class="lowNavMenu bColorBlue">
+                <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="ad">Lägg till annons</button>
+                <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="offers">Aktiva erbjudanden</button>
+                <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="profile">Redigera profil</button>
+        </div>
+        <form>
+                <div id="CompanyAds" class="modal">
+                        <div class="modal-content">
+                                <span id="closeCompAds" class="close">&times;</span>
+
+                                <div class="modalLogInContainer" .bColorBlue>
+                                        <label for="Headline" class="containerOfKeyWords2">Titel ex-jobb:</label><br><br>
+                                        <input type="text" placeholder="Titel" name="Headline" id="Headline" required><br><br>
+                                        <label for="Subject" class="containerOfKeyWords2">Beskrivning av ex-jobb:</label><br><br>
+                                        <textarea cols = "130" rows="10" type="text" placeholder="Ämne" name="Subject" id="Subject" required></textarea>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <hr>
+                                        <div id="KeyWordStack" class="KeyWordStack">
+                                                <button type="button" class="containerOfKeyWords2">NYCKELORD</button>
+                                                <button type="button" id="ProgrammingLanguageBtn" class="containerOfKeyWords">Programmeringsspråk</button>
+                                                <div id="ProgrammingLanguage" class="content">
+                                                        <input type="checkbox" id="C">
+                                                        <label for="C">C</label>
+                                                        <hr>
+                                                        <input type="checkbox" id="C#">
+                                                        <label for="C#">C#</label>
+                                                        <hr>
+                                                        <input type="checkbox" id="C++">
+                                                        <label for="C++">C++</label>
+                                                        <hr>
+                                                        <input type="checkbox" id="Java">
+                                                        <label for="Java">Java</label>
+                                                        <hr>
+                                                        <input type="checkbox" id="Javascript">
+                                                        <label for="Javascript">Javascript</label>
+                                                        <hr>
+                                                        <input type="checkbox" id="Python">
+                                                        <label for="Python">Java</label>
+                                                        <hr>
+                                                </div>
+                                                <button id="TypeBtn" type="button" class="containerOfKeyWords">Typ</button>
+                                                <div id="Types" class="content">
+                                                        <hr>
+                                                        <input type="checkbox" id="Hårdvara">
+                                                        <label for="Hårdvara">Hårdvara</label>
+                                                        <hr>
+                                                        <input type="checkbox" id="Mjukvara">
+                                                        <label for="Mjukvara">Mjukvara</label>
+                                                        <hr>
+                                                </div>
+                                                <button id="OperationSystemBtn" type="button" class="containerOfKeyWords">Operativsystem</button>
+                                                <div id="operationsystems" class="content">
+                                                        <input type="checkbox" id="Linux">
+                                                        <label for="Linux">Linux</label>
+                                                        <hr>
+                                                        <input type="checkbox" id="Windows">
+                                                        <label for="Windows">Windows</label>
+                                                        <hr>
+                                                </div>
+                                                <button id="RestBtn" type="button" class="containerOfKeyWords">Övrigt</button>
+                                                <div id="TheRest" class="content">
+                                                        <input type="checkbox" id="Dokumentation">
+                                                        <label for="Dokumentation">Dokumentation</label>
+                                                        <hr>
+                                                </div>
+
+                                        </div>
+
+                                        <!--<button class="submitBtn bColorBlue darkerBlueOnHov" type="button">Tillagda nyckelord</button>!-->
+
+
+
+                                        <!-- <label class="containerOfKeyWords">Tillagda nyckelord</label> 
+                                        <div id="KeyWordList" class="containerOfKeyWords"> 
+
+                                        </div> !-->
+                                        <button class="submitBtn" type="button" id="addProj">Lägg till Examensarbete</button>
+                                </div>
+                        </div>
+                </div>
+        </form>
+        <div id="userData">
+                <div id="cId">
+                        <a>ID: </a>
+                </div>
+                <div id="cName">
+                        <a>Name: </a>
+                </div>
+                <div id="cCity">
+                        <a>City: </a>
+                </div>
+                <div id="cAddress">
+                        <a>Address: </a>
+                </div>
+                <div id="cEmail">
+                        <a>Email: </a>
+                </div>
+        </div>
+</body>
+
+</html>
