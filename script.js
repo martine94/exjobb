@@ -22,15 +22,7 @@ window.onload = function () {
     var logginSBtnOK;
     var logginSBtnOK;  
     var work_Announcement;
-    
 
-    // var cname;
-    // var caddress;
-    // var ccity;
-    // var uemail;
-    // var uname;
-    // var psw;
-    // var psw2;
     var inputs;
     //#endregion
 
@@ -278,8 +270,8 @@ window.onload = function () {
 
   
 //#endregion
-   
-function showAboutUsInfo() {
+   //#region page-Content
+    function showAboutUsInfo() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -364,8 +356,7 @@ function showAboutUsInfo() {
 
 
     }
-    // workAnnouncement(3, "Rubrik", "vllbalblalb abllablalba lbalbla");
-
+    //#endregion
     showAboutUsInfo();
 
 
