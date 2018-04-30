@@ -205,7 +205,8 @@ img {
 
 .information {
     display: none; 
-    padding:25px 150px 25px 150px; 
+	/* padding:25px 350px 25px 350px;  */
+	padding: 3% 20% 3% 20%;
     color:rgb(43, 42, 42);
 }
 
