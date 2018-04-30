@@ -2,85 +2,112 @@
 <html lang="en">
 
 <head>
-        <meta charset="utf-8">
-        <title>Skynet matchmakers|Student pages</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <script type="text/javascript" src="student.js"></script>
+    <meta charset="utf-8">
+    <title>Skynet matchmakers|Student pages</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="student.js"></script>
 </head>
 
 <body>
-        <div class="topbar">
-                <div class="logo">
-                        SKYNET
-                </div>
-                <div class="navMenu">
-                        <div>
-                                <button id="logOutStudentBtn" class="menuBtn"> Namn: </button>
-                                <!-- <label id="studentName">Inloggad som:</label> -->
-                        </div>
-                </div>
+    <div class="topbar">
+        
+        <div class="logo" onclick="location.href='index.html';">
+            <b>SKYNET</b>
         </div>
+        <div class="navMenu">
+            <div>
+                <button id="logOutStudentBtn" class="menuBtn"> Namn: </button>
+                <!-- <label id="studentName">Inloggad som:</label> -->
+            </div>
+        </div>
+    </div>
 
 
 
-        <div class="bannerStudent">
-        </div>
-        <div class="lowNavMenu bColorBlue">
-                <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="interests">Mina intresseanmälningar</button>
-                <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="edit">Redigera information</button>
-                <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="recomended">Rekomenderade jobb</button>
-        </div>
-        <div class="studentTextBorder bColorGrey">Användarinformation
-        </div>
-        <div id="StudentInformation" class="StudentInformation">
-            <label for="FirstName">Namn</label> <br>   
-            <label for="LastName">Efternamn</label><br>
-            <label for="Education">utbildning</label><br>
-        </div>
+    <div class="bannerStudent">
+    </div>
+    <div class="lowNavMenu bColorBlue">
+        <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="interests">Mina intresseanmälningar</button>
+        <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="edit">Redigera information</button>
+        <button class="menuBtn bColorBlue darkerBlueOnHov" type="submit" id="recomended">Rekomenderade jobb</button>
+    </div>
+    <div class="studentTextBorder bColorGrey">Användarinformation
+    </div>
+    <div id="StudentInformation" class="StudentInformation">
+        <label for="FirstName">Namn</label>
         <br>
-        <div>
+        <label for="LastName">Efternamn</label>
+        <br>
+        <label for="Education">utbildning</label>
+        <br>
+    </div>
+    <br>
+    <div>
         <label>Kompetenser</label>
         <button class="StudentInfoButton">Lägg till nya kompetenser</button>
-        </div>
-        </div>
-        </div>
-        </div>
-        <form>
-                <div id="editInfo" class="modal">
-                        <div class="modal-content">
-                                <span id="CloseEdit" class="close">&times;</span>
+    </div>
+    </div>
+    </div>
+    </div>
+    <form>
+        <div id="editInfo" class="modal">
+            <div class="modal-content">
+                <span id="CloseEdit" class="close">&times;</span>
 
-                                <div class="modalLogInContainer" .bColorBlue>
-                                        <label for="Headline">Titel ex-jobb:</label>
-                                        <input type="text" placeholder="" name="Headline" id="Headline" required>
-                                        <label for="Subject">Beskrivning av ex-jobb:</label>
-                                        <input type="text" placeholder="Ämne" name="Subject" id="Subject" required>
-                                        <br>
-                                        <div id="KeyWordStack">
-                                                <div id="KeyWord1" class="floating-box2">C#</div>
-                                                <div id="KeyWord2" class="floating-box2">C</div>
-                                                <div id="KeyWord3" class="floating-box2">C++</div>
-                                                <div id="KeyWord4" class="floating-box2">Python</div>
-                                                <div id="KeyWord5" class="floating-box2">Hårdvara</div>
-                                                <div id="KeyWord6" class="floating-box2">Mjukvara</div>
-                                                <div id="KeyWord7" class="floating-box2">Javascript</div>
-                                                <div id="KeyWord8" class="floating-box2">Java</div>
-                                                <div id="KeyWord9" class="floating-box2">Dokumentation</div>
-
-                                        </div>
-
-                                        <button class="submitBtn bColorBlue darkerBlueOnHov" type="button">Lägg till Examensarbete</button>
-
-                                        
-                                        <label class="bColorBlue">Intresseinformation</label>
-                                        <div id="KeyWordList" class="modalLogInContainer">
-
-                                        </div>
-                                        <button class="submitBtn" type="button" id = "addProj">Lägg till Examensarbete</button>
-                                </div>
+                <div class="modalLogInContainer" .bColorBlue>
+                    <label for="Headline">Titel ex-jobb:</label>
+                    <input type="text" placeholder="" name="Headline" id="Headline" required>
+                    <label for="Subject">Beskrivning av ex-jobb:</label>
+                    <input type="text" placeholder="Ämne" name="Subject" id="Subject" required>
+                    <br>
+                    <div id="KeyWordStack">
+                            <button type="button" data-toggle="collapse" data-target="nyckelord">Nyckelord</button>
+                            <div id="nyckelord" class="collapse">
+                                <input type="checkbox" id="C">
+                                <label for="C">C</label>
+                                <input type="checkbox" id="C++">
+                                <label for="C++">C++</label>
+                                <input type="checkbox" id="C#">
+                                <label for="C#">C#</label>
+                                <input type="checkbox" id="Java">
+                                <label for="Java">Java</label>
+                                <input type="checkbox" id="Javascript">
+                                <label for="Javascript">Javascript</label>
+                                <input type="checkbox" id="Assembly">
+                                <label for="Assembly">Assembly</label>
                         </div>
+                        <div>
+                            <input type="checkbox" id="VHDL">
+                            <label for="VHDL">VHDL</label>
+                            <input type="checkbox" id="Python">
+                            <label for="Python">Python</label>
+                            <input type="checkbox" id="C1">
+                            <label for="C1">DETTA ÄR ETT TEST</label>
+                            <input type="checkbox" id="C1">
+                            <label for="C1">DETTA ÄR ETT TEST</label>
+                            <input type="checkbox" id="C1">
+                            <label for="C1">DETTA ÄR ETT TEST</label>
+                            <input type="checkbox" id="C1">
+                            <label for="C1">DETTA ÄR ETT TEST</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="C1">
+                            <label for="C1">DETTA ÄR ETT TEST</label>
+                        </div>
+                    </div>
+
+                    <button class="submitBtn bColorBlue darkerBlueOnHov" type="button">Lägg till Examensarbete</button>
+
+
+                    <label class="bColorBlue">Intresseinformation</label>
+                    <div id="KeyWordList" class="modalLogInContainer">
+
+                    </div>
+                    <button class="submitBtn" type="button" id="addProj">Lägg till Examensarbete</button>
                 </div>
-        </form>
+            </div>
+        </div>
+    </form>
 </body>
 
 </html>
