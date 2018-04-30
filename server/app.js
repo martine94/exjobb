@@ -32,13 +32,24 @@ app.get('/loadRegStudent', function(req,res){
     res.sendFile(path.join(__dirname, '../', '/regStudent.html'));
 });
 app.get('/loadLogInStudent', function(req,res){
-    console.log("Get /reglogStud request");
+    console.log("Get /logStud request");
     res.sendFile(path.join(__dirname, '../', '/logInStudent.html'));
 });
 app.get('/loadLogInComp', function(req,res){
-    console.log("Get /reglogComp request");
+    console.log("Get /logComp request");
     res.sendFile(path.join(__dirname, '../', '/logInComp.html'));
 });
+
+app.get('/loadAboutUs', function(req,res){
+    res.sendFile(path.join(__dirname, '../', '/about.html'));
+});
+app.get('/loadForCompanies', function(req,res){
+    res.sendFile(path.join(__dirname, '../', '/forCompanies.html'));
+});
+app.get('/loadForStudents', function(req,res){
+    res.sendFile(path.join(__dirname, '../', '/forStudents.html'));
+});
+
 
 app.get('/app_get', function (req, resp, next) {
     console.log("GET request");

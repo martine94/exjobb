@@ -21,6 +21,7 @@ window.onload = function () {
     var logginCBtnOK;
     var logginSBtnOK;
     var logginSBtnOK;  
+    var work_Announcement;
     
 
     // var cname;
@@ -279,32 +280,48 @@ window.onload = function () {
 //#endregion
    
 function showAboutUsInfo() {
-        
-        document.getElementById("forStudentsInfo").style.display="none";
-        document.getElementById("forCompaniesInfo").style.display="none";
-    
-        document.getElementById("aboutUsInfo").style.display="block";
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+               document.getElementById("option-page-content").innerHTML = this.response;
+                document.getElementById("aboutUsInfo").style.display="block";
+                work_Announcement=document.getElementById("workAnnouncement");
+                workAnnouncements(3, "Rubrik", "vllbalblalb abllablalba lbalbla");
+            }
+        };
+        xhttp.open("GET", "loadAboutUs", true);
+        xhttp.send();
     }
 
     function showForCompaniesInfo() {
-        document.getElementById("aboutUsInfo").style.display = "none";
-        document.getElementById("forStudentsInfo").style.display = "none";
-
-        document.getElementById("forCompaniesInfo").style.display = "block";
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+               document.getElementById("option-page-content").innerHTML = this.response;
+               document.getElementById("forCompaniesInfo").style.display = "block";
+            }
+        };
+        xhttp.open("GET", "loadForCompanies", true);
+        xhttp.send();
     }
 
     function showForStudentsInfo() {
-        document.getElementById("aboutUsInfo").style.display = "none";
-        document.getElementById("forCompaniesInfo").style.display = "none";
-
-        document.getElementById("forStudentsInfo").style.display = "block";
+       var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+               document.getElementById("option-page-content").innerHTML = this.response;
+               document.getElementById("forStudentsInfo").style.display = "block";
+            }
+        };
+        xhttp.open("GET", "loadForStudents", true);
+        xhttp.send();
 
     }
 
 
-    function workAnnouncement(num, rubrik, information) {
+    function workAnnouncements(num, rubrik, information) {
         console.log(1);
-        workAnnouncement = document.getElementById("workAnnouncement");
+        workAnnouncement = work_Announcement;
 
         for (var i = 0; i < num; i++) {
             var outerDiv = document.createElement("div");
@@ -347,7 +364,7 @@ function showAboutUsInfo() {
 
 
     }
-    workAnnouncement(3, "Rubrik", "vllbalblalb abllablalba lbalbla");
+    // workAnnouncement(3, "Rubrik", "vllbalblalb abllablalba lbalbla");
 
     showAboutUsInfo();
 
