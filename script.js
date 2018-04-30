@@ -1,6 +1,5 @@
 
 window.onload = function () {
-    // var x=event.keycode;
     //#region buttons
     var regBtn = document.getElementById("registerBtn");
     var regContainer = document.getElementById("registerContainer");
@@ -15,7 +14,7 @@ window.onload = function () {
     var studentLoginBtn = document.getElementById("studentLoginBtn");
     var searchInput = document.getElementById("searchInput");
 
-    //buttons that don't exist on load
+    //#region buttons that don't exist on load
     var closeModal;
     var RegCBtnOK;
     var RegSBtnOK;
@@ -23,7 +22,6 @@ window.onload = function () {
     var logginSBtnOK;
     var logginSBtnOK;  
     var work_Announcement;
-
     var inputs;
     //#endregion
 
@@ -56,7 +54,7 @@ window.onload = function () {
         var b=document.getElementById("option-page-content");
         b.innerHTML="";
         b.appendChild(a);
-        
+
         a.innerHTML="Tyvärr har vi inga examensjobb som matchar din sökning för tilfället! "+'<br>'+'<br>'+
         "Men registra gärna ett konto för att lättare hålla koll på när det kommer ut ett arbete som matchar dina kriterier.";
   
@@ -291,7 +289,8 @@ window.onload = function () {
 
   
 //#endregion
-   //#region page-Content
+  
+    //#region page-Content
     function showAboutUsInfo() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -378,6 +377,7 @@ window.onload = function () {
 
     }
     //#endregion
+   
     showAboutUsInfo();
 
 
