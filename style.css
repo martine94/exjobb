@@ -302,6 +302,11 @@ input[type=text],input[type=password]{
 	border-width: 0 0 0.1px;
 	border-color: rgb(0, 0, 0)
 }
+.lowb:focus{
+	outline: 0;
+	border-width: 0 0 1px;
+	border-color: rgb(57, 135, 190);
+}
 .floatLeft{
 	float: left;
 }
