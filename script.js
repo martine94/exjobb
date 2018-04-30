@@ -1,6 +1,6 @@
 
 window.onload = function () {
-
+    // var x=event.keycode;
     //#region buttons
     var regBtn = document.getElementById("registerBtn");
     var regContainer = document.getElementById("registerContainer");
@@ -13,6 +13,7 @@ window.onload = function () {
     var studentRegBtn = document.getElementById("studentRegBtn");
     var companyLoginBtn = document.getElementById("companyLoginBtn");
     var studentLoginBtn = document.getElementById("studentLoginBtn");
+    var searchInput = document.getElementById("searchInput");
 
     //buttons that don't exist on load
     var closeModal;
@@ -43,7 +44,27 @@ window.onload = function () {
     companyBtn.addEventListener("click", showForCompaniesInfo);
     studentBtn.addEventListener("click", showForStudentsInfo);
 
+
     //#endregion
+
+    searchInput.addEventListener("keypress", function(event) {
+        console.log(event.keyCode);
+        if (event.keyCode == 13){
+            //sök efter jobb
+        var a=document.createElement("div");
+        a.className="information";      
+        var b=document.getElementById("option-page-content");
+        b.innerHTML="";
+        b.appendChild(a);
+        
+        a.innerHTML="Tyvärr har vi inga examensjobb som matchar din sökning för tilfället! "+'<br>'+'<br>'+
+        "Men registra gärna ett konto för att lättare hålla koll på när det kommer ut ett arbete som matchar dina kriterier.";
+  
+
+        }
+
+    });
+
     //#region functions drop-down registers
     function dropRegister() {
         document.getElementById("registerContainer").style.display = "block";

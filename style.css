@@ -80,11 +80,13 @@ img {
 .logo{
 	color:#FFFFFF;
 	padding: 10pt 0pt 5pt 60pt;
+	margin: 0 0 0 50%;
+	/* padding: 1% 0 0 10%; */
 	
 	font-size: 1.30em;
 	font-weight: bold;
 	margin-top: auto;
-	margin-left: 10px;
+	margin-left: 5%;
 	position: fixed;
 	/* background-image: url("resources/Orebro_University_Logo.png"); */
 	background-image: url("https://lms.oru.se/modules/_183_1/DXC_long.svg");
@@ -103,6 +105,7 @@ img {
 	display: inline-flex;
 	justify-content: flex-end;
 	width: 100%;
+	padding-right: 2%;
 	/* height: 50pt; */
 }
 
@@ -154,7 +157,7 @@ img {
 		background-position: center;
 		background-size: 100%;
 	}
-#myInput {
+#searchInput {
 		background-image: url("https://www.shareicon.net/download/2015/10/03/110917_search_512x512.png");
 		background-position: 10px 10px;
 		background-repeat: no-repeat;
@@ -204,7 +207,7 @@ img {
 
 
 .information {
-    display: none; 
+    /* display: none;  */
 	/* padding:25px 350px 25px 350px;  */
 	padding: 3% 20% 3% 20%;
     color:rgb(43, 42, 42);
