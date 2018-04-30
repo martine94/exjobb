@@ -175,7 +175,7 @@ img {
 		 position: absolute;
 		 width:600px;
 		 height:50px;
-		 top: 20%;
+		 margin-top: 7%;
 		 left: 50%;
 		  transform: translate(-50%, -50%);
 		  color:white;
