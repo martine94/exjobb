@@ -8,23 +8,24 @@ window.onload=function(){
                 var split=modString.split(",");
                 var sid=split[0].split(":");
                 var sname=split[1].split(":");
-                var saddress=split[2].split(":");
-                var scity=split[3].split(":");
+                var slname=split[2].split(":");
+                var sedu=split[3].split(":");
                 var semail=split[4].split(":");
-                var spw=split[5].split(":");
+               // var spw=split[5].split(":");
+
                 var user={
                     id: sid[1],
                     name: sname[1],
-                    address: saddress[1],
-                    city: scity[1],
+                    ulname: slname[1],
+                    edu: sedu[1],
                     email: semail[1],
                     pw: spw[1]
                 }
-                document.getElementById("cId").innerHTML += user.id;
-                document.getElementById("cName").innerHTML += user.name;
-                document.getElementById("cCity").innerHTML += user.city;
-                document.getElementById("cAddress").innerHTML += user.address;
-                document.getElementById("cEmail").innerHTML += user.email;
+                document.getElementById("idS").innerHTML += user.id;
+                document.getElementById("ufnameS").innerHTML += user.name;
+                document.getElementById("ulnameS").innerHTML += user.ulname;
+                document.getElementById("eduS").innerHTML += user.edu;
+                document.getElementById("emailS").innerHTML += user.email;
             }
         };
         xhttp.open("GET","userData",true)
