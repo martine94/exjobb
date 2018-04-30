@@ -238,7 +238,7 @@ img {
 	cursor: pointer;
 }
 
-input:focus{
+.widht100:focus{
 	border:none;
 	outline: none;
 	background-color: rgb(233, 231, 231);
@@ -284,14 +284,35 @@ input:focus{
 
 
 input[type=text],input[type=password]{
-	width: 100%;
     padding: 12px 1.25em;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    
     box-sizing: border-box;
 }
+.widht100{
+	width: 100%;border: 0.5px solid #ccc;
+}
+.widht50{
+	width: 50%;
+}
 
+.lowb{
+	outline: 0;
+	border-width: 0 0 0.1px;
+	border-color: rgb(0, 0, 0)
+}
+.floatLeft{
+	float: left;
+}
+.floatLeft{
+	float: right;
+}
+.alignRight{
+	display: inline-block;
+	width: 140px;
+	text-align: right;
+}
 .close {
     color: #aaa;
     float: right;
