@@ -257,7 +257,7 @@ window.onload = function () {
         var uname= document.getElementById("unameS").value;
         var psw= document.getElementById("pswS").value;
         var gender="";
-        if(document.getElementById("maleS").value===1){
+        if(document.getElementById("maleS").checked){
             gender="male";
         } else{
             gender="female";
