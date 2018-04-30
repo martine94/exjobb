@@ -69,6 +69,9 @@ app.get('/loadMySProfile', function(req,res){
 app.get('/loadMyRecomendedJobs', function(req,res){
     res.sendFile(path.join(__dirname, '../', '/myRecomendedJobs.html'));
 });
+app.get('/loadMyInfo', function(req,res){
+    res.sendFile(path.join(__dirname, '../', '/mySInfo.html'));
+});
 
 app.get('/app_get', function (req, resp, next) {
     console.log("GET request");
