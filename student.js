@@ -43,11 +43,11 @@ window.onload = function () {
     
     
         function loadMyProfile(){
-            console.log("je");
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                    document.getElementById("menu-page-content").innerHTML = this.response;
+                   fillEditProfile();
                 }
             };
             xhttp.open("GET", "loadMySProfile", true);
@@ -64,6 +64,32 @@ window.onload = function () {
             xhttp.open("GET", "loadMyRecomendedJobs", true);
             xhttp.send();
         }
+        function fillEditProfile(){
+            console.log("fda");
+            var xhttp=new XMLHttpRequest();
+            xhttp.onreadystatechange=function(res){
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                    removeBrace = this.responseText.replace(/[\[\]']+/g, "");
+                    var obj=JSON.parse(removeBrace);
+                    var user={
+                        id: obj._id,
+                        name: obj.name,
+                        ulname: obj.lastname,
+                        edu: obj.ueducation,
+                        email: obj.uemail,
+                        pw: obj.password
+                    }
+                    document.getElementById("sFName").value += user.name;
+                    document.getElementById("sLName").value += user.ulname;
+                    document.getElementById("sEdu").value += user.edu;
+                    document.getElementById("sEmail").value += user.email;
+                }
+            };
+            xhttp.open("GET","userDataFromDBStudent",true)
+            xhttp.send();
+        }
+
         function listUserDataFromDB(){
             var xhttp=new XMLHttpRequest();
             xhttp.onreadystatechange=function(res){
