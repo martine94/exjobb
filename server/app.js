@@ -50,7 +50,15 @@ app.get('/loadForStudents', function(req,res){
     res.sendFile(path.join(__dirname, '../', '/forStudents.html'));
 });
 
-
+app.get('/loadNewExJob', function(req,res){
+    res.sendFile(path.join(__dirname, '../', '/newExJob.html'));
+});
+app.get('/loadMyCPages', function(req,res){
+    res.sendFile(path.join(__dirname, '../', '/myCompanyPages.html'));
+});
+app.get('/loadmyCOffers', function(req,res){
+    res.sendFile(path.join(__dirname, '../', '/myOffers.html'));
+});
 app.get('/app_get', function (req, resp, next) {
     console.log("GET request");
     resp.send('Nothing to GET');
