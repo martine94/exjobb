@@ -349,7 +349,6 @@ window.onload = function () {
             var top = document.createElement("div"); //topbar
             top.className = "adTop";
 
-            //var logo = document.createElement("div");//div med plats för logga
             var logo=document.createElement("img");//ladda in logga
             
             logo.className = "adLogo";
@@ -368,6 +367,7 @@ window.onload = function () {
 
 
             workAnnouncement.appendChild(outerDiv);
+            workAnnouncement.appendChild(document.createElement("br"));
             outerDiv.appendChild(top);
             outerDiv.appendChild(info);
             outerDiv.appendChild(readBtn);
