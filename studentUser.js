@@ -11,7 +11,7 @@ window.onload=function(){
                 var slname=split[2].split(":");
                 var sedu=split[3].split(":");
                 var semail=split[4].split(":");
-               // var spw=split[5].split(":");
+                var spw=split[5].split(":");
 
                 var user={
                     id: sid[1],
