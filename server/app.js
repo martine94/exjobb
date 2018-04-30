@@ -59,6 +59,17 @@ app.get('/loadMyCPages', function(req,res){
 app.get('/loadmyCOffers', function(req,res){
     res.sendFile(path.join(__dirname, '../', '/myOffers.html'));
 });
+
+app.get('/loadMyInterests', function(req,res){
+    res.sendFile(path.join(__dirname, '../', '/mySJobs.html'));
+});
+app.get('/loadMySProfile', function(req,res){
+    res.sendFile(path.join(__dirname, '../', '/mySProfile.html'));
+});
+app.get('/loadMyRecomendedJobs', function(req,res){
+    res.sendFile(path.join(__dirname, '../', '/myRecomendedJobs.html'));
+});
+
 app.get('/app_get', function (req, resp, next) {
     console.log("GET request");
     resp.send('Nothing to GET');

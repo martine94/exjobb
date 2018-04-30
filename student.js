@@ -1,52 +1,53 @@
-
-window.onload=function(){
-    //buttons
-    var cName=localStorage.getItem("Loginname"); //Detta är för att passa användarnamnet till nästa fönster.
-    var studentInterests = document.getElementById('interests');
-    var studentEdit = document.getElementById('edit');
-    var studentRecomended = document.getElementById('recomended');
-    var CloseEdit = document.getElementById('CloseEdit');
-    var AddKeyWord = document.getElementById('AddKeyWord');
-    //button events
-
-    //company window
-    studentInterests.addEventListener("click", (e)=>goToCompanysize(0));
-    studentEdit.addEventListener("click", (e)=>goToCompanysize(1));
-    studentRecomended.addEventListener("click", (e)=>goToCompanysize(2));
-    CloseEdit.addEventListener("click", ClEd);
-    AddKeyWord.addEventListener("click",addKeyWord);
+window.onload = function () {
     
-    //button functions
+        //#region buttons
+        var interestsBtn=document.getElementById("interestsBtn");
+        var mySPagesBtn=document.getElementById("mySPagesBtn");
+        var recomendedJobBtn=document.getElementById("recomendedJobBtn");
     
-    // When the user clicks on <span> (x), close the modal
-    function goToCompanysize(choice){
-        if(choice=== 0){
-            alert("Intresse");
+        //#endregions
+    
+        //#region eventListeners
+        interestsBtn.addEventListener("click",loadMyInterests);
+        mySPagesBtn.addEventListener("click",loadMyProfile)
+        recomendedJobBtn.addEventListener("click",loadMyRecomendedJobs)
+        //#endregions
+    
+        //#region functions
+        function loadMyInterests(){
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                   document.getElementById("menu-page-content").innerHTML = this.response;
+                }
+            };
+            xhttp.open("GET", "loadMyInterests", true);
+            xhttp.send();
         }
-        else if(choice === 1){
-            document.getElementById("editInfo").style.display="block";
+    
+    
+        function loadMyProfile(){
+            console.log("je");
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                   document.getElementById("menu-page-content").innerHTML = this.response;
+                }
+            };
+            xhttp.open("GET", "loadMySProfile", true);
+            xhttp.send();
         }
-        else if(choice === 2){
-            alert("Rekomenderad");
+
+        function loadMyRecomendedJobs(){
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                   document.getElementById("menu-page-content").innerHTML = this.response;
+                }
+            };
+            xhttp.open("GET", "loadMyRecomendedJobs", true);
+            xhttp.send();
         }
-    }
-
-    function addKeyWord(){
-        var KeyWord=document.getElementById("KeyWords").value;
-        var KeyWordList=document.getElementById("KeyWordList");
-        var floatingBox=document.createElement('div');
-        floatingBox.className="floating-box bColorBlue darkerBlueOnHov";
-        floatingBox.innerHTML=KeyWord;
-        var closeButton = document.createElement('button');
-        closeButton.className = "closeButton";
-        closeButton.innerHTML = "X";
-        KeyWordList.appendChild(floatingBox);
-        floatingBox.appendChild(closeButton);
-    }
-
-    // When the user clicks on <span> (x), close the modal    
-    function ClEd() {
-        document.getElementById("editInfo").style.display="none";
-   }
-
+        //#endregions
+    
     }
