@@ -379,7 +379,7 @@ window.onload = function () {
              
             logo.src=jobb[i][0]; //ladda in logga
             newh1.innerHTML = jobb[i][1];//ladda in rubrik
-            info.innerHTML = jobb[i][2];//här ska vi hämta info egentligen
+            info.innerHTML = jobb[i][2];//ladda in beskrivning
             
         }
 
