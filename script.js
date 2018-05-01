@@ -441,7 +441,7 @@ window.onload = function () {
             logo.src=jobb[i][0]; //ladda in logga
             newh1.innerHTML = jobb[i][1];//ladda in rubrik
             info.innerHTML = jobb[i][2];//ladda in beskrivning
-            readBtn.addEventListener("click",openLoginCompanyModal);
+            readBtn.addEventListener("click",openLoginStudentModal);
             
         }
 
