@@ -195,7 +195,6 @@ window.onload = function () {
                 ok=0;
             }
             else{
-                console.log("fdsaf");
                 inputs[i].className="";
                 inputs[i].className="width100";
             }
@@ -229,8 +228,8 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.response === "false") {
                     console.log("Fel");
-                    document.getElementById("errorReg").innerHTML="*Användarnamnet upptaget!";
-                    cuname="";
+                    document.getElementById("errorReg").innerHTML="*Användarnamnet är upptaget!";
+                    document.getElementById("unameC").value="";
                     // document.getElementById("modal-test").innerHTML = "* Fel ";
                 } else {
                     console.log("Du är nu registrerad");
@@ -243,7 +242,6 @@ window.onload = function () {
         xhttp.send();
     }
     function openRegisterStudentModal() {
-        console.log("hej");
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -252,7 +250,7 @@ window.onload = function () {
                 closeModal.addEventListener("click", closeModalf);
 
                 RegSBtnOK = document.getElementById("okRegStudent");
-                RegSBtnOK.addEventListener("click", register_student);
+                RegSBtnOK.addEventListener("click", checkValidRegStudentInput);
                 openModalf();
             }
 
@@ -260,6 +258,49 @@ window.onload = function () {
         xhttp.open("GET", "loadRegStudent", true);
         xhttp.send();
     }
+    function checkValidRegStudentInput(){
+        var ufname = document.getElementById("ufnameS");
+        var ulname = document.getElementById("ulnameS");
+        var ucity = document.getElementById("ucityS");
+        var uedu= document.getElementById("ueducationS");
+        var uemail= document.getElementById("uemailS");
+        var uname= document.getElementById("unameS");
+        var psw= document.getElementById("pswS");
+
+        inputs=[ufname,ulname,ucity,uedu,uemail,uname,psw];
+
+        var i;
+        var ok=1;
+
+        for(i=0;i<inputs.length;i++){
+            if(inputs[i].value==""){
+                inputs[i].className="width100 errInput";
+                ok=0;
+            }
+            else{
+                inputs[i].className="";
+                inputs[i].className="width100";
+            }
+        }
+        if (ok===0){
+            document.getElementById("errorReg").innerHTML="*Fel input "+"<br/>";
+        }
+        // if(psw.value!=psw2.value){
+        //     document.getElementById("errorReg").innerHTML+=" *Lösenorden stämmer inte överens.";
+        //     psw2.value="";
+        //     ok=0;
+        //     console.log(document.getElementById("errorReg").innerHTML);
+        // }
+
+        if(ok===1){
+            register_student();
+        }
+
+
+        }
+    
+    
+
     function register_student() {
         console.log("click");
         var ufname = document.getElementById("ufnameS").value;
@@ -281,7 +322,8 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.response === "false") {
                     console.log("Fel");
-                    document.getElementById("modal-test").innerHTML = "* Fel ";
+                    document.getElementById("errorReg").innerHTML="*Användarnamnet upptaget!";
+                    document.getElementById("unameS").value="";
                 } else {
                     console.log("Du är nu registrerad");
                     window.location.replace("Student.html");
