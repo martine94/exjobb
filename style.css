@@ -216,13 +216,13 @@ img {
 }
 
 /*hover design*/
+.pointer:hover,
 .showDropDownMenu:hover,
 .cMenuBtn:hover,
 .menuBtn:hover, 
 .mediumBtn:hover
 {
 	cursor: pointer;
-	color:white;
 }
 
 .floating-box:hover{
@@ -394,6 +394,9 @@ input[type=text],input[type=password]{
 	background-color: rgb(250, 250, 250);
 	
 }
+.adInfo{
+	height:40%;
+}
 	
 .companyPage{
 	display: inline-flex;	
@@ -446,6 +449,9 @@ color:  white;
 }
 .bColorBlue{
 	background-color: rgb(74,150,205);
+}
+.bColorDarkBlue{
+	background-color: rgb(57, 135, 190);
 }
 
 .bColorGrey{
