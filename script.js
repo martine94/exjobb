@@ -426,7 +426,7 @@ window.onload = function () {
             outerDiv.appendChild(top);
             outerDiv.appendChild(info);
             outerDiv.appendChild(readBtn);
-            readBtn.className = "bColorBlue mediumBtn margin25 floatRight darkerBlueOnHov";
+            readBtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov";
             top.appendChild(logo);
             top.appendChild(header);
             logo.appendChild(newlog);
