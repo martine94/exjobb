@@ -188,21 +188,32 @@ window.onload = function () {
 
         var i;
         var ok=1;
+
         for(i=0;i<inputs.length;i++){
             if(inputs[i].value==""){
-                inputs[i].className="errInput";
+                inputs[i].className+=" errInput";
                 ok=0;
             }
             else{
+                console.log("fdsaf");
                 inputs[i].className="";
+                inputs[i].className="widht100";
             }
         }
+        if (ok===0){
+            document.getElementById("errorReg").innerHTML="*Fel input "+"<br/>";
+        }
+        if(psw.value!=psw2.value){
+            document.getElementById("errorReg").innerHTML+=" *Lösenorden stämmer inte överens.";
+            psw2.value="";
+            ok=0;
+            console.log(document.getElementById("errorReg").innerHTML);
+        }
+
         if(ok===1){
             register_company();
         }
-        else{
-            document.getElementById("errorReg").innerHTML="*Fel input";
-        }
+
 
         }
     function register_company() {
@@ -218,7 +229,9 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.response === "false") {
                     console.log("Fel");
-                    document.getElementById("modal-test").innerHTML = "* Fel ";
+                    document.getElementById("errorReg").innerHTML="*Användarnamnet upptaget!";
+                    cuname="";
+                    // document.getElementById("modal-test").innerHTML = "* Fel ";
                 } else {
                     console.log("Du är nu registrerad");
                     window.location.replace("Company.html");
