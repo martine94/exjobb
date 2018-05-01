@@ -191,13 +191,13 @@ window.onload = function () {
 
         for(i=0;i<inputs.length;i++){
             if(inputs[i].value==""){
-                inputs[i].className+=" errInput";
+                inputs[i].className="width100 errInput";
                 ok=0;
             }
             else{
                 console.log("fdsaf");
                 inputs[i].className="";
-                inputs[i].className="widht100";
+                inputs[i].className="width100";
             }
         }
         if (ok===0){

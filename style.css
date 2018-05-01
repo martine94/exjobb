@@ -291,10 +291,10 @@ input[type=text],input[type=password]{
     
     box-sizing: border-box;
 }
-.widht100{
+.width100{
 	width: 100%;border: 0.5px solid #ccc;
 }
-.widht50{
+.width50{
 	width: 50%;
 }
 
