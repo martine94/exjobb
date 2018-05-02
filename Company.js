@@ -135,11 +135,11 @@ window.onload = function () {
         }
         else{
             if(show === 0){
-                element.style.width = "275pt";
+                element.style.width = "100%";
                 
             }
             else{
-                element.style.width = "279pt";
+                element.style.width = "101%";
             }
         }
     }
