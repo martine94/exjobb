@@ -5,6 +5,7 @@ window.onload = function () {
     var mySPagesBtn = document.getElementById("mySPagesBtn");
     var recomendedJobBtn = document.getElementById("recomendedJobBtn");
     var mySInfoBtn = document.getElementById("myInfoBtn")
+    var logOutStudentBtn=document.getElementById("logOutStudentBtn");
 
     //#endregions
 
@@ -13,6 +14,7 @@ window.onload = function () {
     mySPagesBtn.addEventListener("click", loadMyProfile)
     recomendedJobBtn.addEventListener("click", loadMyRecomendedJobs)
     mySInfoBtn.addEventListener("click", loadMyInfo)
+    logOutStudentBtn.addEventListener("click",logOut);
     //#endregions
 
     //Buttons, divs and an array for newExJob.html
@@ -30,6 +32,21 @@ window.onload = function () {
     var saveBtn;
 
     //#region functions
+
+    function logOut(){
+        console.log("loggaut");
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if("true"){
+                    window.location.replace("index.html");
+                }
+            }
+        };
+        xhttp.open("GET", "logout", true);
+        xhttp.send();
+    }
+
     function loadMyInfo() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
