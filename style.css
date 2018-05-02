@@ -211,6 +211,7 @@ img {
 .information {
     /* display: none;  */
 	/* padding:25px 350px 25px 350px;  */
+	width: 80%;
 	padding: 3% 20% 3% 20%;
     color:rgb(43, 42, 42);
 }
@@ -512,8 +513,31 @@ color:  white;
 
 .content{
 	padding: 0 18px;
-	display: none;
+	
+	width: 100%;
 	box-shadow: 2px 2px 2px #999;	
+	overflow: hidden;
+	color: black;
+	background-color: #FFFFFF;
+	display: none;
+}
+
+.contentShow{
+	padding: 0 18px;
+
+	width: 100%;
+	display: block;
+	box-shadow: 2px 2px 2px #999;	
+	overflow: hidden;
+	background-color: #FFFFFF;
+}
+
+.contentShowBig{
+	padding: 0 18px;
+	width: 101%;
+	display: block;
+	left:1px;
+	box-shadow: 7px 9px 7px rgb(177, 176, 176);	
 	overflow: hidden;
 	background-color: #FFFFFF;
 }
@@ -528,4 +552,13 @@ color:  white;
 
 .logInOrReg{
 	margin:150px;
+}
+.ChekedKeyWord{
+	color: #000000;
+}
+.userDataShow{
+
+}
+.userDataHide{
+	display: none;
 }
