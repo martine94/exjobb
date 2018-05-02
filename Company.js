@@ -170,6 +170,9 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                document.getElementById("menu-page-content").innerHTML = this.response;
+               if("true"){
+                   loadMyInfo();
+               }
             }
         };
         xhttp.open("POST", "changeCompanyInfo?cname=" + cname + "&psw=" + psw + "&cuname=" + cuname + "&caddress=" + caddress + "&cemail=" + cemail+ "&ccity=" + ccity+"&cweb="+cweb+"&clogo="+clogo, true);
@@ -286,7 +289,10 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
               // document.getElementById("menu-page-content").innerHTML = this.response;
-                console.log("exjob sent to app.js")
+                console.log("Exjob sent to app.js")
+                if("true"){
+                    loadMyOffers();
+                }
             }
         };
         xhttp.open("POST", "addJobToDB?exJobb="+savedJob2, true);
