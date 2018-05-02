@@ -35,6 +35,18 @@ module.exports = {
       });
     });
   },
+  changeCompanyInfo:function(myQuery,newValues,callback){
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db(database);
+      console.log(myQuery);
+      var ObjectId = require('mongodb').ObjectID;
+      dbo.collection('company').update({"_id": new ObjectId(myQuery)},{$set: newValues},function (err, result) {
+        db.close();
+        callback(result);
+      });
+    });
+  },
 
   findOne : function(table, query, callback){
     
