@@ -124,11 +124,9 @@ window.onload = function () {
         else{
             if(toDo === 0){
                 element.style.width = "275pt";
-                element.style.padding = "0em";
                 
             }
             else{
-                element.style.padding = "0.5em";
                 element.style.width = "279pt";
             }
         }
@@ -145,14 +143,17 @@ window.onload = function () {
 
     }
     function checkForKeyWords() {
-        for (i = 0; i < prog.childElementCount; i++) {
-            if(prog.childNodes[i].type == "checkbox" && prog.childNodes[i].checked)
-                ListOfKeyWords.push(prog.childNodes[i].id);
+        ListOfKeyWords=[];
+        var apa = document.getElementsByClassName("ChekedKeyWord");
+        for (i = 0; i < apa.length; i++) {
+            if(apa[i].checked)
+                ListOfKeyWords.push(apa[i].id);
         }
-
+        
         for(a = 0; a < ListOfKeyWords.length; a++){
             console.log(ListOfKeyWords[a]);
         }
+        console.log("hej");
     }
 
     //#endregions
