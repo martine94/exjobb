@@ -59,7 +59,7 @@ p.r1{
 	text-align: center;
 }
 
-}
+
 
 img {
     max-width: 100%;
@@ -151,7 +151,7 @@ img {
 		width: 100%;
 		height: 19em;
 		display: block;
-		background-image:url("https://cdn.pixabay.com/photo/2018/04/17/10/15/company-3327152_960_720.jpg");
+		background-image:url("resources/studentbanner.jpg");
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: 100%;
@@ -556,7 +556,5 @@ color:  white;
 	color: #000000;
 }
 
-input[type="text"] {
-	width: 50%;
-}
+
 
