@@ -4,14 +4,31 @@ window.onload = function () {
     var newExJobBtn=document.getElementById("newExJobBtn");
     var myOffersBtn=document.getElementById("myOffersBtn");
     var myProfileBtn=document.getElementById("myProfileBtn");
+    
 
     //#endregions
 
     //#region eventListeners
     newExJobBtn.addEventListener("click",loadNewExJob);
     myOffersBtn.addEventListener("click",loadMyOffers)
-    myProfileBtn.addEventListener("click",loadMyProfile)
+    myProfileBtn.addEventListener("click",loadMyProfile)    
     //#endregions
+
+    //Buttons, divs and an array for newExJob.html
+    var ListOfKeyWords = [];
+    var progBtn;
+    var prog;
+    var typeBtn;
+    var types;
+    var operationSystemBtn;
+    var operationSystems;
+    var databaseBtn;
+    var databases;
+    var otherBtn;
+    var other;
+    var keyBtn;
+    var saveBtn;
+
 
     //#region functions
     function loadNewExJob(){
@@ -19,6 +36,8 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                document.getElementById("menu-page-content").innerHTML = this.response;
+                loadButtonsExJob();
+                loadButtonsExJobEvents();
             }
         };
         xhttp.open("GET", "loadNewExJob", true);
@@ -49,6 +68,93 @@ window.onload = function () {
         xhttp.open("GET", "loadMyCPages", true);
         xhttp.send();
     }
+
+    function loadButtonsExJob(){
+        ListOfKeyWords = [];
+        progBtn = document.getElementById("ProgrammingLanguageBtn");
+        prog = document.getElementById("ProgrammingLanguage");
+        typeBtn = document.getElementById("TypeBtn");
+        types = document.getElementById("Types");
+        operationSystemBtn = document.getElementById("OperationSystemBtn");
+        operationSystems = document.getElementById("operationsystems");
+        databaseBtn = document.getElementById("DatabaseBtn");
+        databases = document.getElementById("Databases");
+        otherBtn = document.getElementById("RestBtn");
+        other = document.getElementById("TheRest");
+        keyBtn = document.getElementById("KeyWordBtn");
+        saveBtn = document.getElementById("SaveExJob");
+    }
+    function loadButtonsExJobEvents(){
+        progBtn.addEventListener("click", (e) => showHide(prog));
+    typeBtn.addEventListener("click", (e) => showHide(types));
+    operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
+    databaseBtn.addEventListener("click", (e) => showHide(databases));
+    otherBtn.addEventListener("click", (e) => showHide(other));
+    progBtn.addEventListener("mouseover", (e) => hoverNewExJob(progBtn, 1, prog));
+    progBtn.addEventListener("mouseleave", (e) => hoverNewExJob(progBtn, 0, prog));
+    typeBtn.addEventListener("mouseover", (e) => hoverNewExJob(typeBtn, 1, types));
+    typeBtn.addEventListener("mouseleave", (e) => hoverNewExJob(typeBtn, 0, types));
+    operationSystemBtn.addEventListener("mouseover", (e) => hoverNewExJob(operationSystemBtn, 1, operationSystems));
+    operationSystemBtn.addEventListener("mouseleave", (e) => hoverNewExJob(operationSystemBtn, 0, operationSystems));
+    databaseBtn.addEventListener("mouseover", (e) => hoverNewExJob(databaseBtn, 1, databases));
+    databaseBtn.addEventListener("mouseleave", (e) => hoverNewExJob(databaseBtn, 0, databases));
+    otherBtn.addEventListener("mouseover", (e) => hoverNewExJob(otherBtn, 1, other));
+    otherBtn.addEventListener("mouseleave", (e) => hoverNewExJob(otherBtn, 0, other));
+    saveBtn.addEventListener("mouseover", (e) => hoverNewExJob(saveBtn, 1, other));
+    saveBtn.addEventListener("mouseleave", (e) => hoverNewExJob(saveBtn, 0, other));
+    saveBtn.addEventListener("click", (e) => checkForKeyWords(e));
+    keyBtn.addEventListener("mouseover", (e) => hoverNewExJob(keyBtn, 1, other));
+    keyBtn.addEventListener("mouseleave", (e) => hoverNewExJob(keyBtn, 0, other));
+    keyBtn.addEventListener("click", (e) => checkForKeyWords(e));
+    }
+
+    function hoverNewExJob(element, toDo, connectedTo) {
+        connectedTo.style.width = "244pt";
+        if ((element.id !== "SaveExJob") && (element.id !== "KeyWordBtn")) {
+            if (toDo === 0) {
+                element.className = "contentShow";
+
+                element.style.backgroundColor = "beige";
+            }
+            else {
+                element.className = "contentShowBig";
+                element.style.backgroundColor = "white";
+            }
+        }
+        else{
+            if(toDo === 0){
+                element.style.width = "275pt";
+                element.style.padding = "0em";
+                
+            }
+            else{
+                element.style.padding = "0.5em";
+                element.style.width = "279pt";
+            }
+        }
+    }
+
+    function showHide(elements) {
+        console.log("Inside ShowHide-function");
+        if (elements.className === "content") {
+            elements.className = "contentShow";
+        }
+        else {
+            elements.className = "content";
+        }
+
+    }
+    function checkForKeyWords() {
+        for (i = 0; i < prog.childElementCount; i++) {
+            if(prog.childNodes[i].type == "checkbox" && prog.childNodes[i].checked)
+                ListOfKeyWords.push(prog.childNodes[i].id);
+        }
+
+        for(a = 0; a < ListOfKeyWords.length; a++){
+            console.log(ListOfKeyWords[a]);
+        }
+    }
+
     //#endregions
 
 }
