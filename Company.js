@@ -65,9 +65,39 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                document.getElementById("menu-page-content").innerHTML = this.response;
+
+               listUserDataFromDB();
             }
         };
-        xhttp.open("GET", "loadmyInfo", true);
+        xhttp.open("GET", "loadmyInfoC", true);
+        xhttp.send();
+    }
+    function listUserDataFromDB() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function (res) {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                removeBrace = this.responseText.replace(/[\[\]']+/g, "");
+                var obj = JSON.parse(removeBrace);
+                var user = {
+                    id: obj._id,
+                    name: obj.companyName,
+                    address: obj.companyAddress,
+                    city: obj.companyCity,
+                    email: obj.companyEmail,
+                    web: obj.website,
+                    logo: obj.logoURL
+                }
+                document.getElementById("clogo").innerHTML += user.logo;
+                document.getElementById("cid").innerHTML += user.id;
+                document.getElementById("cname").innerHTML += user.name;
+                document.getElementById("caddress").innerHTML += user.address;
+                document.getElementById("ccity").innerHTML += user.city;
+                document.getElementById("cemail").innerHTML += user.email;
+                document.getElementById("cweb").innerHTML += user.web;
+            }
+        };
+        xhttp.open("GET", "userDataFromDBCompany", true)
         xhttp.send();
     }
 

@@ -121,6 +121,7 @@ window.onload = function () {
                     email: obj.uemail,
                     pw: obj.password
                 }
+                console.log(user);
                 document.getElementById("idS").innerHTML += user.id;
                 document.getElementById("ufnameS").innerHTML += user.name;
                 document.getElementById("ulnameS").innerHTML += user.ulname;

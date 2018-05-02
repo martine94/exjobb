@@ -72,7 +72,7 @@ app.get('/loadMyRecomendedJobs', function(req,res){
 app.get('/loadMyInfo', function(req,res){ //student
     res.sendFile(path.join(__dirname, '../', '/mySInfo.html'));
 });
-app.get('/loadmyInfo', function(req,res){ //company bör refaktoriseras
+app.get('/loadmyInfoC', function(req,res){ //company bör refaktoriseras
     res.sendFile(path.join(__dirname, '../', '/myCInfo.html'));
 });
 
@@ -132,6 +132,29 @@ app.get('/userDataFromDBStudent', function (req, res) {
         var ObjectId = require('mongodb').ObjectId;
         var o_id = new ObjectId(userID);
         Mongo.findOne("student", { "_id": o_id }, function (result) {
+            console.log(JSON.stringify(result));
+            if (result.length === 0) {
+                console.log("false");
+                res.send("false");
+            } else {
+                console.log("userInfo from DB");
+                console.log(JSON.stringify(result));
+                res.send(result);
+            }
+        });
+    }
+});
+app.get('/userDataFromDBCompany', function (req, res) {
+    console.log("GET /userDataFromDB.html request");
+    var userID = getUserID(req);
+    if (userID == "false") {
+        console.log("could not find user")
+        res.send("false");
+    } else {
+        console.log(userID);
+        var ObjectId = require('mongodb').ObjectId;
+        var o_id = new ObjectId(userID);
+        Mongo.findOne("company", { "_id": o_id }, function (result) {
             console.log(JSON.stringify(result));
             if (result.length === 0) {
                 console.log("false");
