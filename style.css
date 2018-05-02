@@ -498,14 +498,14 @@ color:  white;
 }
 
 .containerOfKeyWords{
-	font-size: 2em;
+	/* font-size: 2em; */
 	width: 100%;
 	background-color: beige;
 	background-origin: padding-box;
 }
 
 .KeyWordStack{
-	background-color: lightgreen;
+	background-color: white;
 	box-shadow: 2px 9px 9px #999;
 	width: 30%;
 	display: block;
@@ -556,9 +556,8 @@ color:  white;
 .ChekedKeyWord{
 	color: #000000;
 }
-.userDataShow{
 
+input[type="text"] {
+    width: 50%;
 }
-.userDataHide{
-	display: none;
-}
+
