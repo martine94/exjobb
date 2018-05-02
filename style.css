@@ -505,7 +505,6 @@ color:  white;
 }
 
 .KeyWordStack{
-	background-color: white;
 	box-shadow: 2px 9px 9px #999;
 	width: 30%;
 	display: block;
@@ -558,6 +557,6 @@ color:  white;
 }
 
 input[type="text"] {
-    width: 50%;
+	width: 50%;
 }
 
