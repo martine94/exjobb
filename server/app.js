@@ -191,7 +191,6 @@ app.post('/changeCompanyInfo',urlEncodedParcer,function(req,res){
     try {
         myQuery=getUserID(req);
        console.log(myQuery);
-       console.log(newValues);
         Mongo.changeCompanyInfo(myQuery,user,function (result) {
             if (result instanceof Error) {
                 console.log("Error!");
