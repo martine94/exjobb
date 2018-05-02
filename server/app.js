@@ -338,7 +338,33 @@ app.post('/login_company', urlEncodedParcer, function (req, resp) {
     });
 
 });
-
+app.post('/addJobToDB',urlEncodedParcer, function (req, res){
+    console.log("POST add job request");
+    console.log(req.query["exJobb"]);
+    var exjobb=JSON.parse(req.query["exJobb"]);
+    exjobb.companyID=getUserID(req);
+    console.log(exjobb);
+    try {
+        Mongo.addJob(exjobb, function (result) {
+            if (result instanceof Error) {
+                console.log("Error!");
+                console.log(result);
+                if (result.code === 11000) {
+                    console.log("back");
+                    res.send("false");
+                }
+            }
+            else {
+                console.log("Success!");
+                res.send("true");
+            }
+        });
+    }
+    catch (error) {
+        console.log("Caught error!");
+        console.log(error.name);
+    }
+});
 app.delete('/app_delete', function (req, resp) {
     console.log("Delete request");
     resp.send("Delete request sent");

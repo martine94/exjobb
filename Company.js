@@ -4,11 +4,12 @@ window.onload = function () {
         // shortdesc = "";
         // fulldesc =""
         // keywords = [];
-    constructor (title, shortdescription, longdescription, fulllistofkeywords=[]){
+    constructor (title, shortdescription, longdescription, fulllistofkeywords=[],companyID){
             this.tile = title;
             this.shortdesc = shortdescription;
             this.longdesc = longdescription;
             this.keywords = fulllistofkeywords;
+            this.companyID="";
         }
  
     }
@@ -279,7 +280,18 @@ window.onload = function () {
         }
         let savedJob = new exJob(title,shortde,longde,ListOfKeyWords);
         console.log(savedJob);
+        var savedJob2 = JSON.stringify(savedJob);
 
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              // document.getElementById("menu-page-content").innerHTML = this.response;
+                console.log("exjob sent to app.js")
+            }
+        };
+        xhttp.open("POST", "addJobToDB?exJobb="+savedJob2, true);
+        xhttp.send();
+        
     }
     loadMyInfo();
 

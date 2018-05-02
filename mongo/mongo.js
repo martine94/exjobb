@@ -68,7 +68,25 @@ module.exports = {
       });
     });
   },
+  addJob: function(exjobb, callback)
+  {
+    MongoClient.connect(url, function(err, db) {
+      if (err) callback(err);
+      var dbo = db.db("db");
 
+      dbo.collection("job").insertOne(exjobb, function(err, res) {
+        if (err) {
+          db.close();
+          callback(err);
+        }
+        else{
+          console.log("Number of documents inserted: " + res.insertedCount);
+          db.close();
+          callback(res);
+        }
+      });
+    });
+},
   addCompany: function(company, callback)
   {
     MongoClient.connect(url, function(err, db) {
