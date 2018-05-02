@@ -38,7 +38,7 @@ app.get("/search", function (req, res){
     //insert record
     db.collection('urlinfo').insert(query, function(err, records) {
       if (err) throw err;
-      };
+      });
   
       db.collection('urlinfo').find({}, function(err, products){
         if(err){
@@ -54,9 +54,7 @@ app.get("/search", function (req, res){
     });
     db.close();
   });
-    console.log(res.body);
-  
-  });
+
   app.use(errorHandler({
     dumpExceptions: true,
     showStack: true
