@@ -69,9 +69,13 @@ app.get('/loadMySProfile', function(req,res){
 app.get('/loadMyRecomendedJobs', function(req,res){
     res.sendFile(path.join(__dirname, '../', '/myRecomendedJobs.html'));
 });
-app.get('/loadMyInfo', function(req,res){
+app.get('/loadMyInfo', function(req,res){ //student
     res.sendFile(path.join(__dirname, '../', '/mySInfo.html'));
 });
+app.get('/loadmyInfo', function(req,res){ //company bör refaktoriseras
+    res.sendFile(path.join(__dirname, '../', '/myCInfo.html'));
+});
+
 
 app.get('/app_get', function (req, resp, next) {
     console.log("GET request");
@@ -146,7 +150,45 @@ app.get('/logout', function (req, resp) {
     var redirectAddress = serverAddress + '/index.html';
     resp.redirect(redirectAddress);
 });
-
+app.post('/changeCompanyInfo',urlEncodedParcer,function(req,res){
+    console.log("company change POST request");
+    var user={
+       // _id: getUserID(req),
+        companyName: req.query["cname"],
+        companyAddress: req.query["caddress"],
+        companyCity: req.query["ccity"],
+        companyEmail: req.query["cemail"],
+        userName: req.query["cuname"],
+        password: req.query["psw"],
+        website:req.query["cweb"],
+        logoURL:req.query["clogo"]
+    }
+    //console.log(user);
+    try {
+        myQuery=getUserID(req);
+       console.log(myQuery);
+       console.log(newValues);
+        Mongo.changeCompanyInfo(myQuery,user,function (result) {
+            if (result instanceof Error) {
+                console.log("Error!");
+                console.log(result);
+                if (result.code === 11000) {
+                    console.log("back");
+                    res.send("false");
+                }
+            }
+            else {
+                console.log("Probably Sucess!");
+                res.send("true");
+            }
+        });
+    }
+    catch (error) {
+        console.log("Caught error!");
+        console.log(error.name);
+        console.log(error);
+    }
+});
 app.post('/register_company', urlEncodedParcer, function (req, resp) {
     console.log("company register POST request");
     response = {
@@ -155,7 +197,9 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
         companyCity: req.query["ccity"],
         companyEmail: req.query["cemail"],
         userName: req.query["cuname"],
-        password: req.query["psw"]
+        password: req.query["psw"],
+        website: "",
+        logoURL: ""
     };
     console.log(response)
 
