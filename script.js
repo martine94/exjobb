@@ -408,16 +408,16 @@ window.onload = function () {
             outerDiv.className = "jobs";
 
             var top = document.createElement("div"); //topbar
-            top.className = "adTop";
+            top.className = "jobTop";
 
             var logo=document.createElement("img");//ladda in logga
             
-            logo.className = "adLogo";
+            logo.className = "jobLogo";
             var header = document.createElement("div");//rubrik
-            header.className = "adHeader";
+            header.className = "jobHeader";
 
             var info = document.createElement("div");
-            info.className = "adInfo";
+            info.className = "jobInfo";
            
             var newlog = document.createElement("p");
             newlog.innerHTML = "logga";
