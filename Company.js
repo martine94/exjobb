@@ -101,6 +101,37 @@ window.onload = function () {
         xhttp.send();
     }
 
+    function fillEditProfile() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function (res) {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                removeBrace = this.responseText.replace(/[\[\]']+/g, "");
+                var obj = JSON.parse(removeBrace);
+                var user = {
+                    id: obj._id,
+                    name: obj.companyName,
+                    address: obj.companyAddress,
+                    city: obj.companyCity,
+                    email: obj.companyEmail,
+                    web: obj.website,
+                    logo: obj.logoURL,
+                    uname: obj.userName
+                }
+                document.getElementById("c_Logo").value += user.logo;
+                document.getElementById("c_Name").value += user.name;
+                document.getElementById("c_Address").value += user.address;
+                document.getElementById("c_City").value += user.city;
+                document.getElementById("c_Email").value += user.email;
+                document.getElementById("c_WebP").value += user.web;
+                document.getElementById("c_Uname").value += user.uname;
+
+            }
+        };
+        xhttp.open("GET", "userDataFromDBCompany", true)
+        xhttp.send();
+    }
+
     function loadNewExJob(){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -123,9 +154,6 @@ window.onload = function () {
         };
         xhttp.open("GET", "loadmyCOffers", true);
         xhttp.send();
-    }
-    function loadMyProfile(){
-        console.log("hej123");
     }
     function changeInfo(){
         var cname = document.getElementById("c_Name").value;
@@ -151,11 +179,11 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                document.getElementById("menu-page-content").innerHTML = this.response;
-
                var saveBtn=document.getElementById('saveBtn');
                saveBtn.addEventListener("click",changeInfo);
                var cancelBtn=document.getElementById('cancelBtn');
                cancelBtn.addEventListener("click",loadMyInfo);
+               fillEditProfile();
             }
         };
         xhttp.open("GET", "loadMyCPages", true);
@@ -253,7 +281,7 @@ window.onload = function () {
         console.log(savedJob);
 
     }
-
+    loadMyInfo();
 
     //#endregions
 

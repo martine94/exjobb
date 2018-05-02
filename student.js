@@ -240,4 +240,6 @@ function saveProfile() {
     console.log(savedJob);
     infoUser.className = "userDataShow";
 }
+loadMyInfo();
+
 }
