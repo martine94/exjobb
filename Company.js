@@ -5,11 +5,14 @@ window.onload = function () {
         // fulldesc =""
         // keywords = [];
     constructor (title, shortdescription, longdescription, fulllistofkeywords=[],companyID){
+            this.logoURL="";
             this.tile = title;
             this.shortdesc = shortdescription;
             this.longdesc = longdescription;
             this.keywords = fulllistofkeywords;
             this.companyID="";
+            this.companyName="";
+            this.website="";
         }
  
     }
@@ -89,13 +92,13 @@ window.onload = function () {
                     web: obj.website,
                     logo: obj.logoURL
                 }
-                document.getElementById("clogo").innerHTML += user.logo;
+                document.getElementById("clogo").innerHTML += "<img src="+user.logo+">";
                 document.getElementById("cid").innerHTML += user.id;
                 document.getElementById("cname").innerHTML += user.name;
                 document.getElementById("caddress").innerHTML += user.address;
                 document.getElementById("ccity").innerHTML += user.city;
                 document.getElementById("cemail").innerHTML += user.email;
-                document.getElementById("cweb").innerHTML += user.web;
+                document.getElementById("cweb").innerHTML += "<a href="+user.web+">"+user.web+"</a>";
             }
         };
         xhttp.open("GET", "userDataFromDBCompany", true)

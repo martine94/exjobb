@@ -365,14 +365,28 @@ window.onload = function () {
                 "SAAB", "Är du i början av din karriär och söker efter spännande karriärmöjligheter? Vill du utveckla och bredda dina kunskaper i mjukvaruutveckling i ett ledande och storslaget företag? Tag då chansen att bli en del av Saab och utveckla Cockpit i Gripen E!Om företagetSaab är ett globalt försvars- och säkerhetsföretag verksamt inom flyg-, land- och marinförsvar, civil säkerhet och kommersiell flygteknik."],
             ["https://informedinfrastructure.com/wp-content/uploads/2017/03/atlascorp-e1493039342950.png","Atlas Copco","Är du utvecklaren med förkärlek för stora maskiner och avancerad teknik? Hos Epiroc har du då möjlighet att leva ut dina intressen till fullo när de nu söker utvecklare till deras nya avdelning Platform Development, avdelningen där man jobbar med att synka en fungerande plattform för samtliga Epirocs maskiner. "]
             ];
-                workAnnouncements(2,jobb);
-               
+               // workAnnouncements(2,jobb);
+               getJobsFromDB();
             }
         };
         xhttp.open("GET", "loadAboutUs", true);
         xhttp.send();
     }
 
+    function getJobsFromDB(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              // document.getElementById("option-page-content").innerHTML = this.response;
+                console.log("JOBB HÄMTADE");
+                var jobs=JSON.parse(this.response);
+                workAnnouncements(jobs.length,jobs);
+
+            }
+        };
+        xhttp.open("GET", "getJobsFromDB", true);
+        xhttp.send();
+    }
     function showForCompaniesInfo() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -397,7 +411,6 @@ window.onload = function () {
         xhttp.send();
 
     }
-
     function workAnnouncements(num, jobb) {
         console.log(jobb);
         workAnnouncement = work_Announcement;
@@ -437,13 +450,11 @@ window.onload = function () {
             logo.appendChild(newlog);
             header.appendChild(newh1);
              
-            logo.src=jobb[i][0]; //ladda in logga
-            newh1.innerHTML = jobb[i][1];//ladda in rubrik
-            info.innerHTML = jobb[i][2];//ladda in beskrivning
+            logo.src=jobb[i].logoURL; //ladda in logga
+            newh1.innerHTML = jobb[i].tile;//ladda in rubrik
+            info.innerHTML = jobb[i].shortdesc;//ladda in beskrivning
             readBtn.addEventListener("click",openLoginStudentModal);           
         }
-
-
     }
     
     //#endregion

@@ -168,6 +168,20 @@ app.get('/userDataFromDBCompany', function (req, res) {
     }
 });
 
+app.get('/getJobsFromDB',function(req,res){
+    Mongo.findOne("job", {}, function (result) {
+        console.log(JSON.stringify(result));
+        if (result.length === 0) {
+            console.log("false");
+            res.send("false");
+        } else {
+            console.log("userInfo from DB");
+            console.log(JSON.stringify(result));
+            res.send(result);
+        }
+    });
+});
+
 app.get('/logout', function (req, resp) {
     req.session.reset();
     var redirectAddress = serverAddress + '/index.html';
@@ -339,30 +353,51 @@ app.post('/login_company', urlEncodedParcer, function (req, resp) {
 });
 app.post('/addJobToDB',urlEncodedParcer, function (req, res){
     console.log("POST add job request");
-    console.log(req.query["exJobb"]);
-    var exjobb=JSON.parse(req.query["exJobb"]);
-    exjobb.companyID=getUserID(req);
-    console.log(exjobb);
-    try {
-        Mongo.addJob(exjobb, function (result) {
-            if (result instanceof Error) {
-                console.log("Error!");
+    var userID = getUserID(req);
+    if (userID == "false") {
+        console.log("could not find user")
+        res.send("false");
+    } else {
+        console.log(userID);
+        var ObjectId = require('mongodb').ObjectId;
+        var o_id = new ObjectId(userID);
+        Mongo.findOne("company", { "_id": o_id }, function (result) {
+            if (result.length === 0) {
+                console.log("false");
+                res.send("false");
+            } else {
+                console.log("userInfo from DB");
                 console.log(result);
-                if (result.code === 11000) {
-                    console.log("back");
-                    res.send("false");
+                console.log(req.query["exJobb"]);
+                var exjobb=JSON.parse(req.query["exJobb"]);
+                exjobb.logoURL=result[0].logoURL;
+                exjobb.companyName=result[0].companyName;
+                exjobb.website=result[0].website;
+                console.log(exjobb);
+                try {
+                    Mongo.addJob(exjobb, function (result) {
+                        if (result instanceof Error) {
+                            console.log("Error!");
+                            console.log(result);
+                            if (result.code === 11000) {
+                                console.log("back");
+                                res.send("false");
+                            }
+                        }
+                        else {
+                            console.log("Success!");
+                            res.send("true");
+                        }
+                    });
                 }
-            }
-            else {
-                console.log("Success!");
-                res.send("true");
+                catch (error) {
+                    console.log("Caught error!");
+                    console.log(error.name);
+                }
             }
         });
     }
-    catch (error) {
-        console.log("Caught error!");
-        console.log(error.name);
-    }
+   
 });
 app.delete('/app_delete', function (req, resp) {
     console.log("Delete request");
