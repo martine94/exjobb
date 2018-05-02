@@ -48,7 +48,7 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                document.getElementById("menu-page-content").innerHTML = this.response;
                 loadButtonsExJob();
-                loadButtonsExJobEvents();
+                loadButtonEventsExJob();
             }
         };
         xhttp.open("GET", "loadNewExJob", true);
@@ -96,7 +96,7 @@ window.onload = function () {
         keyBtn = document.getElementById("KeyWordBtn");
         saveBtn = document.getElementById("SaveExJob");
     }
-    function loadButtonsExJobEvents(){
+    function loadButtonEventsExJob(){
         progBtn.addEventListener("click", (e) => showHide(prog));
     typeBtn.addEventListener("click", (e) => showHide(types));
     operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
