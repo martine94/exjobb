@@ -171,7 +171,7 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
             }
             else {
                 console.log("Success!");
-                req.session.user = response; // för session
+                req.session.user = "_id:"+ response._id; // för session
                 resp.send("true");
             }
         });
@@ -207,7 +207,8 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
             }
             else {
                 console.log("Success!");
-                req.session.user = response; // för session
+                console.log(response._id);
+                req.session.user ="_id:"+ response._id; // för session
                 resp.send("true");
             }
         });
