@@ -17,7 +17,6 @@ window.onload = function () {
     var myOffersBtn=document.getElementById("myOffersBtn");
     var myProfileBtn=document.getElementById("myProfileBtn");
     var myInfoBtn=document.getElementById("myInfoBtn");
-    var infoUser = document.getElementById("userData");
 
     //#endregions
 
@@ -117,7 +116,6 @@ window.onload = function () {
     }
 
     function loadButtonsExJob(){
-        infoUser.className = "userDataHide";
         ListOfKeyWords = [];
         progBtn = document.getElementById("ProgrammingLanguageBtn");
         prog = document.getElementById("ProgrammingLanguage");
@@ -206,7 +204,7 @@ window.onload = function () {
         }
         let savedJob = new exJob(title,shortde,longde,ListOfKeyWords);
         console.log(savedJob);
-        infoUser.className = "userDataShow";
+
     }
 
 
