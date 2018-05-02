@@ -148,7 +148,8 @@ app.get('/userDataFromDBStudent', function (req, res) {
 app.get('/logout', function (req, resp) {
     req.session.reset();
     var redirectAddress = serverAddress + '/index.html';
-    resp.redirect(redirectAddress);
+    //resp.redirect(redirectAddress);
+    resp.send("true");
 });
 app.post('/changeCompanyInfo',urlEncodedParcer,function(req,res){
     console.log("company change POST request");
