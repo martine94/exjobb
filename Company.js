@@ -1,10 +1,22 @@
 window.onload = function () {
-
+    class exJob{
+        // title= "";
+        // shortdesc = "";
+        // fulldesc =""
+        // keywords = [];
+    constructor (title, shortdescription, longdescription, fulllistofkeywords=[]){
+            this.tile = title;
+            this.shortdesc = shortdescription;
+            this.longdesc = longdescription;
+            this.keywords = fulllistofkeywords;
+        }
+ 
+    }
     //#region buttons
     var newExJobBtn=document.getElementById("newExJobBtn");
     var myOffersBtn=document.getElementById("myOffersBtn");
     var myProfileBtn=document.getElementById("myProfileBtn");
-    
+    var infoUser = document.getElementById("userData");
 
     //#endregions
 
@@ -15,7 +27,6 @@ window.onload = function () {
     //#endregions
 
     //Buttons, divs and an array for newExJob.html
-    var ListOfKeyWords = [];
     var progBtn;
     var prog;
     var typeBtn;
@@ -70,6 +81,7 @@ window.onload = function () {
     }
 
     function loadButtonsExJob(){
+        infoUser.className = "userDataHide";
         ListOfKeyWords = [];
         progBtn = document.getElementById("ProgrammingLanguageBtn");
         prog = document.getElementById("ProgrammingLanguage");
@@ -102,16 +114,16 @@ window.onload = function () {
     otherBtn.addEventListener("mouseleave", (e) => hoverNewExJob(otherBtn, 0, other));
     saveBtn.addEventListener("mouseover", (e) => hoverNewExJob(saveBtn, 1, other));
     saveBtn.addEventListener("mouseleave", (e) => hoverNewExJob(saveBtn, 0, other));
-    saveBtn.addEventListener("click", (e) => checkForKeyWords(e));
+    saveBtn.addEventListener("click", (e) => saveNewExjob(e));
     keyBtn.addEventListener("mouseover", (e) => hoverNewExJob(keyBtn, 1, other));
     keyBtn.addEventListener("mouseleave", (e) => hoverNewExJob(keyBtn, 0, other));
-    keyBtn.addEventListener("click", (e) => checkForKeyWords(e));
+    //keyBtn.addEventListener("click", (e) => checkForKeyWords(e));
     }
 
-    function hoverNewExJob(element, toDo, connectedTo) {
-        connectedTo.style.width = "244pt";
+    function hoverNewExJob(element, show, connectedTo) {
+       // connectedTo.style.width = "244pt";
         if ((element.id !== "SaveExJob") && (element.id !== "KeyWordBtn")) {
-            if (toDo === 0) {
+            if (show === 0) {
                 element.className = "contentShow";
 
                 element.style.backgroundColor = "beige";
@@ -122,7 +134,7 @@ window.onload = function () {
             }
         }
         else{
-            if(toDo === 0){
+            if(show === 0){
                 element.style.width = "275pt";
                 
             }
@@ -142,19 +154,25 @@ window.onload = function () {
         }
 
     }
-    function checkForKeyWords() {
-        ListOfKeyWords=[];
-        var apa = document.getElementsByClassName("ChekedKeyWord");
-        for (i = 0; i < apa.length; i++) {
-            if(apa[i].checked)
-                ListOfKeyWords.push(apa[i].id);
+    function saveNewExjob() {
+        let ListOfKeyWords=[];
+        let title = document.getElementById("Headline").value;
+        let shortde = document.getElementById("shortSubject").value;
+        let longde = document.getElementById("Subject").value;
+        var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
+        for (i = 0; i < fullListToCheck.length; i++) {
+            if(fullListToCheck[i].checked)
+                ListOfKeyWords.push(fullListToCheck[i].id);
         }
         
         for(a = 0; a < ListOfKeyWords.length; a++){
             console.log(ListOfKeyWords[a]);
         }
-        console.log("hej");
+        let savedJob = new exJob(title,shortde,longde,ListOfKeyWords);
+        console.log(savedJob);
+        infoUser.className = "userDataShow";
     }
+
 
     //#endregions
 

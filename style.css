@@ -512,9 +512,9 @@ color:  white;
 }
 
 .content{
-	padding: 5px 18px;
+	padding: 0 18px;
 	
-	width: 300%;
+	width: 100%;
 	box-shadow: 2px 2px 2px #999;	
 	overflow: hidden;
 	color: black;
@@ -537,7 +537,7 @@ color:  white;
 	width: 101%;
 	display: block;
 	left:1px;
-	box-shadow: 7px 9px 7px #999;	
+	box-shadow: 7px 9px 7px rgb(177, 176, 176);	
 	overflow: hidden;
 	background-color: #FFFFFF;
 }
@@ -555,4 +555,10 @@ color:  white;
 }
 .ChekedKeyWord{
 	color: #000000;
+}
+.userDataShow{
+
+}
+.userDataHide{
+	display: none;
 }
