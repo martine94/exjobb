@@ -31,7 +31,12 @@ window.onload = function () {
     myOffersBtn.addEventListener("click",loadMyOffers);
     myProfileBtn.addEventListener("click",loadMyProfile);
     myInfoBtn.addEventListener("click",loadMyInfo);
-    logOutCompanyBtn.addEventListener("click",logOut);
+   
+    logOutCompanyBtn.addEventListener("click",loadPartial("GET", "logout", function(){
+        if("true"){
+            window.location.replace("index.html");
+        }
+    }));
     //#endregions
 
     //Buttons, divs and an array for newExJob.html
@@ -50,8 +55,24 @@ window.onload = function () {
 
 
     //#region functions
+    function loadPartial(command, route, afterLoad){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                afterLoad();
+            }
+        };
+        xhttp.open(command, route, true);
+        xhttp.send();
+    }
 
-    function logOut(){
+   /*  loadPartial("GET", "logout", function(){
+        if("true"){
+            window.location.replace("index.html");
+        }
+    }); */
+
+    /* function logOut(){
         console.log("loggaut");
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -63,7 +84,8 @@ window.onload = function () {
         };
         xhttp.open("GET", "logout", true);
         xhttp.send();
-    }
+    } */
+
     function loadMyInfo(){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
