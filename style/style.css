@@ -562,6 +562,14 @@ color:  white;
 .ChekedKeyWord{
 	color: #000000;
 }
+.Shadow{
+	box-shadow: 2px 9px 9px #999;
+	color: #FFFFFF;
+}
+.Hight{
+	height: 2em;
+	color: #FFFFFF;	
+}
 
 
 
