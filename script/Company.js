@@ -118,7 +118,7 @@ function loadPartial(command, route, afterLoad){
                     web: obj.website,
                     logo: obj.logoURL
                 }
-                document.getElementById("clogo").innerHTML += "<img src="+user.logo+">";
+                document.getElementById("clogo").innerHTML += "<img src="+user.logo+" height=\"70\" width=\"70\" >";
                 document.getElementById("cid").innerHTML += user.id;
                 document.getElementById("cname").innerHTML += user.name;
                 document.getElementById("caddress").innerHTML += user.address;
