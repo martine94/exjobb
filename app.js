@@ -31,8 +31,8 @@ app.use(express.static(__dirname+'/resources'));
 
 app.get('/loadFile',urlEncodedParcer, function (req, res) {
     var location=req.query["l"];
-    var path=req.query["p"];
-    res.sendFile(path.join(__dirname, location, path));
+    var _path=req.query["p"];
+    res.sendFile(path.join(__dirname, location, _path));
 });
 
 
