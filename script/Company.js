@@ -45,11 +45,12 @@ window.onload = function () {
     myProfileBtn.addEventListener("click",loadMyProfile);
     myInfoBtn.addEventListener("click",loadMyInfo);
    
-    logOutCompanyBtn.addEventListener("click", loadPartial("GET", "logout", function(){
+    /*logOutCompanyBtn.addEventListener("click", loadPartial("GET", "logout", function(){
         if("true"){
             window.location.replace("index.html");
         }
-    }));
+    }));*/
+    logOutCompanyBtn.addEventListener("click", logOut);
     //#endregions
 
     loadMyInfo();   
