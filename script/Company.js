@@ -176,6 +176,7 @@ function loadPartial(command, route, afterLoad){
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                document.getElementById("menu-page-content").innerHTML = this.response;
+               getJobsFromDB();
             }
         };
         xhttp.open("GET", "loadFileCompany?p="+'/myOffers.html', true);    
@@ -331,6 +332,64 @@ function loadPartial(command, route, afterLoad){
         xhttp.send();
         
     }
+    function getJobsFromDB(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              // document.getElementById("option-page-content").innerHTML = this.response;
+                console.log("JOBB HÄMTADE");
+                var jobs=JSON.parse(this.response);
+                workAnnouncements(jobs.length,jobs);
+
+            }
+        };
+        //Skriv en funktion som bara tar ut företagets jobbannonser
+        xhttp.open("GET", "getJobsFromDB", true);
+        xhttp.send();
+    }
+    function workAnnouncements(num, jobb) {
+
+        for (var i = 0; i < num; i++) {
+            
+            var outerDiv = document.createElement("div");
+            outerDiv.className = "jobsSmall";
+
+            var top = document.createElement("div"); //topbar
+            top.className = "jobTop";
+
+            var logo=document.createElement("img");//ladda in logga
+            
+            logo.className = "jobLogo";
+            var header = document.createElement("div");//rubrik
+            header.className = "jobHeader";
+
+           
+            var newlog = document.createElement("p");
+            newlog.innerHTML = "logga";
+            var newh1 = document.createElement("h2");
+           
+            var readBtn = document.createElement("button");
+            readBtn.innerHTML = "Visa annons";
+            var Btn = document.createElement("button");
+            Btn.innerHTML = "Intresseanmälningar";
+
+            workAnnouncement.appendChild(outerDiv);
+            workAnnouncement.appendChild(document.createElement("br"));
+            outerDiv.appendChild(top);
+
+            outerDiv.appendChild(readBtn);
+            outerDiv.appendChild(Btn);
+            
+            top.appendChild(logo);
+            top.appendChild(header);
+            logo.appendChild(newlog);
+            header.appendChild(newh1);
+             
+            logo.src=jobb[i].logoURL; //ladda in logga
+            newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
+        }
+    }
+
     loadMyInfo();   
 
 }
