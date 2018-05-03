@@ -402,6 +402,7 @@ input[type=text],input[type=password]{
 }
 .jobInfo{
 	height:40%;
+	width:100%;
 }
 	
 .companyPage{
