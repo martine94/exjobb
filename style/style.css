@@ -211,6 +211,9 @@ img {
 	height: 1.8em;
 	color:rgb(0, 0, 0);
 }
+#clogo.userinfo{
+	height: 100px;
+}
 
 .information {
     /* display: none;  */
