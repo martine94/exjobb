@@ -5,100 +5,147 @@
 
     <div class="information">
         <div class="whiteB">
-        <label class="containerOfKeyWords2">Examensarbete</label>
-        <br>
-        <br>
-        <label for="Headline" class="containerOfKeyWords2">Titel:</label>
-        <br>
-        <br>
-        <input type="text" placeholder="Titel" name="Headline" id="Headline" required>
-        <br>
-        <br>
-        <label for="Headline" class="containerOfKeyWords2">Kort beskrivning:</label>
-        <br>
-        <br>
-        <textarea rows="3" cols="55" type="text" placeholder="Kort beskrivning" name="shortSubject" id="shortSubject" maxlength="200"
-            required></textarea>
-        <br>
-        <br>
+            <label class="containerOfKeyWords2">Examensarbete</label>
+            <br>
+            <br>
+            <label for="Headline" class="containerOfKeyWords2">Titel:</label>
+            <br>
+            <br>
+            <input type="text" placeholder="Titel" name="Headline" id="Headline" required>
+            <br>
+            <br>
+            <label for="Headline" class="containerOfKeyWords2">Kort beskrivning:</label>
+            <br>
+            <br>
+            <textarea rows="3" cols="55" type="text" placeholder="Kort beskrivning" name="shortSubject" id="shortSubject" maxlength="200"
+                required></textarea>
+            <br>
+            <br>
 
-        <label for="Subject" class="containerOfKeyWords2">Fullständig beskrivning:</label>
-        <br>
-        <br>
+            <label for="Subject" class="containerOfKeyWords2">Fullständig beskrivning:</label>
+            <br>
+            <br>
 
-        <textarea cols="55" rows="10" type="text" placeholder="Ämne" name="Subject" id="Subject" required></textarea>
+            <textarea cols="55" rows="10" type="text" placeholder="Ämne" name="Subject" id="Subject" required></textarea>
 
-        <br>
-        <br>
-        <br>
-        <hr>
-        <label id="KeyWordBtn" class="containerOfKeyWords2">Nyckelord: </label>
-        <br>
-        <br>
-        <div id="KeyWordStack" class="KeyWordStack">
-            <button type="button" id="ProgrammingLanguageBtn" class="contentShow" style = "background-color: beige;">Programmeringsspråk</button>
-            <div id="ProgrammingLanguage" class="content">
-                <input type="checkbox" id="C" class="ChekedKeyWord">
-                <label for="C">C</label>
-                <hr>
-                <input type="checkbox" id="Cs" class="ChekedKeyWord">
-                <label for="Cs">C#</label>
-                <hr>
-                <input type="checkbox" id="Cpp" class="ChekedKeyWord">
-                <label for="Cpp">C++</label>
-                <hr>
-                <input type="checkbox" id="Java" class="ChekedKeyWord">
-                <label for="Java">Java</label>
-                <hr>
-                <input type="checkbox" id="Javascript" class="ChekedKeyWord">
-                <label for="Javascript">Javascript</label>
-                <hr>
-                <input type="checkbox" id="Python" class="ChekedKeyWord">
-                <label for="Python">Python</label>
-                <hr>
+            <br>
+            <br>
+            <br>
+            <hr>
+            <label id="KeyWordBtn" class="containerOfKeyWords2">Nyckelord: </label>
+            <br>
+            <br>
+            <div id="KeyWordStack" class="KeyWordStack">
+
+                <button id="AreaBtn" type="button" class="contentShow" style="background-color: beige;">Område</button>
+                <div id="Area" class="content">
+                    <hr>
+                    <input type="checkbox" id="AI" class="ChekedKeyWord">
+                    <label for="AI">Artificiell intelligens</label>
+                    <hr>
+                    <input type="checkbox" id="Databaser" class="ChekedKeyWord">
+                    <label for="Databaser">Databaser</label>
+                    <hr>
+                    <input type="checkbox" id="Maskininlärning" class="ChekedKeyWord">
+                    <label for="Maskininlärning">Maskininlärning</label>
+                    <hr>
+                    <hr>
+                    <input type="checkbox" id="Robotik" class="ChekedKeyWord">
+                    <label for="Robotik">Robotik</label>
+                    <hr>
+                </div>
+                
+                <button id="TypeBtn" type="button" class="contentShow" style="background-color: beige;">Typ</button>
+                <div id="Types" class="content">
+                    <hr>
+                    <input type="checkbox" id="Dokumentation" class="ChekedKeyWord">
+                    <label for="Dokumentation">Dokumentation</label>
+                    <hr>
+                    <input type="checkbox" id="Hårdvara" class="ChekedKeyWord">
+                    <label for="Hårdvara">Hårdvara</label>
+                    <hr>
+                    <input type="checkbox" id="Mjukvara" class="ChekedKeyWord">
+                    <label for="Mjukvara">Mjukvara</label>
+                    <hr>
+                    <input type="checkbox" id="Annantyp" class="ChekedKeyWord">
+                    <label for="Annat">Annat</label>
+                    <hr>
+                </div>
+                <button id="OperationSystemBtn" type="button" class="contentShow" style="background-color: beige;">Operativsystem</button>
+                <div id="operationsystems" class="content">
+                    <input type="checkbox" id="Android" class="ChekedKeyWord">
+                    <label for="Android">Android</label>
+                    <hr>
+                    <input type="checkbox" id="Windows" class="ChekedKeyWord">
+                    <label for="Windows">IOS</label>
+                    <hr>
+                    <input type="checkbox" id="Linux" class="ChekedKeyWord">
+                    <label for="Linux">Linux</label>
+                    <hr>
+                    <input type="checkbox" id="Windows" class="ChekedKeyWord">
+                    <label for="Windows">Windows</label>
+                    <hr>
+                    <input type="checkbox" id="AnnanOperation" class="ChekedKeyWord">
+                    <label for="AnnatOperation">Annat</label>
+                    <hr>
+                    
+                </div>
+                <button id="DatabaseBtn" type="button" class="contentShow" style="background-color: beige;">Databas</button>
+                <div id="Databases" class="content">
+                    <input type="checkbox" id="SQL" class="ChekedKeyWord">
+                    <label for="SQL">SQL</label>
+                    <hr>
+                    <input type="checkbox" id="MySQL" class="ChekedKeyWord">
+                    <label for="MySQL">MySQL</label>
+                    <hr>
+                    <input type="checkbox" id="MongoDB" class="ChekedKeyWord">
+                    <label for="MongoDB">MongoDB</label>
+                    <hr>
+                    <input type="checkbox" id="XML" class="ChekedKeyWord">
+                    <label for="XML">XML</label>
+                    <hr>
+                    
+                </div>
+                <button type="button" id="ProgrammingLanguageBtn" class="contentShow" style="background-color: beige;">Programmeringsspråk</button>
+                <div id="ProgrammingLanguage" class="content">
+                    <input type="checkbox" id="Assembler" class="ChekedKeyWord">
+                    <label for="Assembler">Assembler</label>
+                    <hr>
+                    <input type="checkbox" id="C" class="ChekedKeyWord">
+                    <label for="C">C</label>
+                    <hr>
+                    <input type="checkbox" id="Cs" class="ChekedKeyWord">
+                    <label for="Cs">C#</label>
+                    <hr>
+                    <input type="checkbox" id="Cpp" class="ChekedKeyWord">
+                    <label for="Cpp">C++</label>
+                    <hr>
+                    <input type="checkbox" id="Java" class="ChekedKeyWord">
+                    <label for="Java">Java</label>
+                    <hr>
+                    <input type="checkbox" id="Javascript" class="ChekedKeyWord">
+                    <label for="Javascript">Javascript</label>
+                    <hr>
+                    <input type="checkbox" id="Python" class="ChekedKeyWord">
+                    <label for="Python">Python</label>
+                    <hr>
+                    <input type="checkbox" id="Annatprog" class="ChekedKeyWord">
+                    <label for="Annat">Annat</label>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <button id="RestBtn" type="button" class="contentShow" style="background-color: beige;">Övrigt</button>
+                <div id="TheRest" class="content">
+
+                </div>
             </div>
-            <button id="TypeBtn" type="button" class="contentShow" style = "background-color: beige;">Typ</button>
-            <div id="Types" class="content">
-                <hr>
-                <input type="checkbox" id="Hårdvara" class="ChekedKeyWord">
-                <label for="Hårdvara">Hårdvara</label>
-                <hr>
-                <input type="checkbox" id="Mjukvara" class="ChekedKeyWord">
-                <label for="Mjukvara">Mjukvara</label>
-                <hr>
-            </div>
-            <button id="OperationSystemBtn" type="button" class="contentShow" style = "background-color: beige;">Operativsystem</button>
-            <div id="operationsystems" class="content">
-                <input type="checkbox" id="Linux" class="ChekedKeyWord">
-                <label for="Linux">Linux</label>
-                <hr>
-                <input type="checkbox" id="Windows" class="ChekedKeyWord">
-                <label for="Windows">Windows</label>
-                <hr>
-            </div>
-            <button id="DatabaseBtn" type="button" class="contentShow" style = "background-color: beige;">Databas</button>
-            <div id="Databases" class="content">
-                <input type="checkbox" id="SQL" class="ChekedKeyWord">
-                <label for="SQL">SQL</label>
-                <hr>
-                <input type="checkbox" id="MySQL" class="ChekedKeyWord">
-                <label for="MySQL">MySQL</label>
-                <hr>
-                <input type="checkbox" id="MongoDB" class="ChekedKeyWord">
-                <label for="MongoDB">MongoDB</label>
-                <hr>
-                <input type="checkbox" id="XML" class="ChekedKeyWord">
-                <label for="XML">XML</label>
-                <hr>
-            </div>
-            <button id="RestBtn" type="button" class="contentShow" style = "background-color: beige;">Övrigt</button>
-            <div id="TheRest" class="content">
-                <input type="checkbox" id="Dokumentation" class="ChekedKeyWord">
-                <label for="Dokumentation">Dokumentation</label>
-                <hr>
-            </div>
-            </div>
+            <br>
+            <hr>
             <button id="SaveExJob" class="bColorBlue" style="width: 100%">Spara</button>
+            <br>
+            <br>
+            <br>
         </div>
     </div>
 </body>
