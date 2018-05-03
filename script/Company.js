@@ -73,7 +73,7 @@ function loadPartial(command, route, afterLoad){
         }
     }); */
 
-    /* function logOut(){
+     function logOut(){
         console.log("loggaut");
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -85,7 +85,7 @@ function loadPartial(command, route, afterLoad){
         };
         xhttp.open("GET", "logout", true);
         xhttp.send();
-    } */
+    } 
 
     function loadMyInfo(){
         var xhttp = new XMLHttpRequest();
