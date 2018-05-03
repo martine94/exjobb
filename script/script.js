@@ -139,7 +139,8 @@ window.onload = function () {
             }
 
         };
-        xhttp.open("GET", "loadLogInComp", true);
+        xhttp.open("GET", "loadFile?l="+'/views/index'+"&p="+'/logInComp.html', true);    
+        // xhttp.open("GET", "loadLogInComp", true);
         xhttp.send();
     }
     function openLoginStudentModal() {
@@ -158,7 +159,8 @@ window.onload = function () {
             }
 
         };
-        xhttp.open("GET", "loadLogInStudent", true);
+        xhttp.open("GET", "loadFile?l="+'/views/index'+"&p="+'/logInStudent.html', true);    
+        // xhttp.open("GET", "loadLogInStudent", true);
         xhttp.send();
     }
 
@@ -262,7 +264,8 @@ window.onload = function () {
             }
 
         };
-        xhttp.open("GET", "loadRegStudent", true);
+        //xhttp.open("GET", "loadRegStudent", true);
+        xhttp.open("GET", "loadFile?l="+'/views/index'+"&p="+'/regStudent.html', true);    
         xhttp.send();
     }
     function checkValidRegStudentInput(){
@@ -372,7 +375,8 @@ window.onload = function () {
                getJobsFromDB();
             }
         };
-        xhttp.open("GET", "loadAboutUs", true);
+        xhttp.open("GET", "loadFile?l="+'/views/index'+"&p="+'/about.html', true);    
+        // xhttp.open("GET", "loadAboutUs", true);
         xhttp.send();
     }
 
@@ -398,7 +402,8 @@ window.onload = function () {
                document.getElementById("forCompaniesInfo").style.display = "block";
             }
         };
-        xhttp.open("GET", "loadForCompanies", true);
+        xhttp.open("GET", "loadFile?l="+'/views/index'+"&p="+'/forCompanies.html', true);    
+        // xhttp.open("GET", "loadForCompanies", true);
         xhttp.send();
     }
 
@@ -410,7 +415,8 @@ window.onload = function () {
                document.getElementById("forStudentsInfo").style.display = "block";
             }
         };
-        xhttp.open("GET", "loadForStudents", true);
+        xhttp.open("GET", "loadFile?l="+'/views/index'+"&p="+'/forStudents.html', true);    
+        // xhttp.open("GET", "loadForStudents", true);
         xhttp.send();
 
     }

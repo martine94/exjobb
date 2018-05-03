@@ -30,36 +30,12 @@ app.use(express.static(__dirname+'/views/index'));
 app.use(express.static(__dirname+'/resources'));
 
 app.get('/loadFile',urlEncodedParcer, function (req, res) {
-    var l=req.query["l"];
-    var p=req.query["p"];
-    res.sendFile(path.join(__dirname, l, p));
+    var location=req.query["l"];
+    var path=req.query["p"];
+    res.sendFile(path.join(__dirname, location, path));
 });
 
-app.get('/loadRegComp', function (req, res) {
-    console.log("Get /regCompany request");
-    res.sendFile(path.join(__dirname, '/views/index', '/regCompany.html'));
-});
-app.get('/loadRegStudent', function (req, res) {
-    console.log("Get /regStud request");
-    res.sendFile(path.join(__dirname, '/views/index', '/regStudent.html'));
-});
-app.get('/loadLogInStudent', function (req, res) {
-    console.log("Get /logStud request");
-    res.sendFile(path.join(__dirname, '/views/index', '/logInStudent.html'));
-});
-app.get('/loadLogInComp', function (req, res) {
-    console.log("Get /logComp request");
-    res.sendFile(path.join(__dirname, '/views/index', '/logInComp.html'));
-});
-app.get('/loadAboutUs', function (req, res) {
-    res.sendFile(path.join(__dirname, '/views/index', '/about.html'));
-});
-app.get('/loadForCompanies', function (req, res) {
-    res.sendFile(path.join(__dirname, '/views/index', '/forCompanies.html'));
-});
-app.get('/loadForStudents', function (req, res) {
-    res.sendFile(path.join(__dirname, '/views/index', '/forStudents.html'));
-});
+
 app.get('/loadNewExJob', function(req,res){
     res.sendFile(path.join(__dirname, '/views/company', '/newExJob.html'));
 });
