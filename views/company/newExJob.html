@@ -11,14 +11,14 @@
             <label for="Headline" class="containerOfKeyWords2">Titel:</label>
             <br>
             <br>
-            <input type="text" placeholder="Titel" name="Headline" id="Headline" required>
+            <input type="text" placeholder="Titel" name="Headline" id="Headline" required class="Height Shadow">
             <br>
             <br>
             <label for="Headline" class="containerOfKeyWords2">Kort beskrivning:</label>
             <br>
             <br>
             <textarea rows="3" cols="55" type="text" placeholder="Kort beskrivning" name="shortSubject" id="shortSubject" maxlength="200"
-                required></textarea>
+                required class="Height Shadow"></textarea>
             <br>
             <br>
 
@@ -26,15 +26,20 @@
             <br>
             <br>
 
-            <textarea cols="55" rows="10" type="text" placeholder="Ämne" name="Subject" id="Subject" required></textarea>
+            <textarea cols="55" rows="10" type="text" placeholder="Ämne" name="Subject" id="Subject" required class="Height Shadow"></textarea>
 
             <br>
             <br>
             <br>
-            <hr>
+            <hr class="Shadow">
             <label id="KeyWordBtn" class="containerOfKeyWords2">Nyckelord: </label>
             <br>
             <br>
+            <div>
+                <label class="bColorBlue Shadow Height">Välj viktiga nyckelord som exjobbet innehåller</label>
+                <br>
+                <br>
+            </div>
             <div id="KeyWordStack" class="KeyWordStack">
 
                 <button id="AreaBtn" type="button" class="contentShow" style="background-color: beige;">Område</button>
@@ -54,7 +59,7 @@
                     <label for="Robotik">Robotik</label>
                     <hr>
                 </div>
-                
+
                 <button id="TypeBtn" type="button" class="contentShow" style="background-color: beige;">Typ</button>
                 <div id="Types" class="content">
                     <hr>
@@ -88,7 +93,7 @@
                     <input type="checkbox" id="AnnanOperation" class="ChekedKeyWord">
                     <label for="AnnatOperation">Annat</label>
                     <hr>
-                    
+
                 </div>
                 <button id="DatabaseBtn" type="button" class="contentShow" style="background-color: beige;">Databas</button>
                 <div id="Databases" class="content">
@@ -104,7 +109,7 @@
                     <input type="checkbox" id="XML" class="ChekedKeyWord">
                     <label for="XML">XML</label>
                     <hr>
-                    
+
                 </div>
                 <button type="button" id="ProgrammingLanguageBtn" class="contentShow" style="background-color: beige;">Programmeringsspråk</button>
                 <div id="ProgrammingLanguage" class="content">
@@ -131,18 +136,16 @@
                     <hr>
                     <input type="checkbox" id="Annatprog" class="ChekedKeyWord">
                     <label for="Annat">Annat</label>
-                    <br>
-                    <br>
-                    <br>
-                </div>
-                <button id="RestBtn" type="button" class="contentShow" style="background-color: beige;">Övrigt</button>
-                <div id="TheRest" class="content">
+                    <hr>
 
                 </div>
             </div>
             <br>
-            <hr>
-            <button id="SaveExJob" class="bColorBlue" style="width: 100%">Spara</button>
+            <hr class="Shadow">
+            <div style="display: inline; margin: 2%">
+                <button id="SaveExJob" class="bColorBlue Height Shadow" style="width: 48%">Spara</button>
+                <button id="AbortExJob" class="bColorBlue Height Shadow" style="width: 48%">Avbryt</button>
+            </div>
             <br>
             <br>
             <br>

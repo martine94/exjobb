@@ -246,7 +246,7 @@ function loadPartial(command, route, afterLoad){
         otherBtn.addEventListener("click", (e) => showHide(other));
         progBtn.addEventListener("mouseover", (e) => hoverNewExJob(progBtn, 1));
         progBtn.addEventListener("mouseleave", (e) => hoverNewExJob(progBtn, 0));
-        areaBtn.addEventListener("mouseleave", (e) => hoverNewExJob(areaBtn, 1));
+        areaBtn.addEventListener("mouseover", (e) => hoverNewExJob(areaBtn, 1));
         areaBtn.addEventListener("mouseleave", (e) => hoverNewExJob(areaBtn, 0));
         typeBtn.addEventListener("mouseover", (e) => hoverNewExJob(typeBtn, 1));
         typeBtn.addEventListener("mouseleave", (e) => hoverNewExJob(typeBtn, 0));
