@@ -137,11 +137,9 @@ app.get('/getJobsFromDB',function(req,res){
     Mongo.findOne("job", {}, function (result) {
         console.log(JSON.stringify(result));
         if (result.length === 0) {
-            console.log("false");
+            console.log("false, job could not be found.");
             res.send("false");
         } else {
-            console.log("userInfo from DB");
-            console.log(JSON.stringify(result));
             res.send(result);
         }
     });

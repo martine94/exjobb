@@ -421,7 +421,6 @@ window.onload = function () {
 
     }
     function workAnnouncements(num, jobb) {
-        console.log(jobb);
         workAnnouncement = work_Announcement;
 
         for (var i = 0; i < num; i++) {
