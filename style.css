@@ -403,11 +403,7 @@ input[type=text],input[type=password]{
 }
 .jobInfo{
 	height:40%;
-<<<<<<< HEAD
-	width:100%;
-=======
-	margin-right: 5%;
->>>>>>> ef11059572f79b9dc83100f10b0df5e2031b1a09
+	width:85%;
 }
 	
 .companyPage{
