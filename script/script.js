@@ -139,7 +139,7 @@ window.onload = function () {
             }
 
         };
-        xhttp.open("GET", "loadFile?l="+'/views/index'+"&p="+'/logInComp.html', true);    
+        xhttp.open("GET", "loadFileIndex?p="+'/logInComp.html', true);    
         // xhttp.open("GET", "loadLogInComp", true);
         xhttp.send();
     }
@@ -159,7 +159,7 @@ window.onload = function () {
             }
 
         };
-        xhttp.open("GET", "loadFile?l="+'/views/index'+"&p="+'/logInStudent.html', true);    
+        xhttp.open("GET", "loadFileIndex?p="+'/logInStudent.html', true);    
         // xhttp.open("GET", "loadLogInStudent", true);
         xhttp.send();
     }
@@ -182,7 +182,7 @@ window.onload = function () {
 
         // xhttp.open("GET", "loadRegComp", true);
         //"logginStudent?_user=" + username + "&password=" 
-        xhttp.open("GET", "loadFile?l="+'/views/index'+"&p="+'/regCompany.html', true);        
+        xhttp.open("GET", "loadFileIndex?p="+'/regCompany.html', true);        
         xhttp.send();
     }
     function checkValidRegCompanyInput(){
@@ -265,7 +265,7 @@ window.onload = function () {
 
         };
         //xhttp.open("GET", "loadRegStudent", true);
-        xhttp.open("GET", "loadFile?l="+'/views/index'+"&p="+'/regStudent.html', true);    
+        xhttp.open("GET", "loadFileIndex?p="+'/regStudent.html', true);    
         xhttp.send();
     }
     function checkValidRegStudentInput(){
@@ -375,7 +375,7 @@ window.onload = function () {
                getJobsFromDB();
             }
         };
-        xhttp.open("GET", "loadFile?l="+'/views/index'+"&p="+'/about.html', true);    
+        xhttp.open("GET", "loadFileIndex?p="+'/about.html', true);    
         // xhttp.open("GET", "loadAboutUs", true);
         xhttp.send();
     }
@@ -402,7 +402,7 @@ window.onload = function () {
                document.getElementById("forCompaniesInfo").style.display = "block";
             }
         };
-        xhttp.open("GET", "loadFile?l="+'/views/index'+"&p="+'/forCompanies.html', true);    
+        xhttp.open("GET", "loadFileIndex?p="+'/forCompanies.html', true);    
         // xhttp.open("GET", "loadForCompanies", true);
         xhttp.send();
     }
@@ -415,13 +415,12 @@ window.onload = function () {
                document.getElementById("forStudentsInfo").style.display = "block";
             }
         };
-        xhttp.open("GET", "loadFile?l="+'/views/index'+"&p="+'/forStudents.html', true);    
+        xhttp.open("GET", "loadFileIndex?p="+'/forStudents.html', true);    
         // xhttp.open("GET", "loadForStudents", true);
         xhttp.send();
 
     }
     function workAnnouncements(num, jobb) {
-        console.log(jobb);
         workAnnouncement = work_Announcement;
 
         for (var i = 0; i < num; i++) {
