@@ -4,7 +4,7 @@ window.onload = function () {
         // shortdesc = "";
         // fulldesc =""
         // keywords = [];
-    constructor (title, shortdescription, longdescription, fulllistofkeywords=[],companyID){
+    constructor (title, shortdescription, longdescription, fulllistofkeywords=[]){
             this.logoURL="";
             this.tile = title;
             this.shortdesc = shortdescription;
@@ -14,7 +14,6 @@ window.onload = function () {
             this.companyName="";
             this.website="";
         }
- 
     }
 
     //#region buttons
@@ -53,10 +52,7 @@ window.onload = function () {
         }
     }));*/
     logOutCompanyBtn.addEventListener("click", logOut);
-    //#endregions
 
-    loadMyInfo();   
-}
 
 //#region functions
 function loadPartial(command, route, afterLoad){
@@ -307,6 +303,7 @@ function loadPartial(command, route, afterLoad){
         let title = document.getElementById("Headline").value;
         let shortde = document.getElementById("shortSubject").value;
         let longde = document.getElementById("Subject").value;
+        console.log(title+shortde+longde);
         var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
         for (i = 0; i < fullListToCheck.length; i++) {
             if(fullListToCheck[i].checked)
@@ -334,7 +331,8 @@ function loadPartial(command, route, afterLoad){
         xhttp.send();
         
     }
-    
+    loadMyInfo();   
 
+}
     //#endregions
 
