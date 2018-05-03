@@ -46,7 +46,6 @@ app.get('/loadLogInComp', function (req, res) {
     console.log("Get /logComp request");
     res.sendFile(path.join(__dirname, '/views/index', '/logInComp.html'));
 });
-
 app.get('/loadAboutUs', function (req, res) {
     res.sendFile(path.join(__dirname, '/views/index', '/about.html'));
 });
@@ -56,7 +55,6 @@ app.get('/loadForCompanies', function (req, res) {
 app.get('/loadForStudents', function (req, res) {
     res.sendFile(path.join(__dirname, '/views/index', '/forStudents.html'));
 });
-
 app.get('/loadNewExJob', function(req,res){
     res.sendFile(path.join(__dirname, '/views/company', '/newExJob.html'));
 });
@@ -66,7 +64,6 @@ app.get('/loadMyCPages', function(req,res){
 app.get('/loadmyCOffers', function(req,res){
     res.sendFile(path.join(__dirname, '/views/company', '/myOffers.html'));
 });
-
 app.get('/loadMyInterests', function(req,res){
     res.sendFile(path.join(__dirname, '/views/student', '/mySJobs.html'));
 });
@@ -83,12 +80,6 @@ app.get('/loadmyInfoC', function(req,res){ //company bör refaktoriseras
     res.sendFile(path.join(__dirname, '/views/company', '/myCInfo.html'));
 });
 
-
-app.get('/app_get', function (req, resp, next) {
-    console.log("GET request");
-    resp.send('Nothing to GET');
-});
-
 app.get('/loggedIn', function (req, resp) {
     if (req.session && req.session.user) {
         console.log("found session");
@@ -100,21 +91,7 @@ app.get('/loggedIn', function (req, resp) {
         resp.redirect('');
     }
 });
-app.get('/userData', function (req, res) {
-    console.log("GET /userData.html request");
-    /*Mongo.getUserData(function(result){
-        console.log(result);
-        res.send(result);
-    });*/
-    if (req.session && req.session.user) {
-        console.log("found session");
-        console.log(req.session.user);
-        res.send(JSON.stringify(req.session.user));
-    } else {
-        console.log("not logged in");
-        res.send("You are not logged in.")
-    }
-});
+
 function getUserID(req) {
     if (req.session && req.session.user) {
         console.log("found session");
@@ -192,13 +169,11 @@ app.get('/getJobsFromDB',function(req,res){
 app.get('/logout', function (req, resp) {
     req.session.reset();
     var redirectAddress = serverAddress + '/index.html';
-    //resp.redirect(redirectAddress);
     resp.send("true");
 });
 app.post('/changeCompanyInfo',urlEncodedParcer,function(req,res){
     console.log("company change POST request");
     var user={
-       // _id: getUserID(req),
         companyName: req.query["cname"],
         companyAddress: req.query["caddress"],
         companyCity: req.query["ccity"],
@@ -208,7 +183,6 @@ app.post('/changeCompanyInfo',urlEncodedParcer,function(req,res){
         website:req.query["cweb"],
         logoURL:req.query["clogo"]
     }
-    //console.log(user);
     try {
         myQuery=getUserID(req);
        console.log(myQuery);
@@ -402,12 +376,6 @@ app.get('/logginStudent', urlEncodedParcer, function (req, res) {
         }
     });
 });
-/*var server = app.listen(2000, function () {
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log("Express app listening at http://%s:%s", host, port);
-});*/
-
 server.on('connection', conn => {
     console.log("Connection recieved");
 });
