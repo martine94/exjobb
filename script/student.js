@@ -57,7 +57,7 @@ window.onload = function () {
                 listUserDataFromDB(); //genererar användarinfo
             }
         };
-        xhttp.open("GET", "loadMyInfo", true);
+        xhttp.open("GET", "loadFileStudent?p="+'/mySInfo.html', true);    
         xhttp.send();
     }
 
@@ -68,7 +68,7 @@ window.onload = function () {
                 document.getElementById("menu-page-content").innerHTML = this.response;
             }
         };
-        xhttp.open("GET", "loadMyInterests", true);
+        xhttp.open("GET", "loadFileStudent?p="+'/mySJobs.html', true);    
         xhttp.send();
     }
 
@@ -81,7 +81,7 @@ window.onload = function () {
                 fillEditProfile();
             }
         };
-        xhttp.open("GET", "loadMySProfile", true);
+        xhttp.open("GET", "loadFileStudent?p="+'/mySProfile.html', true);    
         xhttp.send();
     }
 
@@ -92,7 +92,7 @@ window.onload = function () {
                 document.getElementById("menu-page-content").innerHTML = this.response;
             }
         };
-        xhttp.open("GET", "loadMyRecomendedJobs", true);
+        xhttp.open("GET", "loadFileStudent?p="+'/myRecomendedJobs.html', true);    
         xhttp.send();
     }
     function fillEditProfile() {
