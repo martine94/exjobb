@@ -388,7 +388,8 @@ input[type=text],input[type=password]{
 .jobs{
 	background-color: rgb(255, 255, 255);
 	width: 100%;
-	height: 260px;
+	height: 250px;
+	padding:0 1% 0 1%;
 	/* margin: 2%; */
 	/* padding-bottom: 1%; */
 	border-top:    1px solid rgb(141, 141, 139);
@@ -402,6 +403,7 @@ input[type=text],input[type=password]{
 }
 .jobInfo{
 	height:40%;
+	margin-right: 5%;
 }
 	
 .companyPage{
