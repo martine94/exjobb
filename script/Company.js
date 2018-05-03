@@ -99,7 +99,7 @@ function loadPartial(command, route, afterLoad){
                listUserDataFromDB();
             }
         };
-        xhttp.open("GET", "loadmyInfoC", true);
+        xhttp.open("GET", "loadFileCompany?p="+'/myCInfo.html', true);    
         xhttp.send();
     }
     function listUserDataFromDB() {
@@ -171,7 +171,7 @@ function loadPartial(command, route, afterLoad){
                 loadButtonEventsExJob();
             }
         };
-        xhttp.open("GET", "loadNewExJob", true);
+        xhttp.open("GET", "loadFileCompany?p="+'/newExJob.html', true);    
         xhttp.send();
     }
 
@@ -182,7 +182,7 @@ function loadPartial(command, route, afterLoad){
                document.getElementById("menu-page-content").innerHTML = this.response;
             }
         };
-        xhttp.open("GET", "loadmyCOffers", true);
+        xhttp.open("GET", "loadFileCompany?p="+'/myOffers.html', true);    
         xhttp.send();
     }
     function changeInfo(){
@@ -219,7 +219,7 @@ function loadPartial(command, route, afterLoad){
                fillEditProfile();
             }
         };
-        xhttp.open("GET", "loadMyCPages", true);
+        xhttp.open("GET", "loadFileCompany?p="+'/myCompanyPages.html', true);    
         xhttp.send();
     }
 

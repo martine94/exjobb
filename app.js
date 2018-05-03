@@ -33,6 +33,7 @@ var dirIndex=path.join(__dirname, '/views/index');
 var dirCompany=path.join(__dirname, '/views/company');
 var dirStudent=path.join(__dirname, '/views/student');
 
+//#region LoadFileFunctions
 app.get('/loadFileIndex',urlEncodedParcer, function (req, res) {
     var location=req.query["l"];
     var _path=req.query["p"];
@@ -49,32 +50,7 @@ app.get('/loadFileStudent',urlEncodedParcer, function (req, res) {
     var _path=req.query["p"];
     res.sendFile(path.join(dirStudent, _path));
 });
-
-
-app.get('/loadNewExJob', function(req,res){
-    res.sendFile(path.join(__dirname, '/views/company', '/newExJob.html'));
-});
-app.get('/loadMyCPages', function(req,res){
-    res.sendFile(path.join(dirC, '/myCompanyPages.html'));
-});
-app.get('/loadmyCOffers', function(req,res){
-    res.sendFile(path.join(dirC, '/myOffers.html'));
-});
-app.get('/loadMyInterests', function(req,res){
-    res.sendFile(path.join(__dirname, '/views/student', '/mySJobs.html'));
-});
-app.get('/loadMySProfile', function(req,res){
-    res.sendFile(path.join(__dirname, '/views/student', '/mySProfile.html'));
-});
-app.get('/loadMyRecomendedJobs', function(req,res){
-    res.sendFile(path.join(__dirname, '/views/student', '/myRecomendedJobs.html'));
-});
-app.get('/loadMyInfo', function(req,res){ //student
-    res.sendFile(path.join(__dirname, '/views/student', '/mySInfo.html'));
-});
-app.get('/loadmyInfoC', function(req,res){ //company bör refaktoriseras
-    res.sendFile(path.join(__dirname, '/views/company', '/myCInfo.html'));
-});
+//#endregion
 
 app.get('/loggedIn', function (req, resp) {
     if (req.session && req.session.user) {
