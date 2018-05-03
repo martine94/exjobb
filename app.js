@@ -29,10 +29,25 @@ app.use(express.static(__dirname+'/views/student'));
 app.use(express.static(__dirname+'/views/index'));
 app.use(express.static(__dirname+'/resources'));
 
-app.get('/loadFile',urlEncodedParcer, function (req, res) {
+var dirIndex=path.join(__dirname, '/views/index');
+var dirCompany=path.join(__dirname, '/views/company');
+var dirStudent=path.join(__dirname, '/views/student');
+
+app.get('/loadFileIndex',urlEncodedParcer, function (req, res) {
     var location=req.query["l"];
     var _path=req.query["p"];
-    res.sendFile(path.join(__dirname, location, _path));
+    res.sendFile(path.join(dirIndex, _path));
+});
+
+app.get('/loadFileCompany',urlEncodedParcer, function (req, res) {
+    var location=req.query["l"];
+    var _path=req.query["p"];
+    res.sendFile(path.join(dirCompany, _path));
+});
+app.get('/loadFileStudent',urlEncodedParcer, function (req, res) {
+    var location=req.query["l"];
+    var _path=req.query["p"];
+    res.sendFile(path.join(dirStudent, _path));
 });
 
 
@@ -40,10 +55,10 @@ app.get('/loadNewExJob', function(req,res){
     res.sendFile(path.join(__dirname, '/views/company', '/newExJob.html'));
 });
 app.get('/loadMyCPages', function(req,res){
-    res.sendFile(path.join(__dirname, '/views/company', '/myCompanyPages.html'));
+    res.sendFile(path.join(dirC, '/myCompanyPages.html'));
 });
 app.get('/loadmyCOffers', function(req,res){
-    res.sendFile(path.join(__dirname, '/views/company', '/myOffers.html'));
+    res.sendFile(path.join(dirC, '/myOffers.html'));
 });
 app.get('/loadMyInterests', function(req,res){
     res.sendFile(path.join(__dirname, '/views/student', '/mySJobs.html'));
