@@ -177,7 +177,10 @@ window.onload = function () {
             }
 
         };
-        xhttp.open("GET", "loadRegComp", true);
+
+        // xhttp.open("GET", "loadRegComp", true);
+        //"logginStudent?_user=" + username + "&password=" 
+        xhttp.open("GET", "loadFile?l="+'/views/index'+"&p="+'/regCompany.html', true);        
         xhttp.send();
     }
     function checkValidRegCompanyInput(){

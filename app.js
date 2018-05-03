@@ -29,6 +29,11 @@ app.use(express.static(__dirname+'/views/student'));
 app.use(express.static(__dirname+'/views/index'));
 app.use(express.static(__dirname+'/resources'));
 
+app.get('/loadFile',urlEncodedParcer, function (req, res) {
+    var l=req.query["l"];
+    var p=req.query["p"];
+    res.sendFile(path.join(__dirname, l, p));
+});
 
 app.get('/loadRegComp', function (req, res) {
     console.log("Get /regCompany request");
