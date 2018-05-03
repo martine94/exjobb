@@ -25,6 +25,7 @@ module.exports = {
       });
     });
   },
+  
   getUserData: function (callback) {
     MongoClient.connect(url, function (err, db) {
       if (err) throw err;

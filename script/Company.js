@@ -16,28 +16,13 @@ window.onload = function () {
         }
  
     }
+
     //#region buttons
     var newExJobBtn=document.getElementById("newExJobBtn");
     var myOffersBtn=document.getElementById("myOffersBtn");
     var myProfileBtn=document.getElementById("myProfileBtn");
     var myInfoBtn=document.getElementById("myInfoBtn");
     var logOutCompanyBtn=document.getElementById("logOutCompanyBtn");
-
-
-    //#endregions
-
-    //#region eventListeners
-    newExJobBtn.addEventListener("click",loadNewExJob);
-    myOffersBtn.addEventListener("click",loadMyOffers);
-    myProfileBtn.addEventListener("click",loadMyProfile);
-    myInfoBtn.addEventListener("click",loadMyInfo);
-   
-    logOutCompanyBtn.addEventListener("click",loadPartial("GET", "logout", function(){
-        if("true"){
-            window.location.replace("index.html");
-        }
-    }));
-    //#endregions
 
     //Buttons, divs and an array for newExJob.html
     var progBtn;
@@ -52,19 +37,35 @@ window.onload = function () {
     var other;
     var keyBtn;
     var saveBtn;
+    //#endregions
 
+    //#region eventListeners
+    newExJobBtn.addEventListener("click",loadNewExJob);
+    myOffersBtn.addEventListener("click",loadMyOffers);
+    myProfileBtn.addEventListener("click",loadMyProfile);
+    myInfoBtn.addEventListener("click",loadMyInfo);
+   
+    logOutCompanyBtn.addEventListener("click", loadPartial("GET", "logout", function(){
+        if("true"){
+            window.location.replace("index.html");
+        }
+    }));
+    //#endregions
 
-    //#region functions
-    function loadPartial(command, route, afterLoad){
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                afterLoad();
-            }
-        };
-        xhttp.open(command, route, true);
-        xhttp.send();
-    }
+    loadMyInfo();   
+}
+
+//#region functions
+function loadPartial(command, route, afterLoad){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            afterLoad();
+        }
+    };
+    xhttp.open(command, route, true);
+    xhttp.send();
+}
 
    /*  loadPartial("GET", "logout", function(){
         if("true"){
@@ -234,28 +235,29 @@ window.onload = function () {
         keyBtn = document.getElementById("KeyWordBtn");
         saveBtn = document.getElementById("SaveExJob");
     }
+
     function loadButtonEventsExJob(){
         progBtn.addEventListener("click", (e) => showHide(prog));
-    typeBtn.addEventListener("click", (e) => showHide(types));
-    operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
-    databaseBtn.addEventListener("click", (e) => showHide(databases));
-    otherBtn.addEventListener("click", (e) => showHide(other));
-    progBtn.addEventListener("mouseover", (e) => hoverNewExJob(progBtn, 1, prog));
-    progBtn.addEventListener("mouseleave", (e) => hoverNewExJob(progBtn, 0, prog));
-    typeBtn.addEventListener("mouseover", (e) => hoverNewExJob(typeBtn, 1, types));
-    typeBtn.addEventListener("mouseleave", (e) => hoverNewExJob(typeBtn, 0, types));
-    operationSystemBtn.addEventListener("mouseover", (e) => hoverNewExJob(operationSystemBtn, 1, operationSystems));
-    operationSystemBtn.addEventListener("mouseleave", (e) => hoverNewExJob(operationSystemBtn, 0, operationSystems));
-    databaseBtn.addEventListener("mouseover", (e) => hoverNewExJob(databaseBtn, 1, databases));
-    databaseBtn.addEventListener("mouseleave", (e) => hoverNewExJob(databaseBtn, 0, databases));
-    otherBtn.addEventListener("mouseover", (e) => hoverNewExJob(otherBtn, 1, other));
-    otherBtn.addEventListener("mouseleave", (e) => hoverNewExJob(otherBtn, 0, other));
-    saveBtn.addEventListener("mouseover", (e) => hoverNewExJob(saveBtn, 1, other));
-    saveBtn.addEventListener("mouseleave", (e) => hoverNewExJob(saveBtn, 0, other));
-    saveBtn.addEventListener("click", (e) => saveNewExjob(e));
-    keyBtn.addEventListener("mouseover", (e) => hoverNewExJob(keyBtn, 1, other));
-    keyBtn.addEventListener("mouseleave", (e) => hoverNewExJob(keyBtn, 0, other));
-    //keyBtn.addEventListener("click", (e) => checkForKeyWords(e));
+        typeBtn.addEventListener("click", (e) => showHide(types));
+        operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
+        databaseBtn.addEventListener("click", (e) => showHide(databases));
+        otherBtn.addEventListener("click", (e) => showHide(other));
+        progBtn.addEventListener("mouseover", (e) => hoverNewExJob(progBtn, 1, prog));
+        progBtn.addEventListener("mouseleave", (e) => hoverNewExJob(progBtn, 0, prog));
+        typeBtn.addEventListener("mouseover", (e) => hoverNewExJob(typeBtn, 1, types));
+        typeBtn.addEventListener("mouseleave", (e) => hoverNewExJob(typeBtn, 0, types));
+        operationSystemBtn.addEventListener("mouseover", (e) => hoverNewExJob(operationSystemBtn, 1, operationSystems));
+        operationSystemBtn.addEventListener("mouseleave", (e) => hoverNewExJob(operationSystemBtn, 0, operationSystems));
+        databaseBtn.addEventListener("mouseover", (e) => hoverNewExJob(databaseBtn, 1, databases));
+        databaseBtn.addEventListener("mouseleave", (e) => hoverNewExJob(databaseBtn, 0, databases));
+        otherBtn.addEventListener("mouseover", (e) => hoverNewExJob(otherBtn, 1, other));
+        otherBtn.addEventListener("mouseleave", (e) => hoverNewExJob(otherBtn, 0, other));
+        saveBtn.addEventListener("mouseover", (e) => hoverNewExJob(saveBtn, 1, other));
+        saveBtn.addEventListener("mouseleave", (e) => hoverNewExJob(saveBtn, 0, other));
+        saveBtn.addEventListener("click", (e) => saveNewExjob(e));
+        keyBtn.addEventListener("mouseover", (e) => hoverNewExJob(keyBtn, 1, other));
+        keyBtn.addEventListener("mouseleave", (e) => hoverNewExJob(keyBtn, 0, other));
+        //keyBtn.addEventListener("click", (e) => checkForKeyWords(e));
     }
 
     function hoverNewExJob(element, show, connectedTo) {
@@ -324,8 +326,7 @@ window.onload = function () {
         xhttp.send();
         
     }
-    loadMyInfo();
+    
 
     //#endregions
 
-}
