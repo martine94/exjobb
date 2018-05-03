@@ -114,13 +114,13 @@ function loadPartial(command, route, afterLoad){
                     web: obj.website,
                     logo: obj.logoURL
                 }
-                document.getElementById("clogo").innerHTML += "<img src="+user.logo+" height=\"70\" width=\"70\" >";
-                document.getElementById("cid").innerHTML += user.id;
-                document.getElementById("cname").innerHTML += user.name;
-                document.getElementById("caddress").innerHTML += user.address;
-                document.getElementById("ccity").innerHTML += user.city;
-                document.getElementById("cemail").innerHTML += user.email;
-                document.getElementById("cweb").innerHTML += "<a href="+user.web+">"+user.web+"</a>";
+                document.getElementById("clogo").innerHTML = "<img src="+user.logo+" height=\"70\" width=\"70\" >";
+                document.getElementById("cid").innerHTML = "<p>"+user.id+"</p>";
+                document.getElementById("cname").innerHTML = "<h1>"+user.name+"</h1>";
+                document.getElementById("caddress").innerHTML = "<p>"+user.address+"</p>";
+                document.getElementById("ccity").innerHTML = "<p>"+user.city+"</p>";
+                document.getElementById("cemail").innerHTML = "<p>"+user.email+"</p>";
+                document.getElementById("cweb").innerHTML = "<a href="+user.web+">"+user.web+"</a>";
             }
         };
         xhttp.open("GET", "userDataFromDBCompany", true)
