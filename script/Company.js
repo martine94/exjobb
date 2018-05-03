@@ -27,6 +27,8 @@ window.onload = function () {
     //Buttons, divs and an array for newExJob.html
     var progBtn;
     var prog;
+    var areaBtn;
+    var area;
     var typeBtn;
     var types;
     var operationSystemBtn;
@@ -225,6 +227,8 @@ function loadPartial(command, route, afterLoad){
         ListOfKeyWords = [];
         progBtn = document.getElementById("ProgrammingLanguageBtn");
         prog = document.getElementById("ProgrammingLanguage");
+        areaBtn = document.getElementById("AreaBtn");
+        area = document.getElementById("Area");
         typeBtn = document.getElementById("TypeBtn");
         types = document.getElementById("Types");
         operationSystemBtn = document.getElementById("OperationSystemBtn");
@@ -239,29 +243,32 @@ function loadPartial(command, route, afterLoad){
 
     function loadButtonEventsExJob(){
         progBtn.addEventListener("click", (e) => showHide(prog));
+        areaBtn.addEventListener("click", (e) => showHide(area));
         typeBtn.addEventListener("click", (e) => showHide(types));
         operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
         databaseBtn.addEventListener("click", (e) => showHide(databases));
         otherBtn.addEventListener("click", (e) => showHide(other));
-        progBtn.addEventListener("mouseover", (e) => hoverNewExJob(progBtn, 1, prog));
-        progBtn.addEventListener("mouseleave", (e) => hoverNewExJob(progBtn, 0, prog));
-        typeBtn.addEventListener("mouseover", (e) => hoverNewExJob(typeBtn, 1, types));
-        typeBtn.addEventListener("mouseleave", (e) => hoverNewExJob(typeBtn, 0, types));
-        operationSystemBtn.addEventListener("mouseover", (e) => hoverNewExJob(operationSystemBtn, 1, operationSystems));
-        operationSystemBtn.addEventListener("mouseleave", (e) => hoverNewExJob(operationSystemBtn, 0, operationSystems));
-        databaseBtn.addEventListener("mouseover", (e) => hoverNewExJob(databaseBtn, 1, databases));
-        databaseBtn.addEventListener("mouseleave", (e) => hoverNewExJob(databaseBtn, 0, databases));
-        otherBtn.addEventListener("mouseover", (e) => hoverNewExJob(otherBtn, 1, other));
-        otherBtn.addEventListener("mouseleave", (e) => hoverNewExJob(otherBtn, 0, other));
-        saveBtn.addEventListener("mouseover", (e) => hoverNewExJob(saveBtn, 1, other));
-        saveBtn.addEventListener("mouseleave", (e) => hoverNewExJob(saveBtn, 0, other));
+        progBtn.addEventListener("mouseover", (e) => hoverNewExJob(progBtn, 1));
+        progBtn.addEventListener("mouseleave", (e) => hoverNewExJob(progBtn, 0));
+        areaBtn.addEventListener("mouseleave", (e) => hoverNewExJob(areaBtn, 1));
+        areaBtn.addEventListener("mouseleave", (e) => hoverNewExJob(areaBtn, 0));
+        typeBtn.addEventListener("mouseover", (e) => hoverNewExJob(typeBtn, 1));
+        typeBtn.addEventListener("mouseleave", (e) => hoverNewExJob(typeBtn, 0));
+        operationSystemBtn.addEventListener("mouseover", (e) => hoverNewExJob(operationSystemBtn, 1));
+        operationSystemBtn.addEventListener("mouseleave", (e) => hoverNewExJob(operationSystemBtn, 0));
+        databaseBtn.addEventListener("mouseover", (e) => hoverNewExJob(databaseBtn, 1));
+        databaseBtn.addEventListener("mouseleave", (e) => hoverNewExJob(databaseBtn, 0));
+        otherBtn.addEventListener("mouseover", (e) => hoverNewExJob(otherBtn, 1));
+        otherBtn.addEventListener("mouseleave", (e) => hoverNewExJob(otherBtn, 0));
+        saveBtn.addEventListener("mouseover", (e) => hoverNewExJob(saveBtn, 1));
+        saveBtn.addEventListener("mouseleave", (e) => hoverNewExJob(saveBtn, 0));
         saveBtn.addEventListener("click", (e) => saveNewExjob(e));
-        keyBtn.addEventListener("mouseover", (e) => hoverNewExJob(keyBtn, 1, other));
-        keyBtn.addEventListener("mouseleave", (e) => hoverNewExJob(keyBtn, 0, other));
+        keyBtn.addEventListener("mouseover", (e) => hoverNewExJob(keyBtn, 1));
+        keyBtn.addEventListener("mouseleave", (e) => hoverNewExJob(keyBtn, 0));
         //keyBtn.addEventListener("click", (e) => checkForKeyWords(e));
     }
 
-    function hoverNewExJob(element, show, connectedTo) {
+    function hoverNewExJob(element, show) {
        // connectedTo.style.width = "244pt";
         if ((element.id !== "SaveExJob") && (element.id !== "KeyWordBtn")) {
             if (show === 0) {
