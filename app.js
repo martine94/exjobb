@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var Mongo = require('../mongo/mongo.js');
+var Mongo = require('./mongo/mongo.js');
 var urlEncodedParcer = bodyParser.urlencoded({ extended: true });
 var session = require('client-sessions'); //kommentera ut denna om ni inte har Sessions installerat
 var cookieParser = require('cookie-parser');
@@ -21,59 +21,66 @@ app.use(session({
     activeDuration: 5 * 60 * 1000,
 }));
 //Ändra till express.static('../') för att nå riktiga sidan
-app.use(express.static('../'));
+app.use(express.static('./views/index'));
+app.use(express.static(__dirname+'/style'));
+app.use(express.static(__dirname+'/script'));
+app.use(express.static(__dirname+'/views/company'));
+app.use(express.static(__dirname+'/views/student'));
+app.use(express.static(__dirname+'/views/index'));
+app.use(express.static(__dirname+'/resources'));
+
 
 app.get('/loadRegComp', function (req, res) {
     console.log("Get /regCompany request");
-    res.sendFile(path.join(__dirname, '../', '/regCompany.html'));
+    res.sendFile(path.join(__dirname, '/views/index', '/regCompany.html'));
 });
 app.get('/loadRegStudent', function (req, res) {
     console.log("Get /regStud request");
-    res.sendFile(path.join(__dirname, '../', '/regStudent.html'));
+    res.sendFile(path.join(__dirname, '/views/index', '/regStudent.html'));
 });
 app.get('/loadLogInStudent', function (req, res) {
     console.log("Get /logStud request");
-    res.sendFile(path.join(__dirname, '../', '/logInStudent.html'));
+    res.sendFile(path.join(__dirname, '/views/index', '/logInStudent.html'));
 });
 app.get('/loadLogInComp', function (req, res) {
     console.log("Get /logComp request");
-    res.sendFile(path.join(__dirname, '../', '/logInComp.html'));
+    res.sendFile(path.join(__dirname, '/views/index', '/logInComp.html'));
 });
 
 app.get('/loadAboutUs', function (req, res) {
-    res.sendFile(path.join(__dirname, '../', '/about.html'));
+    res.sendFile(path.join(__dirname, '/views/index', '/about.html'));
 });
 app.get('/loadForCompanies', function (req, res) {
-    res.sendFile(path.join(__dirname, '../', '/forCompanies.html'));
+    res.sendFile(path.join(__dirname, '/views/index', '/forCompanies.html'));
 });
 app.get('/loadForStudents', function (req, res) {
-    res.sendFile(path.join(__dirname, '../', '/forStudents.html'));
+    res.sendFile(path.join(__dirname, '/views/index', '/forStudents.html'));
 });
 
 app.get('/loadNewExJob', function(req,res){
-    res.sendFile(path.join(__dirname, '../', '/newExJob.html'));
+    res.sendFile(path.join(__dirname, '/views/company', '/newExJob.html'));
 });
 app.get('/loadMyCPages', function(req,res){
-    res.sendFile(path.join(__dirname, '../', '/myCompanyPages.html'));
+    res.sendFile(path.join(__dirname, '/views/company', '/myCompanyPages.html'));
 });
 app.get('/loadmyCOffers', function(req,res){
-    res.sendFile(path.join(__dirname, '../', '/myOffers.html'));
+    res.sendFile(path.join(__dirname, '/views/company', '/myOffers.html'));
 });
 
 app.get('/loadMyInterests', function(req,res){
-    res.sendFile(path.join(__dirname, '../', '/mySJobs.html'));
+    res.sendFile(path.join(__dirname, '/views/student', '/mySJobs.html'));
 });
 app.get('/loadMySProfile', function(req,res){
-    res.sendFile(path.join(__dirname, '../', '/mySProfile.html'));
+    res.sendFile(path.join(__dirname, '/views/student', '/mySProfile.html'));
 });
 app.get('/loadMyRecomendedJobs', function(req,res){
-    res.sendFile(path.join(__dirname, '../', '/myRecomendedJobs.html'));
+    res.sendFile(path.join(__dirname, '/views/student', '/myRecomendedJobs.html'));
 });
 app.get('/loadMyInfo', function(req,res){ //student
-    res.sendFile(path.join(__dirname, '../', '/mySInfo.html'));
+    res.sendFile(path.join(__dirname, '/views/student', '/mySInfo.html'));
 });
 app.get('/loadmyInfoC', function(req,res){ //company bör refaktoriseras
-    res.sendFile(path.join(__dirname, '../', '/myCInfo.html'));
+    res.sendFile(path.join(__dirname, '/views/company', '/myCInfo.html'));
 });
 
 
@@ -300,57 +307,6 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
     }
 });
 
-app.post('/login_student', urlEncodedParcer, function (req, resp) {
-    console.log("student register POST request");
-    response = {
-        //format: [variabelnamn]:req.body.[inmatningsfönstrets namn]
-        uname: req.body.uname,
-        password: req.body.psw
-    };
-    console.log(response);
-
-    //Fixa så man kommer dit man ska efter post
-
-    Mongo.login("student", response.uname, response.password, function (result) {
-        console.log("Result has length: " + result.length);
-        if (result.length == 1) {
-            console.log("Login successfull!");
-            var redirectAddress = serverAddress + '/Student.html';
-            req.session.user = result; // för session
-            console.log(req.session.user);
-            resp.redirect(303, redirectAddress);
-        }
-        else {
-            console.log("Wrong password or username!");
-        }
-    });
-});
-
-app.post('/login_company', urlEncodedParcer, function (req, resp) {
-    console.log("student register POST request");
-    response = {
-        uname: req.body.uname,
-        password: req.body.psw
-    };
-    console.log(response)
-
-    Mongo.login("company", response.uname, response.password, function (result) {
-
-        console.log("Result has length: " + result.length);
-
-        if (result.length == 1) {
-            console.log("Login successfull!");
-            var redirectAddress = serverAddress + '/Company.html';
-            req.session.user = result; // för session
-            console.log(req.session.user);
-            resp.redirect(303, redirectAddress);
-        }
-        else {
-            console.log("Wrong password or username!");
-        }
-    });
-
-});
 app.post('/addJobToDB',urlEncodedParcer, function (req, res){
     console.log("POST add job request");
     var userID = getUserID(req);
@@ -407,7 +363,7 @@ app.delete('/app_delete', function (req, resp) {
 var server = app.listen(portNumber, function () {
     var host = ipAdress;//server.address().address; 
     var port = portNumber;//server.address().port;
-    console.log("Express app listening at http://%s:%s", host, port);
+    console.log("Express app listening at http://%s", host);
 });
 
 app.get('/logginComp', urlEncodedParcer, function (req, res) {
