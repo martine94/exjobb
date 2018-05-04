@@ -69,6 +69,27 @@ module.exports = {
       });
     });
   },
+
+  findCompanyJobs : function(query, callback){
+    console.log("COMPANYID: "+query);
+
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      
+      console.log("Connected to database!");
+
+      var dbo = db.db(database);
+      dbo.collection('job').find({companyID:query}).toArray(function(err, result) {
+        if (err) throw err;
+
+        console.log("Entered collection success!");
+        
+        db.close();
+        callback(result);
+      });
+    });
+  },
+
   addJob: function(exjobb, callback)
   {
     MongoClient.connect(url, function(err, db) {

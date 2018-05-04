@@ -136,6 +136,19 @@ app.get('/getJobsFromDB',function(req,res){
     });
 });
 
+app.get('/getCompanyJobsFromDB',function(req,res){
+    var userid=getUserID(req);
+    Mongo.findCompanyJobs(userid, function (result) {
+        console.log(JSON.stringify(result));
+        if (result.length === 0) {
+            console.log("false, job could not be found.");
+            res.send("false");
+        } else {
+            res.send(result);
+        }
+    });
+});
+
 app.get('/logout', function (req, resp) {
     req.session.reset();
     var redirectAddress = serverAddress + '/index.html';
@@ -321,7 +334,8 @@ app.get('/logginComp', urlEncodedParcer, function (req, res) {
             res.send("false");
         } else {
             if (result[0].password === req.query["password"]) {
-                req.session.user = result[0]; // för session
+               // req.session.user = result[0]; // för session
+                req.session.user = "_id:"+ result[0]._id;
                 res.send("true");
             } else {
                 res.send("false");
@@ -339,7 +353,7 @@ app.get('/logginStudent', urlEncodedParcer, function (req, res) {
             res.send("false");
         } else {
             if (result[0].password === req.query["password"]) {
-                req.session.user = result[0];
+                req.session.user = "_id:"+ result[0]._id;
                 res.send("true");
             } else {
                 res.send("false");
