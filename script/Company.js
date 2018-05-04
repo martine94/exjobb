@@ -113,7 +113,8 @@ function loadPartial(command, route, afterLoad){
                     city: obj.companyCity,
                     email: obj.companyEmail,
                     web: obj.website,
-                    logo: obj.logoURL
+                    logo: obj.logoURL,
+                    about: obj.about
                 }
                 SetListedData(user);
             }
@@ -129,7 +130,7 @@ function loadPartial(command, route, afterLoad){
         document.getElementById("ccity").innerHTML = "<p> Ort: "+user.city+"</p>";
         document.getElementById("cemail").innerHTML = "<p>Email: "+user.email+"</p>";
         document.getElementById("cweb").innerHTML = "<p>Hemsida: <a href="+user.web+">"+user.web+"</a> </p>";
-        
+        document.getElementById("About_Us").innerHTML = user.about;
     }
 
     function fillEditProfile() {
@@ -147,7 +148,8 @@ function loadPartial(command, route, afterLoad){
                     email: obj.companyEmail,
                     web: obj.website,
                     logo: obj.logoURL,
-                    uname: obj.userName
+                    uname: obj.userName,
+                    about: obj.about
                 }
                 document.getElementById("c_Logo").value += user.logo;
                 document.getElementById("c_Name").value += user.name;
@@ -156,7 +158,7 @@ function loadPartial(command, route, afterLoad){
                 document.getElementById("c_Email").value += user.email;
                 document.getElementById("c_WebP").value += user.web;
                 document.getElementById("c_Uname").value += user.uname;
-
+                document.getElementById("about_Us").value += user.about;
             }
         };
         xhttp.open("GET", "userDataFromDBCompany", true)
@@ -190,6 +192,7 @@ function loadPartial(command, route, afterLoad){
     function changeInfo(){
         var cname = document.getElementById("c_Name").value;
         var cuname = document.getElementById("c_Uname").value;
+        var cAboutUs = document.getElementById("about_Us").value;
         var psw = document.getElementById("c_Psw").value;
         var ccity= document.getElementById("c_City").value;
         var cemail= document.getElementById("c_Email").value;
@@ -206,7 +209,7 @@ function loadPartial(command, route, afterLoad){
                }
             }
         };
-        xhttp.open("POST", "changeCompanyInfo?cname=" + cname + "&psw=" + psw + "&cuname=" + cuname + "&caddress=" + caddress + "&cemail=" + cemail+ "&ccity=" + ccity+"&cweb="+cweb+"&clogo="+clogo, true);
+        xhttp.open("POST", "changeCompanyInfo?cname=" + cname + "&psw=" + psw + "&cuname=" + cuname + "&caddress=" + caddress + "&cemail=" + cemail+ "&ccity=" + ccity+"&cweb="+cweb+"&clogo="+clogo + "&cAboutUs=" + cAboutUs, true);
         xhttp.send();
     }
     function loadMyProfile(){
