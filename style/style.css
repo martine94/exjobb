@@ -37,7 +37,6 @@ p.r1{
 	color: rgb(250, 249, 249);
 	font-family: Open Sans;
 	font-size: 1em;
-	/*text-shadow: -0.1pt 0 black, 0 0.1pt black, 0.1pt 0 black, 0 -0.1pt black;*/
 	border:none;
 	outline: none;
 	background:transparent;
@@ -92,13 +91,10 @@ img {
 	margin-top: auto;
 	margin-left: 5%;
 	position: fixed;
-	/* background-image: url("resources/Orebro_University_Logo.png"); */
 	background-image: url("https://lms.oru.se/modules/_183_1/DXC_long.svg");
 	background-repeat: no-repeat;
 	background-position: left;
 	background-size: 35%;
-	
-	/* height: 10%; */
 	
 }
 
@@ -110,7 +106,6 @@ img {
 	justify-content: flex-end;
 	width: 100%;
 	padding-right: 2%;
-	/* height: 50pt; */
 }
 
 .dropDownContainer{
@@ -203,7 +198,6 @@ img {
 	justify-content: left;
 	width: 100%;
 	height: 1.8em;
-	/* box-shadow: 0 0 0.1pt 0 black; */
 	font-size:2em;
 }
 .userinfo{
@@ -224,9 +218,6 @@ padding: 5%;
 }
 
 .information {
-    /* display: none;  */
-	/* padding:25px 350px 25px 350px;  */
-	/* width: 80%; */
 	background-color: rgb(247, 247, 247);
 	padding: 3% 20% 3% 20%;
     color:rgb(43, 42, 42);
@@ -271,7 +262,6 @@ padding: 5%;
 
 .modal {
 	font-family: Calibri;
-    /* display: none;  */
     position: fixed;
     z-index: 900; 
     left: 0;
@@ -298,7 +288,6 @@ padding: 5%;
 	justify-content: center;
 	width: 100%;
 	height: 1.8em;
-	/* box-shadow: 0 0 1px 0 grey; */
 }
 
 
@@ -357,7 +346,6 @@ input[type=text],input[type=password]{
 	display: inline-block;
 	width: 20%;
 	height: 10%;
-	/* background-color: rgb(104, 189, 238); */
 	color: rgb(255, 255, 255);
 	height: 75px;
 	margin: 10px;
@@ -401,8 +389,6 @@ input[type=text],input[type=password]{
 	width: 100%;
 	height: 250px;
 	padding:0 1% 0 1%;
-	/* margin: 2%; */
-	/* padding-bottom: 1%; */
 	border-top:    1px solid rgb(141, 141, 139);
 	border-bottom:    1px solid  rgb(141, 141, 139);
 
@@ -413,8 +399,6 @@ input[type=text],input[type=password]{
 	width: 70%;
 	height: 150px;
 	padding:0 1% 0 1%;
-	/* margin: 2%; */
-	/* padding-bottom: 1%; */
 	border-top:    1px solid rgb(141, 141, 139);
 	border-bottom:    1px solid  rgb(141, 141, 139);
 
@@ -432,7 +416,6 @@ input[type=text],input[type=password]{
 	margin-left: 15%;
 	margin-right: 15%;
 	text-align: justify;
-	/* width:85%; */
 }
 #rubrik{
 	margin-left: 4%;
@@ -504,8 +487,6 @@ color:  white;
 	color: black;
 	width: 20%;
 	height: 10%;
-	/* background-color: rgb(104, 189, 238); */
-	/* color: rgb(255, 255, 255); */
 	height: 75px;
 	margin: 10px;
 	text-align: center;
@@ -521,8 +502,6 @@ color:  white;
 	color: black;
 	width: 20%;
 	height: 10%;
-	/* background-color: rgb(104, 189, 238); */
-	/* color: rgb(255, 255, 255); */
 	height: 75px;
 	margin: 10px;
 	text-align: center;
@@ -537,14 +516,12 @@ color:  white;
 }
 
 .containerOfKeyWords{
-	/* font-size: 2em; */
 	width: 100%;
 	background-color: beige;
 	background-origin: padding-box;
 }
 
 .KeyWordStack{
-	/* box-shadow: 2px 9px 9px #999; */
 	width: 30%;
 	display: block;
 }
@@ -553,7 +530,6 @@ color:  white;
 	padding: 0 18px;
 	
 	width: 100%;
-	/* box-shadow: 2px 2px 2px #999;	 */
 	overflow: hidden;
 	color: black;
 	background-color: #FFFFFF;
@@ -565,7 +541,6 @@ color:  white;
 
 	width: 100%;
 	display: block;
-	/* box-shadow: 2px 2px 2px #999;	 */
 	overflow: hidden;
 	background-color: #FFFFFF;
 }
@@ -575,7 +550,6 @@ color:  white;
 	width: 101%;
 	display: block;
 	left:1px;
-	/* box-shadow: 7px 9px 7px rgb(177, 176, 176);	 */
 	overflow: hidden;
 	background-color: #FFFFFF;
 }
@@ -584,7 +558,6 @@ color:  white;
 	width: 100%;
 	color: #FFFFFF;
 	background-color: rgb(74,150,205);
-	/* box-shadow: 2px 9px 9px #999;	 */
 	background-origin: padding-box;
 }
 .colorW{
@@ -602,7 +575,6 @@ color:  white;
 }
 .Shadow{
 	box-shadow: 2px 9px 9px #999;
-	/* color: #FFFFFF; */
 }
 .Hight{
 	height: 2em;
@@ -613,9 +585,6 @@ color:  white;
 	margin-bottom: 10%;
 }
 
-.Shadow2{
-	/* box-shadow: 2px 9px 9px #999; */
-}
 
 .leftShifted{
 	text-align: left;
