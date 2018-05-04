@@ -382,11 +382,53 @@ function loadPartial(command, route, afterLoad){
             }
         }
     };
-        //Skriv en funktion som bara tar ut företagets jobbannonser
         xhttp.open("GET", "getSpecificJobFromDB?jobID="+jobId, true);
         xhttp.send();
     
 }
+
+
+function loadButtonsAndEventExJob(){
+    ListOfKeyWords = [];
+    progBtn = document.getElementById("ProgrammingLanguageBtn");
+    prog = document.getElementById("ProgrammingLanguage");
+    areaBtn = document.getElementById("AreaBtn");
+    area = document.getElementById("Area");
+    typeBtn = document.getElementById("TypeBtn");
+    types = document.getElementById("Types");
+    operationSystemBtn = document.getElementById("OperationSystemBtn");
+    operationSystems = document.getElementById("operationsystems");
+    databaseBtn = document.getElementById("DatabaseBtn");
+    databases = document.getElementById("Databases");
+
+    progBtn.addEventListener("click", (e) => showHide(prog));
+    areaBtn.addEventListener("click", (e) => showHide(area));
+    typeBtn.addEventListener("click", (e) => showHide(types));
+    operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
+    databaseBtn.addEventListener("click", (e) => showHide(databases));
+
+}
+
+
+function changeSpecificJob(jobId){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var jobs=JSON.parse(this.response);
+            loadButtonsAndEventExJob();
+            document.getElementById("Title").value=jobs[0].tile;
+            document.getElementById("shortDescription").value=jobs[0].shortdesc;
+            document.getElementById("longDescription").value=jobs[0].longdesc;
+            console.log("skit");
+            for(i=0;i<jobs[0].keywords.length;i++){
+                document.getElementById(jobs[0].keywords[i]).checked=true;
+            }       
+    }
+};
+    xhttp.open("GET", "getSpecificJobFromDB?jobID="+jobId, true);
+    xhttp.send();
+}
+
     function loadShowExJob(jobId){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -397,6 +439,17 @@ function loadPartial(command, route, afterLoad){
             }
         };
         xhttp.open("GET", "loadFileCompany?p="+'/showExJob.html', true);    
+        xhttp.send();
+    }
+    function loadChangeExJob(jobId){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+               document.getElementById("menu-page-content").innerHTML = this.response;
+                changeSpecificJob(jobId);
+            }
+        };
+        xhttp.open("GET", "loadFileCompany?p="+'/changeExJob.html', true);    
         xhttp.send();
     }
     function workAnnouncements(num, jobb) {
@@ -423,15 +476,19 @@ function loadPartial(command, route, afterLoad){
             let readBtn = document.createElement("button");
             readBtn.innerHTML = "Visa annons";
             readBtn.id=jobb[i]._id;
-            var Btn = document.createElement("button");
-            Btn.innerHTML = "Intresseanmälningar";
+            let interestBtn = document.createElement("button");
+            interestBtn.innerHTML = "Intresseanmälningar";
+            let changeBtn = document.createElement("button");
+            changeBtn.innerHTML = "Redigera";
+            changeBtn.className=("floatRight");
 
             workAnnouncement.appendChild(outerDiv);
             workAnnouncement.appendChild(document.createElement("br"));
             outerDiv.appendChild(top);
 
             outerDiv.appendChild(readBtn);
-            outerDiv.appendChild(Btn);
+            outerDiv.appendChild(interestBtn);
+            outerDiv.appendChild(changeBtn);
             
             top.appendChild(logo);
             top.appendChild(header);
@@ -442,6 +499,8 @@ function loadPartial(command, route, afterLoad){
             newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
 
             readBtn.addEventListener("click",(e)=>loadShowExJob(readBtn.id));
+            // interestBtn.addEventListener("click",(e)=>loadShowExJob(readBtn.id));
+            changeBtn.addEventListener("click",(e)=>loadChangeExJob(readBtn.id));
         }
     }
 

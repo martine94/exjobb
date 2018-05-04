@@ -253,7 +253,7 @@ padding: 5%;
 .showDropDownMenu:hover,
 
 .darkerBlueOnHov:hover{
-	background-color:rgb(57, 135, 190);
+	background-color:rgb(45, 123, 175);
 
 }
 .close:hover{
@@ -548,7 +548,7 @@ color:  white;
 }
 
 .KeyWordStack{
-	box-shadow: 2px 9px 9px #999;
+	/* box-shadow: 2px 9px 9px #999; */
 	width: 30%;
 	display: block;
 }
@@ -621,6 +621,22 @@ color:  white;
 .specPos{
 float: right;
 }
+.descriptionBoxes{
+	width: 100%;
+}
 
+#shortDescription{
+	min-height: 90pt;
+}
+#longDescription{
+	min-height: 200pt;
+}
+
+.contentShow2{
+	background-color: rgb(74,150,205);
+	padding: 2%;
+	color:white;
+	width: 100%;
+}
 
 
