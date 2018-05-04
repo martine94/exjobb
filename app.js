@@ -321,7 +321,8 @@ app.get('/logginComp', urlEncodedParcer, function (req, res) {
             res.send("false");
         } else {
             if (result[0].password === req.query["password"]) {
-                req.session.user = result[0]; // för session
+               // req.session.user = result[0]; // för session
+                req.session.user = "_id:"+ result[0]._id;
                 res.send("true");
             } else {
                 res.send("false");
@@ -339,7 +340,7 @@ app.get('/logginStudent', urlEncodedParcer, function (req, res) {
             res.send("false");
         } else {
             if (result[0].password === req.query["password"]) {
-                req.session.user = result[0];
+                req.session.user = "_id:"+ result[0]._id;
                 res.send("true");
             } else {
                 res.send("false");
