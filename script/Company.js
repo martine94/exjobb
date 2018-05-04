@@ -235,8 +235,7 @@ function loadPartial(command, route, afterLoad){
         operationSystems = document.getElementById("operationsystems");
         databaseBtn = document.getElementById("DatabaseBtn");
         databases = document.getElementById("Databases");
-        otherBtn = document.getElementById("RestBtn");
-        other = document.getElementById("TheRest");
+
         keyBtn = document.getElementById("KeyWordBtn");
         saveBtn = document.getElementById("SaveExJob");
     }
@@ -247,7 +246,7 @@ function loadPartial(command, route, afterLoad){
         typeBtn.addEventListener("click", (e) => showHide(types));
         operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
         databaseBtn.addEventListener("click", (e) => showHide(databases));
-        otherBtn.addEventListener("click", (e) => showHide(other));
+        //otherBtn.addEventListener("click", (e) => showHide(other));
         progBtn.addEventListener("mouseover", (e) => hoverNewExJob(progBtn, 1));
         progBtn.addEventListener("mouseleave", (e) => hoverNewExJob(progBtn, 0));
         areaBtn.addEventListener("mouseover", (e) => hoverNewExJob(areaBtn, 1));
@@ -258,14 +257,9 @@ function loadPartial(command, route, afterLoad){
         operationSystemBtn.addEventListener("mouseleave", (e) => hoverNewExJob(operationSystemBtn, 0));
         databaseBtn.addEventListener("mouseover", (e) => hoverNewExJob(databaseBtn, 1));
         databaseBtn.addEventListener("mouseleave", (e) => hoverNewExJob(databaseBtn, 0));
-        otherBtn.addEventListener("mouseover", (e) => hoverNewExJob(otherBtn, 1));
-        otherBtn.addEventListener("mouseleave", (e) => hoverNewExJob(otherBtn, 0));
-        saveBtn.addEventListener("mouseover", (e) => hoverNewExJob(saveBtn, 1));
-        saveBtn.addEventListener("mouseleave", (e) => hoverNewExJob(saveBtn, 0));
         saveBtn.addEventListener("click", (e) => saveNewExjob(e));
         keyBtn.addEventListener("mouseover", (e) => hoverNewExJob(keyBtn, 1));
         keyBtn.addEventListener("mouseleave", (e) => hoverNewExJob(keyBtn, 0));
-        //keyBtn.addEventListener("click", (e) => checkForKeyWords(e));
     }
 
     function hoverNewExJob(element, show) {
