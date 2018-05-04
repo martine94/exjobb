@@ -149,6 +149,20 @@ app.get('/getCompanyJobsFromDB',function(req,res){
     });
 });
 
+
+app.get('/getSpecificJobFromDB',urlEncodedParcer,function(req,res){
+    var jobid=req.query["jobID"];
+    Mongo.findSpecificJob(jobid, function (result) {
+        if (result.length === 0) {
+            console.log("false, job could not be found.");
+            res.send("false");
+        } else {
+            // console.log("RESULTATET: "+JSON.stringify(result));
+            res.send(result);
+        }
+    });
+});
+
 app.get('/logout', function (req, resp) {
     req.session.reset();
     var redirectAddress = serverAddress + '/index.html';

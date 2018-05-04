@@ -341,6 +341,42 @@ function loadPartial(command, route, afterLoad){
         xhttp.open("GET", "getCompanyJobsFromDB", true);
         xhttp.send();
     }
+    function getSpecificJob(jobId){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              // document.getElementById("option-page-content").innerHTML = this.response;
+                console.log("JOBB HÄMTADE");
+                var jobs=JSON.parse(this.response);
+
+                document.getElementById("logga").src=jobs[0].logoURL;
+                document.getElementById("rubrik").innerHTML=jobs[0].tile;
+                document.getElementById("shortDescriprion").innerHTML=jobs[0].shortdesc;
+                document.getElementById("longDescriprion").innerHTML=jobs[0].longdesc;
+                var keyWords= document.getElementById("keyWordArea");
+                for(i=0;i<jobs[0].keywords.length;++i){
+                    var p=document.createElement("p");
+                    p.innerHTML=jobs[0].keywords[i];
+                    keyWords.appendChild(p);
+                }
+            }
+        };
+        //Skriv en funktion som bara tar ut företagets jobbannonser
+        xhttp.open("GET", "getSpecificJobFromDB?jobID="+jobId, true);
+        xhttp.send();
+    }
+    function loadShowExJob(jobId){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+               document.getElementById("menu-page-content").innerHTML = this.response;
+                document.getElementById("closeExJob").addEventListener("click",loadMyOffers);
+                getSpecificJob(jobId);
+            }
+        };
+        xhttp.open("GET", "loadFileCompany?p="+'/showExJob.html', true);    
+        xhttp.send();
+    }
     function workAnnouncements(num, jobb) {
 
         for (var i = 0; i < num; i++) {
@@ -364,6 +400,7 @@ function loadPartial(command, route, afterLoad){
            
             var readBtn = document.createElement("button");
             readBtn.innerHTML = "Visa annons";
+            readBtn.id=jobb[i]._id;
             var Btn = document.createElement("button");
             Btn.innerHTML = "Intresseanmälningar";
 
@@ -381,6 +418,8 @@ function loadPartial(command, route, afterLoad){
              
             logo.src=jobb[i].logoURL; //ladda in logga
             newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
+
+            readBtn.addEventListener("click",(e)=>loadShowExJob(readBtn.id));
         }
     }
 

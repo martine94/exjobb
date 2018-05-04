@@ -48,6 +48,17 @@ module.exports = {
       });
     });
   },
+  findSpecificJob:function(jobId,callback){
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db(database);
+      var ObjectId = require('mongodb').ObjectID;
+      dbo.collection('job').find({"_id": new ObjectId(jobId)}).toArray(function (err, result) {
+        db.close();
+        callback(result);
+      });
+    });
+  },
 
   findOne : function(table, query, callback){
     
