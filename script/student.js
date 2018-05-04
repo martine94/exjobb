@@ -32,6 +32,7 @@ window.onload = function () {
     var other;
     var keyBtn;
     var saveBtn;
+    var work_Announcement;
 
     //#region functions
 
@@ -62,18 +63,6 @@ window.onload = function () {
         xhttp.open("GET", "loadFileStudent?p="+'/mySInfo.html', true);    
         xhttp.send();
     }
-
-    function loadCatalog() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("menu-page-content").innerHTML = this.response;
-            }
-        };
-        xhttp.open("GET", "loadFileStudent?p="+'/StudentCatalog.html', true);    
-        xhttp.send();
-    }
-
 
     function loadMyInterests() {
         var xhttp = new XMLHttpRequest();
@@ -256,4 +245,77 @@ function saveProfile() {
 }
 loadMyInfo();
 
+}
+
+function loadCatalog() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("menu-page-content").innerHTML = this.response;
+            document.getElementById("SCatalog").style.display="block";
+            work_Announcement=document.getElementById("workAnnouncement");
+           getJobsFromDB();
+        }
+    };
+    xhttp.open("GET", "loadFileStudent?p="+'/StudentCatalog.html', true);    
+    xhttp.send();
+}
+
+function getJobsFromDB(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          // document.getElementById("option-page-content").innerHTML = this.response;
+            console.log("JOBB HÄMTADE");
+            var jobs=JSON.parse(this.response);
+            workAnnouncements(jobs.length,jobs);
+
+        }
+    };
+    xhttp.open("GET", "getJobsFromDB", true);
+    xhttp.send();
+}
+
+function workAnnouncements(num, jobb) {
+    workAnnouncement = work_Announcement;
+
+    for (var i = 0; i < num; i++) {
+        
+        var outerDiv = document.createElement("div");
+        outerDiv.className = "jobs";
+
+        var top = document.createElement("div"); //topbar
+        top.className = "jobTop";
+
+        var logo=document.createElement("img");//ladda in logga
+        
+        logo.className = "jobLogo";
+        var header = document.createElement("div");//rubrik
+        header.className = "jobHeader";
+
+        var info = document.createElement("div");
+        info.className = "jobInfo";
+       
+        var newlog = document.createElement("p");
+        newlog.innerHTML = "logga";
+        var newh1 = document.createElement("h2");
+       
+        var readBtn = document.createElement("button");
+        readBtn.innerHTML = "Läs mer";
+
+        workAnnouncement.appendChild(outerDiv);
+        workAnnouncement.appendChild(document.createElement("br"));
+        outerDiv.appendChild(top);
+        outerDiv.appendChild(info);
+        outerDiv.appendChild(readBtn);
+        readBtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov";
+        top.appendChild(logo);
+        top.appendChild(header);
+        logo.appendChild(newlog);
+        header.appendChild(newh1);
+         
+        logo.src=jobb[i].logoURL; //ladda in logga
+        newh1.innerHTML = jobb[i].tile;//ladda in rubrik
+        info.innerHTML = jobb[i].shortdesc;//ladda in beskrivning       
+    }
 }
