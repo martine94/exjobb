@@ -136,6 +136,18 @@ app.get('/getJobsFromDB',function(req,res){
     });
 });
 
+app.get('/getCompanyJobsFromDB',function(req,res){
+    Mongo.findCompanyJobs("job", {}, function (result) {
+        console.log(JSON.stringify(result));
+        if (result.length === 0) {
+            console.log("false, job could not be found.");
+            res.send("false");
+        } else {
+            res.send(result);
+        }
+    });
+});
+
 app.get('/logout', function (req, resp) {
     req.session.reset();
     var redirectAddress = serverAddress + '/index.html';

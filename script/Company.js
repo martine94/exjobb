@@ -338,7 +338,7 @@ function loadPartial(command, route, afterLoad){
             }
         };
         //Skriv en funktion som bara tar ut företagets jobbannonser
-        xhttp.open("GET", "getJobsFromDB", true);
+        xhttp.open("GET", "getCompanyJobsFromDB", true);
         xhttp.send();
     }
     function workAnnouncements(num, jobb) {
