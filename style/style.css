@@ -78,7 +78,6 @@ img {
 	width: 100%;
 	display:inline-flex;
 	position: fixed;
-	/* box-shadow: 0 0 10px 0 grey; */
 	z-index: 99;
 	height: 45px;
 
@@ -87,7 +86,6 @@ img {
 	color:#FFFFFF;
 	padding: 10pt 0pt 5pt 60pt;
 	margin: 0 0 0 50%;
-	/* padding: 1% 0 0 10%; */
 	
 	font-size: 1.30em;
 	font-weight: bold;
@@ -195,8 +193,6 @@ img {
 	justify-content: center;
 	width: 100%;
 	height: 3em;
-	/*box-shadow: 0 0 0.1pt 0 black;*/
-	/*background-image: linear-gradient(289deg, rgb(74,150,205) 0%, rgb(93, 187, 255) 100%);*/
 	background: rgb(74,150,205);
 }
 
@@ -207,7 +203,7 @@ img {
 	justify-content: left;
 	width: 100%;
 	height: 1.8em;
-	box-shadow: 0 0 0.1pt 0 black;
+	/* box-shadow: 0 0 0.1pt 0 black; */
 	font-size:2em;
 }
 .userinfo{
@@ -302,7 +298,7 @@ padding: 5%;
 	justify-content: center;
 	width: 100%;
 	height: 1.8em;
-	box-shadow: 0 0 1px 0 grey;
+	/* box-shadow: 0 0 1px 0 grey; */
 }
 
 
@@ -557,7 +553,7 @@ color:  white;
 	padding: 0 18px;
 	
 	width: 100%;
-	box-shadow: 2px 2px 2px #999;	
+	/* box-shadow: 2px 2px 2px #999;	 */
 	overflow: hidden;
 	color: black;
 	background-color: #FFFFFF;
@@ -569,7 +565,7 @@ color:  white;
 
 	width: 100%;
 	display: block;
-	box-shadow: 2px 2px 2px #999;	
+	/* box-shadow: 2px 2px 2px #999;	 */
 	overflow: hidden;
 	background-color: #FFFFFF;
 }
@@ -579,7 +575,7 @@ color:  white;
 	width: 101%;
 	display: block;
 	left:1px;
-	box-shadow: 7px 9px 7px rgb(177, 176, 176);	
+	/* box-shadow: 7px 9px 7px rgb(177, 176, 176);	 */
 	overflow: hidden;
 	background-color: #FFFFFF;
 }
@@ -588,19 +584,25 @@ color:  white;
 	width: 100%;
 	color: #FFFFFF;
 	background-color: rgb(74,150,205);
-	box-shadow: 2px 9px 9px #999;	
+	/* box-shadow: 2px 9px 9px #999;	 */
 	background-origin: padding-box;
 }
-
+.colorW{
+	color:white;
+}
 .logInOrReg{
 	margin:150px;
 }
 .ChekedKeyWord{
 	color: #000000;
 }
-.Shadow{
+.Shadow3{
 	box-shadow: 2px 9px 9px #999;
 	color: #FFFFFF;
+}
+.Shadow{
+	box-shadow: 2px 9px 9px #999;
+	/* color: #FFFFFF; */
 }
 .Hight{
 	height: 2em;
@@ -612,7 +614,7 @@ color:  white;
 }
 
 .Shadow2{
-	box-shadow: 2px 9px 9px #999;
+	/* box-shadow: 2px 9px 9px #999; */
 }
 
 .leftShifted{
