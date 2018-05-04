@@ -361,17 +361,34 @@ function loadPartial(command, route, afterLoad){
                 document.getElementById("shortDescriprion").innerHTML=jobs[0].shortdesc;
                 document.getElementById("longDescriprion").innerHTML=jobs[0].longdesc;
                 var keyWords= document.getElementById("keyWordArea");
+                var table=document.createElement("table");
+                keyWords.appendChild(table);
+                table.className="tableKeywords";
+                // table.style="width:100%";
+                var thisRow=document.createElement("tr");
+                table.appendChild(thisRow);
+
                 for(i=0;i<jobs[0].keywords.length;++i){
-                    var p=document.createElement("p");
-                    p.innerHTML=jobs[0].keywords[i];
-                    keyWords.appendChild(p);
+                    if(i%3===0){
+                        var newRow=document.createElement("tr");
+                        thisRow=newRow;
+                        table.appendChild(thisRow);
+                        var t=document.createElement("td");
+                        t.innerHTML=jobs[0].keywords[i];
+                        thisRow.appendChild(t);
+                    }else{
+                        var td=document.createElement("td");
+                    td.innerHTML=jobs[0].keywords[i];
+                    thisRow.appendChild(td);
                 }
             }
-        };
+        }
+    };
         //Skriv en funktion som bara tar ut företagets jobbannonser
         xhttp.open("GET", "getSpecificJobFromDB?jobID="+jobId, true);
         xhttp.send();
-    }
+    
+}
     function loadShowExJob(jobId){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -405,7 +422,7 @@ function loadPartial(command, route, afterLoad){
             newlog.innerHTML = "logga";
             var newh1 = document.createElement("h2");
            
-            var readBtn = document.createElement("button");
+            let readBtn = document.createElement("button");
             readBtn.innerHTML = "Visa annons";
             readBtn.id=jobb[i]._id;
             var Btn = document.createElement("button");
