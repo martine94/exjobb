@@ -70,22 +70,21 @@ module.exports = {
     });
   },
 
-  findCompanyJobs : function(table, query, callback){
-    
+  findCompanyJobs : function(query, callback){
+    console.log("COMPANYID: "+query);
+
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       
       console.log("Connected to database!");
 
       var dbo = db.db(database);
-      console.log(query);
-      dbo.collection('job').find({companyName:'saab'}).toArray(function(err, result) {
+      dbo.collection('job').find({companyID:query}).toArray(function(err, result) {
         if (err) throw err;
 
         console.log("Entered collection success!");
         
         db.close();
-        console.log(result);
         callback(result);
       });
     });

@@ -137,7 +137,8 @@ app.get('/getJobsFromDB',function(req,res){
 });
 
 app.get('/getCompanyJobsFromDB',function(req,res){
-    Mongo.findCompanyJobs("job", {}, function (result) {
+    var userid=getUserID(req);
+    Mongo.findCompanyJobs(userid, function (result) {
         console.log(JSON.stringify(result));
         if (result.length === 0) {
             console.log("false, job could not be found.");
