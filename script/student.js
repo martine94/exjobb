@@ -4,16 +4,18 @@ window.onload = function () {
     var interestsBtn = document.getElementById("interestsBtn");
     var mySPagesBtn = document.getElementById("mySPagesBtn");
     var recomendedJobBtn = document.getElementById("recomendedJobBtn");
-    var mySInfoBtn = document.getElementById("myInfoBtn")
+    var mySInfoBtn = document.getElementById("myInfoBtn");
+    var lookAtJobBtn = document.getElementById("lookAtJobBtn");
     var logOutStudentBtn=document.getElementById("logOutStudentBtn");
 
     //#endregions
 
     //#region eventListeners
     interestsBtn.addEventListener("click", loadMyInterests);
-    mySPagesBtn.addEventListener("click", loadMyProfile)
-    recomendedJobBtn.addEventListener("click", loadMyRecomendedJobs)
-    mySInfoBtn.addEventListener("click", loadMyInfo)
+    mySPagesBtn.addEventListener("click", loadMyProfile);
+    recomendedJobBtn.addEventListener("click", loadMyRecomendedJobs);
+    mySInfoBtn.addEventListener("click", loadMyInfo);
+    lookAtJobBtn.addEventListener("click", loadCatalog);
     logOutStudentBtn.addEventListener("click",logOut);
     //#endregions
 
@@ -60,6 +62,18 @@ window.onload = function () {
         xhttp.open("GET", "loadFileStudent?p="+'/mySInfo.html', true);    
         xhttp.send();
     }
+
+    function loadCatalog() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("menu-page-content").innerHTML = this.response;
+            }
+        };
+        xhttp.open("GET", "loadFileStudent?p="+'/StudentCatalog.html', true);    
+        xhttp.send();
+    }
+
 
     function loadMyInterests() {
         var xhttp = new XMLHttpRequest();
