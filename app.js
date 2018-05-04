@@ -243,7 +243,7 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
         userName: req.query["cuname"],
         password: req.query["psw"],
         website: "",
-        logoURL: "",
+        logoURL: "sad.png",
         about: ""
     };
     // console.log(response)
