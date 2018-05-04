@@ -66,7 +66,7 @@ app.get('/loggedIn', function (req, resp) {
 
 function getUserID(req) {
     if (req.session && req.session.user) {
-        console.log("found session");
+        //console.log("found session");
         var cookieStr = JSON.stringify(req.session.user);
         var modstr = cookieStr.replace(/["']/g, "");
         var split = modstr.split(",");
@@ -84,17 +84,17 @@ app.get('/userDataFromDBStudent', function (req, res) {
         console.log("could not find user")
         res.send("false");
     } else {
-        console.log(userID);
+        //console.log(userID);
         var ObjectId = require('mongodb').ObjectId;
         var o_id = new ObjectId(userID);
         Mongo.findOne("student", { "_id": o_id }, function (result) {
-            console.log(JSON.stringify(result));
+            //console.log(JSON.stringify(result));
             if (result.length === 0) {
                 console.log("false");
                 res.send("false");
             } else {
                 console.log("userInfo from DB");
-                console.log(JSON.stringify(result));
+                //console.log(JSON.stringify(result));
                 res.send(result);
             }
         });
@@ -107,17 +107,17 @@ app.get('/userDataFromDBCompany', function (req, res) {
         console.log("could not find user")
         res.send("false");
     } else {
-        console.log(userID);
+        //console.log(userID);
         var ObjectId = require('mongodb').ObjectId;
         var o_id = new ObjectId(userID);
         Mongo.findOne("company", { "_id": o_id }, function (result) {
-            console.log(JSON.stringify(result));
+            // console.log(JSON.stringify(result));
             if (result.length === 0) {
                 console.log("false");
                 res.send("false");
             } else {
                 console.log("userInfo from DB");
-                console.log(JSON.stringify(result));
+                // console.log(JSON.stringify(result));
                 res.send(result);
             }
         });
@@ -126,7 +126,7 @@ app.get('/userDataFromDBCompany', function (req, res) {
 
 app.get('/getJobsFromDB',function(req,res){
     Mongo.findOne("job", {}, function (result) {
-        console.log(JSON.stringify(result));
+        // console.log(JSON.stringify(result));
         if (result.length === 0) {
             console.log("false, job could not be found.");
             res.send("false");
@@ -139,7 +139,7 @@ app.get('/getJobsFromDB',function(req,res){
 app.get('/getCompanyJobsFromDB',function(req,res){
     var userid=getUserID(req);
     Mongo.findCompanyJobs(userid, function (result) {
-        console.log(JSON.stringify(result));
+        // console.log(JSON.stringify(result));
         if (result.length === 0) {
             console.log("false, job could not be found.");
             res.send("false");
@@ -183,11 +183,11 @@ app.post('/changeCompanyInfo',urlEncodedParcer,function(req,res){
     }
     try {
         myQuery=getUserID(req);
-       console.log(myQuery);
+    //    console.log(myQuery);
         Mongo.changeCompanyInfo(myQuery,user,function (result) {
             if (result instanceof Error) {
                 console.log("Error!");
-                console.log(result);
+                // console.log(result);
                 if (result.code === 11000) {
                     console.log("back");
                     res.send("false");
@@ -205,6 +205,34 @@ app.post('/changeCompanyInfo',urlEncodedParcer,function(req,res){
         console.log(error);
     }
 });
+app.post('/changeExJobInfo',urlEncodedParcer,function(req,res){
+    console.log("company change POST request");
+    var exjobb=JSON.parse(req.query["exJobb"]);
+    try {
+        jobID=req.query["jobID"];
+        //console.log("EXJOBB= "+JSON.stringify(exjobb));
+        Mongo.changeExJobInfo(jobID,exjobb,function (result) {
+            if (result instanceof Error) {
+                console.log("Error!");
+                // console.log(result);
+                if (result.code === 11000) {
+                    console.log("back");
+                    res.send("false");
+                }
+            }
+            else {
+                console.log("Probably Sucess!");
+                res.send("true");
+            }
+        });
+    }
+    catch (error) {
+        console.log("Caught error!");
+        console.log(error.name);
+        console.log(error);
+    }
+});
+
 app.post('/register_company', urlEncodedParcer, function (req, resp) {
     console.log("company register POST request");
     response = {
@@ -218,13 +246,13 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
         logoURL: "",
         about: ""
     };
-    console.log(response)
+    // console.log(response)
 
     try {
         Mongo.addCompany(response, function (result) {
             if (result instanceof Error) {
                 console.log("Error!");
-                console.log(result);
+                // console.log(result);
                 if (result.code === 11000) {
                     console.log("back");
                     resp.send("false");
@@ -255,12 +283,12 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
         password: req.query["psw"],
         gender: req.query["gender"]
     };
-    console.log(response)
+    // console.log(response)
     try {
         Mongo.addStudent(response, function (result) {
             if (result instanceof Error) {
                 console.log("Error!");
-                console.log(result);
+                // console.log(result);
                 if (result.code === 11000) {
                     console.log("back");
                     resp.send("false");
@@ -268,7 +296,7 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
             }
             else {
                 console.log("Success!");
-                console.log(response._id);
+                // console.log(response._id);
                 req.session.user ="_id:"+ response._id; // för session
                 resp.send("true");
             }
@@ -287,7 +315,7 @@ app.post('/addJobToDB',urlEncodedParcer, function (req, res){
         console.log("could not find user")
         res.send("false");
     } else {
-        console.log(userID);
+        // console.log(userID);
         var ObjectId = require('mongodb').ObjectId;
         var o_id = new ObjectId(userID);
         Mongo.findOne("company", { "_id": o_id }, function (result) {
@@ -308,7 +336,7 @@ app.post('/addJobToDB',urlEncodedParcer, function (req, res){
                     Mongo.addJob(exjobb, function (result) {
                         if (result instanceof Error) {
                             console.log("Error!");
-                            console.log(result);
+                            // console.log(result);
                             if (result.code === 11000) {
                                 console.log("back");
                                 res.send("false");
@@ -342,10 +370,10 @@ var server = app.listen(portNumber, function () {
 
 app.get('/logginComp', urlEncodedParcer, function (req, res) {
     console.log("GET /loggin request");
-    console.log(req.query);
+    // console.log(req.query);
     console.log("Checking if " + req.query["username"] + " and password " + req.query["password"] + ".");
     Mongo.findOne("company", { userName: req.query["username"] }, function (result) {
-        console.log(JSON.stringify(result));
+        // console.log(JSON.stringify(result));
         if (result.length === 0) {
             res.send("false");
         } else {
@@ -355,7 +383,7 @@ app.get('/logginComp', urlEncodedParcer, function (req, res) {
                 res.send("true");
             } else {
                 res.send("false");
-                console.log(JSON.stringify(result[0].password));
+                // console.log(JSON.stringify(result[0].password));
             }
         }
     });
@@ -363,7 +391,7 @@ app.get('/logginComp', urlEncodedParcer, function (req, res) {
 
 app.get('/logginStudent', urlEncodedParcer, function (req, res) {
     console.log("GET /loggin request");
-    console.log(req.query);
+    // console.log(req.query);
     Mongo.findOne("student", { uname: req.query["_user"] }, function (result) {
         if (result.length === 0) {
             res.send("false");
