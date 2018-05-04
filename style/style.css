@@ -598,5 +598,16 @@ color:  white;
 	color: #FFFFFF;	
 }
 
+.Shadow2{
+	box-shadow: 2px 9px 9px #999;
+}
+
+.leftShifted{
+	text-align: left;
+}
+.specPos{
+float: right;
+}
+
 
 

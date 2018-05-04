@@ -38,6 +38,7 @@ window.onload = function () {
     var other;
     var keyBtn;
     var saveBtn;
+    var abortBtn;
     //#endregions
 
     //#region eventListeners
@@ -114,17 +115,21 @@ function loadPartial(command, route, afterLoad){
                     web: obj.website,
                     logo: obj.logoURL
                 }
-                document.getElementById("clogo").innerHTML = "<img src="+user.logo+" height=\"70\" width=\"70\" >";
-                document.getElementById("cid").innerHTML = "<p>"+user.id+"</p>";
-                document.getElementById("cname").innerHTML = "<h1>"+user.name+"</h1>";
-                document.getElementById("caddress").innerHTML = "<p>"+user.address+"</p>";
-                document.getElementById("ccity").innerHTML = "<p>"+user.city+"</p>";
-                document.getElementById("cemail").innerHTML = "<p>"+user.email+"</p>";
-                document.getElementById("cweb").innerHTML = "<a href="+user.web+">"+user.web+"</a>";
+                SetListedData(user);
             }
         };
         xhttp.open("GET", "userDataFromDBCompany", true)
         xhttp.send();
+    }
+    
+    function SetListedData(user){
+        document.getElementById("clogo").innerHTML = "<img src="+user.logo+" height=\"70\" width=\"70\" >";
+        document.getElementById("cname").innerHTML = "<h1>"+user.name+"</h1>";
+        document.getElementById("caddress").innerHTML = "<p> Adress: "+user.address+"</p>";
+        document.getElementById("ccity").innerHTML = "<p> Ort: "+user.city+"</p>";
+        document.getElementById("cemail").innerHTML = "<p>Email: "+user.email+"</p>";
+        document.getElementById("cweb").innerHTML = "<p>Hemsida: <a href="+user.web+">"+user.web+"</a> </p>";
+        
     }
 
     function fillEditProfile() {
@@ -232,7 +237,7 @@ function loadPartial(command, route, afterLoad){
         operationSystems = document.getElementById("operationsystems");
         databaseBtn = document.getElementById("DatabaseBtn");
         databases = document.getElementById("Databases");
-
+        abortBtn = document.getElementById("AbortExJob");
         keyBtn = document.getElementById("KeyWordBtn");
         saveBtn = document.getElementById("SaveExJob");
     }
@@ -243,7 +248,6 @@ function loadPartial(command, route, afterLoad){
         typeBtn.addEventListener("click", (e) => showHide(types));
         operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
         databaseBtn.addEventListener("click", (e) => showHide(databases));
-        //otherBtn.addEventListener("click", (e) => showHide(other));
         progBtn.addEventListener("mouseover", (e) => hoverNewExJob(progBtn, 1));
         progBtn.addEventListener("mouseleave", (e) => hoverNewExJob(progBtn, 0));
         areaBtn.addEventListener("mouseover", (e) => hoverNewExJob(areaBtn, 1));
@@ -255,6 +259,7 @@ function loadPartial(command, route, afterLoad){
         databaseBtn.addEventListener("mouseover", (e) => hoverNewExJob(databaseBtn, 1));
         databaseBtn.addEventListener("mouseleave", (e) => hoverNewExJob(databaseBtn, 0));
         saveBtn.addEventListener("click", (e) => saveNewExjob(e));
+        abortBtn.addEventListener("click", (e) => loadMyInfo());
         keyBtn.addEventListener("mouseover", (e) => hoverNewExJob(keyBtn, 1));
         keyBtn.addEventListener("mouseleave", (e) => hoverNewExJob(keyBtn, 0));
     }
@@ -383,6 +388,8 @@ function loadPartial(command, route, afterLoad){
             newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
         }
     }
+
+   
 
     loadMyInfo();   
 
