@@ -432,6 +432,10 @@ input[type=text],input[type=password]{
 	height:40%;
 	width:85%;
 }
+.jobInformation{
+	margin-left: 15%;
+	width:85%;
+}
 	
 .companyPage{
 	display: inline-flex;	

@@ -137,12 +137,27 @@ app.get('/getJobsFromDB',function(req,res){
 });
 
 app.get('/getCompanyJobsFromDB',function(req,res){
-    Mongo.findCompanyJobs("job", {}, function (result) {
+    var userid=getUserID(req);
+    Mongo.findCompanyJobs(userid, function (result) {
         console.log(JSON.stringify(result));
         if (result.length === 0) {
             console.log("false, job could not be found.");
             res.send("false");
         } else {
+            res.send(result);
+        }
+    });
+});
+
+
+app.get('/getSpecificJobFromDB',urlEncodedParcer,function(req,res){
+    var jobid=req.query["jobID"];
+    Mongo.findSpecificJob(jobid, function (result) {
+        if (result.length === 0) {
+            console.log("false, job could not be found.");
+            res.send("false");
+        } else {
+            // console.log("RESULTATET: "+JSON.stringify(result));
             res.send(result);
         }
     });
