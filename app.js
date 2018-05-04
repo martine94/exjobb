@@ -178,7 +178,8 @@ app.post('/changeCompanyInfo',urlEncodedParcer,function(req,res){
         userName: req.query["cuname"],
         password: req.query["psw"],
         website:req.query["cweb"],
-        logoURL:req.query["clogo"]
+        logoURL:req.query["clogo"],
+        about:req.query["cAboutUs"]
     }
     try {
         myQuery=getUserID(req);
@@ -214,7 +215,8 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
         userName: req.query["cuname"],
         password: req.query["psw"],
         website: "",
-        logoURL: ""
+        logoURL: "",
+        about: ""
     };
     console.log(response)
 
