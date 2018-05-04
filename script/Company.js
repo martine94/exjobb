@@ -38,6 +38,7 @@ window.onload = function () {
     var other;
     var keyBtn;
     var saveBtn;
+    var abortBtn;
     //#endregions
 
     //#region eventListeners
@@ -112,19 +113,24 @@ function loadPartial(command, route, afterLoad){
                     city: obj.companyCity,
                     email: obj.companyEmail,
                     web: obj.website,
-                    logo: obj.logoURL
+                    logo: obj.logoURL,
+                    About: obj.about
                 }
-                document.getElementById("clogo").innerHTML = "<img src="+user.logo+" height=\"70\" width=\"70\" >";
-                document.getElementById("cid").innerHTML = "<p>"+user.id+"</p>";
-                document.getElementById("cname").innerHTML = "<h1>"+user.name+"</h1>";
-                document.getElementById("caddress").innerHTML = "<p>"+user.address+"</p>";
-                document.getElementById("ccity").innerHTML = "<p>"+user.city+"</p>";
-                document.getElementById("cemail").innerHTML = "<p>"+user.email+"</p>";
-                document.getElementById("cweb").innerHTML = "<a href="+user.web+">"+user.web+"</a>";
+                SetListedData(user);
             }
         };
         xhttp.open("GET", "userDataFromDBCompany", true)
         xhttp.send();
+    }
+    
+    function SetListedData(user){
+        document.getElementById("clogo").innerHTML = "<img src="+user.logo+" height=\"70\" width=\"70\" >";
+        document.getElementById("cname").innerHTML = "<h1>"+user.name+"</h1>";
+        document.getElementById("caddress").innerHTML = "<p> Adress: "+user.address+"</p>";
+        document.getElementById("ccity").innerHTML = "<p> Ort: "+user.city+"</p>";
+        document.getElementById("cemail").innerHTML = "<p>Email: "+user.email+"</p>";
+        document.getElementById("cweb").innerHTML = "<p>Hemsida: <a href="+user.web+">"+user.web+"</a> </p>";
+        document.getElementById("About_Us").innerHTML = "<p>Företagsinformation: "+user.About+" </p>";
     }
 
     function fillEditProfile() {
@@ -185,6 +191,7 @@ function loadPartial(command, route, afterLoad){
     function changeInfo(){
         var cname = document.getElementById("c_Name").value;
         var cuname = document.getElementById("c_Uname").value;
+        var cAboutUs = document.getElementById("about_Us").value;
         var psw = document.getElementById("c_Psw").value;
         var ccity= document.getElementById("c_City").value;
         var cemail= document.getElementById("c_Email").value;
@@ -201,7 +208,7 @@ function loadPartial(command, route, afterLoad){
                }
             }
         };
-        xhttp.open("POST", "changeCompanyInfo?cname=" + cname + "&psw=" + psw + "&cuname=" + cuname + "&caddress=" + caddress + "&cemail=" + cemail+ "&ccity=" + ccity+"&cweb="+cweb+"&clogo="+clogo, true);
+        xhttp.open("POST", "changeCompanyInfo?cname=" + cname + "&psw=" + psw + "&cuname=" + cuname + "&caddress=" + caddress + "&cemail=" + cemail+ "&ccity=" + ccity+"&cweb="+cweb+"&clogo="+clogo + "&cAboutUs=" + cAboutUs, true);
         xhttp.send();
     }
     function loadMyProfile(){
@@ -232,7 +239,7 @@ function loadPartial(command, route, afterLoad){
         operationSystems = document.getElementById("operationsystems");
         databaseBtn = document.getElementById("DatabaseBtn");
         databases = document.getElementById("Databases");
-
+        abortBtn = document.getElementById("AbortExJob");
         keyBtn = document.getElementById("KeyWordBtn");
         saveBtn = document.getElementById("SaveExJob");
     }
@@ -243,7 +250,6 @@ function loadPartial(command, route, afterLoad){
         typeBtn.addEventListener("click", (e) => showHide(types));
         operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
         databaseBtn.addEventListener("click", (e) => showHide(databases));
-        //otherBtn.addEventListener("click", (e) => showHide(other));
         progBtn.addEventListener("mouseover", (e) => hoverNewExJob(progBtn, 1));
         progBtn.addEventListener("mouseleave", (e) => hoverNewExJob(progBtn, 0));
         areaBtn.addEventListener("mouseover", (e) => hoverNewExJob(areaBtn, 1));
@@ -255,6 +261,7 @@ function loadPartial(command, route, afterLoad){
         databaseBtn.addEventListener("mouseover", (e) => hoverNewExJob(databaseBtn, 1));
         databaseBtn.addEventListener("mouseleave", (e) => hoverNewExJob(databaseBtn, 0));
         saveBtn.addEventListener("click", (e) => saveNewExjob(e));
+        abortBtn.addEventListener("click", (e) => loadMyInfo());
         keyBtn.addEventListener("mouseover", (e) => hoverNewExJob(keyBtn, 1));
         keyBtn.addEventListener("mouseleave", (e) => hoverNewExJob(keyBtn, 0));
     }
@@ -354,17 +361,34 @@ function loadPartial(command, route, afterLoad){
                 document.getElementById("shortDescriprion").innerHTML=jobs[0].shortdesc;
                 document.getElementById("longDescriprion").innerHTML=jobs[0].longdesc;
                 var keyWords= document.getElementById("keyWordArea");
+                var table=document.createElement("table");
+                keyWords.appendChild(table);
+                table.className="tableKeywords";
+                // table.style="width:100%";
+                var thisRow=document.createElement("tr");
+                table.appendChild(thisRow);
+
                 for(i=0;i<jobs[0].keywords.length;++i){
-                    var p=document.createElement("p");
-                    p.innerHTML=jobs[0].keywords[i];
-                    keyWords.appendChild(p);
+                    if(i%3===0){
+                        var newRow=document.createElement("tr");
+                        thisRow=newRow;
+                        table.appendChild(thisRow);
+                        var t=document.createElement("td");
+                        t.innerHTML=jobs[0].keywords[i];
+                        thisRow.appendChild(t);
+                    }else{
+                        var td=document.createElement("td");
+                    td.innerHTML=jobs[0].keywords[i];
+                    thisRow.appendChild(td);
                 }
             }
-        };
+        }
+    };
         //Skriv en funktion som bara tar ut företagets jobbannonser
         xhttp.open("GET", "getSpecificJobFromDB?jobID="+jobId, true);
         xhttp.send();
-    }
+    
+}
     function loadShowExJob(jobId){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -398,7 +422,7 @@ function loadPartial(command, route, afterLoad){
             newlog.innerHTML = "logga";
             var newh1 = document.createElement("h2");
            
-            var readBtn = document.createElement("button");
+            let readBtn = document.createElement("button");
             readBtn.innerHTML = "Visa annons";
             readBtn.id=jobb[i]._id;
             var Btn = document.createElement("button");
@@ -422,6 +446,8 @@ function loadPartial(command, route, afterLoad){
             readBtn.addEventListener("click",(e)=>loadShowExJob(readBtn.id));
         }
     }
+
+   
 
     loadMyInfo();   
 

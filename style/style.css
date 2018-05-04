@@ -434,7 +434,12 @@ input[type=text],input[type=password]{
 }
 .jobInformation{
 	margin-left: 15%;
-	width:85%;
+	margin-right: 15%;
+	text-align: justify;
+	/* width:85%; */
+}
+#rubrik{
+	margin-left: 4%;
 }
 	
 .companyPage{
@@ -600,6 +605,21 @@ color:  white;
 .Hight{
 	height: 2em;
 	color: #FFFFFF;	
+}
+.tableKeywords{
+	width:100%;
+	margin-bottom: 10%;
+}
+
+.Shadow2{
+	box-shadow: 2px 9px 9px #999;
+}
+
+.leftShifted{
+	text-align: left;
+}
+.specPos{
+float: right;
 }
 
 
