@@ -420,7 +420,7 @@ function loadPartial(command, route, afterLoad){
             newlog.innerHTML = "logga";
             var newh1 = document.createElement("h2");
            
-            var readBtn = document.createElement("button");
+            let readBtn = document.createElement("button");
             readBtn.innerHTML = "Visa annons";
             readBtn.id=jobb[i]._id;
             var Btn = document.createElement("button");
