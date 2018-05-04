@@ -253,7 +253,7 @@ padding: 5%;
 .showDropDownMenu:hover,
 
 .darkerBlueOnHov:hover{
-	background-color:rgb(57, 135, 190);
+	background-color:rgb(45, 123, 175);
 
 }
 .close:hover{
@@ -432,6 +432,15 @@ input[type=text],input[type=password]{
 	height:40%;
 	width:85%;
 }
+.jobInformation{
+	margin-left: 15%;
+	margin-right: 15%;
+	text-align: justify;
+	/* width:85%; */
+}
+#rubrik{
+	margin-left: 4%;
+}
 	
 .companyPage{
 	display: inline-flex;	
@@ -539,7 +548,7 @@ color:  white;
 }
 
 .KeyWordStack{
-	box-shadow: 2px 9px 9px #999;
+	/* box-shadow: 2px 9px 9px #999; */
 	width: 30%;
 	display: block;
 }
@@ -597,6 +606,37 @@ color:  white;
 	height: 2em;
 	color: #FFFFFF;	
 }
+.tableKeywords{
+	width:100%;
+	margin-bottom: 10%;
+}
 
+.Shadow2{
+	box-shadow: 2px 9px 9px #999;
+}
+
+.leftShifted{
+	text-align: left;
+}
+.specPos{
+float: right;
+}
+.descriptionBoxes{
+	width: 100%;
+}
+
+#shortDescription{
+	min-height: 90pt;
+}
+#longDescription{
+	min-height: 200pt;
+}
+
+.contentShow2{
+	background-color: rgb(74,150,205);
+	padding: 2%;
+	color:white;
+	width: 100%;
+}
 
 

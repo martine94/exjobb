@@ -247,13 +247,61 @@ loadMyInfo();
 
 }
 
+function showMoreInfoBtn(jobId){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+           document.getElementById("menu-page-content").innerHTML = this.response;
+            document.getElementById("closeExJob").addEventListener("click",loadCatalog);
+            getSpecificJob(jobId);
+        }
+    };
+    xhttp.open("GET", "loadFileStudent?p="+'/showExJob.html', true);    
+    xhttp.send();
+}
+
+function getSpecificJob(jobId){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          // document.getElementById("option-page-content").innerHTML = this.response;
+            console.log("JOBB HÄMTADE");
+            var jobs=JSON.parse(this.response);
+
+            document.getElementById("logga").src=jobs[0].logoURL;
+            console.log(jobs[0].logoURL)
+            document.getElementById("rubrik").innerHTML=jobs[0].tile;
+            console.log(jobs[0].tile)
+            document.getElementById("shortDescriprion").innerHTML=jobs[0].shortdesc;
+            document.getElementById("longDescriprion").innerHTML=jobs[0].longdesc;
+            var keyWords= document.getElementById("keyWordArea");
+            for(i=0;i<jobs[0].keywords.length;++i){
+                if(i%3===0){
+                    var newRow=document.createElement("tr");
+                    thisRow=newRow;
+                    table.appendChild(thisRow);
+                    var t=document.createElement("td");
+                    t.innerHTML=jobs[0].keywords[i];
+                    thisRow.appendChild(t);
+                }else{
+                    var td=document.createElement("td");
+                td.innerHTML=jobs[0].keywords[i];
+                thisRow.appendChild(td);
+            }
+        }
+    }
+    };
+    //Skriv en funktion som bara tar ut företagets jobbannonser
+    xhttp.open("GET", "getSpecificJobFromDB?jobID="+jobId, true);
+    xhttp.send();
+}
+
 function loadCatalog() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("menu-page-content").innerHTML = this.response;
             document.getElementById("SCatalog").style.display="block";
-            work_Announcement=document.getElementById("workAnnouncement");
            getJobsFromDB();
         }
     };
@@ -277,45 +325,48 @@ function getJobsFromDB(){
 }
 
 function workAnnouncements(num, jobb) {
-    workAnnouncement = work_Announcement;
 
     for (var i = 0; i < num; i++) {
-        
-        var outerDiv = document.createElement("div");
-        outerDiv.className = "jobs";
+            
+            var outerDiv = document.createElement("div");
+            outerDiv.className = "jobsSmall";
 
-        var top = document.createElement("div"); //topbar
-        top.className = "jobTop";
+            var top = document.createElement("div"); //topbar
+            top.className = "jobTop";
 
-        var logo=document.createElement("img");//ladda in logga
-        
-        logo.className = "jobLogo";
-        var header = document.createElement("div");//rubrik
-        header.className = "jobHeader";
+            var logo=document.createElement("img");//ladda in logga
+            
+            logo.className = "jobLogo";
+            var header = document.createElement("div");//rubrik
+            header.className = "jobHeader";
 
-        var info = document.createElement("div");
-        info.className = "jobInfo";
-       
-        var newlog = document.createElement("p");
-        newlog.innerHTML = "logga";
-        var newh1 = document.createElement("h2");
-       
-        var readBtn = document.createElement("button");
-        readBtn.innerHTML = "Läs mer";
+           
+            var newlog = document.createElement("p");
+            newlog.innerHTML = "logga";
+            var newh1 = document.createElement("h2");
+           
+            let readBtn = document.createElement("button");
+            readBtn.innerHTML = "Visa annons";
+            readBtn.id=jobb[i]._id;
+            let Btn = document.createElement("button");
+            Btn.innerHTML = "Intresseanmälningar";
 
-        workAnnouncement.appendChild(outerDiv);
-        workAnnouncement.appendChild(document.createElement("br"));
-        outerDiv.appendChild(top);
-        outerDiv.appendChild(info);
-        outerDiv.appendChild(readBtn);
-        readBtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov";
-        top.appendChild(logo);
-        top.appendChild(header);
-        logo.appendChild(newlog);
-        header.appendChild(newh1);
-         
-        logo.src=jobb[i].logoURL; //ladda in logga
-        newh1.innerHTML = jobb[i].tile;//ladda in rubrik
-        info.innerHTML = jobb[i].shortdesc;//ladda in beskrivning       
+            workAnnouncement.appendChild(outerDiv);
+            workAnnouncement.appendChild(document.createElement("br"));
+            outerDiv.appendChild(top);
+
+            outerDiv.appendChild(readBtn);
+            outerDiv.appendChild(Btn);
+            
+            top.appendChild(logo);
+            top.appendChild(header);
+            logo.appendChild(newlog);
+            header.appendChild(newh1);
+             
+
+            logo.src=jobb[i].logoURL; //ladda in logga
+            newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
+
+            readBtn.addEventListener("click",(e)=>showMoreInfoBtn(readBtn.id));      
     }
 }

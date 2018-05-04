@@ -48,6 +48,30 @@ module.exports = {
       });
     });
   },
+  changeExJobInfo:function(jobID,newValues,callback){
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db(database);
+      console.log("JOBID: "+jobID);
+      console.log(newValues);
+      var ObjectId = require('mongodb').ObjectID;
+      dbo.collection('job').update({"_id": new ObjectId(jobID)},{$set: newValues},function (err, result) {
+        db.close();
+        callback(result);
+      });
+    });
+  },
+  findSpecificJob:function(jobId,callback){
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db(database);
+      var ObjectId = require('mongodb').ObjectID;
+      dbo.collection('job').find({"_id": new ObjectId(jobId)}).toArray(function (err, result) {
+        db.close();
+        callback(result);
+      });
+    });
+  },
 
   findOne : function(table, query, callback){
     
@@ -57,21 +81,21 @@ module.exports = {
       console.log("Connected to database!");
 
       var dbo = db.db(database);
-      console.log(query);
+      // console.log(query);
       dbo.collection(table).find(query).toArray(function(err, result) {
         if (err) throw err;
 
         console.log("Entered collection success!");
         
         db.close();
-        console.log(result);
+        // console.log(result);
         callback(result);
       });
     });
   },
 
   findCompanyJobs : function(query, callback){
-    console.log("COMPANYID: "+query);
+    // console.log("COMPANYID: "+query);
 
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
@@ -142,7 +166,7 @@ addStudent: function(student, callback)
       dbo.collection("student").insertOne(student, function(err, res) {
         if (err) {
           db.close();
-          console.log(JSON.stringify(student));
+          // console.log(JSON.stringify(student));
           callback(err);
         }
         else{
