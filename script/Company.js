@@ -114,7 +114,7 @@ function loadPartial(command, route, afterLoad){
                     email: obj.companyEmail,
                     web: obj.website,
                     logo: obj.logoURL,
-                    About: obj.about
+                    about: obj.about
                 }
                 SetListedData(user);
             }
@@ -130,7 +130,7 @@ function loadPartial(command, route, afterLoad){
         document.getElementById("ccity").innerHTML = "<p> Ort: "+user.city+"</p>";
         document.getElementById("cemail").innerHTML = "<p>Email: "+user.email+"</p>";
         document.getElementById("cweb").innerHTML = "<p>Hemsida: <a href="+user.web+">"+user.web+"</a> </p>";
-        document.getElementById("About_Us").innerHTML = "<p>Företagsinformation: "+user.About+" </p>";
+        document.getElementById("About_Us").innerHTML = user.about;
     }
 
     function fillEditProfile() {
@@ -148,7 +148,8 @@ function loadPartial(command, route, afterLoad){
                     email: obj.companyEmail,
                     web: obj.website,
                     logo: obj.logoURL,
-                    uname: obj.userName
+                    uname: obj.userName,
+                    about: obj.about
                 }
                 document.getElementById("c_Logo").value += user.logo;
                 document.getElementById("c_Name").value += user.name;
@@ -157,7 +158,7 @@ function loadPartial(command, route, afterLoad){
                 document.getElementById("c_Email").value += user.email;
                 document.getElementById("c_WebP").value += user.web;
                 document.getElementById("c_Uname").value += user.uname;
-
+                document.getElementById("about_Us").value += user.about;
             }
         };
         xhttp.open("GET", "userDataFromDBCompany", true)
