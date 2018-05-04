@@ -4,7 +4,7 @@ window.onload = function () {
         // shortdesc = "";
         // fulldesc =""
         // keywords = [];
-    constructor (title, shortdescription, longdescription, fulllistofkeywords=[],companyID){
+    constructor (title, shortdescription, longdescription, fulllistofkeywords=[]){
             this.logoURL="";
             this.tile = title;
             this.shortdesc = shortdescription;
@@ -14,7 +14,6 @@ window.onload = function () {
             this.companyName="";
             this.website="";
         }
- 
     }
 
     //#region buttons
@@ -53,10 +52,7 @@ window.onload = function () {
         }
     }));*/
     logOutCompanyBtn.addEventListener("click", logOut);
-    //#endregions
 
-    loadMyInfo();   
-}
 
 //#region functions
 function loadPartial(command, route, afterLoad){
@@ -118,13 +114,13 @@ function loadPartial(command, route, afterLoad){
                     web: obj.website,
                     logo: obj.logoURL
                 }
-                document.getElementById("clogo").innerHTML += "<img src="+user.logo+" height=\"70\" width=\"70\" >";
-                document.getElementById("cid").innerHTML += user.id;
-                document.getElementById("cname").innerHTML += user.name;
-                document.getElementById("caddress").innerHTML += user.address;
-                document.getElementById("ccity").innerHTML += user.city;
-                document.getElementById("cemail").innerHTML += user.email;
-                document.getElementById("cweb").innerHTML += "<a href="+user.web+">"+user.web+"</a>";
+                document.getElementById("clogo").innerHTML = "<img src="+user.logo+" height=\"70\" width=\"70\" >";
+                document.getElementById("cid").innerHTML = "<p>"+user.id+"</p>";
+                document.getElementById("cname").innerHTML = "<h1>"+user.name+"</h1>";
+                document.getElementById("caddress").innerHTML = "<p>"+user.address+"</p>";
+                document.getElementById("ccity").innerHTML = "<p>"+user.city+"</p>";
+                document.getElementById("cemail").innerHTML = "<p>"+user.email+"</p>";
+                document.getElementById("cweb").innerHTML = "<a href="+user.web+">"+user.web+"</a>";
             }
         };
         xhttp.open("GET", "userDataFromDBCompany", true)
@@ -180,6 +176,7 @@ function loadPartial(command, route, afterLoad){
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                document.getElementById("menu-page-content").innerHTML = this.response;
+               getJobsFromDB();
             }
         };
         xhttp.open("GET", "loadFileCompany?p="+'/myOffers.html', true);    
@@ -301,6 +298,7 @@ function loadPartial(command, route, afterLoad){
         let title = document.getElementById("Headline").value;
         let shortde = document.getElementById("shortSubject").value;
         let longde = document.getElementById("Subject").value;
+        console.log(title+shortde+longde);
         var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
         for (i = 0; i < fullListToCheck.length; i++) {
             if(fullListToCheck[i].checked)
@@ -328,7 +326,66 @@ function loadPartial(command, route, afterLoad){
         xhttp.send();
         
     }
-    
+    function getJobsFromDB(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              // document.getElementById("option-page-content").innerHTML = this.response;
+                console.log("JOBB HÄMTADE");
+                var jobs=JSON.parse(this.response);
+                workAnnouncements(jobs.length,jobs);
 
+            }
+        };
+        //Skriv en funktion som bara tar ut företagets jobbannonser
+        xhttp.open("GET", "getJobsFromDB", true);
+        xhttp.send();
+    }
+    function workAnnouncements(num, jobb) {
+
+        for (var i = 0; i < num; i++) {
+            
+            var outerDiv = document.createElement("div");
+            outerDiv.className = "jobsSmall";
+
+            var top = document.createElement("div"); //topbar
+            top.className = "jobTop";
+
+            var logo=document.createElement("img");//ladda in logga
+            
+            logo.className = "jobLogo";
+            var header = document.createElement("div");//rubrik
+            header.className = "jobHeader";
+
+           
+            var newlog = document.createElement("p");
+            newlog.innerHTML = "logga";
+            var newh1 = document.createElement("h2");
+           
+            var readBtn = document.createElement("button");
+            readBtn.innerHTML = "Visa annons";
+            var Btn = document.createElement("button");
+            Btn.innerHTML = "Intresseanmälningar";
+
+            workAnnouncement.appendChild(outerDiv);
+            workAnnouncement.appendChild(document.createElement("br"));
+            outerDiv.appendChild(top);
+
+            outerDiv.appendChild(readBtn);
+            outerDiv.appendChild(Btn);
+            
+            top.appendChild(logo);
+            top.appendChild(header);
+            logo.appendChild(newlog);
+            header.appendChild(newh1);
+             
+            logo.src=jobb[i].logoURL; //ladda in logga
+            newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
+        }
+    }
+
+    loadMyInfo();   
+
+}
     //#endregions
 

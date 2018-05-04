@@ -267,13 +267,14 @@ app.post('/addJobToDB',urlEncodedParcer, function (req, res){
                 res.send("false");
             } else {
                 console.log("userInfo from DB");
-                console.log(result);
-                console.log(req.query["exJobb"]);
+                //console.log(result);
+                //console.log(req.query["exJobb"]);
                 var exjobb=JSON.parse(req.query["exJobb"]);
                 exjobb.logoURL=result[0].logoURL;
                 exjobb.companyName=result[0].companyName;
                 exjobb.website=result[0].website;
-                console.log(exjobb);
+                exjobb.companyID=userID;
+                //console.log(exjobb);
                 try {
                     Mongo.addJob(exjobb, function (result) {
                         if (result instanceof Error) {
