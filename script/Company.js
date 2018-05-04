@@ -314,14 +314,50 @@ window.onload = function () {
         operationSystems = document.getElementById("operationsystems");
         databaseBtn = document.getElementById("DatabaseBtn");
         databases = document.getElementById("Databases");
-
+        saveBtnExJob=document.getElementById("saveBtn");
+        cancelBtnExJob=document.getElementById("cancelBtn");
+        
+        
         progBtn.addEventListener("click", (e) => showHide(prog));
         areaBtn.addEventListener("click", (e) => showHide(area));
         typeBtn.addEventListener("click", (e) => showHide(types));
         operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
         databaseBtn.addEventListener("click", (e) => showHide(databases));
+        cancelBtnExJob.addEventListener("click",loadMyOffers);
+       
 
     }
+    function updateExJobInfo(jobId, exjobb) {
+        var exjobb2 = {
+            logoURL : exjobb.logoURL,
+            tile : document.getElementById("Title").value,
+            shortdesc : document.getElementById("shortDescription").value,
+            longdesc : document.getElementById("longDescription").value,
+            keywords : exjobb.keywords,
+            companyID : exjobb.companyID,
+            companyName : exjobb.companyName,
+            website : exjobb.website
+        }
+        let ListOfKeyWords = [];
+        var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
+        for (i = 0; i < fullListToCheck.length; i++) {
+            if (fullListToCheck[i].checked)
+                ListOfKeyWords.push(fullListToCheck[i].id);
+        }
+        exjobb2.keywords = ListOfKeyWords;
+        stringExjobb = JSON.stringify(exjobb2);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if ("true") {
+                    loadMyOffers();
+                }
+            }
+        };
+        xhttp.open("POST", "changeExJobInfo?jobID=" + jobId + "&exJobb=" + stringExjobb, true);
+        xhttp.send();
+    }
+
     function changeSpecificJob(jobId) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -331,7 +367,9 @@ window.onload = function () {
                 document.getElementById("Title").value = jobs[0].tile;
                 document.getElementById("shortDescription").value = jobs[0].shortdesc;
                 document.getElementById("longDescription").value = jobs[0].longdesc;
-                console.log("skit");
+               
+
+                saveBtnExJob.addEventListener("click",(e)=>updateExJobInfo(jobs[0]._id,jobs[0]));
                 for (i = 0; i < jobs[0].keywords.length; i++) {
                     document.getElementById(jobs[0].keywords[i]).checked = true;
                 }
