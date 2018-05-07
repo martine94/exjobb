@@ -544,7 +544,7 @@ color:  white;
 	overflow: hidden;
 	background-color: #FFFFFF;
 }
-
+button:focus { outline:0 !important; }
 .contentShowBig{
 	padding: 0 18px;
 	width: 101%;
