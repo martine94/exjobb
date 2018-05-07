@@ -5,7 +5,7 @@ window.onload = function () {
     var mySPagesBtn = document.getElementById("mySPagesBtn");
     var recomendedJobBtn = document.getElementById("recomendedJobBtn");
     var mySInfoBtn = document.getElementById("myInfoBtn")
-    var logOutStudentBtn=document.getElementById("logOutStudentBtn");
+    var logOutStudentBtn = document.getElementById("logOutStudentBtn");
 
     //#endregions
 
@@ -14,7 +14,7 @@ window.onload = function () {
     mySPagesBtn.addEventListener("click", loadMyProfile)
     recomendedJobBtn.addEventListener("click", loadMyRecomendedJobs)
     mySInfoBtn.addEventListener("click", loadMyInfo)
-    logOutStudentBtn.addEventListener("click",logOut);
+    logOutStudentBtn.addEventListener("click", logOut);
     //#endregions
 
     //Buttons, divs and an array for newExJob.html
@@ -30,15 +30,14 @@ window.onload = function () {
     var other;
     var keyBtn;
     var saveBtn;
-
     //#region functions
 
-    function logOut(){
+    function logOut() {
         console.log("loggaut");
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                if("true"){
+                if ("true") {
                     window.location.replace("index.html");
                 }
             }
@@ -57,7 +56,7 @@ window.onload = function () {
                 listUserDataFromDB(); //genererar användarinfo
             }
         };
-        xhttp.open("GET", "loadFileStudent?p="+'/mySInfo.html', true);    
+        xhttp.open("GET", "loadFileStudent?p=" + '/mySInfo.html', true);
         xhttp.send();
     }
 
@@ -68,7 +67,7 @@ window.onload = function () {
                 document.getElementById("menu-page-content").innerHTML = this.response;
             }
         };
-        xhttp.open("GET", "loadFileStudent?p="+'/mySJobs.html', true);    
+        xhttp.open("GET", "loadFileStudent?p=" + '/mySJobs.html', true);
         xhttp.send();
     }
 
@@ -78,10 +77,11 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("menu-page-content").innerHTML = this.response;
+                document.getElementById("saveBtn").onclick = change_student;
                 fillEditProfile();
             }
         };
-        xhttp.open("GET", "loadFileStudent?p="+'/mySProfile.html', true);    
+        xhttp.open("GET", "loadFileStudent?p=" + '/mySProfile.html', true);
         xhttp.send();
     }
 
@@ -92,7 +92,7 @@ window.onload = function () {
                 document.getElementById("menu-page-content").innerHTML = this.response;
             }
         };
-        xhttp.open("GET", "loadFileStudent?p="+'/myRecomendedJobs.html', true);    
+        xhttp.open("GET", "loadFileStudent?p=" + '/myRecomendedJobs.html', true);
         xhttp.send();
     }
     function fillEditProfile() {
@@ -151,7 +151,7 @@ window.onload = function () {
     }
 
 
-    function loadButtonsStudentprofile(){
+    function loadButtonsStudentprofile() {
         ListOfKeyWords = [];
         progBtn = document.getElementById("ProgrammingLanguageBtn");
         prog = document.getElementById("ProgrammingLanguage");
@@ -166,27 +166,27 @@ window.onload = function () {
         keyBtn = document.getElementById("KeyWordBtn");
         saveBtn = document.getElementById("SaveExJob");
     }
-    function loadButtonEventsStudentprofile(){
+    function loadButtonEventsStudentprofile() {
         progBtn.addEventListener("click", (e) => showHide(prog));
-    typeBtn.addEventListener("click", (e) => showHide(types));
-    operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
-    databaseBtn.addEventListener("click", (e) => showHide(databases));
-    otherBtn.addEventListener("click", (e) => showHide(other));
-    progBtn.addEventListener("mouseover", (e) => hoverNewKeywords(progBtn, 1, prog));
-    progBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(progBtn, 0, prog));
-    typeBtn.addEventListener("mouseover", (e) => hoverNewKeywords(typeBtn, 1, types));
-    typeBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(typeBtn, 0, types));
-    operationSystemBtn.addEventListener("mouseover", (e) => hoverNewKeywords(operationSystemBtn, 1, operationSystems));
-    operationSystemBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(operationSystemBtn, 0, operationSystems));
-    databaseBtn.addEventListener("mouseover", (e) => hoverNewKeywords(databaseBtn, 1, databases));
-    databaseBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(databaseBtn, 0, databases));
-    otherBtn.addEventListener("mouseover", (e) => hoverNewKeywords(otherBtn, 1, other));
-    otherBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(otherBtn, 0, other));
-    saveBtn.addEventListener("click",(e)=>saveProfile)
+        typeBtn.addEventListener("click", (e) => showHide(types));
+        operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
+        databaseBtn.addEventListener("click", (e) => showHide(databases));
+        otherBtn.addEventListener("click", (e) => showHide(other));
+        progBtn.addEventListener("mouseover", (e) => hoverNewKeywords(progBtn, 1, prog));
+        progBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(progBtn, 0, prog));
+        typeBtn.addEventListener("mouseover", (e) => hoverNewKeywords(typeBtn, 1, types));
+        typeBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(typeBtn, 0, types));
+        operationSystemBtn.addEventListener("mouseover", (e) => hoverNewKeywords(operationSystemBtn, 1, operationSystems));
+        operationSystemBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(operationSystemBtn, 0, operationSystems));
+        databaseBtn.addEventListener("mouseover", (e) => hoverNewKeywords(databaseBtn, 1, databases));
+        databaseBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(databaseBtn, 0, databases));
+        otherBtn.addEventListener("mouseover", (e) => hoverNewKeywords(otherBtn, 1, other));
+        otherBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(otherBtn, 0, other));
+        saveBtn.addEventListener("click", (e) => saveProfile)
     }
 
     function hoverNewKeywords(element, show, connectedTo) {
-       // connectedTo.style.width = "244pt";
+        // connectedTo.style.width = "244pt";
         if ((element.id !== "SaveExJob") && (element.id !== "KeyWordBtn")) {
             if (show === 0) {
                 element.className = "contentShow";
@@ -198,12 +198,12 @@ window.onload = function () {
                 element.style.backgroundColor = "white";
             }
         }
-        else{
-            if(show === 0){
+        else {
+            if (show === 0) {
                 element.style.width = "275pt";
-                
+
             }
-            else{
+            else {
                 element.style.width = "279pt";
             }
         }
@@ -218,28 +218,79 @@ window.onload = function () {
             elements.className = "content";
         }
 
-    //#endregions
+        //#endregions
 
-}
+    }
 
-function saveProfile() {
-    let ListOfKeyWords=[];
-    let title = document.getElementById("").value;
-    let shortde = document.getElementById("").value;
-    let longde = document.getElementById("").value;
-    var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
-    for (i = 0; i < fullListToCheck.length; i++) {
-        if(fullListToCheck[i].checked)
-            ListOfKeyWords.push(fullListToCheck[i].id);
+    function manageSelectedFile()
+    {
+        if(!window.File || !window.FileReader || !window.FileList || !window.Blob)
+        {
+            throw("The file API needed is not supported in this browser!");
+        }        
+        input = document.getElementById('pdfUpload');
+
+        if(!input){
+            console.error("can't find input element!");
+        }
+        else if(!input.files){
+            console.error("this browser does not support the files property of input!");
+        }
+        else if(!input.files[0]){
+            console.log("no file selected");
+        }
+        else
+        {
+            file = input.files[0];
+            fr = new FileReader();
+            fr.onload = () =>{
+                //do something with the file code
+
+            } 
+        }
     }
-    
-    for(a = 0; a < ListOfKeyWords.length; a++){
-        console.log(ListOfKeyWords[a]);
+
+    function change_student() {
+        console.log("save");
+        var ufname = document.getElementById("sFName").value;
+        var ulname = document.getElementById("sLName").value;
+        var ucity = document.getElementById("Undefined").value;
+        var uedu= document.getElementById("sEdu").value;
+        var uemail= document.getElementById("sEmail").value;
+        var uname= document.getElementById("sUname").value;
+        var psw= document.getElementById("sPsw").value;
+        var gender="Undefined";
+
+        var keywords = "";
+        var cv = "";
+
+        var xhttp = new XMLHttpRequest();
+        
+        xhttp.open("POST", "changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu 
+        + "&uemail=" + uemail+ "&uname=" + uname + "&psw=" + psw + "&gender=" + gender + "&keywords=" + keywords + "&cv" + cv, true);
+        xhttp.send();
+
+
     }
-    let savedJob = new exJob(title,shortde,longde,ListOfKeyWords);
-    console.log(savedJob);
-    infoUser.className = "userDataShow";
-}
-loadMyInfo();
+
+    function saveProfile() {
+        let ListOfKeyWords = [];
+        let title = document.getElementById("").value;
+        let shortde = document.getElementById("").value;
+        let longde = document.getElementById("").value;
+        var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
+        for (i = 0; i < fullListToCheck.length; i++) {
+            if (fullListToCheck[i].checked)
+                ListOfKeyWords.push(fullListToCheck[i].id);
+        }
+
+        for (a = 0; a < ListOfKeyWords.length; a++) {
+            console.log(ListOfKeyWords[a]);
+        }
+        let savedJob = new exJob(title, shortde, longde, ListOfKeyWords);
+        console.log(savedJob);
+        infoUser.className = "userDataShow";
+    }
+    loadMyInfo();
 
 }

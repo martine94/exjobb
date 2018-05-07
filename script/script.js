@@ -307,9 +307,7 @@ window.onload = function () {
         }
 
 
-        }
-    
-    
+        }    
 
     function register_student() {
         console.log("click");
@@ -326,6 +324,8 @@ window.onload = function () {
         } else{
             gender="female";
         }
+        var keywords = "";
+        var cv = ""
 
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -341,7 +341,8 @@ window.onload = function () {
                 }
             }
         }
-        xhttp.open("POST", "register_student?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu + "&uemail=" + uemail+ "&uname=" + uname + "&psw=" + psw + "&gender=" + gender, true);
+        xhttp.open("POST", "register_student?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu 
+        + "&uemail=" + uemail+ "&uname=" + uname + "&psw=" + psw + "&gender=" + gender + "&keywords=" + keywords + "&cv" + cv, true);
         xhttp.send();
     }
 

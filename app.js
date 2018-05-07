@@ -227,6 +227,44 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
     }
 });
 
+app.post('/changeStudentInfo',urlEncodedParcer,function(req,res){
+    console.log("student change POST request");
+    var user={
+        name: req.query["ufname"],
+        lastname: req.query["ulname"],
+        city: req.query["ucity"],
+        ueducation: req.query["uedu"],
+        uemail: req.query["uemail"],
+        uname: req.query["uname"],
+        password: req.query["psw"],
+        gender: req.query["gender"],
+        keywords: req.query["keywords"],
+        cv: req.query["cv"]
+    }
+    try {
+        myQuery=getUserID(req);
+       console.log(myQuery);
+        Mongo.changeStudentInfo(myQuery,user,function (result) {
+            if (result instanceof Error) {
+                console.log("Error!");
+                console.log(result);
+                if (result.code === 11000) {
+                    console.log("back");
+                    res.send("false");
+                }
+            }
+            else {
+                console.log("Probably Sucess!");
+                res.send("true");
+            }
+        });
+    }
+    catch (error) {
+        console.log("Caught error!");
+        console.log(error.name);
+        console.log(error);
+    }
+});
 app.post('/register_student', urlEncodedParcer, function (req, resp) {
     console.log("student register POST request");
     response = {
@@ -237,7 +275,9 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
         uemail: req.query["uemail"],
         uname: req.query["uname"],
         password: req.query["psw"],
-        gender: req.query["gender"]
+        gender: req.query["gender"],
+        keywords: req.query["keywords"],
+        cv: req.query["cv"]
     };
     console.log(response)
     try {
