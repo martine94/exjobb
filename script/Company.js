@@ -318,12 +318,12 @@ window.onload = function () {
         let longde = document.getElementById("Subject").value;
         console.log(title + shortde + longde);
         var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
-        for (i = 0; i < fullListToCheck.length; i++) {
+        for (let i = 0; i < fullListToCheck.length; i++) {
             if (fullListToCheck[i].checked)
                 ListOfKeyWords.push(fullListToCheck[i].id);
         }
 
-        for (a = 0; a < ListOfKeyWords.length; a++) {
+        for (let a = 0; a < ListOfKeyWords.length; a++) {
             console.log(ListOfKeyWords[a]);
         }
         let savedJob = new exJob(title, shortde, longde, ListOfKeyWords);
