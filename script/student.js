@@ -247,6 +247,11 @@ loadMyInfo();
 
 }
 
+function sendInterest(jobId){
+    console.log("Intresseanmälan");
+    //Fixa så studenten får jobbid i sin profil samt jobbet får studentens id
+}
+
 function showMoreInfoBtn(jobId){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -254,6 +259,9 @@ function showMoreInfoBtn(jobId){
            document.getElementById("menu-page-content").innerHTML = this.response;
             document.getElementById("closeExJob").addEventListener("click",loadCatalog);
             getSpecificJob(jobId);
+            makeInterestBtn=document.getElementById("makeInterestSubmit");
+            makeInterestBtn.addEventListener("click",(e)=>sendInterest(jobId));
+
         }
     };
     xhttp.open("GET", "loadFileStudent?p="+'/showExJob.html', true);    
