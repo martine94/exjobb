@@ -91,24 +91,23 @@ app.get('/getInterestJob', function (req, res) {
             if (result.length === 0) {
                 console.log("false");
                 res.send("false");
-            } else if(!('joblist' in result[0])){
-                res.send("false");
-            }
-            else {
+            } else {
                 var jobArray = [];
-                for (let i = 0; i < result[0].joblist.length; ++i) {
-                    var jobid = result[0].joblist[i].jobID;
-                    Mongo.findSpecificJob(jobid, function (jobresult) {
-                        if (jobresult.length === 0) {
-                            console.log("false, job could not be found.");
-                            res.send("false");
-                        } else {
-                            jobArray.push({jobs:jobresult,message:result[0].joblist[i].message});
-                            if (jobArray.length === result[0].joblist.length) {
-                                res.send(jobArray);
+                if (!result[0].joblist) { res.send("false"); } else {
+                    for (let i = 0; i < result[0].joblist.length; ++i) {
+                        var jobid = result[0].joblist[i].jobID;
+                        Mongo.findSpecificJob(jobid, function (jobresult) {
+                            if (jobresult.length === 0) {
+                                console.log("false, job could not be found.");
+                                res.send("false");
+                            } else {
+                                jobArray.push({ jobs: jobresult, message: result[0].joblist[i].message });
+                                if (jobArray.length === result[0].joblist.length) {
+                                    res.send(jobArray);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
 
             }
