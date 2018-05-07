@@ -50,6 +50,7 @@ app.get('/loadFileStudent', urlEncodedParcer, function (req, res) {
     var _path = req.query["p"];
     res.sendFile(path.join(dirStudent, _path));
 });
+
 //#endregion
 
 app.get('/loggedIn', function (req, resp) {
