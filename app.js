@@ -78,6 +78,44 @@ function getUserID(req) {
         return ("false");
     }
 }
+app.get('/removeInterest', function (req, res) {
+    console.log("/Get removeInterest");
+    let userID = getUserID(req);
+    let jobID = req.query["jobID"];
+    console.log(userID + " : " + jobID);
+    var ObjectId = require('mongodb').ObjectId;
+    var o_id = new ObjectId(userID);
+    Mongo.findOne("student", { "_id": o_id }, function (result) {
+        if (result.length === 0) {
+            //res.send("false");
+        } else {
+            for (let i = 0; i < result[0].joblist.length; ++i) {
+                if (result[0].joblist[i].jobID === jobID) {
+                    Mongo.removeInterestFromStudent(userID, result[0].joblist[i], function (resultat2) {
+                        if (resultat2.length === 0) {
+                        } else {
+                            var o_id2 = new ObjectId(jobID);
+                            Mongo.findOne("job", { "_id": o_id2 }, function (result3) {
+                                if (result3.length === 0) {
+                                } else {
+                                    for (let i = 0; i < result3[0].studentlist.length; ++i) {
+                                        if (result3[0].studentlist[i].studentID === userID) {
+                                            Mongo.removeInterestFromJob(jobID, result3[0].studentlist[i], function (resultat2) {
+                                                console.log("DELETED");
+                                            });
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+            res.send("true");
+        }
+    });
+});
+
 app.get('/getInterestJob', function (req, res) {
     console.log("/GET getInterestJob request");
     let userID = getUserID(req);

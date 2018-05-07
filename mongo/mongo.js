@@ -36,6 +36,28 @@ module.exports = {
       });
     });
   },
+  removeInterestFromStudent:function(studentID,job,callback){
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db(database);
+      var ObjectId = require('mongodb').ObjectID;
+      dbo.collection('student').update({"_id": new ObjectId(studentID)},{$pull: {joblist:job}},function (err, result) {
+        db.close();
+        callback(result);
+      });
+    });
+  },
+  removeInterestFromJob:function(jobID,student,callback){
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db(database);
+      var ObjectId = require('mongodb').ObjectID;
+      dbo.collection('job').update({"_id": new ObjectId(jobID)},{$pull: {studentlist:student}},function (err, result) {
+        db.close();
+        callback(result);
+      });
+    });
+  },
   changeCompanyInfo:function(myQuery,newValues,callback){
     MongoClient.connect(url, function (err, db) {
       if (err) throw err;
