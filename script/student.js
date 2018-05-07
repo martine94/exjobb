@@ -355,17 +355,13 @@ function getInterestJob(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          // document.getElementById("option-page-content").innerHTML = this.response;
-           // console.log("JOBB HÄMTADE");
-            //var jobs=JSON.parse(this.response);
-            //var jobs=JSON.parse(this.response);
-            //console.log(this.response);
-
-            //workInterests(jobs.length,jobs[0].jobresult);
+            if("false"){
+                console.log("No intresseanmälan");
+            }else{
             let jobb=JSON.parse(this.response);
             console.log(jobb);
             workInterests(jobb.length,jobb);
-            //console.log(jobs.length);
+            }
         }
     };
     xhttp.open("GET", "getInterestJob", true);

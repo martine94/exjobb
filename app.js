@@ -91,7 +91,10 @@ app.get('/getInterestJob', function (req, res) {
             if (result.length === 0) {
                 console.log("false");
                 res.send("false");
-            } else {
+            } else if(!('joblist' in result[0])){
+                res.send("false");
+            }
+            else {
                 var jobArray = [];
                 for (let i = 0; i < result[0].joblist.length; ++i) {
                     var jobid = result[0].joblist[i].jobID;
