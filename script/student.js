@@ -264,7 +264,8 @@ function sendInterest(jobId) {
     xhttp.send();
 }
 
-function showMoreInfoBtn(jobId){
+function showMoreInfoBtn(jobId, val){
+    console.log(val);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -274,7 +275,12 @@ function showMoreInfoBtn(jobId){
             
             makeInterestBtn=document.getElementById("makeInterestSubmit");
             makeInterestBtn.addEventListener("click",(e)=>sendInterest(jobId));
-
+            if(val==='0'){
+            document.getElementById("interestDiv").style.display="none";
+            }
+            else{
+                document.getElementById("interestDiv").style.display="block";
+            }
         }
     };
     xhttp.open("GET", "loadFileStudent?p="+'/showExJob.html', true);    
@@ -427,7 +433,8 @@ function workInterests(num, jobbig) {
             logo.src=jobb[0].logoURL; //ladda in logga
             newh1.innerHTML = jobb[0].tile;//ladda in rubrik    
             info.innerHTML = message;//ladda in beskrivning
-            readBtn.addEventListener("click",(e)=>showMoreInfoBtn(readBtn.id));      
+            let show='0';
+            readBtn.addEventListener("click",(e)=>showMoreInfoBtn(readBtn.id,show));      
     }
 }
 
@@ -475,7 +482,8 @@ function workAnnouncements(num, jobb) {
             logo.src=jobb[i].logoURL; //ladda in logga
             newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
             info.innerHTML = jobb[i].shortdesc;//ladda in beskrivning
-            readBtn.addEventListener("click",(e)=>showMoreInfoBtn(readBtn.id));      
+            let show='1';
+            readBtn.addEventListener("click",(e)=>showMoreInfoBtn(readBtn.id,show));      
     }
 }
 }
