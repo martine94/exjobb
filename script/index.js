@@ -239,7 +239,7 @@ function register_student() {
         gender="female";
     }
 
-    ajaxRequest('GET', "register_student?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu + "&uemail=" + uemail+ "&uname=" + uname + "&psw=" + psw + "&gender=" + gender, function(response){
+    ajaxRequest('POST', "register_student?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu + "&uemail=" + uemail+ "&uname=" + uname + "&psw=" + psw + "&gender=" + gender, function(response){
         if (response === "false") {
             console.log("Fel");
             document.getElementById("errorReg").innerHTML="*Användarnamnet upptaget!";
