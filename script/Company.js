@@ -327,6 +327,8 @@ window.onload = function () {
             interests.appendChild(document.createElement("br"));
             number++;
         }
+        let backBtn = document.getElementById("BackBtn");
+        backBtn.addEventListener("click", (e)=>loadMyOffers());
     }
 
     //Load Buttons and Events
