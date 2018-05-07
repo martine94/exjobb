@@ -78,6 +78,40 @@ function getUserID(req) {
         return ("false");
     }
 }
+app.get('/getInterestJob', function (req, res) {
+    console.log("/GET getInterestJob request");
+    let userID = getUserID(req);
+    if (userID == "false") {
+        console.log("could not find user")
+        res.send("false");
+    } else {
+        var ObjectId = require('mongodb').ObjectId;
+        var o_id = new ObjectId(userID);
+        Mongo.findOne("student", { "_id": o_id }, function (result) {
+            if (result.length === 0) {
+                console.log("false");
+                res.send("false");
+            } else {
+                var jobArray = [];
+                for (let i = 0; i < result[0].joblist.length; ++i) {
+                    var jobid = result[0].joblist[i].jobID;
+                    Mongo.findSpecificJob(jobid, function (jobresult) {
+                        if (jobresult.length === 0) {
+                            console.log("false, job could not be found.");
+                            res.send("false");
+                        } else {
+                            jobArray.push({jobs:jobresult,message:result[0].joblist[i].message});
+                            if (jobArray.length === result[0].joblist.length) {
+                                res.send(jobArray);
+                            }
+                        }
+                    });
+                }
+
+            }
+        });
+    }
+});
 app.get('/userDataFromDBStudent', function (req, res) {
     console.log("GET /userDataFromDB.html request");
     var userID = getUserID(req);
