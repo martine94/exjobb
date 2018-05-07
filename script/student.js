@@ -264,25 +264,23 @@ window.onload = function () {
         xhttp.send();
     }
 
-function showMoreInfoBtn(jobId, val){
-    console.log(val);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-           document.getElementById("menu-page-content").innerHTML = this.response;
-            document.getElementById("closeExJob").addEventListener("click",loadCatalog);
-            getSpecificJob(jobId);
-            
-            makeInterestBtn=document.getElementById("makeInterestSubmit");
-            makeInterestBtn.addEventListener("click",(e)=>sendInterest(jobId));
-            if(val==='0'){
-            document.getElementById("interestDiv").style.display="none";
-            }
-            else{
-                document.getElementById("interestDiv").style.display="block";
-            }
+    function showMoreInfoBtn(jobId, val) {
+        console.log(val);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("menu-page-content").innerHTML = this.response;
+                document.getElementById("closeExJob").addEventListener("click", loadCatalog);
+                getSpecificJob(jobId);
+
                 makeInterestBtn = document.getElementById("makeInterestSubmit");
                 makeInterestBtn.addEventListener("click", (e) => sendInterest(jobId));
+                if (val === '0') {
+                    document.getElementById("interestDiv").style.display = "none";
+                }
+                else {
+                    document.getElementById("interestDiv").style.display = "block";
+                }
 
             }
         };
@@ -384,7 +382,7 @@ function showMoreInfoBtn(jobId, val){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                if(this.response==="true"){
+                if (this.response === "true") {
                     loadMyInterests();
                 }
             };
@@ -455,8 +453,8 @@ function showMoreInfoBtn(jobId, val){
             info.innerHTML = message;//ladda in beskrivning
             readBtn.addEventListener("click", (e) => showMoreInfoBtn(readBtn.id));
             removeBtn.addEventListener("click", (e) => removeInterest(removeBtn.id));
-            let show='0';
-            readBtn.addEventListener("click",(e)=>showMoreInfoBtn(readBtn.id,show));      
+            let show = '0';
+            readBtn.addEventListener("click", (e) => showMoreInfoBtn(readBtn.id, show));
         }
     }
 
@@ -504,7 +502,8 @@ function showMoreInfoBtn(jobId, val){
             logo.src = jobb[i].logoURL; //ladda in logga
             newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
             info.innerHTML = jobb[i].shortdesc;//ladda in beskrivning
-            let show='1';
-            readBtn.addEventListener("click",(e)=>showMoreInfoBtn(readBtn.id,show));      
+            let show = '1';
+            readBtn.addEventListener("click", (e) => showMoreInfoBtn(readBtn.id, show));
+        }
     }
 }
