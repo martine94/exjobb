@@ -357,6 +357,7 @@ function getInterestJob(){
         if (this.readyState == 4 && this.status == 200) {
             if(this.response==="false"){
                 console.log("No intresseanmälan");
+                document.getElementById("msg").innerHTML="Du har inga intresseanmälningar."
             }else{
             let jobb=JSON.parse(this.response);
             console.log(jobb);
