@@ -269,8 +269,9 @@ function showMoreInfoBtn(jobId){
            document.getElementById("menu-page-content").innerHTML = this.response;
             document.getElementById("closeExJob").addEventListener("click",loadCatalog);
             getSpecificJob(jobId);
+            var message="Testmeddelande";
             makeInterestBtn=document.getElementById("makeInterestSubmit");
-            makeInterestBtn.addEventListener("click",(e)=>sendInterest(jobId));
+            makeInterestBtn.addEventListener("click",(e)=>sendInterest(jobId, message));
 
         }
     };
