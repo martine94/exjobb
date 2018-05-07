@@ -168,7 +168,7 @@ window.onload = function () {
                 var thisRow = document.createElement("tr");
                 table.appendChild(thisRow);
 
-                for (i = 0; i < jobs[0].keywords.length; ++i) {
+                for (let i = 0; i < jobs[0].keywords.length; ++i) {
                     if (i % 3 === 0) {
                         var newRow = document.createElement("tr");
                         thisRow = newRow;
@@ -249,6 +249,9 @@ window.onload = function () {
             outerDiv.appendChild(interestBtn);
             outerDiv.appendChild(changeBtn);
 
+            outerDiv.appendChild(document.createElement("br"));
+            outerDiv.appendChild(document.createElement("br"));
+
             top.appendChild(logo);
             top.appendChild(header);
             logo.appendChild(newlog);
@@ -268,6 +271,8 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 interestArea.innerHTML = this.response;
+                let showIBtn = document.getElementById("showintressents");
+                showIBtn.addEventListener("click", (e)=> loadInterests(jobId));
                 document.getElementById("closeExJob").addEventListener("click", loadMyOffers);
                 getSpecificJob(jobId);
             }
