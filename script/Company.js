@@ -129,6 +129,25 @@ window.onload = function () {
         xhttp.send();
     }
 
+    function getspecificIntresents(jobId){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // document.getElementById("option-page-content").innerHTML = this.response;
+                console.log("JOBB HÄMTADE");
+                let num = 0;
+                var jobs = JSON.parse(this.response);
+                for(let i = 0; i<jobs[0].studentlist.length;i++){
+                    num++;
+                }
+                getInterestAnnouncement(jobs[0].studentlist, num);
+                // table.style="width:100%";
+            }
+        };
+        xhttp.open("GET", "getSpecificJobFromDB?jobID=" + jobId, true);
+        xhttp.send();
+    }
+
     function getSpecificJob(jobId) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -136,7 +155,7 @@ window.onload = function () {
                 // document.getElementById("option-page-content").innerHTML = this.response;
                 console.log("JOBB HÄMTADE");
                 var jobs = JSON.parse(this.response);
-
+                console.log(jobs);
                 document.getElementById("logga").src = jobs[0].logoURL;
                 document.getElementById("rubrik").innerHTML = jobs[0].tile;
                 document.getElementById("shortDescriprion").innerHTML = jobs[0].shortdesc;
@@ -239,7 +258,7 @@ window.onload = function () {
             newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
             readBtn.addEventListener("click", (e) => loadShowExJob(readBtn.id));
             changeBtn.addEventListener("click", (e) => loadChangeExJob(readBtn.id));
-            interestBtn.addEventListener("click", (e) => loadInterests(readBtn));
+            interestBtn.addEventListener("click", (e) => loadInterests(readBtn.id));
 
         }
     }
@@ -262,15 +281,14 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 interestArea.innerHTML = this.response;
-                //objId.students.length som parameter2 nedan
-                 getInterestAnnouncement(objId, 4);
-            }
+                getspecificIntresents(objId);
+                }
         };
         xhttp.open("GET", "loadFileCompany?p=" + '/CExJobInterests.html', true);
         xhttp.send();
     }
 
-    function getInterestAnnouncement(objId, num) {
+    function getInterestAnnouncement(studentList, num) {
         var interests = document.getElementById("Interests");
         var number = 1;
         for (let i = 0; i < num; i++) {
@@ -283,16 +301,17 @@ window.onload = function () {
             row.style.color = "white"; row.className = "Shadow";
             personDiv.appendChild(row);
             personDiv.appendChild(document.createElement("br"));
-            let divInfo = document.createElement("div");
-            divInfo.innerHTML = "Personinformation";
+            let divInfo = document.createElement("div"); 
+            divInfo.innerHTML = "Personinformation: ";
             personDiv.appendChild(divInfo);
             
             personDiv.className = "jobsSmall";
 
             let txtArea = document.createElement("div");
-            txtArea.className = "jobInfo";
+            txtArea.innerHTML = studentList[i].message;
+            txtArea.className = "jobInfo";  
             let CVbtn = document.createElement("button");
-            CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov";
+            CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov Shadow";
             CVbtn.innerHTML = "CV";
             personDiv.appendChild(txtArea);
             personDiv.appendChild(document.createElement("br"));
