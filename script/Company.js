@@ -369,14 +369,10 @@ window.onload = function () {
     }
 
     function showHideDataForExJob(elements) {
-        console.log("Inside ShowHide-function");
-        if (elements.className === "content") {
+        if (elements.className === "content Shadow")
             elements.className = "contentShow";
-        }
-        else {
-            elements.className = "content";
-        }
-
+        else
+            elements.className = "content Shadow";
     }
 
 
@@ -568,16 +564,7 @@ window.onload = function () {
     }  
     
     //Other Functions
-    function ajaxRequest(type, route, responseHandler){
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                responseHandler(this.response);
-            }
-        };
-        xhttp.open(type, route, true);
-        xhttp.send();
-    }
+
     loadMyInfo();
 
 }
