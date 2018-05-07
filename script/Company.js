@@ -10,6 +10,7 @@ window.onload = function () {
             this.companyID = "";
             this.companyName = "";
             this.website = "";
+            this.interestList={};
         }
     }
 

@@ -247,6 +247,11 @@ loadMyInfo();
 
 }
 
+function sendInterest(jobId){
+    console.log("Intresseanmälan");
+    //Fixa så studenten får jobbid i sin profil samt jobbet får studentens id
+}
+
 function showMoreInfoBtn(jobId){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -254,6 +259,9 @@ function showMoreInfoBtn(jobId){
            document.getElementById("menu-page-content").innerHTML = this.response;
             document.getElementById("closeExJob").addEventListener("click",loadCatalog);
             getSpecificJob(jobId);
+            makeInterestBtn=document.getElementById("makeInterestSubmit");
+            makeInterestBtn.addEventListener("click",(e)=>sendInterest(jobId));
+
         }
     };
     xhttp.open("GET", "loadFileStudent?p="+'/showExJob.html', true);    
@@ -340,7 +348,9 @@ function workAnnouncements(num, jobb) {
             var header = document.createElement("div");//rubrik
             header.className = "jobHeader";
 
-           
+            var info = document.createElement("div");
+            info.className = "jobInfo";
+
             var newlog = document.createElement("p");
             newlog.innerHTML = "logga";
             var newh1 = document.createElement("h2");
@@ -348,15 +358,13 @@ function workAnnouncements(num, jobb) {
             let readBtn = document.createElement("button");
             readBtn.innerHTML = "Visa annons";
             readBtn.id=jobb[i]._id;
-            let Btn = document.createElement("button");
-            Btn.innerHTML = "Intresseanmälningar";
 
             workAnnouncement.appendChild(outerDiv);
             workAnnouncement.appendChild(document.createElement("br"));
             outerDiv.appendChild(top);
-
+            outerDiv.appendChild(info);
             outerDiv.appendChild(readBtn);
-            outerDiv.appendChild(Btn);
+
             
             top.appendChild(logo);
             top.appendChild(header);
@@ -366,7 +374,7 @@ function workAnnouncements(num, jobb) {
 
             logo.src=jobb[i].logoURL; //ladda in logga
             newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
-
+            info.innerHTML = jobb[i].shortdesc;//ladda in beskrivning
             readBtn.addEventListener("click",(e)=>showMoreInfoBtn(readBtn.id));      
     }
 }
