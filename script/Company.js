@@ -1,3 +1,4 @@
+"use strict";
 window.onload = function () {
     class exJob {
         constructor(title, shortdescription, longdescription, fulllistofkeywords = []) {
@@ -42,59 +43,7 @@ window.onload = function () {
 
     //#region eventListeners
 
-
-
-    //#region functions Load pages
-    // function loadPartial(command, route, afterLoad) {
-    //     var xhttp = new XMLHttpRequest();
-    //     xhttp.onreadystatechange = function () {
-    //         if (this.readyState == 4 && this.status == 200) {
-    //             afterLoad();
-    //         }
-    //     };
-    //     xhttp.open(command, route, true);
-    //     xhttp.send();
-    // }
-
-    function logOut() {
-        console.log("loggaut");
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                if ("true") {
-                    window.location.replace("index.html");
-                }
-            }
-        };
-        xhttp.open("GET", "logout", true);
-        xhttp.send();
-    }
-
-    function listUserDataFromDB() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function (res) {
-            if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
-                removeBrace = this.responseText.replace(/[\[\]']+/g, "");
-                var obj = JSON.parse(removeBrace);
-                var user = {
-                    id: obj._id,
-                    name: obj.companyName,
-                    address: obj.companyAddress,
-                    city: obj.companyCity,
-                    email: obj.companyEmail,
-                    web: obj.website,
-                    logo: obj.logoURL,
-                    about: obj.about
-                }
-                SetListedData(user);
-            }
-        };
-        xhttp.open("GET", "userDataFromDBCompany", true)
-        xhttp.send();
-    }
-
-    function AddEventListerersButtons(choice) {
+        function AddEventListerersButtons(choice) {
         if (choice === 1) {
             newExJobBtn.addEventListener("click", loadNewExJob);
             myOffersBtn.addEventListener("click", loadMyOffers);
@@ -110,158 +59,75 @@ window.onload = function () {
 
         }
         else if (choice === 4) {
-
+            
         }
         else if (choice === 5) {
 
         }
     }
 
-    function fillEditProfile() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function (res) {
-            if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
-                removeBrace = this.responseText.replace(/[\[\]']+/g, "");
-                var obj = JSON.parse(removeBrace);
-                var user = {
-                    id: obj._id,
-                    name: obj.companyName,
-                    address: obj.companyAddress,
-                    city: obj.companyCity,
-                    email: obj.companyEmail,
-                    web: obj.website,
-                    logo: obj.logoURL,
-                    uname: obj.userName,
-                    about: obj.about
-                }
-                fillEditData(user);
-            }
-        };
-        xhttp.open("GET", "userDataFromDBCompany", true)
-        xhttp.send();
-    }
-
-    function loadNewExJob() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                interestArea.innerHTML = this.response;
-                AddEventListerersButtons(2);
-            }
-        };
-        xhttp.open("GET", "loadFileCompany?p=" + '/newExJob.html', true);
-        xhttp.send();
-    }
-
-    function loadMyOffers() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                interestArea.innerHTML = this.response;
-                getJobsFromDB();
-            }
-        };
-        xhttp.open("GET", "loadFileCompany?p=" + '/myOffers.html', true);
-        xhttp.send();
-    }
-
-    function loadMyProfile() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                interestArea.innerHTML = this.response;
-                var saveBtn = document.getElementById('saveBtn');
-                saveBtn.addEventListener("click", changeInfo);
-                var cancelBtn = document.getElementById('cancelBtn');
-                cancelBtn.addEventListener("click", loadMyInfo);
-                fillEditProfile();
-            }
-        };
-        xhttp.open("GET", "loadFileCompany?p=" + '/myCompanyPages.html', true);
-        xhttp.send();
-    }
 
 
-    function SetListedData(user) {
-        document.getElementById("clogo").innerHTML = "<img src=" + user.logo + " height=\"70\" width=\"70\" >";
-        document.getElementById("cname").innerHTML = "<h1>" + user.name + "</h1>";
-        document.getElementById("caddress").innerHTML = "<p> Adress: " + user.address + "</p>";
-        document.getElementById("ccity").innerHTML = "<p> Ort: " + user.city + "</p>";
-        document.getElementById("cemail").innerHTML = "<p>Email: " + user.email + "</p>";
-        document.getElementById("cweb").innerHTML = "<p>Hemsida: <a href=" + user.web + ">" + user.web + "</a> </p>";
-        document.getElementById("About_Us").innerHTML = user.about;
-    }
-    function fillEditData(user) {
-        document.getElementById("c_Logo").value += user.logo;
-        document.getElementById("c_Name").value += user.name;
-        document.getElementById("c_Address").value += user.address;
-        document.getElementById("c_City").value += user.city;
-        document.getElementById("c_Email").value += user.email;
-        document.getElementById("c_WebP").value += user.web;
-        document.getElementById("c_Uname").value += user.uname;
-        document.getElementById("about_Us").value += user.about;
+
+
+
+
+    function loadButtonsAndEventExJob() {
+        ListOfKeyWords = [];
+        progBtn = document.getElementById("ProgrammingLanguageBtn");
+        prog = document.getElementById("ProgrammingLanguage");
+        areaBtn = document.getElementById("AreaBtn");
+        area = document.getElementById("Area");
+        typeBtn = document.getElementById("TypeBtn");
+        types = document.getElementById("Types");
+        operationSystemBtn = document.getElementById("OperationSystemBtn");
+        operationSystems = document.getElementById("operationsystems");
+        databaseBtn = document.getElementById("DatabaseBtn");
+        databases = document.getElementById("Databases");
+        saveBtnExJob=document.getElementById("saveBtn");
+        cancelBtnExJob=document.getElementById("cancelBtn");
+        
+        
+        progBtn.addEventListener("click", (e) => showHideDataForExJob(prog));
+        areaBtn.addEventListener("click", (e) => showHideDataForExJob(area));
+        typeBtn.addEventListener("click", (e) => showHideDataForExJob(types));
+        operationSystemBtn.addEventListener("click", (e) => showHideDataForExJob(operationSystems));
+        databaseBtn.addEventListener("click", (e) => showHideDataForExJob(databases));
+        cancelBtnExJob.addEventListener("click",loadMyOffers);
+       
 
     }
-
-    function changeInfo() {
-        var cname = document.getElementById("c_Name").value;
-        var cuname = document.getElementById("c_Uname").value;
-        var cAboutUs = document.getElementById("about_Us").value;
-        var psw = document.getElementById("c_Psw").value;
-        var ccity = document.getElementById("c_City").value;
-        var cemail = document.getElementById("c_Email").value;
-        var caddress = document.getElementById("c_Address").value;
-        var cweb = document.getElementById("c_WebP").value;
-        var clogo = document.getElementById("c_Logo").value;
-
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                interestArea.innerHTML = this.response;
-                if ("true") {
-                    loadMyInfo();
-                }
-            }
-        };
-        xhttp.open("POST", "changeCompanyInfo?cname=" + cname + "&psw=" + psw + "&cuname=" + cuname + "&caddress=" + caddress + "&cemail=" + cemail + "&ccity=" + ccity + "&cweb=" + cweb + "&clogo=" + clogo + "&cAboutUs=" + cAboutUs, true);
-        xhttp.send();
-    }
-
-
-    function saveNewExjob() {
+    function updateExJobInfo(jobId, exjobb) {
+        var exjobb2 = {
+            logoURL : exjobb.logoURL,
+            tile : document.getElementById("Title").value,
+            shortdesc : document.getElementById("shortDescription").value,
+            longdesc : document.getElementById("longDescription").value,
+            keywords : exjobb.keywords,
+            companyID : exjobb.companyID,
+            companyName : exjobb.companyName,
+            website : exjobb.website
+        }
         let ListOfKeyWords = [];
-        let title = document.getElementById("Headline").value;
-        let shortde = document.getElementById("shortSubject").value;
-        let longde = document.getElementById("Subject").value;
-        console.log(title + shortde + longde);
         var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
         for (i = 0; i < fullListToCheck.length; i++) {
             if (fullListToCheck[i].checked)
                 ListOfKeyWords.push(fullListToCheck[i].id);
         }
-
-        for (a = 0; a < ListOfKeyWords.length; a++) {
-            console.log(ListOfKeyWords[a]);
-        }
-        let savedJob = new exJob(title, shortde, longde, ListOfKeyWords);
-        console.log(savedJob);
-        var savedJob2 = JSON.stringify(savedJob);
-
+        exjobb2.keywords = ListOfKeyWords;
+        stringExjobb = JSON.stringify(exjobb2);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                // interestArea.innerHTML = this.response;
-                console.log("Exjob sent to app.js")
                 if ("true") {
                     loadMyOffers();
                 }
             }
         };
-        xhttp.open("POST", "addJobToDB?exJobb=" + savedJob2, true);
+        xhttp.open("POST", "changeExJobInfo?jobID=" + jobId + "&exJobb=" + stringExjobb, true);
         xhttp.send();
-
     }
+
     function getSpecificJob(jobId) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -302,61 +168,6 @@ window.onload = function () {
         xhttp.send();
 
     }
-    function loadButtonsAndEventExJob() {
-        ListOfKeyWords = [];
-        progBtn = document.getElementById("ProgrammingLanguageBtn");
-        prog = document.getElementById("ProgrammingLanguage");
-        areaBtn = document.getElementById("AreaBtn");
-        area = document.getElementById("Area");
-        typeBtn = document.getElementById("TypeBtn");
-        types = document.getElementById("Types");
-        operationSystemBtn = document.getElementById("OperationSystemBtn");
-        operationSystems = document.getElementById("operationsystems");
-        databaseBtn = document.getElementById("DatabaseBtn");
-        databases = document.getElementById("Databases");
-        saveBtnExJob=document.getElementById("saveBtn");
-        cancelBtnExJob=document.getElementById("cancelBtn");
-        
-        
-        progBtn.addEventListener("click", (e) => showHide(prog));
-        areaBtn.addEventListener("click", (e) => showHide(area));
-        typeBtn.addEventListener("click", (e) => showHide(types));
-        operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
-        databaseBtn.addEventListener("click", (e) => showHide(databases));
-        cancelBtnExJob.addEventListener("click",loadMyOffers);
-       
-
-    }
-    function updateExJobInfo(jobId, exjobb) {
-        var exjobb2 = {
-            logoURL : exjobb.logoURL,
-            tile : document.getElementById("Title").value,
-            shortdesc : document.getElementById("shortDescription").value,
-            longdesc : document.getElementById("longDescription").value,
-            keywords : exjobb.keywords,
-            companyID : exjobb.companyID,
-            companyName : exjobb.companyName,
-            website : exjobb.website
-        }
-        let ListOfKeyWords = [];
-        var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
-        for (i = 0; i < fullListToCheck.length; i++) {
-            if (fullListToCheck[i].checked)
-                ListOfKeyWords.push(fullListToCheck[i].id);
-        }
-        exjobb2.keywords = ListOfKeyWords;
-        stringExjobb = JSON.stringify(exjobb2);
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                if ("true") {
-                    loadMyOffers();
-                }
-            }
-        };
-        xhttp.open("POST", "changeExJobInfo?jobID=" + jobId + "&exJobb=" + stringExjobb, true);
-        xhttp.send();
-    }
 
     function changeSpecificJob(jobId) {
         var xhttp = new XMLHttpRequest();
@@ -378,29 +189,8 @@ window.onload = function () {
         xhttp.open("GET", "getSpecificJobFromDB?jobID=" + jobId, true);
         xhttp.send();
     }
-    function loadShowExJob(jobId) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                interestArea.innerHTML = this.response;
-                document.getElementById("closeExJob").addEventListener("click", loadMyOffers);
-                getSpecificJob(jobId);
-            }
-        };
-        xhttp.open("GET", "loadFileCompany?p=" + '/showExJob.html', true);
-        xhttp.send();
-    }
-    function loadChangeExJob(jobId) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                interestArea.innerHTML = this.response;
-                changeSpecificJob(jobId);
-            }
-        };
-        xhttp.open("GET", "loadFileCompany?p=" + '/changeExJob.html', true);
-        xhttp.send();
-    }
+
+
     function workAnnouncements(num, jobb) {
 
         for (var i = 0; i < num; i++) {
@@ -448,16 +238,41 @@ window.onload = function () {
             newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
 
             readBtn.addEventListener("click", (e) => loadShowExJob(readBtn.id));
-            // interestBtn.addEventListener("click",(e)=>loadShowExJob(readBtn.id));
             changeBtn.addEventListener("click", (e) => loadChangeExJob(readBtn.id));
         }
     }
 
-    //Load Buttons and Events
+    function loadShowExJob(jobId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                interestArea.innerHTML = this.response;
+                document.getElementById("closeExJob").addEventListener("click", loadMyOffers);
+                getSpecificJob(jobId);
+            }
+        };
+        xhttp.open("GET", "loadFileCompany?p=" + '/showExJob.html', true);
+        xhttp.send();
+    }
 
+    //Load Buttons and Events
+    //Startsidan
+ 
     //ExJobb
+
+    function loadNewExJob() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                interestArea.innerHTML = this.response;
+                AddEventListerersButtons(2);
+            }
+        };
+        xhttp.open("GET", "loadFileCompany?p=" + '/newExJob.html', true);
+        xhttp.send();
+    }
     function loadButtonsExJob() {
-        ListOfKeyWords = [];
+        var ListOfKeyWords = [];
         progBtn = document.getElementById("ProgrammingLanguageBtn");
         prog = document.getElementById("ProgrammingLanguage");
         areaBtn = document.getElementById("AreaBtn");
@@ -474,11 +289,11 @@ window.onload = function () {
     }
 
     function loadButtonEventsExJob() {
-        progBtn.addEventListener("click", (e) => showHide(prog));
-        areaBtn.addEventListener("click", (e) => showHide(area));
-        typeBtn.addEventListener("click", (e) => showHide(types));
-        operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
-        databaseBtn.addEventListener("click", (e) => showHide(databases));
+        progBtn.addEventListener("click", (e) => showHideDataForExJob(prog));
+        areaBtn.addEventListener("click", (e) => showHideDataForExJob(area));
+        typeBtn.addEventListener("click", (e) => showHideDataForExJob(types));
+        operationSystemBtn.addEventListener("click", (e) => showHideDataForExJob(operationSystems));
+        databaseBtn.addEventListener("click", (e) => showHideDataForExJob(databases));
         progBtn.addEventListener("mouseover", (e) => hoverNewExJob(progBtn, 1));
         progBtn.addEventListener("mouseleave", (e) => hoverNewExJob(progBtn, 0));
         areaBtn.addEventListener("mouseover", (e) => hoverNewExJob(areaBtn, 1));
@@ -493,6 +308,40 @@ window.onload = function () {
         abortBtn.addEventListener("click", (e) => loadMyInfo());
         keyBtn.addEventListener("mouseover", (e) => hoverNewExJob(keyBtn, 1));
         keyBtn.addEventListener("mouseleave", (e) => hoverNewExJob(keyBtn, 0));
+    }
+
+    function saveNewExjob() {
+        let ListOfKeyWords = [];
+        let title = document.getElementById("Headline").value;
+        let shortde = document.getElementById("shortSubject").value;
+        let longde = document.getElementById("Subject").value;
+        console.log(title + shortde + longde);
+        var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
+        for (i = 0; i < fullListToCheck.length; i++) {
+            if (fullListToCheck[i].checked)
+                ListOfKeyWords.push(fullListToCheck[i].id);
+        }
+
+        for (a = 0; a < ListOfKeyWords.length; a++) {
+            console.log(ListOfKeyWords[a]);
+        }
+        let savedJob = new exJob(title, shortde, longde, ListOfKeyWords);
+        console.log(savedJob);
+        var savedJob2 = JSON.stringify(savedJob);
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // interestArea.innerHTML = this.response;
+                console.log("Exjob sent to app.js")
+                if ("true") {
+                    loadMyOffers();
+                }
+            }
+        };
+        xhttp.open("POST", "addJobToDB?exJobb=" + savedJob2, true);
+        xhttp.send();
+
     }
 
     function hoverNewExJob(element, show) {
@@ -519,7 +368,7 @@ window.onload = function () {
         }
     }
 
-    function showHide(elements) {
+    function showHideDataForExJob(elements) {
         console.log("Inside ShowHide-function");
         if (elements.className === "content") {
             elements.className = "contentShow";
@@ -530,9 +379,113 @@ window.onload = function () {
 
     }
 
+
+
     //Offers
+   function loadMyOffers() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                interestArea.innerHTML = this.response;
+                getJobsFromDB();
+            }
+        };
+        xhttp.open("GET", "loadFileCompany?p=" + '/myOffers.html', true);
+        xhttp.send();
+    }
+
+
+    function loadChangeExJob(jobId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                interestArea.innerHTML = this.response;
+                changeSpecificJob(jobId);
+            }
+        };
+        xhttp.open("GET", "loadFileCompany?p=" + '/changeExJob.html', true);
+        xhttp.send();
+    }
+
+
 
     //Change Profile
+    function loadMyProfile() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                interestArea.innerHTML = this.response;
+                var saveBtn = document.getElementById('saveBtn');
+                saveBtn.addEventListener("click", changeInfo);
+                var cancelBtn = document.getElementById('cancelBtn');
+                cancelBtn.addEventListener("click", loadMyInfo);
+                fillEditProfile();
+            }
+        };
+        xhttp.open("GET", "loadFileCompany?p=" + '/myCompanyPages.html', true);
+        xhttp.send();
+    }
+
+    function changeInfo() {
+        var cname = document.getElementById("c_Name").value;
+        var cuname = document.getElementById("c_Uname").value;
+        var cAboutUs = document.getElementById("about_Us").value;
+        var psw = document.getElementById("c_Psw").value;
+        var ccity = document.getElementById("c_City").value;
+        var cemail = document.getElementById("c_Email").value;
+        var caddress = document.getElementById("c_Address").value;
+        var cweb = document.getElementById("c_WebP").value;
+        var clogo = document.getElementById("c_Logo").value;
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                interestArea.innerHTML = this.response;
+                if ("true") {
+                    loadMyInfo();
+                }
+            }
+        };
+        xhttp.open("POST", "changeCompanyInfo?cname=" + cname + "&psw=" + psw + "&cuname=" + cuname + "&caddress=" + caddress + "&cemail=" + cemail + "&ccity=" + ccity + "&cweb=" + cweb + "&clogo=" + clogo + "&cAboutUs=" + cAboutUs, true);
+        xhttp.send();
+    }
+
+    function fillEditProfile() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function (res) {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                let removeBrace = this.responseText.replace(/[\[\]']+/g, "");
+                var obj = JSON.parse(removeBrace);
+                var user = {
+                    id: obj._id,
+                    name: obj.companyName,
+                    address: obj.companyAddress,
+                    city: obj.companyCity,
+                    email: obj.companyEmail,
+                    web: obj.website,
+                    logo: obj.logoURL,
+                    uname: obj.userName,
+                    about: obj.about
+                }
+                fillEditData(user);
+            }
+        };
+        xhttp.open("GET", "userDataFromDBCompany", true)
+        xhttp.send();
+    }
+
+    function fillEditData(user) {
+        document.getElementById("c_Logo").value += user.logo;
+        document.getElementById("c_Name").value += user.name;
+        document.getElementById("c_Address").value += user.address;
+        document.getElementById("c_City").value += user.city;
+        document.getElementById("c_Email").value += user.email;
+        document.getElementById("c_WebP").value += user.web;
+        document.getElementById("c_Uname").value += user.uname;
+        document.getElementById("about_Us").value += user.about;
+
+    }
 
     //Start Company.html onLoad
     AddEventListerersButtons(1);
@@ -551,6 +504,7 @@ window.onload = function () {
         xhttp.open("GET", "getCompanyJobsFromDB", true);
         xhttp.send();
     }
+
     function loadMyInfo() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -560,6 +514,68 @@ window.onload = function () {
             }
         };
         xhttp.open("GET", "loadFileCompany?p=" + '/myCInfo.html', true);
+        xhttp.send();
+    }
+
+    function listUserDataFromDB() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function (res) {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                let removeBrace = this.responseText.replace(/[\[\]']+/g, "");
+                var obj = JSON.parse(removeBrace);
+                var user = {
+                    id: obj._id,
+                    name: obj.companyName,
+                    address: obj.companyAddress,
+                    city: obj.companyCity,
+                    email: obj.companyEmail,
+                    web: obj.website,
+                    logo: obj.logoURL,
+                    about: obj.about
+                }
+                SetListedData(user);
+            }
+        };
+        xhttp.open("GET", "userDataFromDBCompany", true)
+        xhttp.send();
+    }
+
+    function SetListedData(user) {
+        document.getElementById("clogo").innerHTML = "<img src=" + user.logo + " height=\"70\" width=\"70\" >";
+        document.getElementById("cname").innerHTML = "<h1>" + user.name + "</h1>";
+        document.getElementById("caddress").innerHTML = "<p> Adress: " + user.address + "</p>";
+        document.getElementById("ccity").innerHTML = "<p> Ort: " + user.city + "</p>";
+        document.getElementById("cemail").innerHTML = "<p>Email: " + user.email + "</p>";
+        document.getElementById("cweb").innerHTML = "<p>Hemsida: <a href=" + user.web + ">" + user.web + "</a> </p>";
+        document.getElementById("About_Us").innerHTML = user.about;
+    }
+
+
+    //Log out
+    function logOut() {
+        console.log("loggaut");
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if ("true") {
+                    window.location.replace("index.html");
+                }
+            }
+        };
+        xhttp.open("GET", "logout", true);
+        xhttp.send();
+    }  
+    
+    //Other Functions
+    function ajaxRequest(type, route, responseHandler){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                responseHandler(this.response);
+            }
+        };
+        xhttp.open(type, route, true);
         xhttp.send();
     }
     loadMyInfo();
