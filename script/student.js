@@ -246,9 +246,10 @@ loadMyInfo();
 
 
 
-function sendInterest(jobId, message) {
+function sendInterest(jobId) {
     console.log("Intresseanmälan");
-    //Fixa så studenten får jobbid i sin profil samt jobbet får studentens id
+    var message=document.getElementById("Interestmessage").value;
+    console.log(message);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -269,6 +270,7 @@ function showMoreInfoBtn(jobId){
            document.getElementById("menu-page-content").innerHTML = this.response;
             document.getElementById("closeExJob").addEventListener("click",loadCatalog);
             getSpecificJob(jobId);
+            
             makeInterestBtn=document.getElementById("makeInterestSubmit");
             makeInterestBtn.addEventListener("click",(e)=>sendInterest(jobId));
 
