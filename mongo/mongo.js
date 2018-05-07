@@ -176,6 +176,38 @@ addStudent: function(student, callback)
         }
       });
     });
+},
+pushInterestToStudent:function(jobID,studentID,message,callback){
+  MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db(database);
+    var ObjectId = require('mongodb').ObjectID;
+    dbo.collection('student').update({"_id": new ObjectId(studentID)},{$push:{joblist:{jobID,message}}},function (err, result) {
+      if(err){
+        console.log(err);
+        throw err;
+      }
+      db.close();
+
+      callback(result);
+    });
+  });
+},
+
+pushInterest:function(jobID,studentID,message,callback){
+  MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db(database);
+    var ObjectId = require('mongodb').ObjectID;
+    dbo.collection('job').update({"_id": new ObjectId(jobID)},{$push:{studentlist:{studentID,message}}},function (err, result) {
+      if(err){
+        console.log(err);
+        throw err;
+      }
+      db.close();
+      callback(result);
+    });
+  });
 }
 
 };

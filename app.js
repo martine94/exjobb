@@ -22,32 +22,32 @@ app.use(session({
 }));
 //Ändra till express.static('../') för att nå riktiga sidan
 app.use(express.static('./views/index'));
-app.use(express.static(__dirname+'/style'));
-app.use(express.static(__dirname+'/script'));
-app.use(express.static(__dirname+'/views/company'));
-app.use(express.static(__dirname+'/views/student'));
-app.use(express.static(__dirname+'/views/index'));
-app.use(express.static(__dirname+'/resources'));
+app.use(express.static(__dirname + '/style'));
+app.use(express.static(__dirname + '/script'));
+app.use(express.static(__dirname + '/views/company'));
+app.use(express.static(__dirname + '/views/student'));
+app.use(express.static(__dirname + '/views/index'));
+app.use(express.static(__dirname + '/resources'));
 
-var dirIndex=path.join(__dirname, '/views/index');
-var dirCompany=path.join(__dirname, '/views/company');
-var dirStudent=path.join(__dirname, '/views/student');
+var dirIndex = path.join(__dirname, '/views/index');
+var dirCompany = path.join(__dirname, '/views/company');
+var dirStudent = path.join(__dirname, '/views/student');
 
 //#region LoadFileFunctions
-app.get('/loadFileIndex',urlEncodedParcer, function (req, res) {
-    var location=req.query["l"];
-    var _path=req.query["p"];
+app.get('/loadFileIndex', urlEncodedParcer, function (req, res) {
+    var location = req.query["l"];
+    var _path = req.query["p"];
     res.sendFile(path.join(dirIndex, _path));
 });
 
-app.get('/loadFileCompany',urlEncodedParcer, function (req, res) {
-    var location=req.query["l"];
-    var _path=req.query["p"];
+app.get('/loadFileCompany', urlEncodedParcer, function (req, res) {
+    var location = req.query["l"];
+    var _path = req.query["p"];
     res.sendFile(path.join(dirCompany, _path));
 });
-app.get('/loadFileStudent',urlEncodedParcer, function (req, res) {
-    var location=req.query["l"];
-    var _path=req.query["p"];
+app.get('/loadFileStudent', urlEncodedParcer, function (req, res) {
+    var location = req.query["l"];
+    var _path = req.query["p"];
     res.sendFile(path.join(dirStudent, _path));
 });
 //#endregion
@@ -124,7 +124,7 @@ app.get('/userDataFromDBCompany', function (req, res) {
     }
 });
 
-app.get('/getJobsFromDB',function(req,res){
+app.get('/getJobsFromDB', function (req, res) {
     Mongo.findOne("job", {}, function (result) {
         // console.log(JSON.stringify(result));
         if (result.length === 0) {
@@ -136,8 +136,8 @@ app.get('/getJobsFromDB',function(req,res){
     });
 });
 
-app.get('/getCompanyJobsFromDB',function(req,res){
-    var userid=getUserID(req);
+app.get('/getCompanyJobsFromDB', function (req, res) {
+    var userid = getUserID(req);
     Mongo.findCompanyJobs(userid, function (result) {
         // console.log(JSON.stringify(result));
         if (result.length === 0) {
@@ -150,8 +150,8 @@ app.get('/getCompanyJobsFromDB',function(req,res){
 });
 
 
-app.get('/getSpecificJobFromDB',urlEncodedParcer,function(req,res){
-    var jobid=req.query["jobID"];
+app.get('/getSpecificJobFromDB', urlEncodedParcer, function (req, res) {
+    var jobid = req.query["jobID"];
     Mongo.findSpecificJob(jobid, function (result) {
         if (result.length === 0) {
             console.log("false, job could not be found.");
@@ -168,23 +168,64 @@ app.get('/logout', function (req, resp) {
     var redirectAddress = serverAddress + '/index.html';
     resp.send("true");
 });
-app.post('/changeCompanyInfo',urlEncodedParcer,function(req,res){
+app.post('/addInterest', urlEncodedParcer, function (req, res) {
+    try {
+        Mongo.pushInterest(req.query["jobID"], getUserID(req), req.query["message"], function (result) {
+            if (result instanceof Error) {
+                if (result.code === 11000) {
+                    console.log("back");
+                    res.send("false");
+                }
+            }
+            else {
+                // res.send("true");
+                try {
+                    Mongo.pushInterestToStudent(req.query["jobID"], getUserID(req), req.query["message"], function (result) {
+                        if (result instanceof Error) {
+                            if (result.code === 11000) {
+                                console.log("back");
+                                res.send("false");
+                            }
+                        }
+                        else {
+                            console.log("true");
+                            res.send("true");
+                        }
+                    });
+                }
+                catch (error) {
+                    console.log("Caught error!");
+                    console.log(error.name);
+                    console.log(error);
+                }
+            }
+        });
+    }
+    catch (error) {
+        console.log("Caught error!");
+        console.log(error.name);
+        console.log(error);
+    }
+
+});
+
+app.post('/changeCompanyInfo', urlEncodedParcer, function (req, res) {
     console.log("company change POST request");
-    var user={
+    var user = {
         companyName: req.query["cname"],
         companyAddress: req.query["caddress"],
         companyCity: req.query["ccity"],
         companyEmail: req.query["cemail"],
         userName: req.query["cuname"],
         password: req.query["psw"],
-        website:req.query["cweb"],
-        logoURL:req.query["clogo"],
-        about:req.query["cAboutUs"]
+        website: req.query["cweb"],
+        logoURL: req.query["clogo"],
+        about: req.query["cAboutUs"]
     }
     try {
-        myQuery=getUserID(req);
-    //    console.log(myQuery);
-        Mongo.changeCompanyInfo(myQuery,user,function (result) {
+        myQuery = getUserID(req);
+        //    console.log(myQuery);
+        Mongo.changeCompanyInfo(myQuery, user, function (result) {
             if (result instanceof Error) {
                 console.log("Error!");
                 // console.log(result);
@@ -205,13 +246,13 @@ app.post('/changeCompanyInfo',urlEncodedParcer,function(req,res){
         console.log(error);
     }
 });
-app.post('/changeExJobInfo',urlEncodedParcer,function(req,res){
+app.post('/changeExJobInfo', urlEncodedParcer, function (req, res) {
     console.log("company change POST request");
-    var exjobb=JSON.parse(req.query["exJobb"]);
+    var exjobb = JSON.parse(req.query["exJobb"]);
     try {
-        jobID=req.query["jobID"];
+        jobID = req.query["jobID"];
         //console.log("EXJOBB= "+JSON.stringify(exjobb));
-        Mongo.changeExJobInfo(jobID,exjobb,function (result) {
+        Mongo.changeExJobInfo(jobID, exjobb, function (result) {
             if (result instanceof Error) {
                 console.log("Error!");
                 // console.log(result);
@@ -260,7 +301,7 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
             }
             else {
                 console.log("Success!");
-                req.session.user = "_id:"+ response._id; // för session
+                req.session.user = "_id:" + response._id; // för session
                 resp.send("true");
             }
         });
@@ -297,7 +338,7 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
             else {
                 console.log("Success!");
                 // console.log(response._id);
-                req.session.user ="_id:"+ response._id; // för session
+                req.session.user = "_id:" + response._id; // för session
                 resp.send("true");
             }
         });
@@ -308,7 +349,7 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
     }
 });
 
-app.post('/addJobToDB',urlEncodedParcer, function (req, res){
+app.post('/addJobToDB', urlEncodedParcer, function (req, res) {
     console.log("POST add job request");
     var userID = getUserID(req);
     if (userID == "false") {
@@ -326,11 +367,11 @@ app.post('/addJobToDB',urlEncodedParcer, function (req, res){
                 console.log("userInfo from DB");
                 //console.log(result);
                 //console.log(req.query["exJobb"]);
-                var exjobb=JSON.parse(req.query["exJobb"]);
-                exjobb.logoURL=result[0].logoURL;
-                exjobb.companyName=result[0].companyName;
-                exjobb.website=result[0].website;
-                exjobb.companyID=userID;
+                var exjobb = JSON.parse(req.query["exJobb"]);
+                exjobb.logoURL = result[0].logoURL;
+                exjobb.companyName = result[0].companyName;
+                exjobb.website = result[0].website;
+                exjobb.companyID = userID;
                 //console.log(exjobb);
                 try {
                     Mongo.addJob(exjobb, function (result) {
@@ -355,7 +396,7 @@ app.post('/addJobToDB',urlEncodedParcer, function (req, res){
             }
         });
     }
-   
+
 });
 app.delete('/app_delete', function (req, resp) {
     console.log("Delete request");
@@ -378,8 +419,8 @@ app.get('/logginComp', urlEncodedParcer, function (req, res) {
             res.send("false");
         } else {
             if (result[0].password === req.query["password"]) {
-               // req.session.user = result[0]; // för session
-                req.session.user = "_id:"+ result[0]._id;
+                // req.session.user = result[0]; // för session
+                req.session.user = "_id:" + result[0]._id;
                 res.send("true");
             } else {
                 res.send("false");
@@ -397,7 +438,7 @@ app.get('/logginStudent', urlEncodedParcer, function (req, res) {
             res.send("false");
         } else {
             if (result[0].password === req.query["password"]) {
-                req.session.user = "_id:"+ result[0]._id;
+                req.session.user = "_id:" + result[0]._id;
                 res.send("true");
             } else {
                 res.send("false");

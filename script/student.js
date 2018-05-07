@@ -103,16 +103,15 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function (res) {
             if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
-                removeBrace = this.responseText.replace(/[\[\]']+/g, "");
-                var obj = JSON.parse(removeBrace);
+                //removeBrace = this.responseText.replace(/[\[\]']+/g, "");
+                var obj = JSON.parse(this.response);
                 var user = {
-                    id: obj._id,
-                    name: obj.name,
-                    ulname: obj.lastname,
-                    edu: obj.ueducation,
-                    email: obj.uemail,
-                    pw: obj.password
+                    id: obj[0]._id,
+                    name: obj[0].name,
+                    ulname: obj[0].lastname,
+                    edu: obj[0].ueducation,
+                    email: obj[0].uemail,
+                    pw: obj[0].password
                 }
                 document.getElementById("sFName").value += user.name;
                 document.getElementById("sLName").value += user.ulname;
@@ -130,16 +129,16 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function (res) {
             if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
-                removeBrace = this.responseText.replace(/[\[\]']+/g, "");
-                var obj = JSON.parse(removeBrace);
+               // removeBrace = this.responseText.replace(/[\[\]']+/g, "");
+                var obj = JSON.parse(this.response);
+                console.log(obj[0]._id);
                 var user = {
-                    id: obj._id,
-                    name: obj.name,
-                    ulname: obj.lastname,
-                    edu: obj.ueducation,
-                    email: obj.uemail,
-                    pw: obj.password
+                    id: obj[0]._id,
+                    name: obj[0].name,
+                    ulname: obj[0].lastname,
+                    edu: obj[0].ueducation,
+                    email: obj[0].uemail,
+                    pw: obj[0].password
                 }
                 console.log(user);
                 document.getElementById("idS").innerHTML += user.id;
@@ -245,11 +244,22 @@ function saveProfile() {
 }
 loadMyInfo();
 
-}
 
-function sendInterest(jobId){
+
+function sendInterest(jobId, message) {
     console.log("Intresseanmälan");
     //Fixa så studenten får jobbid i sin profil samt jobbet får studentens id
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.response === "true") {
+                console.log("sent intresseanmälan sucess");
+                loadMyInterests();
+            }
+        }
+    };
+    xhttp.open("POST", "addInterest?jobID=" + jobId + "&message=" + message, true);
+    xhttp.send();
 }
 
 function showMoreInfoBtn(jobId){
@@ -268,39 +278,46 @@ function showMoreInfoBtn(jobId){
     xhttp.send();
 }
 
-function getSpecificJob(jobId){
+function getSpecificJob(jobId) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          // document.getElementById("option-page-content").innerHTML = this.response;
+            // document.getElementById("option-page-content").innerHTML = this.response;
             console.log("JOBB HÄMTADE");
-            var jobs=JSON.parse(this.response);
+            var jobs = JSON.parse(this.response);
 
-            document.getElementById("logga").src=jobs[0].logoURL;
+            document.getElementById("logga").src = jobs[0].logoURL;
             console.log(jobs[0].logoURL)
-            document.getElementById("rubrik").innerHTML=jobs[0].tile;
+            document.getElementById("rubrik").innerHTML = jobs[0].tile;
             console.log(jobs[0].tile)
-            document.getElementById("shortDescriprion").innerHTML=jobs[0].shortdesc;
-            document.getElementById("longDescriprion").innerHTML=jobs[0].longdesc;
-            var keyWords= document.getElementById("keyWordArea");
-            for(i=0;i<jobs[0].keywords.length;++i){
-                if(i%3===0){
-                    var newRow=document.createElement("tr");
-                    thisRow=newRow;
+            document.getElementById("shortDescriprion").innerHTML = jobs[0].shortdesc;
+            document.getElementById("longDescriprion").innerHTML = jobs[0].longdesc;
+            var keyWords = document.getElementById("keyWordArea");
+            var table = document.createElement("table");
+            keyWords.appendChild(table);
+            table.className = "tableKeywords";
+            // table.style="width:100%";
+            var thisRow = document.createElement("tr");
+            table.appendChild(thisRow);
+
+            for (i = 0; i < jobs[0].keywords.length; ++i) {
+                if (i % 3 === 0) {
+                    var newRow = document.createElement("tr");
+                    thisRow = newRow;
                     table.appendChild(thisRow);
-                    var t=document.createElement("td");
-                    t.innerHTML=jobs[0].keywords[i];
+                    var t = document.createElement("td");
+                    t.innerHTML = jobs[0].keywords[i];
                     thisRow.appendChild(t);
-                }else{
-                    var td=document.createElement("td");
-                td.innerHTML=jobs[0].keywords[i];
-                thisRow.appendChild(td);
+                } else {
+                    var td = document.createElement("td");
+                    td.innerHTML = jobs[0].keywords[i];
+                    thisRow.appendChild(td);
+                }
             }
         }
-    }
     };
     //Skriv en funktion som bara tar ut företagets jobbannonser
-    xhttp.open("GET", "getSpecificJobFromDB?jobID="+jobId, true);
+    xhttp.open("GET", "getSpecificJobFromDB?jobID=" + jobId, true);
     xhttp.send();
 }
 
@@ -377,4 +394,5 @@ function workAnnouncements(num, jobb) {
             info.innerHTML = jobb[i].shortdesc;//ladda in beskrivning
             readBtn.addEventListener("click",(e)=>showMoreInfoBtn(readBtn.id));      
     }
+}
 }
