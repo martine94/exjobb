@@ -263,7 +263,7 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 interestArea.innerHTML = this.response;
                 //objId.students.length som parameter2 nedan
-                 getInterestAnnouncement(objId, 1);
+                 getInterestAnnouncement(objId, 4);
             }
         };
         xhttp.open("GET", "loadFileCompany?p=" + '/CExJobInterests.html', true);
@@ -272,20 +272,36 @@ window.onload = function () {
 
     function getInterestAnnouncement(objId, num) {
         var interests = document.getElementById("Interests");
+        var number = 1;
         for (let i = 0; i < num; i++) {
             let personDiv = document.createElement("div");
+            personDiv.style.backgroundColor = "lightblue";
+            personDiv.style.color = "white";
+            personDiv.appendChild(document.createElement("br"));
+            personDiv.innerHTML = "Person " + number;
+            let row = document.createElement("hr");
+            row.style.color = "white"; row.className = "Shadow";
+            personDiv.appendChild(row);
+            personDiv.appendChild(document.createElement("br"));
+            let divInfo = document.createElement("div");
+            divInfo.innerHTML = "Personinformation";
+            personDiv.appendChild(divInfo);
+            
             personDiv.className = "jobsSmall";
 
-            let top = document.createElement("div");
-            top.className = "jobTop";
-
-            let txtArea = document.createElement("textarea");
+            let txtArea = document.createElement("div");
+            txtArea.className = "jobInfo";
             let CVbtn = document.createElement("button");
-            CVbtn.innerHTML = "Pilutta dig för faaan Pippi";
-            personDiv.appendChild(top);
+            CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov";
+            CVbtn.innerHTML = "CV";
             personDiv.appendChild(txtArea);
+            personDiv.appendChild(document.createElement("br"));
             personDiv.appendChild(CVbtn);
+            personDiv.appendChild(document.createElement("br"));
+            personDiv.appendChild(document.createElement("br"));
             interests.appendChild(personDiv);
+            interests.appendChild(document.createElement("br"));
+            number++;
         }
     }
 
