@@ -188,124 +188,209 @@ function showForStudentsInfo() {
 
 //#endregion
 
-//#region register student and company functions
+//#region shared register functions
 
-function checkValidRegStudentInput(){
-    var ufname = document.getElementById("ufnameS");
-    var ulname = document.getElementById("ulnameS");
-    var ucity = document.getElementById("ucityS");
-    var uedu= document.getElementById("ueducationS");
-    var uemail= document.getElementById("uemailS");
-    var uname= document.getElementById("unameS");
-    var psw= document.getElementById("pswS");
-
-    var inputs=[ufname, ulname, ucity, uedu, uemail, uname, psw];
-
-    var i;
-    var ok=1;
-
-    for(i=0;i<inputs.length;i++){
-        if(inputs[i].value==""){
-            inputs[i].className="width100 errInput";
-            ok=0;
-        }
-        else{
-            inputs[i].className="";
-            inputs[i].className="width100";
+function getRadioButtonValue(element){
+    for(let i = 0; i < element.length; i++){
+        if(element[i].checked){
+            return element[i].value;
         }
     }
-    if (ok===0){
-        document.getElementById("errorReg").innerHTML="*Fel input "+"<br/>";
-    }
+    return "";
+}
 
-    if(ok===1){
-        register_student();
+function checkEmptyInput(value){
+    return value === "" ? false : true; 
+}
+
+function checkEmailInput(value){
+    return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value);
+}
+
+function setTextInputClass(element, newClassName){
+    element.className = newClassName;
+}
+
+class formInputHandler{
+    constructor(element, errorMsg, notErrorMsg, getValueFunction, checkValidFunction, errorFunction){
+        this.element = element;
+        this.errorMsg = errorMsg;
+        this.notErrorMsg = notErrorMsg;
+        this.getValue = function(){ return getValueFunction(this.element)};
+        this.checkValid = function(){ return checkValidFunction(this.getValue()); };
+        this.setError = function(){ errorFunction(this.element, errorMsg); };
+        this.clearError = function(){ errorFunction(this.element, notErrorMsg); };
     }
 }
 
-function register_student() {
-    console.log("click");
-    var ufname = document.getElementById("ufnameS").value;
-    var ulname = document.getElementById("ulnameS").value;
-    var ucity = document.getElementById("ucityS").value;
-    var uedu= document.getElementById("ueducationS").value;
-    var uemail= document.getElementById("uemailS").value;
-    var uname= document.getElementById("unameS").value;
-    var psw= document.getElementById("pswS").value;
-    var gender="";
-    if(document.getElementById("maleS").checked){
-        gender="male";
-    } else{
-        gender="female";
+//endregion
+
+//#region register student
+
+function getStudentForm()
+{
+    var studentForm = {};
+
+    studentForm["firstName"] = new formInputHandler(document.getElementById("ufnameS"), "width100 errInput", "width100", 
+        function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
+
+    studentForm["lastName"] = new formInputHandler(document.getElementById("ulnameS"), "width100 errInput", "width100", 
+        function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
+
+    studentForm["city"] = new formInputHandler(document.getElementById("ucityS"), "width100 errInput", "width100", 
+        function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
+
+    studentForm["education"] = new formInputHandler(document.getElementById("ueducationS"), "width100 errInput", "width100", 
+        function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
+
+    studentForm["gender"] = new formInputHandler(document.getElementsByName("ugender"), "width100 errInput", "width100", 
+        getRadioButtonValue, checkEmptyInput, setTextInputClass);
+
+    studentForm["email"] = new formInputHandler(document.getElementById("uemailS"), "width100 errInput", "width100", 
+        function(element){ return element.value; }, checkEmailInput, setTextInputClass);
+
+    studentForm["userName"] = new formInputHandler(document.getElementById("unameS"), "width100 errInput", "width100", 
+        function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
+
+    studentForm["password"] = new formInputHandler(document.getElementById("pswS"), "width100 errInput", "width100", 
+        function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
+    
+    return studentForm;
+}
+
+function checkValidRegStudentInput(){
+    
+    let formInputs = getStudentForm();
+    var error = false;
+
+    for(var key in formInputs){
+        if(!formInputs[key].checkValid()){
+            formInputs[key].setError();
+            error = true;
+        }
+        else{
+            formInputs[key].clearError();
+        }
     }
 
-    ajaxRequest('POST', "register_student?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu + "&uemail=" + uemail+ "&uname=" + uname + "&psw=" + psw + "&gender=" + gender, function(response){
+    if (error){
+        document.getElementById("errorReg").innerHTML = "*Fel input " + "<br/>";
+    }
+    else{
+        document.getElementById("errorReg").innerHTML = "";
+        register_student(formInputs);
+    }
+}
+
+function createStudentRouteString(formInputs)
+{
+    return "register_student?ufname=" + formInputs["firstName"].getValue() + 
+    "&ulname=" + formInputs["lastName"].getValue() + 
+    "&ucity=" + formInputs["city"].getValue() + 
+    "&uedu=" + formInputs["education"].getValue() + 
+    "&uemail=" + formInputs["email"].getValue() + 
+    "&uname=" + formInputs["userName"].getValue() + 
+    "&psw=" + formInputs["password"].getValue() + 
+    "&gender=" + formInputs["gender"].getValue();
+}
+
+function register_student(formInputs) {
+    ajaxRequest('POST', createStudentRouteString(formInputs), function(response){
         if (response === "false") {
-            console.log("Fel");
+            console.log("Something went wrong.");
             document.getElementById("errorReg").innerHTML="*Användarnamnet upptaget!";
             document.getElementById("unameS").value="";
         } else {
-            console.log("Du är nu registrerad");
+            console.log("You are now registered.");
             window.location.replace("Student.html");
             dropDown("modal-test", false);
         }
     });
 }
 
+//#endregion
+
+//#region register company
+
+function getCompanyForm()
+{
+    var companyForm = {};
+
+    companyForm["companyName"] = new formInputHandler(document.getElementById("nameC"), "width100 errInput", "width100", 
+        function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
+
+    companyForm["userName"] = new formInputHandler(document.getElementById("unameC"), "width100 errInput", "width100", 
+        function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
+
+    companyForm["city"] = new formInputHandler(document.getElementById("cityC"), "width100 errInput", "width100", 
+        function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
+
+    companyForm["email"] = new formInputHandler(document.getElementById("emailC"), "width100 errInput", "width100", 
+        function(element){ return element.value; }, checkEmailInput, setTextInputClass);
+
+    companyForm["address"] = new formInputHandler(document.getElementById("addressC"), "width100 errInput", "width100", 
+        function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
+
+    companyForm["password"] = new formInputHandler(document.getElementById("pswC"), "width100 errInput", "width100", 
+        function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
+
+    companyForm["passwordConfirm"] = new formInputHandler(document.getElementById("psw2C"), "width100 errInput", "width100", 
+        function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
+
+    return companyForm;
+}
+
 function checkValidRegCompanyInput(){
-    var cname = document.getElementById("nameC");
-    var cuname = document.getElementById("unameC");
-    var psw = document.getElementById("pswC");
-    var ccity= document.getElementById("cityC");
-    var cemail= document.getElementById("emailC");
-    var caddress= document.getElementById("addressC");
-    var psw2=document.getElementById("psw2C");
-    var inputs=[cname, caddress, ccity, cemail, cuname, psw, psw2];
+    var formInputs = getCompanyForm();
+    console.log(formInputs);
+    var error = false;
 
-    var i;
-    var ok=1;
-
-    for(i=0;i<inputs.length;i++){
-        if(inputs[i].value==""){
-            inputs[i].className="width100 errInput";
-            ok=0;
+    for(var key in formInputs){
+        if(!formInputs[key].checkValid()){
+            formInputs[key].setError();
+            error = true;
         }
         else{
-            inputs[i].className="";
-            inputs[i].className="width100";
+            formInputs[key].clearError();
         }
     }
-    if (ok===0){
+
+    if (error){
         document.getElementById("errorReg").innerHTML="*Fel input "+"<br/>";
     }
-    if(psw.value!=psw2.value){
+
+    if(formInputs["password"].getValue() != formInputs["passwordConfirm"].getValue()){
         document.getElementById("errorReg").innerHTML+=" *Lösenorden stämmer inte överens.";
-        psw2.value="";
-        ok=0;
-        console.log(document.getElementById("errorReg").innerHTML);
+        formInputs["password"].element.value = "";
+        formInputs["passwordConfirm"].element.value = "";
+        error = true;
     }
 
-    if(ok===1){
-        register_company();
+    if(!error){
+        register_company(formInputs);
     }
 }
 
-function register_company() {
-    var cname = document.getElementById("nameC").value;
-    var cuname = document.getElementById("unameC").value;
-    var psw = document.getElementById("pswC").value;
-    var ccity= document.getElementById("cityC").value;
-    var cemail= document.getElementById("emailC").value;
-    var caddress= document.getElementById("addressC").value;
+function createCompanyRouteString(formInputs)
+{
+    return "register_company?cname=" + formInputs["companyName"].getValue() + 
+    "&psw=" + formInputs["password"].getValue() + 
+    "&cuname=" + formInputs["userName"].getValue() + 
+    "&caddress=" + formInputs["address"].getValue() + 
+    "&cemail=" + formInputs["email"].getValue()+ 
+    "&ccity=" + formInputs["city"].getValue();
+}
+
+function register_company(formInputs) {
+    var routeString = createCompanyRouteString(formInputs);
     
-    ajaxRequest('POST', "register_company?cname=" + cname + "&psw=" + psw + "&cuname=" + cuname + "&caddress=" + caddress + "&cemail=" + cemail+ "&ccity=" + ccity, function(response){
+    ajaxRequest('POST', routeString, function(response){
         if (response === "false") {
-            console.log("Fel");
+            console.log("Something went wrong.");
             document.getElementById("errorReg").innerHTML="*Användarnamnet är upptaget!";
-            document.getElementById("unameC").value="";
-            // document.getElementById("modal-test").innerHTML = "* Fel ";
+            formInputs["userName"].element.value = "";
         } else {
-            console.log("Du är nu registrerad");
+            console.log("You are now registered");
             window.location.replace("Company.html");
             dropDown("modal-test", false);
         }
