@@ -17,7 +17,7 @@ window.onload = function () {
     logOutStudentBtn.addEventListener("click", logOut);
     //#endregions
 
-    //Buttons, divs and an array for newExJob.html
+    //Buttons, divs, inputs and an array for newExJob.html
     var progBtn;
     var prog;
     var typeBtn;
@@ -30,6 +30,12 @@ window.onload = function () {
     var other;
     var keyBtn;
     var saveBtn;
+    var pdfStatus;
+    var loadCvBtn;
+    var fileInpt;
+    var cvData;
+    var UploadOrSaved = "sparat";
+    var genderData; //for not altering it...
     //#region functions
 
     function logOut() {
@@ -77,7 +83,7 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("menu-page-content").innerHTML = this.response;
-                document.getElementById("saveBtn").onclick = change_student;
+                //document.getElementById("saveBtn").onclick = change_student;
                 fillEditProfile();
             }
         };
@@ -107,14 +113,32 @@ window.onload = function () {
                     id: obj._id,
                     name: obj.name,
                     ulname: obj.lastname,
+                    city: obj.city, //for later...
                     edu: obj.ueducation,
                     email: obj.uemail,
-                    pw: obj.password
+                    name: obj.uname,
+                    pw: obj.password,
+                    gender: obj.gender,
+                    cv: obj.cv 
                 }
                 document.getElementById("sFName").value += user.name;
                 document.getElementById("sLName").value += user.ulname;
                 document.getElementById("sEdu").value += user.edu;
                 document.getElementById("sEmail").value += user.email;
+                document.getElementById("sUname").value += user.name;
+                document.getElementById("sPsw").value += user.pw;
+                
+                
+                if(typeof user.cv !== 'undefined' && user.cv)
+                {
+                    document.getElementById("pdfStatus").innerHTML = "CV upladdat";
+                }
+                else
+                {
+                    cvData = user.cv;
+                }
+
+                genderData = user.gender;
                 loadButtonsStudentprofile();
                 loadButtonEventsStudentprofile();
             }
@@ -164,7 +188,11 @@ window.onload = function () {
         otherBtn = document.getElementById("RestBtn");
         other = document.getElementById("TheRest");
         keyBtn = document.getElementById("KeyWordBtn");
-        saveBtn = document.getElementById("SaveExJob");
+        saveBtn = document.getElementById("saveBtn");
+        
+        loadCvBtn = document.getElementById("pdfOpen");
+        fileInpt = document.getElementById("pdfUpload");    
+        pdfStatus = document.getElementById("pdfStatus");  
     }
     function loadButtonEventsStudentprofile() {
         progBtn.addEventListener("click", (e) => showHide(prog));
@@ -182,7 +210,12 @@ window.onload = function () {
         databaseBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(databaseBtn, 0, databases));
         otherBtn.addEventListener("mouseover", (e) => hoverNewKeywords(otherBtn, 1, other));
         otherBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(otherBtn, 0, other));
-        saveBtn.addEventListener("click", (e) => saveProfile)
+        //saveBtn.addEventListener("click", (e) => saveProfile)
+        saveBtn.addEventListener("click", change_student);
+
+        fileInpt.addEventListener("change", manageSelectedFile);
+        loadCvBtn.onclick = readCvData;
+        
     }
 
     function hoverNewKeywords(element, show, connectedTo) {
@@ -224,6 +257,7 @@ window.onload = function () {
 
     function manageSelectedFile()
     {
+        console.log("managing file...");
         if(!window.File || !window.FileReader || !window.FileList || !window.Blob)
         {
             throw("The file API needed is not supported in this browser!");
@@ -245,8 +279,27 @@ window.onload = function () {
             fr = new FileReader();
             fr.onload = () =>{
                 //do something with the file code
-
+                cvData = fr.result;
+                console.log("sucessfully stored file");
+                UploadOrSaved = "uppladdat";
+            loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";                
+                pdfStatus.innerHTML = "Glöm inte klicka spara för att ladda upp ditt cv!";
             } 
+            fr.readAsDataURL(file);
+        }
+    }
+
+    function readCvData()
+    {
+        document.getElementById('pdfSpace').height = "1000em";
+        document.getElementById('pdfSpace').data = cvData;
+        loadCvBtn.innerHTML = "Stäng "  + UploadOrSaved +" cv(pdf)";
+
+        loadCvBtn.onclick = () => {
+            document.getElementById('pdfSpace').data = "";            
+            document.getElementById('pdfSpace').height = "0em";
+            loadCvBtn.onclick = readCvData;
+            loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
         }
     }
 
@@ -254,7 +307,7 @@ window.onload = function () {
         console.log("save");
         var ufname = document.getElementById("sFName").value;
         var ulname = document.getElementById("sLName").value;
-        var ucity = document.getElementById("Undefined").value;
+        var ucity = "";//document.getElementById("Undefined").value;
         var uedu= document.getElementById("sEdu").value;
         var uemail= document.getElementById("sEmail").value;
         var uname= document.getElementById("sUname").value;
@@ -262,15 +315,14 @@ window.onload = function () {
         var gender="Undefined";
 
         var keywords = "";
-        var cv = "";
-
+        var cv = cvData;
+        console.log(cv); //use at own risk...
         var xhttp = new XMLHttpRequest();
-        
+        httpRuntimemaxRequestLenght="1024000";
+
         xhttp.open("POST", "changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu 
-        + "&uemail=" + uemail+ "&uname=" + uname + "&psw=" + psw + "&gender=" + gender + "&keywords=" + keywords + "&cv" + cv, true);
+        + "&uemail=" + uemail+ "&uname=" + uname + "&gender=" + genderData + "&psw=" + psw + "&keywords=" + keywords + "&cv=" + cv, true);
         xhttp.send();
-
-
     }
 
     function saveProfile() {
