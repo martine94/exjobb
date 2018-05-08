@@ -77,7 +77,6 @@ window.onload = function () {
         xhttp.send();
     }
 
-
     function loadMyProfile() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -174,7 +173,6 @@ window.onload = function () {
         xhttp.send();
     }
 
-
     function loadButtonsStudentprofile() {
         ListOfKeyWords = [];
         progBtn = document.getElementById("ProgrammingLanguageBtn");
@@ -194,6 +192,7 @@ window.onload = function () {
         fileInpt = document.getElementById("pdfUpload");    
         pdfStatus = document.getElementById("pdfStatus");  
     }
+
     function loadButtonEventsStudentprofile() {
         progBtn.addEventListener("click", (e) => showHide(prog));
         typeBtn.addEventListener("click", (e) => showHide(types));
@@ -255,8 +254,7 @@ window.onload = function () {
 
     }
 
-    function manageSelectedFile()
-    {
+    function manageSelectedFile(){
         console.log("managing file...");
         if(!window.File || !window.FileReader || !window.FileList || !window.Blob)
         {
@@ -289,8 +287,7 @@ window.onload = function () {
         }
     }
 
-    function readCvData()
-    {
+    function readCvData(){
         document.getElementById('pdfSpace').height = "1000em";
         document.getElementById('pdfSpace').data = cvData;
         loadCvBtn.innerHTML = "Stäng "  + UploadOrSaved +" cv(pdf)";
@@ -318,10 +315,13 @@ window.onload = function () {
         var cv = cvData;
         console.log(cv); //use at own risk...
         var xhttp = new XMLHttpRequest();
-        httpRuntimemaxRequestLenght="1024000";
+        
+        
 
         xhttp.open("POST", "changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu 
         + "&uemail=" + uemail+ "&uname=" + uname + "&gender=" + genderData + "&psw=" + psw + "&keywords=" + keywords + "&cv=" + cv, true);
+        
+        
         xhttp.send();
     }
 
