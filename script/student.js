@@ -274,6 +274,7 @@ window.onload = function () {
 
 
     function sendInterest(jobId) {
+        //makeInterestBtn.removeEventListener("click", (e) => sendInterest(jobId));
         console.log("Intresseanmälan");
         var message = document.getElementById("Interestmessage").value;
         console.log(message);
