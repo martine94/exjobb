@@ -239,6 +239,9 @@ padding: 5%;
 }
 .showDropDownMenu:hover,
 
+.submitBtn:hover,
+.mediumBtn:hover,
+.menuBtn:hover,
 .darkerBlueOnHov:hover{
 	background-color:rgb(45, 123, 175);
 
@@ -396,11 +399,13 @@ input[type=text],input[type=password]{
 }
 .jobsSmall{
 	background-color: rgb(255, 255, 255);
-	width: 70%;
+	width: 80%;
+	margin-left: 10%;
 	height: relative;
 	padding:0 1% 0 1%;
 	border-top:    1px solid rgb(141, 141, 139);
 	border-bottom:    1px solid  rgb(141, 141, 139);
+
 
 
 }

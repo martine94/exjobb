@@ -40,6 +40,8 @@ window.onload = function () {
     var keyBtn;
     var saveBtn;
     var abortBtn;
+    var saveBtnExJob;
+    var cancelBtnExJob;
     //#endregions
 
     //#region eventListeners
@@ -74,7 +76,7 @@ window.onload = function () {
 
 
     function loadButtonsAndEventExJob() {
-        ListOfKeyWords = [];
+        var ListOfKeyWords = [];
         progBtn = document.getElementById("ProgrammingLanguageBtn");
         prog = document.getElementById("ProgrammingLanguage");
         areaBtn = document.getElementById("AreaBtn");
@@ -201,7 +203,7 @@ window.onload = function () {
 
 
                 saveBtnExJob.addEventListener("click", (e) => updateExJobInfo(jobs[0]._id, jobs[0]));
-                for (i = 0; i < jobs[0].keywords.length; i++) {
+                for (let i = 0; i < jobs[0].keywords.length; i++) {
                     document.getElementById(jobs[0].keywords[i]).checked = true;
                 }
             }
@@ -212,7 +214,7 @@ window.onload = function () {
 
 
     function workAnnouncements(num, jobb) {
-
+        workAnnouncement.innerHTML="";
         for (var i = 0; i < num; i++) {
 
             var outerDiv = document.createElement("div");
