@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <div class="information">
-        <div class="whiteB">
+<div class="information">
+    <div class="whiteB">
         <p>Innehåll i mySProfile.html</p>
         <h2>Redigera profil</h2>
         <h4 class="widht100 bColorBlue">Personlig information</h4>
         <div>
-        <label class="alignRight" for="sFName">Förnamn:</label>
-        <input class="width50 lowb" type="text" id="sFName"> 
+            <label class="alignRight" for="sFName">Förnamn:</label>
+            <input class="width50 lowb" type="text" id="sFName">
         </div>
         <label class="alignRight" for="sLName">Efternamn:</label>
-        <input class="width50 lowb" type="text" id="sLName"> 
+        <input class="width50 lowb" type="text" id="sLName">
         <div>
-        <label class="alignRight" for="sEdu">Utbildning:</label>
-        <input class="width50 lowb" type="text" id="sEdu"> 
+            <label class="alignRight" for="sEdu">Utbildning:</label>
+            <input class="width50 lowb" type="text" id="sEdu">
+        </div>
+        <div>
+            <label class="alignRight" for="city">Stad:</label>
+            <input class="width50 lowb" type="text" id="city">
         </div>
 
         <h4 class="widht100 bColorBlue">Användaruppgifter</h4>
         <div>
-        <label class="alignRight" for="sEmail">E-post:</label>
-        <input class="width50 lowb" type="text" id="sEmail"> 
+            <label class="alignRight" for="sEmail">E-post:</label>
+            <input class="width50 lowb" type="text" id="sEmail">
         </div>
         <div>
-        <label class="alignRight" for="sUname">Användarnamn:</label>
-        <input class="width50 lowb" type="text" id="sUname"> 
+            <label class="alignRight" for="sUname">Användarnamn:</label>
+            <input class="width50 lowb" type="text" id="sUname">
         </div>
         <div>
-        <label class="alignRight" for="sUname">Lösenord:</label>
-        <input class="width50 lowb" type="text" id="sPsw"> 
+            <label class="alignRight" for="sPsw">Lösenord:</label>
+            <input class="width50 lowb" type="text" id="sPsw">
         </div>
         <h4 class="widht100 bColorBlue">Nyckelord</h4>
         <div>
@@ -37,11 +41,11 @@
                     <input type="checkbox" id="C" class="ChekedKeyWord">
                     <label for="C">C</label>
                     <hr>
-                    <input type="checkbox" id="C#" class="ChekedKeyWord">
-                    <label for="C#">C#</label>
+                    <input type="checkbox" id="Cs" class="ChekedKeyWord">
+                    <label for="Cs">C#</label>
                     <hr>
-                    <input type="checkbox" id="C++" class="ChekedKeyWord">
-                    <label for="C++">C++</label>
+                    <input type="checkbox" id="Cpp" class="ChekedKeyWord">
+                    <label for="Cpp">C++</label>
                     <hr>
                     <input type="checkbox" id="Java" class="ChekedKeyWord">
                     <label for="Java">Java</label>
@@ -93,9 +97,12 @@
                     <label for="Dokumentation">Dokumentation</label>
                     <hr>
                 </div>
+            </div>
+            <br>
+            <br>
+            <button id="saveBtnStudent" class="bColorBlue mediumBtn">Spara</button>
+            <button id="cancelBtnStudent" class="bColorBlue mediumBtn">Avbryt</button>
         </div>
-        <br><br>
-        <button id="saveBtn" class="bColorBlue mediumBtn">Spara</button> <button class="bColorBlue mediumBtn">Avbryt</button>
     </div>
-</div>
+
 </html>

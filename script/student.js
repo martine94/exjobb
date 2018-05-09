@@ -112,12 +112,18 @@ window.onload = function () {
                     ulname: obj[0].lastname,
                     edu: obj[0].ueducation,
                     email: obj[0].uemail,
-                    pw: obj[0].password
+                    pw: obj[0].password,
+                    uname: obj[0].uname,
+                    city:obj[0].city,
                 }
                 document.getElementById("sFName").value += user.name;
                 document.getElementById("sLName").value += user.ulname;
                 document.getElementById("sEdu").value += user.edu;
+                document.getElementById("city").value += user.city;
+                document.getElementById("sUname").value += user.uname;
                 document.getElementById("sEmail").value += user.email;
+                document.getElementById("sPsw").value += user.pw;
+
                 loadButtonsStudentprofile();
                 loadButtonEventsStudentprofile();
             }
@@ -167,7 +173,8 @@ window.onload = function () {
         otherBtn = document.getElementById("RestBtn");
         other = document.getElementById("TheRest");
         keyBtn = document.getElementById("KeyWordBtn");
-        saveBtn = document.getElementById("SaveExJob");
+        saveBtnStudent = document.getElementById("saveBtnStudent");
+        cancelBtnStudent = document.getElementById("cancelBtnStudent");
     }
     function loadButtonEventsStudentprofile() {
         progBtn.addEventListener("click", (e) => showHide(prog));
@@ -185,7 +192,8 @@ window.onload = function () {
         databaseBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(databaseBtn, 0, databases));
         otherBtn.addEventListener("mouseover", (e) => hoverNewKeywords(otherBtn, 1, other));
         otherBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(otherBtn, 0, other));
-        saveBtn.addEventListener("click", (e) => saveProfile)
+        saveBtnStudent.addEventListener("click", (e) => saveProfile());
+        cancelBtnStudent.addEventListener("click",(e)=>loadMyInfo());
     }
 
     function hoverNewKeywords(element, show, connectedTo) {
@@ -227,9 +235,17 @@ window.onload = function () {
 
     function saveProfile() {
         let ListOfKeyWords = [];
-        let title = document.getElementById("").value;
-        let shortde = document.getElementById("").value;
-        let longde = document.getElementById("").value;
+        console.log("Starting to save");
+        var userObj={
+             name:document.getElementById("sFName").value,
+             lastname:document.getElementById("sLName").value,
+             city:document.getElementById("city").value,
+             ueducation:document.getElementById("sEdu").value,
+             uemail:document.getElementById("sEmail").value,
+             uname:document.getElementById("sUname").value,
+             psw:document.getElementById("sPsw").value,
+             keywords:[]
+        }
         var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
         for (i = 0; i < fullListToCheck.length; i++) {
             if (fullListToCheck[i].checked)
@@ -239,9 +255,19 @@ window.onload = function () {
         for (a = 0; a < ListOfKeyWords.length; a++) {
             console.log(ListOfKeyWords[a]);
         }
-        let savedJob = new exJob(title, shortde, longde, ListOfKeyWords);
-        console.log(savedJob);
-        infoUser.className = "userDataShow";
+        console.log(userObj);
+        userObj.keywords=ListOfKeyWords;
+        userString=JSON.stringify(userObj);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if(this.response==="true"){
+                    loadMyInfo();
+                }
+            }
+        };
+        xhttp.open("POST", "changeStudentInfo?userObj=" + userString, true);
+        xhttp.send();
     }
     loadMyInfo();
 

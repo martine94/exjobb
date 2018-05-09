@@ -283,7 +283,30 @@ app.post('/addInterest', urlEncodedParcer, function (req, res) {
     }
 
 });
-
+app.post('/changeStudentInfo',urlEncodedParcer,function(req,res){
+    let userObj=JSON.parse(req.query["userObj"]);
+    try {
+        let studentID = getUserID(req);
+        Mongo.changeUserInfo('student',studentID, userObj, function (result) {
+            if (result instanceof Error) {
+                console.log("Error!");
+                if (result.code === 11000) {
+                    console.log("back");
+                    res.send("false");
+                }
+            }
+            else {
+                console.log("Probably Sucess!");
+                res.send("true");
+            }
+        });
+    }
+    catch (error) {
+        console.log("Caught error!");
+        console.log(error.name);
+        console.log(error);
+    }
+});
 app.post('/changeCompanyInfo', urlEncodedParcer, function (req, res) {
     console.log("company change POST request");
     var user = {
@@ -298,12 +321,10 @@ app.post('/changeCompanyInfo', urlEncodedParcer, function (req, res) {
         about: req.query["cAboutUs"]
     }
     try {
-        myQuery = getUserID(req);
-        //    console.log(myQuery);
-        Mongo.changeCompanyInfo(myQuery, user, function (result) {
+        let companyID = getUserID(req);
+        Mongo.changeUserInfo('company',companyID, user, function (result) {
             if (result instanceof Error) {
                 console.log("Error!");
-                // console.log(result);
                 if (result.code === 11000) {
                     console.log("back");
                     res.send("false");
