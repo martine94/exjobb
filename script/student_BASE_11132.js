@@ -19,7 +19,7 @@ window.onload = function () {
     logOutStudentBtn.addEventListener("click", logOut);
     //#endregions
 
-    //Buttons, divs, inputs and an array for newExJob.html
+    //Buttons, divs and an array for newExJob.html
     var progBtn;
     var prog;
     var typeBtn;
@@ -33,8 +33,7 @@ window.onload = function () {
     var keyBtn;
     var saveBtn;
     var work_Announcement;
-    var cvData;
-    var UploadOrSaved = "sparad";
+
     //#region functions
 
     function logOut() {
@@ -77,6 +76,7 @@ window.onload = function () {
         xhttp.send();
     }
 
+
     function loadMyProfile() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -94,61 +94,9 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("menu-page-content").innerHTML = this.response;
-                getMyRecommendedJobs()
             }
         };
         xhttp.open("GET", "loadFileStudent?p=" + '/myRecomendedJobs.html', true);
-        xhttp.send();
-    }
-    function getMyRecommendedJobs() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                //document.getElementById("menu-page-content").innerHTML = this.response;
-                if(this.response.length>0){
-                    let jobList=JSON.parse(this.response);
-                    calculateJobRecommendation(jobList);
-                }
-            }
-        };
-        xhttp.open("GET", "getJobsFromDB", true);
-        xhttp.send();
-    }
-    function calculateJobRecommendation(jobList){
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                //document.getElementById("menu-page-content").innerHTML = this.response;
-                if(this.response.length>0){
-                    let user=JSON.parse(this.response);
-                    let recommendationArray=[{}];
-                    var matchCount=0;
-                    for(let i=0;i<jobList.length;++i){
-                        matchCount=0;
-                        for(let j=0;j<jobList[i].keywords.length;++j){
-                            if(user[0].keywords.includes(jobList[i].keywords[j])){
-                                matchCount++;
-                            }
-                        }
-                        recommendationArray.push({job:jobList[i],count:matchCount})
-                    }
-                    console.log(recommendationArray.count);
-                    recommendationArray.sort(function(a,b){
-                        return b.count-a.count;
-                    });
-                    console.log(recommendationArray);
-                    let recToSend=[];
-                    for(let i=0;i<recommendationArray.length;++i){
-                        if(recommendationArray[i].count>0){
-                        recToSend.push(recommendationArray[i].job);
-                        }
-                    }
-                    console.log(recToSend);
-                    filterAlreadySearchedJobs(recToSend);
-                }
-            }
-        };
-        xhttp.open("GET", "userDataFromDBStudent", true);
         xhttp.send();
     }
     function fillEditProfile() {
@@ -156,19 +104,17 @@ window.onload = function () {
         xhttp.onreadystatechange = function (res) {
             if (this.readyState == 4 && this.status == 200) {
                 //removeBrace = this.responseText.replace(/[\[\]']+/g, "");
-                console.log(JSON.parse(this.response));
                 var obj = JSON.parse(this.response);
                 var user = {
                     id: obj[0]._id,
                     name: obj[0].name,
                     ulname: obj[0].lastname,
-                    city: obj[0].city, //for later...
                     edu: obj[0].ueducation,
                     email: obj[0].uemail,
-                    uname: obj[0].uname,
                     pw: obj[0].password,
-                    gender: obj[0].gender,
-                    ucv: obj[0].cv 
+                    uname: obj[0].uname,
+                    city: obj[0].city,
+                    keywords: obj[0].keywords
                 }
                 document.getElementById("sFName").value += user.name;
                 document.getElementById("sLName").value += user.ulname;
@@ -177,21 +123,10 @@ window.onload = function () {
                 document.getElementById("sUname").value += user.uname;
                 document.getElementById("sEmail").value += user.email;
                 document.getElementById("sPsw").value += user.pw;
-                
-                
-                if(typeof user.ucv !== 'undefined' && user.ucv)
-                {
-                    document.getElementById("pdfStatus").innerHTML = "CV upladdat";
-                    cvData = user.ucv.replace(/ /g, '+');
+
+                for (let i = 0; i < obj[0].keywords.length; i++) {
+                    document.getElementById(obj[0].keywords[i]).checked = true;
                 }
-                //console.log(user.cv);
-
-                genderData = user.gender;
-                document.getElementById("sPsw").value += user.pw;
-
-                //for (let i = 0; i < obj[0].keywords.length; i++) {
-                //    document.getElementById(obj[0].keywords[i]).checked = true;
-                //}
 
                 loadButtonsStudentprofile();
                 loadButtonEventsStudentprofile();
@@ -228,6 +163,7 @@ window.onload = function () {
         xhttp.send();
     }
 
+
     function loadButtonsStudentprofile() {
         ListOfKeyWords = [];
         progBtn = document.getElementById("ProgrammingLanguageBtn");
@@ -241,38 +177,26 @@ window.onload = function () {
         otherBtn = document.getElementById("RestBtn");
         other = document.getElementById("TheRest");
         keyBtn = document.getElementById("KeyWordBtn");
-        saveBtn = document.getElementById("saveBtn");
-        
-        loadCvBtn = document.getElementById("pdfOpen");
-        fileInpt = document.getElementById("pdfUpload");    
-        pdfStatus = document.getElementById("pdfStatus");  
-        
         saveBtnStudent = document.getElementById("saveBtnStudent");
         cancelBtnStudent = document.getElementById("cancelBtnStudent");
     }
-
     function loadButtonEventsStudentprofile() {
         progBtn.addEventListener("click", (e) => showHide(prog));
         typeBtn.addEventListener("click", (e) => showHide(types));
         operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
         databaseBtn.addEventListener("click", (e) => showHide(databases));
         otherBtn.addEventListener("click", (e) => showHide(other));
-        // progBtn.addEventListener("mouseover", (e) => hoverNewKeywords(progBtn, 1, prog));
-        // progBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(progBtn, 0, prog));
-        // typeBtn.addEventListener("mouseover", (e) => hoverNewKeywords(typeBtn, 1, types));
-        // typeBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(typeBtn, 0, types));
-        // operationSystemBtn.addEventListener("mouseover", (e) => hoverNewKeywords(operationSystemBtn, 1, operationSystems));
-        // operationSystemBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(operationSystemBtn, 0, operationSystems));
-        // databaseBtn.addEventListener("mouseover", (e) => hoverNewKeywords(databaseBtn, 1, databases));
-        // databaseBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(databaseBtn, 0, databases));
-        // otherBtn.addEventListener("mouseover", (e) => hoverNewKeywords(otherBtn, 1, other));
-        // otherBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(otherBtn, 0, other));
-        
-        saveBtnStudent.addEventListener("click", saveProfile);
-
-        fileInpt.addEventListener("change", manageSelectedFile);
-        loadCvBtn.onclick = readCvData;
-        
+        progBtn.addEventListener("mouseover", (e) => hoverNewKeywords(progBtn, 1, prog));
+        progBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(progBtn, 0, prog));
+        typeBtn.addEventListener("mouseover", (e) => hoverNewKeywords(typeBtn, 1, types));
+        typeBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(typeBtn, 0, types));
+        operationSystemBtn.addEventListener("mouseover", (e) => hoverNewKeywords(operationSystemBtn, 1, operationSystems));
+        operationSystemBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(operationSystemBtn, 0, operationSystems));
+        databaseBtn.addEventListener("mouseover", (e) => hoverNewKeywords(databaseBtn, 1, databases));
+        databaseBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(databaseBtn, 0, databases));
+        otherBtn.addEventListener("mouseover", (e) => hoverNewKeywords(otherBtn, 1, other));
+        otherBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(otherBtn, 0, other));
+        saveBtnStudent.addEventListener("click", (e) => saveProfile());
         cancelBtnStudent.addEventListener("click", (e) => loadMyInfo());
     }
 
@@ -313,98 +237,6 @@ window.onload = function () {
 
     }
 
-    function manageSelectedFile(){
-        console.log("managing file...");
-        if(!window.File || !window.FileReader || !window.FileList || !window.Blob)
-        {
-            throw("The file API needed is not supported in this browser!");
-        }        
-        input = document.getElementById('pdfUpload');
-
-        if(!input){
-            console.error("can't find input element!");
-        }
-        else if(!input.files){
-            console.error("this browser does not support the files property of input!");
-        }
-        else if(!input.files[0]){
-            console.log("no file selected");
-        }
-        else
-        {
-            file = input.files[0];
-            fr = new FileReader();
-            fr.onload = () =>{
-                //do something with the file code
-                cvData = fr.result;
-                console.log("sucessfully stored file");
-                UploadOrSaved = "uppladdat";
-            loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";                
-                pdfStatus.innerHTML = "Glöm inte klicka spara för att ladda upp ditt cv!";
-            } 
-            fr.readAsDataURL(file);
-        }
-    }
-
-    function readCvData(){
-        document.getElementById('pdfSpace').height = "1000em";
-        document.getElementById('pdfSpace').data = cvData;
-        console.log(cvData);
-        loadCvBtn.innerHTML = "Stäng "  + UploadOrSaved +" cv(pdf)";
-
-        loadCvBtn.onclick = () => {
-            document.getElementById('pdfSpace').data = "";            
-            document.getElementById('pdfSpace').height = "0em";
-            loadCvBtn.onclick = readCvData;
-            loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
-        }
-    }
-
-    function change_student() {
-        console.log("save");
-        var ufname = document.getElementById("sFName").value;
-        var ulname = document.getElementById("sLName").value;
-        var ucity = "";//document.getElementById("Undefined").value;
-        var uedu= document.getElementById("sEdu").value;
-        var uemail= document.getElementById("sEmail").value;
-        var uname= document.getElementById("sUname").value;
-        var psw= document.getElementById("sPsw").value;
-        var gender= "male";
-
-        var keywords = "";
-        var cv = cvData;
-        //console.log(cv); //use at own risk...
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "/changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu 
-        + "&uemail=" + uemail+ "&uname=" + uname + "&psw=" + psw + "&gender=" + genderData +  "&keywords=" + keywords, true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
-        xhttp.onreadystatechange = () =>
-        {
-           console.log(xhttp);
-        }
-        xhttp.send("&cv=" + cvData);
-    }
-
-    // function saveProfile() {
-    //     let ListOfKeyWords = [];
-    //     let title = document.getElementById("").value;
-    //     let shortde = document.getElementById("").value;
-    //     let longde = document.getElementById("").value;
-    //     var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
-    //     for (i = 0; i < fullListToCheck.length; i++) {
-    //         if (fullListToCheck[i].checked)
-    //             ListOfKeyWords.push(fullListToCheck[i].id);
-    //     }
-
-    //     for (a = 0; a < ListOfKeyWords.length; a++) {
-    //         console.log(ListOfKeyWords[a]);
-    //     }
-    //     let savedJob = new exJob(title, shortde, longde, ListOfKeyWords);
-    //     console.log(savedJob);
-    //     infoUser.className = "userDataShow";
-    // }
-    loadMyInfo();
-
     function saveProfile() {
         let ListOfKeyWords = [];
         console.log("Starting to save");
@@ -439,7 +271,7 @@ window.onload = function () {
             }
         };
         xhttp.open("POST", "changeStudentInfo?userObj=" + userString, true);
-        xhttp.send("&cv" + cvData);
+        xhttp.send();
     }
     loadMyInfo();
 
@@ -566,8 +398,8 @@ window.onload = function () {
                 let newJobList = jobs;
                 for (let j = 0; j < obj[0].joblist.length; ++j) {
                     for (let i = 0; i < jobs.length; ++i) {
-                        if (jobs[i]._id == obj[0].joblist[j].jobID) {
-                            newJobList = newJobList.filter(job => job != jobs[i]);
+                        if(jobs[i]._id==obj[0].joblist[j].jobID){
+                            newJobList=newJobList.filter(job=>job !=jobs[i]);
                         }
                     }
                 }

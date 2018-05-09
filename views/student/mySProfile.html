@@ -19,6 +19,14 @@
             <label class="alignRight" for="city">Stad:</label>
             <input class="width50 lowb" type="text" id="city">
         </div>
+        <div>
+            <p id="pdfStatus">Inget cv uppladdat</p>
+            <button type="button" class="bColorBlue mediumBtn" onclick="document.getElementById('pdfUpload').click()">Ladda upp cv(pdf)</button>                     
+            <input type="file" style="display: none" id="pdfUpload"> <!--För att ändra den "fula" designen på default download style="display: none" -->                     
+            <button type="button" id="pdfOpen" class="bColorBlue mediumBtn">Öppna sparat cv(pdf)</button><br>   
+            <object id="pdfSpace" width="600em" height="0em" type="application/pdf" trusted="yes" application="yes" standby="Laddar cv"></object>            
+        </div>
+
 
         <h4 class="widht100 bColorBlue">Användaruppgifter</h4>
         <div>
@@ -30,8 +38,8 @@
             <input class="width50 lowb" type="text" id="sUname">
         </div>
         <div>
-            <label class="alignRight" for="sPsw">Lösenord:</label>
-            <input class="width50 lowb" type="text" id="sPsw">
+            <label class="alignRight" for="sPsw" >Lösenord:</label>
+            <input class="width50 lowb" id="sPsw" type="password">
         </div>
         <h4 class="widht100 bColorBlue">Nyckelord</h4>
         <div>
