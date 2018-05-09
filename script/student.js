@@ -94,9 +94,61 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("menu-page-content").innerHTML = this.response;
+                getMyRecommendedJobs()
             }
         };
         xhttp.open("GET", "loadFileStudent?p=" + '/myRecomendedJobs.html', true);
+        xhttp.send();
+    }
+    function getMyRecommendedJobs() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                //document.getElementById("menu-page-content").innerHTML = this.response;
+                if(this.response.length>0){
+                    let jobList=JSON.parse(this.response);
+                    calculateJobRecommendation(jobList);
+                }
+            }
+        };
+        xhttp.open("GET", "getJobsFromDB", true);
+        xhttp.send();
+    }
+    function calculateJobRecommendation(jobList){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                //document.getElementById("menu-page-content").innerHTML = this.response;
+                if(this.response.length>0){
+                    let user=JSON.parse(this.response);
+                    let recommendationArray=[{}];
+                    var matchCount=0;
+                    for(let i=0;i<jobList.length;++i){
+                        matchCount=0;
+                        for(let j=0;j<jobList[i].keywords.length;++j){
+                            if(user[0].keywords.includes(jobList[i].keywords[j])){
+                                matchCount++;
+                            }
+                        }
+                        recommendationArray.push({job:jobList[i],count:matchCount})
+                    }
+                    console.log(recommendationArray.count);
+                    recommendationArray.sort(function(a,b){
+                        return b.count-a.count;
+                    });
+                    console.log(recommendationArray);
+                    let recToSend=[];
+                    for(let i=0;i<recommendationArray.length;++i){
+                        if(recommendationArray[i].count>0){
+                        recToSend.push(recommendationArray[i].job);
+                        }
+                    }
+                    console.log(recToSend);
+                    filterAlreadySearchedJobs(recToSend);
+                }
+            }
+        };
+        xhttp.open("GET", "userDataFromDBStudent", true);
         xhttp.send();
     }
     function fillEditProfile() {
@@ -398,8 +450,8 @@ window.onload = function () {
                 let newJobList = jobs;
                 for (let j = 0; j < obj[0].joblist.length; ++j) {
                     for (let i = 0; i < jobs.length; ++i) {
-                        if(jobs[i]._id==obj[0].joblist[j].jobID){
-                            newJobList=newJobList.filter(job=>job !=jobs[i]);
+                        if (jobs[i]._id == obj[0].joblist[j].jobID) {
+                            newJobList = newJobList.filter(job => job != jobs[i]);
                         }
                     }
                 }
