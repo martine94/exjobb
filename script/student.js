@@ -100,7 +100,6 @@ window.onload = function () {
         xhttp.send();
     }
     function fillEditProfile() {
-        console.log("fda");
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function (res) {
             if (this.readyState == 4 && this.status == 200) {
