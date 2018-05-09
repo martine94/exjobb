@@ -214,7 +214,7 @@ window.onload = function () {
 
 
     function workAnnouncements(num, jobb) {
-
+        workAnnouncement.innerHTML="";
         for (var i = 0; i < num; i++) {
 
             var outerDiv = document.createElement("div");
