@@ -393,6 +393,7 @@ window.onload = function () {
 
 
     function workInterests(num, jobbig) {
+        workAnnouncement.innerHTML="";
         //console.log(jobb);
         for (var i = 0; i < num; i++) {
             var jobb = jobbig[i].jobs;
@@ -460,7 +461,7 @@ window.onload = function () {
 
 
     function workAnnouncements(num, jobb) {
-
+        workAnnouncement.innerHTML="";
         for (var i = 0; i < num; i++) {
 
             var outerDiv = document.createElement("div");
