@@ -1,49 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+<div class="information">
+    <div class="whiteB">
+        <!-- <p>Innehåll i myCompanyPages.html</p> -->
+        <h2>Redigera examensarbete</h2>
+        <div>
+            <label class="alignLeft" for="Title">Titel:</label>
+            <input class="width50 lowb" type="text" id="Title">
+        </div>
+        <div>
+            <p>Kort beskrivning:</p>
+            <textarea class="descriptionBoxes" name="" id="shortDescription" maxlength="150"></textarea>
+        </div>
+        <div>
+            <p>Fullständig beskrivning:</p>
+            <textarea class="descriptionBoxes" name="" id="longDescription" maxlength="350"></textarea>
+        </div>
+        <div>
+            <h3>Nyckelord:</h3>
+            <div id="KeyWordStack" class="KeyWordStack">
 
-<body>
-
-    <div class="information">
-        <div class="whiteB">
-            <label class="containerOfKeyWords2 Shadow">Examensarbete</label>
-            <br>
-            <br>
-            <label for="Headline" class="containerOfKeyWords2 Shadow">Titel:</label>
-            <br>
-            <br>
-            <input type="text" placeholder="Titel" name="Headline" id="Headline" class="exjobbInput" required class="Height Shadow">
-            <br>
-            <br>
-            <label for="Headline" class="containerOfKeyWords2 Shadow">Kort beskrivning:</label>
-            <br>
-            <br>
-            <textarea rows="3" cols="55" type="text" placeholder="Kort beskrivning" class="exjobbInput" name="shortSubject" id="shortSubject"
-                maxlength="200" required class="Height Shadow"></textarea>
-            <br>
-            <br>
-
-            <label for="Subject" class="containerOfKeyWords2 Shadow">Fullständig beskrivning:</label>
-            <br>
-            <br>
-
-            <textarea cols="55" rows="10" type="text" placeholder="Ämne" name="Subject" class="exjobbInput" id="Subject" required class="Height Shadow"></textarea>
-
-            <br>
-            <br>
-            <br>
-            <hr class="Shadow">
-            <label id="KeyWordBtn" class="containerOfKeyWords2 Shadow">Nyckelord: </label>
-            <br>
-            <br>
-            <div>
-                <label class="bColorBlue Shadow Height">Välj viktiga nyckelord som exjobbet innehåller</label>
-                <br>
-                <br>
-            </div>
-            <div id="KeyWordStack" class="KeyWordStack Shadow">
-
-                <button id="AreaBtn" type="button" class="contentShow Shadow" style="background-color: beige;">Område</button>
-                <div id="Area" class="content Shadow">
+                <button id="AreaBtn" type="button" class="contentShow2 darkerBlueOnHov">Område</button>
+                <div id="Area" class="content">
                     <hr>
                     <input type="checkbox" id="AI" class="ChekedKeyWord">
                     <label for="AI">Artificiell intelligens</label>
@@ -60,8 +38,8 @@
                     <hr>
                 </div>
 
-                <button id="TypeBtn" type="button" class="contentShow Shadow" style="background-color: beige;">Typ</button>
-                <div id="Types" class="content Shadow">
+                <button id="TypeBtn" type="button" class="contentShow2 darkerBlueOnHov">Typ</button>
+                <div id="Types" class="content">
                     <hr>
                     <input type="checkbox" id="Dokumentation" class="ChekedKeyWord">
                     <label for="Dokumentation">Dokumentation</label>
@@ -76,8 +54,8 @@
                     <label for="Annat">Annat</label>
                     <hr>
                 </div>
-                <button id="OperationSystemBtn" type="button" class="contentShow Shadow" style="background-color: beige;">Operativsystem</button>
-                <div id="operationsystems" class="content Shadow">
+                <button id="OperationSystemBtn" type="button" class="contentShow2 darkerBlueOnHov">Operativsystem</button>
+                <div id="operationsystems" class="content">
                     <input type="checkbox" id="Android" class="ChekedKeyWord">
                     <label for="Android">Android</label>
                     <hr>
@@ -95,8 +73,8 @@
                     <hr>
 
                 </div>
-                <button id="DatabaseBtn" type="button" class="contentShow Shadow" style="background-color: beige;">Databas</button>
-                <div id="Databases" class="content Shadow">
+                <button id="DatabaseBtn" type="button" class="contentShow2 darkerBlueOnHov">Databas</button>
+                <div id="Databases" class="content">
                     <input type="checkbox" id="SQL" class="ChekedKeyWord">
                     <label for="SQL">SQL</label>
                     <hr>
@@ -111,8 +89,8 @@
                     <hr>
 
                 </div>
-                <button type="button" id="ProgrammingLanguageBtn" class="contentShow Shadow" style="background-color: beige;">Programmeringsspråk</button>
-                <div id="ProgrammingLanguage" class="content Shadow">
+                <button type="button" id="ProgrammingLanguageBtn" class="contentShow2 darkerBlueOnHov">Programmeringsspråk</button>
+                <div id="ProgrammingLanguage" class="content">
                     <input type="checkbox" id="Assembler" class="ChekedKeyWord">
                     <label for="Assembler">Assembler</label>
                     <hr>
@@ -140,17 +118,14 @@
 
                 </div>
             </div>
-            <br>
-            <hr class="Shadow">
-            <div style="display: inline; margin: 2%">
-                <button id="SaveExJob" class="bColorBlue Height colorW Shadow" style="width: 48%">Spara</button>
-                <button id="AbortExJob" class="bColorBlue Height colorW Shadow" style="width: 48%">Avbryt</button>
-            </div>
-            <br>
-            <br>
-            <br>
         </div>
+
+        <br>
+        <br>
+        <button  id="saveBtn">Spara</button>
+        <button id="cancelBtn">Avbryt</button>
     </div>
-</body>
+</div>
+
 
 </html>

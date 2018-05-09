@@ -4,16 +4,18 @@ window.onload = function () {
     var interestsBtn = document.getElementById("interestsBtn");
     var mySPagesBtn = document.getElementById("mySPagesBtn");
     var recomendedJobBtn = document.getElementById("recomendedJobBtn");
-    var mySInfoBtn = document.getElementById("myInfoBtn")
+    var mySInfoBtn = document.getElementById("myInfoBtn");
+    var lookAtJobBtn = document.getElementById("lookAtJobBtn");
     var logOutStudentBtn = document.getElementById("logOutStudentBtn");
 
     //#endregions
 
     //#region eventListeners
     interestsBtn.addEventListener("click", loadMyInterests);
-    mySPagesBtn.addEventListener("click", loadMyProfile)
-    recomendedJobBtn.addEventListener("click", loadMyRecomendedJobs)
-    mySInfoBtn.addEventListener("click", loadMyInfo)
+    mySPagesBtn.addEventListener("click", loadMyProfile);
+    recomendedJobBtn.addEventListener("click", loadMyRecomendedJobs);
+    mySInfoBtn.addEventListener("click", loadMyInfo);
+    lookAtJobBtn.addEventListener("click", loadCatalog);
     logOutStudentBtn.addEventListener("click", logOut);
     //#endregions
 
@@ -30,12 +32,8 @@ window.onload = function () {
     var other;
     var keyBtn;
     var saveBtn;
-    var pdfStatus;
-    var loadCvBtn;
-    var fileInpt;
-    var cvData;
-    var UploadOrSaved = "sparat";
-    var genderData; //for not altering it...
+    var work_Announcement;
+    var UploadOrSaved = "sparad";
     //#region functions
 
     function logOut() {
@@ -71,6 +69,7 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("menu-page-content").innerHTML = this.response;
+                getInterestJob();
             }
         };
         xhttp.open("GET", "loadFileStudent?p=" + '/mySJobs.html', true);
@@ -104,20 +103,19 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function (res) {
             if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
-                removeBrace = this.responseText.replace(/[\[\]']+/g, "");
-                var obj = JSON.parse(removeBrace);
+                //removeBrace = this.responseText.replace(/[\[\]']+/g, "");
+                var obj = JSON.parse(this.response);
                 var user = {
-                    id: obj._id,
-                    name: obj.name,
-                    ulname: obj.lastname,
-                    city: obj.city, //for later...
-                    edu: obj.ueducation,
-                    email: obj.uemail,
-                    name: obj.uname,
-                    pw: obj.password,
-                    gender: obj.gender,
-                    ucv: obj.cv 
+                    id: obj[0]._id,
+                    name: obj[0].name,
+                    ulname: obj[0].lastname,
+                    city: obj[0].city, //for later...
+                    edu: obj[0].ueducation,
+                    email: obj[0].uemail,
+                    name: obj[0].uname,
+                    pw: obj[0].password,
+                    gender: obj[0].gender,
+                    ucv: obj[0].cv 
                 }
                 document.getElementById("sFName").value += user.name;
                 document.getElementById("sLName").value += user.ulname;
@@ -147,16 +145,16 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function (res) {
             if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
-                removeBrace = this.responseText.replace(/[\[\]']+/g, "");
-                var obj = JSON.parse(removeBrace);
+                // removeBrace = this.responseText.replace(/[\[\]']+/g, "");
+                var obj = JSON.parse(this.response);
+                console.log(obj[0]._id);
                 var user = {
-                    id: obj._id,
-                    name: obj.name,
-                    ulname: obj.lastname,
-                    edu: obj.ueducation,
-                    email: obj.uemail,
-                    pw: obj.password
+                    id: obj[0]._id,
+                    name: obj[0].name,
+                    ulname: obj[0].lastname,
+                    edu: obj[0].ueducation,
+                    email: obj[0].uemail,
+                    pw: obj[0].password
                 }
                 console.log(user);
                 document.getElementById("idS").innerHTML += user.id;
@@ -169,6 +167,7 @@ window.onload = function () {
         xhttp.open("GET", "userDataFromDBStudent", true)
         xhttp.send();
     }
+
 
     function loadButtonsStudentprofile() {
         ListOfKeyWords = [];
@@ -212,6 +211,7 @@ window.onload = function () {
         fileInpt.addEventListener("change", manageSelectedFile);
         loadCvBtn.onclick = readCvData;
         
+        saveBtn.addEventListener("click", (e) => saveProfile)
     }
 
     function hoverNewKeywords(element, show, connectedTo) {
@@ -343,4 +343,285 @@ window.onload = function () {
     }
     loadMyInfo();
 
+    function saveProfile() {
+        let ListOfKeyWords = [];
+        let title = document.getElementById("").value;
+        let shortde = document.getElementById("").value;
+        let longde = document.getElementById("").value;
+        var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
+        for (i = 0; i < fullListToCheck.length; i++) {
+            if (fullListToCheck[i].checked)
+                ListOfKeyWords.push(fullListToCheck[i].id);
+        }
+
+        for (a = 0; a < ListOfKeyWords.length; a++) {
+            console.log(ListOfKeyWords[a]);
+        }
+        let savedJob = new exJob(title, shortde, longde, ListOfKeyWords);
+        console.log(savedJob);
+        infoUser.className = "userDataShow";
+    }
+    loadMyInfo();
+
+
+
+    function sendInterest(jobId) {
+        console.log("Intresseanmälan");
+        var message = document.getElementById("Interestmessage").value;
+        console.log(message);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.response === "true") {
+                    console.log("sent intresseanmälan sucess");
+                    loadMyInterests();
+                }
+            }
+        };
+        xhttp.open("POST", "addInterest?jobID=" + jobId + "&message=" + message, true);
+        xhttp.send();
+    }
+
+    function showMoreInfoBtn(jobId, val) {
+        console.log(val);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("menu-page-content").innerHTML = this.response;
+                document.getElementById("closeExJob").addEventListener("click", loadCatalog);
+                getSpecificJob(jobId);
+
+                makeInterestBtn = document.getElementById("makeInterestSubmit");
+                makeInterestBtn.addEventListener("click", (e) => sendInterest(jobId));
+                if (val === '0') {
+                    document.getElementById("interestDiv").style.display = "none";
+                }
+                else {
+                    document.getElementById("interestDiv").style.display = "block";
+                }
+
+            }
+        };
+        xhttp.open("GET", "loadFileStudent?p=" + '/showExJob.html', true);
+        xhttp.send();
+    }
+
+    function getSpecificJob(jobId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // document.getElementById("option-page-content").innerHTML = this.response;
+                console.log("JOBB HÄMTADE");
+                var jobs = JSON.parse(this.response);
+
+                document.getElementById("logga").src = jobs[0].logoURL;
+                console.log(jobs[0].logoURL)
+                document.getElementById("rubrik").innerHTML = jobs[0].tile;
+                console.log(jobs[0].tile)
+                document.getElementById("shortDescriprion").innerHTML = jobs[0].shortdesc;
+                document.getElementById("longDescriprion").innerHTML = jobs[0].longdesc;
+                var keyWords = document.getElementById("keyWordArea");
+                var table = document.createElement("table");
+                keyWords.appendChild(table);
+                table.className = "tableKeywords";
+                // table.style="width:100%";
+                var thisRow = document.createElement("tr");
+                table.appendChild(thisRow);
+
+                for (i = 0; i < jobs[0].keywords.length; ++i) {
+                    if (i % 3 === 0) {
+                        var newRow = document.createElement("tr");
+                        thisRow = newRow;
+                        table.appendChild(thisRow);
+                        var t = document.createElement("td");
+                        t.innerHTML = jobs[0].keywords[i];
+                        thisRow.appendChild(t);
+                    } else {
+                        var td = document.createElement("td");
+                        td.innerHTML = jobs[0].keywords[i];
+                        thisRow.appendChild(td);
+                    }
+                }
+            }
+        };
+        //Skriv en funktion som bara tar ut företagets jobbannonser
+        xhttp.open("GET", "getSpecificJobFromDB?jobID=" + jobId, true);
+        xhttp.send();
+    }
+
+    function loadCatalog() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("menu-page-content").innerHTML = this.response;
+                document.getElementById("SCatalog").style.display = "block";
+                getJobsFromDB();
+            }
+        };
+        xhttp.open("GET", "loadFileStudent?p=" + '/StudentCatalog.html', true);
+        xhttp.send();
+    }
+
+    function getJobsFromDB() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // document.getElementById("option-page-content").innerHTML = this.response;
+                console.log("JOBB HÄMTADE");
+                var jobs = JSON.parse(this.response);
+                workAnnouncements(jobs.length, jobs);
+            }
+        };
+        xhttp.open("GET", "getJobsFromDB", true);
+        xhttp.send();
+    }
+
+    function getInterestJob() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.response === "false") {
+                    console.log("No intresseanmälan");
+                    document.getElementById("msg").innerHTML = "Du har inga intresseanmälningar."
+                } else {
+                    let jobb = JSON.parse(this.response);
+                    console.log(jobb);
+                    workInterests(jobb.length, jobb);
+                }
+            }
+        };
+        xhttp.open("GET", "getInterestJob", true);
+        xhttp.send();
+    }
+    function removeInterest(removeID) {
+        console.log("Remove click");
+        let jobID = removeID.split(",");
+        jobIDstr = jobID[0];
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.response === "true") {
+                    loadMyInterests();
+                }
+            };
+        }
+        xhttp.open("GET", "removeInterest?jobID=" + jobIDstr, true);
+        xhttp.send();
+    }
+
+
+    function workInterests(num, jobbig) {
+        //console.log(jobb);
+        for (var i = 0; i < num; i++) {
+            var jobb = jobbig[i].jobs;
+            var message = jobbig[i].message;
+            console.log(jobb);
+
+            var outerDiv = document.createElement("div");
+            outerDiv.className = "jobsSmall";
+
+            var top = document.createElement("div"); //topbar
+            top.className = "jobTop";
+
+            var logo = document.createElement("img");//ladda in logga
+
+            logo.className = "jobLogo";
+            var header = document.createElement("div");//rubrik
+            header.className = "jobHeader";
+
+            var info = document.createElement("div");
+            info.className = "jobInfo";
+
+            var newlog = document.createElement("p");
+            newlog.innerHTML = "logga";
+            var newh1 = document.createElement("h2");
+
+            let readBtn = document.createElement("button");
+            readBtn.innerHTML = "Visa annons";
+            readBtn.id = jobb[0]._id;
+
+            let removeBtn = document.createElement("button");
+            removeBtn.innerHTML = "Ta bort intresseanmälan";
+            removeBtn.id = jobb[0]._id + ",remove";
+            removeBtn.className = "floatRight";
+
+            workAnnouncement.appendChild(outerDiv);
+            workAnnouncement.appendChild(document.createElement("br"));
+            outerDiv.appendChild(top);
+
+            var myMsg = document.createElement("b");
+            myMsg.className = "jobInfo";
+            myMsg.innerHTML = "Mitt meddelande: ";
+            outerDiv.appendChild(myMsg);
+
+            //outerDiv.appendChild(document.createElement("hr"));
+            outerDiv.appendChild(info);
+            outerDiv.appendChild(document.createElement("br"));
+            outerDiv.appendChild(document.createElement("br"));
+            outerDiv.appendChild(readBtn);
+            outerDiv.appendChild(removeBtn);
+
+            top.appendChild(logo);
+            top.appendChild(header);
+            logo.appendChild(newlog);
+            header.appendChild(newh1);
+
+            logo.src = jobb[0].logoURL; //ladda in logga
+            newh1.innerHTML = jobb[0].tile;//ladda in rubrik    
+            info.innerHTML = message;//ladda in beskrivning
+            readBtn.addEventListener("click", (e) => showMoreInfoBtn(readBtn.id));
+            removeBtn.addEventListener("click", (e) => removeInterest(removeBtn.id));
+            let show = '0';
+            readBtn.addEventListener("click", (e) => showMoreInfoBtn(readBtn.id, show));
+        }
+    }
+
+
+    function workAnnouncements(num, jobb) {
+
+        for (var i = 0; i < num; i++) {
+
+            var outerDiv = document.createElement("div");
+            outerDiv.className = "jobsSmall";
+
+            var top = document.createElement("div"); //topbar
+            top.className = "jobTop";
+
+            var logo = document.createElement("img");//ladda in logga
+
+            logo.className = "jobLogo";
+            var header = document.createElement("div");//rubrik
+            header.className = "jobHeader";
+
+            var info = document.createElement("div");
+            info.className = "jobInfo";
+
+            var newlog = document.createElement("p");
+            newlog.innerHTML = "logga";
+            var newh1 = document.createElement("h2");
+
+            let readBtn = document.createElement("button");
+            readBtn.innerHTML = "Visa annons";
+            readBtn.id = jobb[i]._id;
+
+            workAnnouncement.appendChild(outerDiv);
+            workAnnouncement.appendChild(document.createElement("br"));
+            outerDiv.appendChild(top);
+            outerDiv.appendChild(info);
+            outerDiv.appendChild(readBtn);
+
+
+            top.appendChild(logo);
+            top.appendChild(header);
+            logo.appendChild(newlog);
+            header.appendChild(newh1);
+
+
+            logo.src = jobb[i].logoURL; //ladda in logga
+            newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
+            info.innerHTML = jobb[i].shortdesc;//ladda in beskrivning
+            let show = '1';
+            readBtn.addEventListener("click", (e) => showMoreInfoBtn(readBtn.id, show));
+        }
+    }
 }
