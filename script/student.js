@@ -33,6 +33,7 @@ window.onload = function () {
     var keyBtn;
     var saveBtn;
     var work_Announcement;
+    var cvData;
     var UploadOrSaved = "sparad";
     //#region functions
 
@@ -103,6 +104,7 @@ window.onload = function () {
         xhttp.onreadystatechange = function (res) {
             if (this.readyState == 4 && this.status == 200) {
                 //removeBrace = this.responseText.replace(/[\[\]']+/g, "");
+                console.log(JSON.parse(this.response));
                 var obj = JSON.parse(this.response);
                 var user = {
                     id: obj[0]._id,
@@ -111,7 +113,7 @@ window.onload = function () {
                     city: obj[0].city, //for later...
                     edu: obj[0].ueducation,
                     email: obj[0].uemail,
-                    name: obj[0].uname,
+                    uname: obj[0].uname,
                     pw: obj[0].password,
                     gender: obj[0].gender,
                     ucv: obj[0].cv 
@@ -122,7 +124,6 @@ window.onload = function () {
                 document.getElementById("city").value += user.city;
                 document.getElementById("sUname").value += user.uname;
                 document.getElementById("sEmail").value += user.email;
-                document.getElementById("sUname").value += user.name;
                 document.getElementById("sPsw").value += user.pw;
                 
                 
@@ -136,9 +137,9 @@ window.onload = function () {
                 genderData = user.gender;
                 document.getElementById("sPsw").value += user.pw;
 
-                for (let i = 0; i < obj[0].keywords.length; i++) {
-                    document.getElementById(obj[0].keywords[i]).checked = true;
-                }
+                //for (let i = 0; i < obj[0].keywords.length; i++) {
+                //    document.getElementById(obj[0].keywords[i]).checked = true;
+                //}
 
                 loadButtonsStudentprofile();
                 loadButtonEventsStudentprofile();
@@ -174,7 +175,6 @@ window.onload = function () {
         xhttp.open("GET", "userDataFromDBStudent", true)
         xhttp.send();
     }
-
 
     function loadButtonsStudentprofile() {
         ListOfKeyWords = [];
@@ -216,11 +216,10 @@ window.onload = function () {
         otherBtn.addEventListener("mouseover", (e) => hoverNewKeywords(otherBtn, 1, other));
         otherBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(otherBtn, 0, other));
         
-        saveBtnStudent.addEventListener("click", change_student);
+        saveBtnStudent.addEventListener("click", saveProfile);
 
         fileInpt.addEventListener("change", manageSelectedFile);
         loadCvBtn.onclick = readCvData;
-        
         
         cancelBtnStudent.addEventListener("click", (e) => loadMyInfo());
     }
@@ -334,24 +333,24 @@ window.onload = function () {
         xhttp.send("&cv=" + cvData);
     }
 
-    function saveProfile() {
-        let ListOfKeyWords = [];
-        let title = document.getElementById("").value;
-        let shortde = document.getElementById("").value;
-        let longde = document.getElementById("").value;
-        var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
-        for (i = 0; i < fullListToCheck.length; i++) {
-            if (fullListToCheck[i].checked)
-                ListOfKeyWords.push(fullListToCheck[i].id);
-        }
+    // function saveProfile() {
+    //     let ListOfKeyWords = [];
+    //     let title = document.getElementById("").value;
+    //     let shortde = document.getElementById("").value;
+    //     let longde = document.getElementById("").value;
+    //     var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
+    //     for (i = 0; i < fullListToCheck.length; i++) {
+    //         if (fullListToCheck[i].checked)
+    //             ListOfKeyWords.push(fullListToCheck[i].id);
+    //     }
 
-        for (a = 0; a < ListOfKeyWords.length; a++) {
-            console.log(ListOfKeyWords[a]);
-        }
-        let savedJob = new exJob(title, shortde, longde, ListOfKeyWords);
-        console.log(savedJob);
-        infoUser.className = "userDataShow";
-    }
+    //     for (a = 0; a < ListOfKeyWords.length; a++) {
+    //         console.log(ListOfKeyWords[a]);
+    //     }
+    //     let savedJob = new exJob(title, shortde, longde, ListOfKeyWords);
+    //     console.log(savedJob);
+    //     infoUser.className = "userDataShow";
+    // }
     loadMyInfo();
 
     function saveProfile() {
@@ -388,7 +387,7 @@ window.onload = function () {
             }
         };
         xhttp.open("POST", "changeStudentInfo?userObj=" + userString, true);
-        xhttp.send();
+        xhttp.send("&cv" + cvData);
     }
     loadMyInfo();
 
