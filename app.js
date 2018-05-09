@@ -13,6 +13,29 @@ var serverAddress = "http://" + ipAdress;
 var portNumber = "2000";
 var path = require('path');
 
+//#region Logging
+const winston = require('winston');
+
+winston.configure({
+    //Winston uses six levels of logging: error, warn, info, verbose, debug and silly.
+    transports: [
+        new (winston.transports.Console)({
+            level: 'debug'
+        }),
+        new (winston.transports.File)({
+            name: 'debug-file',
+            filename: 'applog-debug.log',
+            level: 'debug'
+        })
+    ]
+});
+
+//loggning test
+/* winston.log('error', 'Error test!');
+winston.log('info', 'Info test!');
+winston.log('debug', 'Debug test!'); */
+
+//#endregion
 
 app.use(session({
     cookieName: 'session',
