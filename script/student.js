@@ -394,29 +394,17 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                // document.getElementById("option-page-content").innerHTML = this.response;
                 console.log("Filtrerar redan sökta jobb");
                 var obj = JSON.parse(this.response);
-                // let newJobList = [];//obj[0].joblist;
-                // // for (let i = 0; i < obj[0].joblist.length; ++i) {
-                // //     newJobList.filter(item => item !== obj[0].joblist[i].jobID);
-                // // }
-                // //let newJobList=jobs.filter(item=>item!==obj[0].joblist[2]);
-                
-                // for (let i = 0; i < obj[0].joblist.length; ++i) {
-                //     for (let j = 0; j < jobs.length; ++j) {
-                //         if (jobs[j]._id === obj[0].joblist[i].jobID) {
-                //             //newJobList.pop(obj[0].joblist[i].jobID);
-
-                //             break;
-                //         }
-                //     }
-                // }
-                // console.log("OBJEKT: " + obj[0].joblist);
-                // console.log("NEW JOBLIST: " + newJobList);
-                //workAnnouncements(newJobList.length, newJobList);
-                                workAnnouncements(jobs.length, jobs);
-
+                let newJobList = jobs;
+                for (let j = 0; j < obj[0].joblist.length; ++j) {
+                    for (let i = 0; i < jobs.length; ++i) {
+                        if(jobs[i]._id==obj[0].joblist[j].jobID){
+                            newJobList=newJobList.filter(job=>job !=jobs[i]);
+                        }
+                    }
+                }
+                workAnnouncements(newJobList.length, newJobList);
             }
         };
         xhttp.open("GET", "userDataFromDBStudent", true);
