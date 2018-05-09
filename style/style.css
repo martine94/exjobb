@@ -279,7 +279,11 @@ padding: 5%;
     background-color: rgba(0,0,0,0.4); 
 }
 
-
+.loadingImg{
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 /* Modal Content/Box */
 .modal-content {
     background-color: white;

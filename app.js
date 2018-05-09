@@ -461,7 +461,8 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
         uname: req.query["uname"],
         password: req.query["psw"],
         gender: req.query["gender"],
-        keywords: req.query["keywords"],
+        keywords: [],
+        joblist:[],
         cv: req.query["cv"]
     };
     // console.log(response)
