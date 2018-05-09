@@ -257,6 +257,24 @@ window.onload = function () {
         operationSystemBtn.addEventListener("click", (e) => showHide(operationSystems));
         databaseBtn.addEventListener("click", (e) => showHide(databases));
         otherBtn.addEventListener("click", (e) => showHide(other));
+<<<<<<< HEAD
+        progBtn.addEventListener("mouseover", (e) => hoverNewKeywords(progBtn, 1, prog));
+        progBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(progBtn, 0, prog));
+        typeBtn.addEventListener("mouseover", (e) => hoverNewKeywords(typeBtn, 1, types));
+        typeBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(typeBtn, 0, types));
+        operationSystemBtn.addEventListener("mouseover", (e) => hoverNewKeywords(operationSystemBtn, 1, operationSystems));
+        operationSystemBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(operationSystemBtn, 0, operationSystems));
+        databaseBtn.addEventListener("mouseover", (e) => hoverNewKeywords(databaseBtn, 1, databases));
+        databaseBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(databaseBtn, 0, databases));
+        otherBtn.addEventListener("mouseover", (e) => hoverNewKeywords(otherBtn, 1, other));
+        otherBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(otherBtn, 0, other));
+        
+        saveBtnStudent.addEventListener("click", saveProfile);
+
+        fileInpt.addEventListener("change", manageSelectedFile);
+        loadCvBtn.onclick = readCvData;
+        
+=======
         // progBtn.addEventListener("mouseover", (e) => hoverNewKeywords(progBtn, 1, prog));
         // progBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(progBtn, 0, prog));
         // typeBtn.addEventListener("mouseover", (e) => hoverNewKeywords(typeBtn, 1, types));
@@ -267,12 +285,8 @@ window.onload = function () {
         // databaseBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(databaseBtn, 0, databases));
         // otherBtn.addEventListener("mouseover", (e) => hoverNewKeywords(otherBtn, 1, other));
         // otherBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(otherBtn, 0, other));
-        
-        saveBtnStudent.addEventListener("click", saveProfile);
-
-        fileInpt.addEventListener("change", manageSelectedFile);
-        loadCvBtn.onclick = readCvData;
-        
+        saveBtnStudent.addEventListener("click", (e) => saveProfile());
+>>>>>>> 7cb221392afe72947a9882697b6e46678e829b12
         cancelBtnStudent.addEventListener("click", (e) => loadMyInfo());
     }
 
