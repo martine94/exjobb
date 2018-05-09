@@ -82,7 +82,6 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("menu-page-content").innerHTML = this.response;
-                //document.getElementById("saveBtn").onclick = change_student;
                 fillEditProfile();
             }
         };
@@ -118,7 +117,7 @@ window.onload = function () {
                     name: obj.uname,
                     pw: obj.password,
                     gender: obj.gender,
-                    cv: obj.cv 
+                    ucv: obj.cv 
                 }
                 document.getElementById("sFName").value += user.name;
                 document.getElementById("sLName").value += user.ulname;
@@ -128,14 +127,12 @@ window.onload = function () {
                 document.getElementById("sPsw").value += user.pw;
                 
                 
-                if(typeof user.cv !== 'undefined' && user.cv)
+                if(typeof user.ucv !== 'undefined' && user.ucv)
                 {
                     document.getElementById("pdfStatus").innerHTML = "CV upladdat";
+                    cvData = user.ucv;
                 }
-                else
-                {
-                    cvData = user.cv;
-                }
+                //console.log(user.cv);
 
                 genderData = user.gender;
                 loadButtonsStudentprofile();
@@ -290,6 +287,7 @@ window.onload = function () {
     function readCvData(){
         document.getElementById('pdfSpace').height = "1000em";
         document.getElementById('pdfSpace').data = cvData;
+        //console.log(cvData);
         loadCvBtn.innerHTML = "Stäng "  + UploadOrSaved +" cv(pdf)";
 
         loadCvBtn.onclick = () => {
@@ -309,20 +307,20 @@ window.onload = function () {
         var uemail= document.getElementById("sEmail").value;
         var uname= document.getElementById("sUname").value;
         var psw= document.getElementById("sPsw").value;
-        var gender="Undefined";
+        var gender= "male";
 
         var keywords = "";
         var cv = cvData;
-        console.log(cv); //use at own risk...
+        //console.log(cv); //use at own risk...
         var xhttp = new XMLHttpRequest();
-        
-        
-
-        xhttp.open("POST", "changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu 
-        + "&uemail=" + uemail+ "&uname=" + uname + "&gender=" + genderData + "&psw=" + psw + "&keywords=" + keywords + "&cv=" + cv, true);
-        
-        
-        xhttp.send();
+        xhttp.open("POST", "/changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu 
+        + "&uemail=" + uemail+ "&uname=" + uname + "&psw=" + psw + "&gender=" + genderData +  "&keywords=" + keywords, true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.onreadystatechange = () =>
+        {
+           console.log(xhttp);
+        }
+        xhttp.send("&cv=" + cvData);
     }
 
     function saveProfile() {

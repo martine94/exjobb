@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 var Mongo = require('./mongo/mongo.js');
 var urlEncodedParcer = bodyParser.urlencoded({ extended: true });
 var session = require('client-sessions'); //kommentera ut denna om ni inte har Sessions installerat
@@ -229,6 +232,8 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
 
 app.post('/changeStudentInfo',urlEncodedParcer,function(req,res){
     console.log("student change POST request");
+    console.log("BODY:" + req.body);
+    console.log("/: " + req.body["ufname"]);
     var user={
         name: req.query["ufname"],
         lastname: req.query["ulname"],
@@ -239,8 +244,10 @@ app.post('/changeStudentInfo',urlEncodedParcer,function(req,res){
         password: req.query["psw"],
         gender: req.query["gender"],
         keywords: req.query["keywords"],
-        cv: req.query["cv"]
+        cv: req.body["cv"]
     }
+    //console.log("TEST:----____---- \n" + req.getParameter());
+    //console.log(req);
     try {
         myQuery=getUserID(req);
        console.log(myQuery);
