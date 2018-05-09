@@ -237,7 +237,11 @@ padding: 5%;
 	cursor: pointer;
 	color: #aaa;
 }
+.containerOfKeyWords:hover{
+	background-color:white;
+}
 .showDropDownMenu:hover,
+
 
 .submitBtn:hover,
 .mediumBtn:hover,
