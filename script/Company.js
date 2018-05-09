@@ -214,6 +214,8 @@ window.onload = function () {
 
 
     function workAnnouncements(num, jobb) {
+        var loadingImage = document.getElementById("loadImg");
+        loadingImage.style.display = 'none';
         workAnnouncement.innerHTML="";
         for (var i = 0; i < num; i++) {
 
