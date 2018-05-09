@@ -239,6 +239,9 @@ padding: 5%;
 }
 .showDropDownMenu:hover,
 
+.submitBtn:hover,
+.mediumBtn:hover,
+.menuBtn:hover,
 .darkerBlueOnHov:hover{
 	background-color:rgb(45, 123, 175);
 
