@@ -130,7 +130,7 @@ window.onload = function () {
                 if(typeof user.ucv !== 'undefined' && user.ucv)
                 {
                     document.getElementById("pdfStatus").innerHTML = "CV upladdat";
-                    cvData = user.ucv;
+                    cvData = user.ucv.replace(/ /g, '+');
                 }
                 //console.log(user.cv);
 
@@ -287,7 +287,7 @@ window.onload = function () {
     function readCvData(){
         document.getElementById('pdfSpace').height = "1000em";
         document.getElementById('pdfSpace').data = cvData;
-        //console.log(cvData);
+        console.log(cvData);
         loadCvBtn.innerHTML = "Stäng "  + UploadOrSaved +" cv(pdf)";
 
         loadCvBtn.onclick = () => {
@@ -315,7 +315,7 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.open("POST", "/changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu 
         + "&uemail=" + uemail+ "&uname=" + uname + "&psw=" + psw + "&gender=" + genderData +  "&keywords=" + keywords, true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
         xhttp.onreadystatechange = () =>
         {
            console.log(xhttp);

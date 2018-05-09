@@ -230,7 +230,7 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
     }
 });
 
-app.post('/changeStudentInfo',urlEncodedParcer,function(req,res){
+app.post('/changeStudentInfo',urlEncodedParcer, function(req,res){
     console.log("student change POST request");
     console.log("BODY:" + req.body);
     console.log("/: " + req.body["ufname"]);
@@ -246,8 +246,6 @@ app.post('/changeStudentInfo',urlEncodedParcer,function(req,res){
         keywords: req.query["keywords"],
         cv: req.body["cv"]
     }
-    //console.log("TEST:----____---- \n" + req.getParameter());
-    //console.log(req);
     try {
         myQuery=getUserID(req);
        console.log(myQuery);
