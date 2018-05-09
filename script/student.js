@@ -115,6 +115,7 @@ window.onload = function () {
                     pw: obj[0].password,
                     uname: obj[0].uname,
                     city:obj[0].city,
+                    keywords:obj[0].keywords
                 }
                 document.getElementById("sFName").value += user.name;
                 document.getElementById("sLName").value += user.ulname;
@@ -123,6 +124,10 @@ window.onload = function () {
                 document.getElementById("sUname").value += user.uname;
                 document.getElementById("sEmail").value += user.email;
                 document.getElementById("sPsw").value += user.pw;
+
+                for (let i = 0; i < obj[0].keywords.length; i++) {
+                    document.getElementById(obj[0].keywords[i]).checked = true;
+                }
 
                 loadButtonsStudentprofile();
                 loadButtonEventsStudentprofile();
