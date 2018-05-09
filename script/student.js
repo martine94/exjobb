@@ -114,8 +114,8 @@ window.onload = function () {
                     email: obj[0].uemail,
                     pw: obj[0].password,
                     uname: obj[0].uname,
-                    city:obj[0].city,
-                    keywords:obj[0].keywords
+                    city: obj[0].city,
+                    keywords: obj[0].keywords
                 }
                 document.getElementById("sFName").value += user.name;
                 document.getElementById("sLName").value += user.ulname;
@@ -198,7 +198,7 @@ window.onload = function () {
         otherBtn.addEventListener("mouseover", (e) => hoverNewKeywords(otherBtn, 1, other));
         otherBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(otherBtn, 0, other));
         saveBtnStudent.addEventListener("click", (e) => saveProfile());
-        cancelBtnStudent.addEventListener("click",(e)=>loadMyInfo());
+        cancelBtnStudent.addEventListener("click", (e) => loadMyInfo());
     }
 
     function hoverNewKeywords(element, show, connectedTo) {
@@ -241,15 +241,15 @@ window.onload = function () {
     function saveProfile() {
         let ListOfKeyWords = [];
         console.log("Starting to save");
-        var userObj={
-             name:document.getElementById("sFName").value,
-             lastname:document.getElementById("sLName").value,
-             city:document.getElementById("city").value,
-             ueducation:document.getElementById("sEdu").value,
-             uemail:document.getElementById("sEmail").value,
-             uname:document.getElementById("sUname").value,
-             psw:document.getElementById("sPsw").value,
-             keywords:[]
+        var userObj = {
+            name: document.getElementById("sFName").value,
+            lastname: document.getElementById("sLName").value,
+            city: document.getElementById("city").value,
+            ueducation: document.getElementById("sEdu").value,
+            uemail: document.getElementById("sEmail").value,
+            uname: document.getElementById("sUname").value,
+            psw: document.getElementById("sPsw").value,
+            keywords: []
         }
         var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
         for (i = 0; i < fullListToCheck.length; i++) {
@@ -261,12 +261,12 @@ window.onload = function () {
             console.log(ListOfKeyWords[a]);
         }
         console.log(userObj);
-        userObj.keywords=ListOfKeyWords;
-        userString=JSON.stringify(userObj);
+        userObj.keywords = ListOfKeyWords;
+        userString = JSON.stringify(userObj);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                if(this.response==="true"){
+                if (this.response === "true") {
                     loadMyInfo();
                 }
             }
@@ -383,10 +383,43 @@ window.onload = function () {
                 // document.getElementById("option-page-content").innerHTML = this.response;
                 console.log("JOBB HÄMTADE");
                 var jobs = JSON.parse(this.response);
-                workAnnouncements(jobs.length, jobs);
+                filterAlreadySearchedJobs(jobs);
+                //workAnnouncements(jobs.length, jobs);
             }
         };
         xhttp.open("GET", "getJobsFromDB", true);
+        xhttp.send();
+    }
+    function filterAlreadySearchedJobs(jobs) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // document.getElementById("option-page-content").innerHTML = this.response;
+                console.log("Filtrerar redan sökta jobb");
+                var obj = JSON.parse(this.response);
+                // let newJobList = [];//obj[0].joblist;
+                // // for (let i = 0; i < obj[0].joblist.length; ++i) {
+                // //     newJobList.filter(item => item !== obj[0].joblist[i].jobID);
+                // // }
+                // //let newJobList=jobs.filter(item=>item!==obj[0].joblist[2]);
+                
+                // for (let i = 0; i < obj[0].joblist.length; ++i) {
+                //     for (let j = 0; j < jobs.length; ++j) {
+                //         if (jobs[j]._id === obj[0].joblist[i].jobID) {
+                //             //newJobList.pop(obj[0].joblist[i].jobID);
+
+                //             break;
+                //         }
+                //     }
+                // }
+                // console.log("OBJEKT: " + obj[0].joblist);
+                // console.log("NEW JOBLIST: " + newJobList);
+                //workAnnouncements(newJobList.length, newJobList);
+                                workAnnouncements(jobs.length, jobs);
+
+            }
+        };
+        xhttp.open("GET", "userDataFromDBStudent", true);
         xhttp.send();
     }
 
@@ -425,7 +458,7 @@ window.onload = function () {
 
 
     function workInterests(num, jobbig) {
-        workAnnouncement.innerHTML="";
+        workAnnouncement.innerHTML = "";
         //console.log(jobb);
         for (var i = 0; i < num; i++) {
             var jobb = jobbig[i].jobs;
@@ -493,7 +526,7 @@ window.onload = function () {
 
 
     function workAnnouncements(num, jobb) {
-        workAnnouncement.innerHTML="";
+        workAnnouncement.innerHTML = "";
         for (var i = 0; i < num; i++) {
 
             var outerDiv = document.createElement("div");
