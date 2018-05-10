@@ -581,6 +581,8 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.response === "false") {
                     console.log("No intresseanmälan");
+                    var loadingImage = document.getElementById("loadImg");
+                    loadingImage.style.display = 'none';
                     document.getElementById("msg").innerHTML = "Du har inga intresseanmälningar."
                 } else {
                     let jobb = JSON.parse(this.response);
@@ -686,8 +688,8 @@ window.onload = function () {
         if (num === 0) {
             var outerDiv = document.createElement("div");
             var newh2 = document.createElement("h2");
-            var newP=document.createElement("p");
-            newP.innerHTML="Prova att ändra dina önskemål under \"Redigera Information\"";
+            var newP = document.createElement("p");
+            newP.innerHTML = "Prova att ändra dina önskemål under \"Redigera Information\"";
             newh2.innerHTML = "Du har inga matchande jobb.";
             outerDiv.appendChild(newh2);
             outerDiv.appendChild(newP);
