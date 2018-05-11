@@ -469,7 +469,9 @@ app.post('/changeStudentInfo',urlEncodedParcer, function(req,res){
         password: req.query["psw"],
         gender: req.query["gender"],
         keywords: req.query["keywords"],
+        joblist: [],
         cv: req.body["cv"]
+
     }
     try {
         myQuery=getUserID(req);
