@@ -162,7 +162,7 @@ app.get('/getInterestJob', function (req, res) {
                 res.send("false");
             } else {
                 var jobArray = [];
-                if (!result[0].joblist) { res.send("false"); } else {
+                if (result[0].joblist=== undefined || result[0].joblist.length == 0) { res.send("false"); } else {
                     for (let i = 0; i < result[0].joblist.length; ++i) {
                         var jobid = result[0].joblist[i].jobID;
                         Mongo.findSpecificJob(jobid, function (jobresult) {
