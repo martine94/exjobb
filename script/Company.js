@@ -294,6 +294,7 @@ window.onload = function () {
                 let showIBtn = document.getElementById("showintressents");
                 showIBtn.addEventListener("click", (e)=> loadInterests(jobId));
                 document.getElementById("closeExJob").addEventListener("click", loadMyOffers);
+                document.getElementById("changeJobBtn").addEventListener("click", (e)=> loadChangeExJob(jobId));
                 getSpecificJob(jobId);
             }
         };
