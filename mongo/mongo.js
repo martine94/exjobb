@@ -106,11 +106,10 @@ module.exports = {
       // console.log(query);
       dbo.collection(table).find(query).toArray(function(err, result) {
         if (err) throw err;
-
+        
         console.log("Entered collection success!");
         
         db.close();
-        // console.log(result);
         callback(result);
       });
     });
@@ -135,6 +134,8 @@ module.exports = {
       });
     });
   },
+
+
 
   addJob: function(exjobb, callback)
   {

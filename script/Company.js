@@ -142,7 +142,8 @@ window.onload = function () {
                 for(let i = 0; i<jobs[0].studentlist.length;i++){
                     num++;
                 }
-                getInterestAnnouncement(jobs[0].studentlist, num);
+                console.log(jobs[0].studentlist[0]);
+                getInterestAnnouncement(jobs[0].studentlist, num, jobId);
                 // table.style="width:100%";
             }
         };
@@ -295,10 +296,12 @@ window.onload = function () {
         xhttp.send();
     }
 
-    function getInterestAnnouncement(studentList, num) {
+    function getInterestAnnouncement(studentList, num, jobId) {
         var interests = document.getElementById("Interests");
         var number = 1;
         for (let i = 0; i < num; i++) {
+
+            console.log(studentList[i].studentID[0]);
             let personDiv = document.createElement("div");
             personDiv.style.backgroundColor = "lightblue";
             personDiv.style.color = "white";
@@ -308,19 +311,35 @@ window.onload = function () {
             row.style.color = "white"; row.className = "Shadow";
             personDiv.appendChild(row);
             personDiv.appendChild(document.createElement("br"));
-            let divInfo = document.createElement("div"); 
-            divInfo.innerHTML = "Personinformation: ";
+            let divInfo = document.createElement("div");
+            let shortDescript = document.createElement("p");
+            shortDescript.style.outlineColor = "brown";
+            shortDescript.innerHTML = "Kort beskrivning om sökanden: ";
+            divInfo.appendChild(shortDescript);
             personDiv.appendChild(divInfo);
             
             personDiv.className = "jobsSmall";
+            let emailDiv = document.createElement("div");
+            emailDiv.innerHTML = studentList[i].studentID[0].uemail;
 
             let txtArea = document.createElement("div");
-            txtArea.innerHTML = studentList[i].message;
-            txtArea.className = "jobInfo";  
+            txtArea.style.backgroundColor = "white";
+            txtArea.style.color = "black"; 
+            let msg = document.createElement("p");
+            msg.innerHTML = studentList[i].message
+            let strEmail = document.createElement("p");
+            strEmail.innerHTML = "Email:";
+            txtArea.appendChild(msg);
+            txtArea.appendChild(document.createElement("br"));
+            txtArea.className = "jobInfo";
+            txtArea.style.padding = "1%";
             let CVbtn = document.createElement("button");
             CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov Shadow";
             CVbtn.innerHTML = "CV";
             personDiv.appendChild(txtArea);
+            personDiv.appendChild(document.createElement("br"));
+            personDiv.appendChild(strEmail);
+            personDiv.appendChild(emailDiv);
             personDiv.appendChild(document.createElement("br"));
             personDiv.appendChild(CVbtn);
             personDiv.appendChild(document.createElement("br"));

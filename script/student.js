@@ -261,6 +261,7 @@ window.onload = function () {
             }
         };
         xhttp.open("POST", "addInterest?jobID=" + jobId + "&message=" + message, true);
+        console.log("Här");
         xhttp.send();
     }
 
@@ -274,7 +275,7 @@ window.onload = function () {
                 getSpecificJob(jobId);
 
                 makeInterestBtn = document.getElementById("makeInterestSubmit");
-                makeInterestBtn.addEventListener("click", (e) => sendInterest(jobId));
+                makeInterestBtn.addEventListener("click", (e) =>sendInterest(jobId));
                 if (val === '0') {
                     document.getElementById("interestDiv").style.display = "none";
                 }

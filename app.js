@@ -67,7 +67,7 @@ app.get('/loggedIn', function (req, resp) {
 
 function getUserID(req) {
     if (req.session && req.session.user) {
-        //console.log("found session");
+        console.log("found session");
         var cookieStr = JSON.stringify(req.session.user);
         var modstr = cookieStr.replace(/["']/g, "");
         var split = modstr.split(",");
@@ -75,6 +75,34 @@ function getUserID(req) {
         var userID = sid[1];
         return userID;
     } else {
+        return ("false");
+    }
+}
+
+function getUser(req) {
+    if (req.session && req.session.user) {
+        //console.log("found session");
+        console.log("REQ");
+        console.log(req.session);
+        var cookieStr = JSON.stringify(req.session.user);
+        console.log(cookieStr);
+        var modstr = cookieStr.replace(/["']/g, "");
+        console.log(modstr);
+        var split = modstr.split(",");
+        console.log(split);
+        var sid = split[0].split(":");
+        console.log(sid);
+        console.log(sid);
+        var userID = sid[1];
+        Mongo.findOne("student", userID, function (result){
+            console.log("**********");
+            console.log(userID);
+            console.log(result);
+            console.log("**********");         
+        });
+        return userID;
+    } else {
+        console.log("**********");
         return ("false");
     }
 }
@@ -175,6 +203,8 @@ app.get('/userDataFromDBStudent', function (req, res) {
         });
     }
 });
+
+
 app.get('/userDataFromDBCompany', function (req, res) {
     console.log("GET /userDataFromDB.html request");
     var userID = getUserID(req);
@@ -244,10 +274,24 @@ app.get('/logout', function (req, resp) {
     resp.send("true");
 });
 app.post('/addInterest', urlEncodedParcer, function (req, res) {
+    console.log("HÄR KOMMER QUERY");
+    console.log(req.query["jobID"]);
+    let userI = getUserID(req);
+    console.log("userID");
+    console.log(userI);
+    var ObjectId = require('mongodb').ObjectId;
+    let o_id = new ObjectId(userI);
+    var person;
+    Mongo.findOne("student",{"_id":o_id}, function(result){
+        person = result;
+        console.log("Person innanför" + result);
+    
     try {
         Mongo.pushInterest(req.query["jobID"], getUserID(req), req.query["message"], function (result) {
             if (result instanceof Error) {
+                
                 if (result.code === 11000) {
+                   
                     console.log("back");
                     res.send("false");
                 }
@@ -281,6 +325,7 @@ app.post('/addInterest', urlEncodedParcer, function (req, res) {
         console.log(error.name);
         console.log(error);
     }
+    });
 
 });
 
