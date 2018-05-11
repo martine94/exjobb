@@ -547,6 +547,11 @@ window.onload = function () {
                 console.log("Filtrerar redan sökta jobb");
                 var obj = JSON.parse(this.response);
                 let newJobList = jobs;
+                if((obj[0].joblist=== undefined || obj[0].joblist.length == 0))
+                {
+                    workAnnouncements(jobs.length, jobs);
+                }
+                else{
                 for (let j = 0; j < obj[0].joblist.length; ++j) {
                     for (let i = 0; i < jobs.length; ++i) {
                         if (jobs[i]._id == obj[0].joblist[j].jobID) {
@@ -555,6 +560,7 @@ window.onload = function () {
                     }
                 }
                 workAnnouncements(newJobList.length, newJobList);
+            }
             }
         };
         xhttp.open("GET", "userDataFromDBStudent", true);
