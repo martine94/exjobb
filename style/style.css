@@ -49,7 +49,7 @@ p.r1{
 	background-color: rgb(74,150,205);
 	margin:0.2em;
 	font-family: Open Sans;
-	padding: 0.3em;
+	padding: 0.3em 0.9em 0.3em 0.9em;
 	/* border:0.2px solid rgb(57, 135, 190); */
 	border:none;
 	outline: none;
