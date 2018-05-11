@@ -186,11 +186,10 @@ window.onload = function () {
                 //console.log(user.cv);
 
                 genderData = user.gender;
-                document.getElementById("sPsw").value += user.pw;
 
-                //for (let i = 0; i < obj[0].keywords.length; i++) {
-                //    document.getElementById(obj[0].keywords[i]).checked = true;
-                //}
+                for (let i = 0; i < obj[0].keywords.length; i++) {
+                   document.getElementById(obj[0].keywords[i]).checked = true;
+                }
 
                 loadButtonsStudentprofile();
                 loadButtonEventsStudentprofile();
