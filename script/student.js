@@ -57,7 +57,6 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("menu-page-content").innerHTML = this.response;
 
-
                 listUserDataFromDB(); //genererar användarinfo
             }
         };
@@ -100,6 +99,7 @@ window.onload = function () {
         xhttp.open("GET", "loadFileStudent?p=" + '/myRecomendedJobs.html', true);
         xhttp.send();
     }
+
     function getMyRecommendedJobs() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -114,6 +114,7 @@ window.onload = function () {
         xhttp.open("GET", "getJobsFromDB", true);
         xhttp.send();
     }
+
     function calculateJobRecommendation(jobList) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -151,6 +152,7 @@ window.onload = function () {
         xhttp.open("GET", "userDataFromDBStudent", true);
         xhttp.send();
     }
+    
     function fillEditProfile() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function (res) {
@@ -383,26 +385,6 @@ window.onload = function () {
         xhttp.send("&cv=" + cvData);
     }
 
-    // function saveProfile() {
-    //     let ListOfKeyWords = [];
-    //     let title = document.getElementById("").value;
-    //     let shortde = document.getElementById("").value;
-    //     let longde = document.getElementById("").value;
-    //     var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
-    //     for (i = 0; i < fullListToCheck.length; i++) {
-    //         if (fullListToCheck[i].checked)
-    //             ListOfKeyWords.push(fullListToCheck[i].id);
-    //     }
-
-    //     for (a = 0; a < ListOfKeyWords.length; a++) {
-    //         console.log(ListOfKeyWords[a]);
-    //     }
-    //     let savedJob = new exJob(title, shortde, longde, ListOfKeyWords);
-    //     console.log(savedJob);
-    //     infoUser.className = "userDataShow";
-    // }
-    loadMyInfo();
-
     function saveProfile() {
         let ListOfKeyWords = [];
         //console.log("CVDATA: " + cvData);
@@ -443,9 +425,6 @@ window.onload = function () {
         
         xhttp.send("&cv=" + cvData);
     }
-    loadMyInfo();
-
-
 
     function sendInterest(jobId) {
         //makeInterestBtn.removeEventListener("click", (e) => sendInterest(jobId));
@@ -559,6 +538,7 @@ window.onload = function () {
         xhttp.open("GET", "getJobsFromDB", true);
         xhttp.send();
     }
+
     function filterAlreadySearchedJobs(jobs) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -599,6 +579,7 @@ window.onload = function () {
         xhttp.open("GET", "getInterestJob", true);
         xhttp.send();
     }
+
     function removeInterest(removeID) {
         console.log("Remove click");
         let jobID = removeID.split(",");
@@ -614,7 +595,6 @@ window.onload = function () {
         xhttp.open("GET", "removeInterest?jobID=" + jobIDstr, true);
         xhttp.send();
     }
-
 
     function workInterests(num, jobbig) {
         var loadingImage = document.getElementById("loadImg");
@@ -685,7 +665,6 @@ window.onload = function () {
         }
     }
 
-
     function workAnnouncements(num, jobb) {
         var loadingImage = document.getElementById("loadImg");
         loadingImage.style.display = 'none';
@@ -747,4 +726,6 @@ window.onload = function () {
             }
         }
     }
+    
+    loadMyInfo();    
 }
