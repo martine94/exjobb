@@ -38,7 +38,6 @@ window.onload = function () {
     //#region functions
 
     function logOut() {
-        console.log("loggaut");
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -133,18 +132,15 @@ window.onload = function () {
                         }
                         recommendationArray.push({ job: jobList[i], count: matchCount })
                     }
-                    console.log(recommendationArray.count);
                     recommendationArray.sort(function (a, b) {
                         return b.count - a.count;
                     });
-                    console.log(recommendationArray);
                     let recToSend = [];
                     for (let i = 0; i < recommendationArray.length; ++i) {
                         if (recommendationArray[i].count > 0) {
                             recToSend.push(recommendationArray[i].job);
                         }
                     }
-                    console.log(recToSend);
                     filterAlreadySearchedJobs(recToSend);
                 }
             }
@@ -158,7 +154,6 @@ window.onload = function () {
         xhttp.onreadystatechange = function (res) {
             if (this.readyState == 4 && this.status == 200) {
                 //removeBrace = this.responseText.replace(/[\[\]']+/g, "");
-                console.log(JSON.parse(this.response));
                 var obj = JSON.parse(this.response);
                 var user = {
                     id: obj[0]._id,
@@ -185,7 +180,6 @@ window.onload = function () {
                     document.getElementById("pdfStatus").innerHTML = "CV upladdat";
                     cvData = user.ucv.replace(/ /g, '+'); //replace all whitespace with +
                 }
-                //console.log(user.cv);
 
                 genderData = user.gender;
 
@@ -207,7 +201,6 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // removeBrace = this.responseText.replace(/[\[\]']+/g, "");
                 var obj = JSON.parse(this.response);
-                console.log(obj[0]._id);
                 var user = {
                     id: obj[0]._id,
                     name: obj[0].name,
@@ -216,7 +209,6 @@ window.onload = function () {
                     email: obj[0].uemail,
                     pw: obj[0].password
                 }
-                console.log(user);
                 document.getElementById("idS").innerHTML += user.id;
                 document.getElementById("ufnameS").innerHTML += user.name;
                 document.getElementById("ulnameS").innerHTML += user.ulname;
@@ -301,7 +293,6 @@ window.onload = function () {
     }
 
     function showHide(elements) {
-        console.log("Inside ShowHide-function");
         if (elements.className === "content") {
             elements.className = "contentShow";
         }
@@ -314,7 +305,6 @@ window.onload = function () {
     }
 
     function manageSelectedFile() {
-        console.log("managing file...");
         if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
             throw ("The file API needed is not supported in this browser!");
         }
@@ -374,7 +364,6 @@ window.onload = function () {
 
         var keywords = "";
         var cv = cvData;
-        //console.log(cv); //use at own risk...
         var xhttp = new XMLHttpRequest();
         xhttp.open("POST", "/changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu
             + "&uemail=" + uemail + "&uname=" + uname + "&psw=" + psw + "&gender=" + genderData + "&keywords=" + keywords, true);
@@ -406,9 +395,7 @@ window.onload = function () {
         }
 
         for (a = 0; a < ListOfKeyWords.length; a++) {
-            console.log(ListOfKeyWords[a]);
         }
-        console.log(userObj);
         userObj.keywords = ListOfKeyWords;
         userString = JSON.stringify(userObj);
         var xhttp = new XMLHttpRequest();
@@ -428,25 +415,20 @@ window.onload = function () {
 
     function sendInterest(jobId) {
         //makeInterestBtn.removeEventListener("click", (e) => sendInterest(jobId));
-        console.log("Intresseanmälan");
         var message = document.getElementById("Interestmessage").value;
-        console.log(message);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.response === "true") {
-                    console.log("sent intresseanmälan sucess");
                     loadMyInterests();
                 }
             }
         };
         xhttp.open("POST", "addInterest?jobID=" + jobId + "&message=" + message, true);
-        console.log("Här");
         xhttp.send();
     }
 
     function showMoreInfoBtn(jobId, val) {
-        console.log(val);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -474,13 +456,10 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // document.getElementById("option-page-content").innerHTML = this.response;
-                console.log("JOBB HÄMTADE");
                 var jobs = JSON.parse(this.response);
 
                 document.getElementById("logga").src = jobs[0].logoURL;
-                console.log(jobs[0].logoURL)
                 document.getElementById("rubrik").innerHTML = jobs[0].tile;
-                console.log(jobs[0].tile)
                 document.getElementById("shortDescriprion").innerHTML = jobs[0].shortdesc;
                 document.getElementById("longDescriprion").innerHTML = jobs[0].longdesc;
                 var keyWords = document.getElementById("keyWordArea");
@@ -530,7 +509,6 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // document.getElementById("option-page-content").innerHTML = this.response;
-                console.log("JOBB HÄMTADE");
                 var jobs = JSON.parse(this.response);
                 filterAlreadySearchedJobs(jobs);
                 //workAnnouncements(jobs.length, jobs);
@@ -544,7 +522,6 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                console.log("Filtrerar redan sökta jobb");
                 var obj = JSON.parse(this.response);
                 let newJobList = jobs;
                 if((obj[0].joblist=== undefined || obj[0].joblist.length == 0))
@@ -572,13 +549,11 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.response === "false") {
-                    console.log("No intresseanmälan");
                     var loadingImage = document.getElementById("loadImg");
                     loadingImage.style.display = 'none';
                     document.getElementById("msg").innerHTML = "Du har inga intresseanmälningar."
                 } else {
                     let jobb = JSON.parse(this.response);
-                    console.log(jobb);
                     workInterests(jobb.length, jobb);
                 }
             }
@@ -588,7 +563,6 @@ window.onload = function () {
     }
 
     function removeInterest(removeID) {
-        console.log("Remove click");
         let jobID = removeID.split(",");
         jobIDstr = jobID[0];
         var xhttp = new XMLHttpRequest();
@@ -607,11 +581,9 @@ window.onload = function () {
         var loadingImage = document.getElementById("loadImg");
         loadingImage.style.display = 'none';
         workAnnouncement.innerHTML = "";
-        //console.log(jobb);
         for (var i = 0; i < num; i++) {
             var jobb = jobbig[i].jobs;
             var message = jobbig[i].message;
-            console.log(jobb);
 
             var outerDiv = document.createElement("div");
             outerDiv.className = "jobsSmall";
