@@ -13,14 +13,13 @@ window.onload = function () {
             this.interestList={};
         }
     }
-
+    var currentPage="";
     //#region buttons
     var newExJobBtn = document.getElementById("newExJobBtn");
     var myOffersBtn = document.getElementById("myOffersBtn");
     var myProfileBtn = document.getElementById("myProfileBtn");
     var myInfoBtn = document.getElementById("myInfoBtn");
     var logOutCompanyBtn = document.getElementById("logOutCompanyBtn");
-
     //#region div
     var interestArea = document.getElementById("menu-page-content");
 
@@ -270,6 +269,19 @@ window.onload = function () {
 
         }
     }
+    function SetCurrentPage(currentPageBtn){
+        if(currentPage===""){
+            currentPage=currentPageBtn;
+        }
+        else{
+            currentPage.classList.remove('bColorDarkBlue');
+            currentPage.classList.add('bColorBlue');
+        }
+        currentPage=currentPageBtn;
+        currentPageBtn.classList.remove('bColorBlue');
+        currentPageBtn.classList.add('bColorDarkBlue');
+
+    }
 
     function loadShowExJob(jobId) {
         var xhttp = new XMLHttpRequest();
@@ -362,6 +374,7 @@ window.onload = function () {
     //ExJobb
 
     function loadNewExJob() {
+        SetCurrentPage(newExJobBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -480,6 +493,7 @@ window.onload = function () {
 
     //Offers
     function loadMyOffers() {
+        SetCurrentPage(myOffersBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -508,6 +522,8 @@ window.onload = function () {
 
     //Change Profile
     function loadMyProfile() {
+        SetCurrentPage(myProfileBtn);
+
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -603,6 +619,7 @@ window.onload = function () {
     }
 
     function loadMyInfo() {
+        SetCurrentPage(myInfoBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
