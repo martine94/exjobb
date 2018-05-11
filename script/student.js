@@ -1,5 +1,5 @@
 window.onload = function () {
-
+    var currentPage="";
     //#region buttons
     var interestsBtn = document.getElementById("interestsBtn");
     var mySPagesBtn = document.getElementById("mySPagesBtn");
@@ -49,8 +49,21 @@ window.onload = function () {
         xhttp.open("GET", "logout", true);
         xhttp.send();
     }
+    function SetCurrentPage(currentPageBtn){
+        if(currentPage===""){
+            currentPage=currentPageBtn;
+        }
+        else{
+            currentPage.classList.remove('bColorDarkBlue');
+            currentPage.classList.add('bColorBlue');
+        }
+        currentPage=currentPageBtn;
+        currentPageBtn.classList.remove('bColorBlue');
+        currentPageBtn.classList.add('bColorDarkBlue');
 
+    }
     function loadMyInfo() {
+        SetCurrentPage(mySInfoBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -64,6 +77,7 @@ window.onload = function () {
     }
 
     function loadMyInterests() {
+        SetCurrentPage(interestsBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -76,6 +90,7 @@ window.onload = function () {
     }
 
     function loadMyProfile() {
+        SetCurrentPage(mySPagesBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -100,6 +115,7 @@ window.onload = function () {
     }
 
     function getMyRecommendedJobs() {
+        SetCurrentPage(recomendedJobBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -492,6 +508,7 @@ window.onload = function () {
     }
 
     function loadCatalog() {
+        SetCurrentPage(lookAtJobBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
