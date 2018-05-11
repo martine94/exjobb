@@ -113,12 +113,12 @@ window.onload = function () {
         }
         let ListOfKeyWords = [];
         var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
-        for (i = 0; i < fullListToCheck.length; i++) {
+        for (let i = 0; i < fullListToCheck.length; i++) {
             if (fullListToCheck[i].checked)
                 ListOfKeyWords.push(fullListToCheck[i].id);
         }
         exjobb2.keywords = ListOfKeyWords;
-        stringExjobb = JSON.stringify(exjobb2);
+        let stringExjobb = JSON.stringify(exjobb2);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -215,7 +215,9 @@ window.onload = function () {
 
 
     function workAnnouncements(num, jobb) {
-
+        var loadingImage = document.getElementById("loadImg");
+        loadingImage.style.display = 'none';
+        workAnnouncement.innerHTML="";
         for (var i = 0; i < num; i++) {
 
             var outerDiv = document.createElement("div");

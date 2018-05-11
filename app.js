@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 var Mongo = require('./mongo/mongo.js');
 var urlEncodedParcer = bodyParser.urlencoded({ extended: true });
 var session = require('client-sessions'); //kommentera ut denna om ni inte har Sessions installerat
@@ -328,7 +331,31 @@ app.post('/addInterest', urlEncodedParcer, function (req, res) {
     });
 
 });
-
+app.post('/changeStudentInfo',urlEncodedParcer,function(req,res){
+    let userObj= JSON.parse(req.query["userObj"]);
+    userObj["cv"] = req.body["cv"];
+    try {
+        let studentID = getUserID(req);
+        Mongo.changeUserInfo('student',studentID, userObj, function (result) {
+            if (result instanceof Error) {
+                console.log("Error!");
+                if (result.code === 11000) {
+                    console.log("back");
+                    res.send("false");
+                }
+            }
+            else {
+                console.log("Probably Sucess!");
+                res.send("true");
+            }
+        });
+    }
+    catch (error) {
+        console.log("Caught error!");
+        console.log(error.name);
+        console.log(error);
+    }
+});
 app.post('/changeCompanyInfo', urlEncodedParcer, function (req, res) {
     console.log("company change POST request");
     var user = {
@@ -343,12 +370,10 @@ app.post('/changeCompanyInfo', urlEncodedParcer, function (req, res) {
         about: req.query["cAboutUs"]
     }
     try {
-        myQuery = getUserID(req);
-        //    console.log(myQuery);
-        Mongo.changeCompanyInfo(myQuery, user, function (result) {
+        let companyID = getUserID(req);
+        Mongo.changeUserInfo('company',companyID, user, function (result) {
             if (result instanceof Error) {
                 console.log("Error!");
-                // console.log(result);
                 if (result.code === 11000) {
                     console.log("back");
                     res.send("false");
@@ -432,6 +457,44 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
     }
 });
 
+app.post('/changeStudentInfo',urlEncodedParcer, function(req,res){
+    console.log("student change POST request");
+    var user={
+        name: req.query["ufname"],
+        lastname: req.query["ulname"],
+        city: req.query["ucity"],
+        ueducation: req.query["uedu"],
+        uemail: req.query["uemail"],
+        uname: req.query["uname"],
+        password: req.query["psw"],
+        gender: req.query["gender"],
+        keywords: req.query["keywords"],
+        cv: req.body["cv"]
+    }
+    try {
+        myQuery=getUserID(req);
+       console.log(myQuery);
+        Mongo.changeStudentInfo(myQuery,user,function (result) {
+            if (result instanceof Error) {
+                console.log("Error!");
+                console.log(result);
+                if (result.code === 11000) {
+                    console.log("back");
+                    res.send("false");
+                }
+            }
+            else {
+                console.log("Probably Sucess!");
+                res.send("true");
+            }
+        });
+    }
+    catch (error) {
+        console.log("Caught error!");
+        console.log(error.name);
+        console.log(error);
+    }
+});
 app.post('/register_student', urlEncodedParcer, function (req, resp) {
     console.log("student register POST request");
     response = {
@@ -442,7 +505,10 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
         uemail: req.query["uemail"],
         uname: req.query["uname"],
         password: req.query["psw"],
-        gender: req.query["gender"]
+        gender: req.query["gender"],
+        keywords: [],
+        joblist:[],
+        cv: req.query["cv"]
     };
     // console.log(response)
     try {

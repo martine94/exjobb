@@ -58,13 +58,13 @@ module.exports = {
       });
     });
   },
-  changeCompanyInfo:function(myQuery,newValues,callback){
+  changeUserInfo:function(table,userID,newValues,callback){
     MongoClient.connect(url, function (err, db) {
       if (err) throw err;
       var dbo = db.db(database);
-      console.log(myQuery);
+      console.log(userID);
       var ObjectId = require('mongodb').ObjectID;
-      dbo.collection('company').update({"_id": new ObjectId(myQuery)},{$set: newValues},function (err, result) {
+      dbo.collection(table).update({"_id": new ObjectId(userID)},{$set: newValues},function (err, result) {
         db.close();
         callback(result);
       });
@@ -155,7 +155,7 @@ module.exports = {
         }
       });
     });
-},
+  },
   addCompany: function(company, callback)
   {
     MongoClient.connect(url, function(err, db) {
@@ -176,9 +176,21 @@ module.exports = {
         }
       });
     });
-},
+  },
 
-addStudent: function(student, callback)
+  changeStudentInfo:function(myQuery,newValues,callback){
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db(database);
+      console.log(myQuery);
+      var ObjectId = require('mongodb').ObjectID;
+      dbo.collection('student').update({"_id": new ObjectId(myQuery)},{$set: newValues},function (err, result) {
+        db.close();
+        callback(result);
+      });
+    });
+  },
+  addStudent: function(student, callback)
   {
     MongoClient.connect(url, function(err, db) {
       if (err) callback(err);
@@ -199,8 +211,10 @@ addStudent: function(student, callback)
         }
       });
     });
-},
-pushInterestToStudent:function(jobID,studentID,message,callback){
+  },
+
+
+  pushInterestToStudent:function(jobID,studentID,message,callback){
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db(database);

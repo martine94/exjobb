@@ -237,8 +237,15 @@ padding: 5%;
 	cursor: pointer;
 	color: #aaa;
 }
+.containerOfKeyWords:hover{
+	background-color:white;
+}
 .showDropDownMenu:hover,
 
+
+.submitBtn:hover,
+.mediumBtn:hover,
+.menuBtn:hover,
 .darkerBlueOnHov:hover{
 	background-color:rgb(45, 123, 175);
 
@@ -272,7 +279,11 @@ padding: 5%;
     background-color: rgba(0,0,0,0.4); 
 }
 
-
+.loadingImg{
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 /* Modal Content/Box */
 .modal-content {
     background-color: white;

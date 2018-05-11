@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<div class=information>
+    <div class="whiteB">
+        <span id="closeExJob" class="close">&times;</span>
+        <div class="jobTop">
+            <img id="logga" class="jobLogo">
+            <h2 id="rubrik" class="jobHeader"></h2>
+        </div>
+        <div class="jobInformation">
+            <b id="shortDescriprion"></b>
+            <br>
+            <br>
+            <b>Om tjänsten</b>
+            <p id="longDescriprion"></p>
+            <b>Område</b>
+            <div id="keyWordArea"></div>
+        </div>
+        <br>
+        <div id="interestDiv">
+<<<<<<< HEAD
+            <div>
+                <p>Kort meddelande:</p>
+                <textarea class="descriptionBoxes" name="" id="Interestmessage" maxlength="150"></textarea>
+            </div>
+            <button class="floatRight" id="makeInterestSubmit"> Lämna intresseanmälan </button>
+        </div>
+=======
+<div>
+    <p>Kort meddelande till företag:</p>
+    <textarea class="descriptionBoxes" name="" id="Interestmessage" maxlength="150"></textarea>
+</div>
+        <button class="floatRight" id="makeInterestSubmit" onClick="this.disabled = true;"> Lämna intresseanmälan   </button>
+    </div>
+>>>>>>> a6ae7396de9f6f32b109580cdf1a078baf4279c4
+        <div>
+
+        </div>
+    </div>
+</div>
+
+</html>
