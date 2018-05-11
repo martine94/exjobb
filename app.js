@@ -288,7 +288,7 @@ app.post('/addInterest', urlEncodedParcer, function (req, res) {
 });
 app.post('/changeStudentInfo',urlEncodedParcer,function(req,res){
     let userObj= JSON.parse(req.query["userObj"]);
-    userObj["cv"] = req.data["cv"];
+    userObj["cv"] = req.body["cv"];
     try {
         let studentID = getUserID(req);
         Mongo.changeUserInfo('student',studentID, userObj, function (result) {

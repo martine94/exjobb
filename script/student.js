@@ -181,7 +181,7 @@ window.onload = function () {
 
                 if (typeof user.ucv !== 'undefined' && user.ucv) {
                     document.getElementById("pdfStatus").innerHTML = "CV upladdat";
-                    cvData = user.ucv.replace(/ /g, '+');
+                    cvData = user.ucv.replace(/ /g, '+'); //replace all whitespace with +
                 }
                 //console.log(user.cv);
 
@@ -344,16 +344,19 @@ window.onload = function () {
     }
 
     function readCvData() {
-        document.getElementById('pdfSpace').height = "1000em";
-        document.getElementById('pdfSpace').data = cvData;
-        console.log(cvData);
-        loadCvBtn.innerHTML = "Stäng " + UploadOrSaved + " cv(pdf)";
+        if(cvData)
+        {
+            document.getElementById('pdfSpace').height = "1000em";
+            document.getElementById('pdfSpace').data = cvData;
+            console.log(cvData);
+            loadCvBtn.innerHTML = "Stäng " + UploadOrSaved + " cv(pdf)";
 
-        loadCvBtn.onclick = () => {
-            document.getElementById('pdfSpace').data = "";
-            document.getElementById('pdfSpace').height = "0em";
-            loadCvBtn.onclick = readCvData;
-            loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
+            loadCvBtn.onclick = () => {
+                document.getElementById('pdfSpace').data = "";
+                document.getElementById('pdfSpace').height = "0em";
+                loadCvBtn.onclick = readCvData;
+                loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
+            }
         }
     }
 
@@ -375,9 +378,9 @@ window.onload = function () {
         xhttp.open("POST", "/changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu
             + "&uemail=" + uemail + "&uname=" + uname + "&psw=" + psw + "&gender=" + genderData + "&keywords=" + keywords, true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
-        xhttp.onreadystatechange = () => {
-            console.log(xhttp);
-        }
+        // xhttp.onreadystatechange = () => {
+        //     console.log(xhttp);
+        // }
         xhttp.send("&cv=" + cvData);
     }
 
@@ -403,7 +406,7 @@ window.onload = function () {
 
     function saveProfile() {
         let ListOfKeyWords = [];
-        console.log("CVDATA: " + cvData);
+        //console.log("CVDATA: " + cvData);
         console.log("Starting to save");
         var userObj = {
             name: document.getElementById("sFName").value,
@@ -436,7 +439,10 @@ window.onload = function () {
             }
         };
         xhttp.open("POST", "changeStudentInfo?userObj=" + userString, true);
-        xhttp.send("&cv" + cvData);
+
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
+        
+        xhttp.send("&cv=" + cvData);
     }
     loadMyInfo();
 
