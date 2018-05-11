@@ -264,8 +264,11 @@ window.onload = function () {
             logo.src = jobb[i].logoURL; //ladda in logga
             newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
             readBtn.addEventListener("click", (e) => loadShowExJob(readBtn.id));
+            readBtn.classList.add("btn1");
             changeBtn.addEventListener("click", (e) => loadChangeExJob(readBtn.id));
+            changeBtn.classList.add("btn1");
             interestBtn.addEventListener("click", (e) => loadInterests(readBtn.id));
+            interestBtn.classList.add("btn1");
 
         }
     }

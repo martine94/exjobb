@@ -44,7 +44,16 @@ p.r1{
 	width:12.6em;
 	height: 100%;
 }
-
+.btn1{
+	color:white;
+	background-color: rgb(74,150,205);
+	margin:0.2em;
+	font-family: Open Sans;
+	padding: 0.3em;
+	/* border:0.2px solid rgb(57, 135, 190); */
+	border:none;
+	outline: none;
+}
 
 .mediumBtn{
 	border:none;
@@ -242,8 +251,7 @@ padding: 5%;
 	background-color:white;
 }
 .showDropDownMenu:hover,
-
-
+.btn1:hover,
 .submitBtn:hover,
 .mediumBtn:hover,
 .menuBtn:hover,
@@ -330,7 +338,7 @@ input[type=text],input[type=password]{
 .floatLeft{
 	float: left;
 }
-.floatLeft{
+.floatRight{
 	float: right;
 }
 .alignRight{
