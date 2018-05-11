@@ -322,6 +322,8 @@ window.onload = function () {
             
             personDiv.className = "jobsSmall";
             let emailDiv = document.createElement("div");
+            console.log("UEMAIL");
+            console.log(studentList[i]);
             emailDiv.innerHTML = studentList[i].studentID[0].uemail;
 
             let txtArea = document.createElement("div");

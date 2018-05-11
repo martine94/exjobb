@@ -290,7 +290,7 @@ app.post('/addInterest', urlEncodedParcer, function (req, res) {
         console.log("Person innanför" + result);
     
     try {
-        Mongo.pushInterest(req.query["jobID"], getUserID(req), req.query["message"], function (result) {
+        Mongo.pushInterest(req.query["jobID"], result, req.query["message"], function (result) {
             if (result instanceof Error) {
                 
                 if (result.code === 11000) {
