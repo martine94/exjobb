@@ -1,5 +1,5 @@
 window.onload = function () {
-
+    var currentPage="";
     //#region buttons
     var interestsBtn = document.getElementById("interestsBtn");
     var mySPagesBtn = document.getElementById("mySPagesBtn");
@@ -38,7 +38,6 @@ window.onload = function () {
     //#region functions
 
     function logOut() {
-        console.log("loggaut");
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -50,13 +49,25 @@ window.onload = function () {
         xhttp.open("GET", "logout", true);
         xhttp.send();
     }
+    function SetCurrentPage(currentPageBtn){
+        if(currentPage===""){
+            currentPage=currentPageBtn;
+        }
+        else{
+            currentPage.classList.remove('bColorDarkBlue');
+            currentPage.classList.add('bColorBlue');
+        }
+        currentPage=currentPageBtn;
+        currentPageBtn.classList.remove('bColorBlue');
+        currentPageBtn.classList.add('bColorDarkBlue');
 
+    }
     function loadMyInfo() {
+        SetCurrentPage(mySInfoBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("menu-page-content").innerHTML = this.response;
-
 
                 listUserDataFromDB(); //genererar användarinfo
             }
@@ -66,6 +77,7 @@ window.onload = function () {
     }
 
     function loadMyInterests() {
+        SetCurrentPage(interestsBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -78,6 +90,7 @@ window.onload = function () {
     }
 
     function loadMyProfile() {
+        SetCurrentPage(mySPagesBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -100,13 +113,15 @@ window.onload = function () {
         xhttp.open("GET", "loadFileStudent?p=" + '/myRecomendedJobs.html', true);
         xhttp.send();
     }
+
     function getMyRecommendedJobs() {
+        SetCurrentPage(recomendedJobBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 //document.getElementById("menu-page-content").innerHTML = this.response;
-                if(this.response.length>0){
-                    let jobList=JSON.parse(this.response);
+                if (this.response.length > 0) {
+                    let jobList = JSON.parse(this.response);
                     calculateJobRecommendation(jobList);
                 }
             }
@@ -114,36 +129,34 @@ window.onload = function () {
         xhttp.open("GET", "getJobsFromDB", true);
         xhttp.send();
     }
-    function calculateJobRecommendation(jobList){
+
+    function calculateJobRecommendation(jobList) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 //document.getElementById("menu-page-content").innerHTML = this.response;
-                if(this.response.length>0){
-                    let user=JSON.parse(this.response);
-                    let recommendationArray=[{}];
-                    var matchCount=0;
-                    for(let i=0;i<jobList.length;++i){
-                        matchCount=0;
-                        for(let j=0;j<jobList[i].keywords.length;++j){
-                            if(user[0].keywords.includes(jobList[i].keywords[j])){
+                if (this.response.length > 0) {
+                    let user = JSON.parse(this.response);
+                    let recommendationArray = [{}];
+                    var matchCount = 0;
+                    for (let i = 0; i < jobList.length; ++i) {
+                        matchCount = 0;
+                        for (let j = 0; j < jobList[i].keywords.length; ++j) {
+                            if (user[0].keywords.includes(jobList[i].keywords[j])) {
                                 matchCount++;
                             }
                         }
-                        recommendationArray.push({job:jobList[i],count:matchCount})
+                        recommendationArray.push({ job: jobList[i], count: matchCount })
                     }
-                    console.log(recommendationArray.count);
-                    recommendationArray.sort(function(a,b){
-                        return b.count-a.count;
+                    recommendationArray.sort(function (a, b) {
+                        return b.count - a.count;
                     });
-                    console.log(recommendationArray);
-                    let recToSend=[];
-                    for(let i=0;i<recommendationArray.length;++i){
-                        if(recommendationArray[i].count>0){
-                        recToSend.push(recommendationArray[i].job);
+                    let recToSend = [];
+                    for (let i = 0; i < recommendationArray.length; ++i) {
+                        if (recommendationArray[i].count > 0) {
+                            recToSend.push(recommendationArray[i].job);
                         }
                     }
-                    console.log(recToSend);
                     filterAlreadySearchedJobs(recToSend);
                 }
             }
@@ -151,12 +164,12 @@ window.onload = function () {
         xhttp.open("GET", "userDataFromDBStudent", true);
         xhttp.send();
     }
+    
     function fillEditProfile() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function (res) {
             if (this.readyState == 4 && this.status == 200) {
                 //removeBrace = this.responseText.replace(/[\[\]']+/g, "");
-                console.log(JSON.parse(this.response));
                 var obj = JSON.parse(this.response);
                 var user = {
                     id: obj[0]._id,
@@ -168,7 +181,7 @@ window.onload = function () {
                     uname: obj[0].uname,
                     pw: obj[0].password,
                     gender: obj[0].gender,
-                    ucv: obj[0].cv 
+                    ucv: obj[0].cv
                 }
                 document.getElementById("sFName").value += user.name;
                 document.getElementById("sLName").value += user.ulname;
@@ -177,21 +190,18 @@ window.onload = function () {
                 document.getElementById("sUname").value += user.uname;
                 document.getElementById("sEmail").value += user.email;
                 document.getElementById("sPsw").value += user.pw;
-                
-                
-                if(typeof user.ucv !== 'undefined' && user.ucv)
-                {
+
+
+                if (typeof user.ucv !== 'undefined' && user.ucv) {
                     document.getElementById("pdfStatus").innerHTML = "CV upladdat";
-                    cvData = user.ucv.replace(/ /g, '+');
+                    cvData = user.ucv.replace(/ /g, '+'); //replace all whitespace with +
                 }
-                //console.log(user.cv);
 
                 genderData = user.gender;
-                document.getElementById("sPsw").value += user.pw;
 
-                //for (let i = 0; i < obj[0].keywords.length; i++) {
-                //    document.getElementById(obj[0].keywords[i]).checked = true;
-                //}
+                for (let i = 0; i < obj[0].keywords.length; i++) {
+                   document.getElementById(obj[0].keywords[i]).checked = true;
+                }
 
                 loadButtonsStudentprofile();
                 loadButtonEventsStudentprofile();
@@ -207,7 +217,6 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // removeBrace = this.responseText.replace(/[\[\]']+/g, "");
                 var obj = JSON.parse(this.response);
-                console.log(obj[0]._id);
                 var user = {
                     id: obj[0]._id,
                     name: obj[0].name,
@@ -216,7 +225,6 @@ window.onload = function () {
                     email: obj[0].uemail,
                     pw: obj[0].password
                 }
-                console.log(user);
                 document.getElementById("idS").innerHTML += user.id;
                 document.getElementById("ufnameS").innerHTML += user.name;
                 document.getElementById("ulnameS").innerHTML += user.ulname;
@@ -242,11 +250,11 @@ window.onload = function () {
         other = document.getElementById("TheRest");
         keyBtn = document.getElementById("KeyWordBtn");
         saveBtn = document.getElementById("saveBtn");
-        
+
         loadCvBtn = document.getElementById("pdfOpen");
-        fileInpt = document.getElementById("pdfUpload");    
-        pdfStatus = document.getElementById("pdfStatus");  
-        
+        fileInpt = document.getElementById("pdfUpload");
+        pdfStatus = document.getElementById("pdfStatus");
+
         saveBtnStudent = document.getElementById("saveBtnStudent");
         cancelBtnStudent = document.getElementById("cancelBtnStudent");
     }
@@ -267,12 +275,12 @@ window.onload = function () {
         // databaseBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(databaseBtn, 0, databases));
         // otherBtn.addEventListener("mouseover", (e) => hoverNewKeywords(otherBtn, 1, other));
         // otherBtn.addEventListener("mouseleave", (e) => hoverNewKeywords(otherBtn, 0, other));
-        
+
         saveBtnStudent.addEventListener("click", saveProfile);
 
         fileInpt.addEventListener("change", manageSelectedFile);
         loadCvBtn.onclick = readCvData;
-        
+
         cancelBtnStudent.addEventListener("click", (e) => loadMyInfo());
     }
 
@@ -301,7 +309,6 @@ window.onload = function () {
     }
 
     function showHide(elements) {
-        console.log("Inside ShowHide-function");
         if (elements.className === "content") {
             elements.className = "contentShow";
         }
@@ -313,50 +320,50 @@ window.onload = function () {
 
     }
 
-    function manageSelectedFile(){
-        console.log("managing file...");
-        if(!window.File || !window.FileReader || !window.FileList || !window.Blob)
-        {
-            throw("The file API needed is not supported in this browser!");
-        }        
+    function manageSelectedFile() {
+        if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+            throw ("The file API needed is not supported in this browser!");
+        }
         input = document.getElementById('pdfUpload');
 
-        if(!input){
+        if (!input) {
             console.error("can't find input element!");
         }
-        else if(!input.files){
+        else if (!input.files) {
             console.error("this browser does not support the files property of input!");
         }
-        else if(!input.files[0]){
+        else if (!input.files[0]) {
             console.log("no file selected");
         }
-        else
-        {
+        else {
             file = input.files[0];
             fr = new FileReader();
-            fr.onload = () =>{
+            fr.onload = () => {
                 //do something with the file code
                 cvData = fr.result;
                 console.log("sucessfully stored file");
                 UploadOrSaved = "uppladdat";
-            loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";                
+                loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
                 pdfStatus.innerHTML = "Glöm inte klicka spara för att ladda upp ditt cv!";
-            } 
+            }
             fr.readAsDataURL(file);
         }
     }
 
-    function readCvData(){
-        document.getElementById('pdfSpace').height = "1000em";
-        document.getElementById('pdfSpace').data = cvData;
-        console.log(cvData);
-        loadCvBtn.innerHTML = "Stäng "  + UploadOrSaved +" cv(pdf)";
+    function readCvData() {
+        if(cvData)
+        {
+            document.getElementById('pdfSpace').height = "1000em";
+            document.getElementById('pdfSpace').data = cvData;
+            console.log(cvData);
+            loadCvBtn.innerHTML = "Stäng " + UploadOrSaved + " cv(pdf)";
 
-        loadCvBtn.onclick = () => {
-            document.getElementById('pdfSpace').data = "";            
-            document.getElementById('pdfSpace').height = "0em";
-            loadCvBtn.onclick = readCvData;
-            loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
+            loadCvBtn.onclick = () => {
+                document.getElementById('pdfSpace').data = "";
+                document.getElementById('pdfSpace').height = "0em";
+                loadCvBtn.onclick = readCvData;
+                loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
+            }
         }
     }
 
@@ -365,48 +372,27 @@ window.onload = function () {
         var ufname = document.getElementById("sFName").value;
         var ulname = document.getElementById("sLName").value;
         var ucity = "";//document.getElementById("Undefined").value;
-        var uedu= document.getElementById("sEdu").value;
-        var uemail= document.getElementById("sEmail").value;
-        var uname= document.getElementById("sUname").value;
-        var psw= document.getElementById("sPsw").value;
-        var gender= "male";
+        var uedu = document.getElementById("sEdu").value;
+        var uemail = document.getElementById("sEmail").value;
+        var uname = document.getElementById("sUname").value;
+        var psw = document.getElementById("sPsw").value;
+        var gender = "male";
 
         var keywords = "";
         var cv = cvData;
-        //console.log(cv); //use at own risk...
         var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "/changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu 
-        + "&uemail=" + uemail+ "&uname=" + uname + "&psw=" + psw + "&gender=" + genderData +  "&keywords=" + keywords, true);
+        xhttp.open("POST", "/changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu
+            + "&uemail=" + uemail + "&uname=" + uname + "&psw=" + psw + "&gender=" + genderData + "&keywords=" + keywords, true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
-        xhttp.onreadystatechange = () =>
-        {
-           console.log(xhttp);
-        }
+        // xhttp.onreadystatechange = () => {
+        //     console.log(xhttp);
+        // }
         xhttp.send("&cv=" + cvData);
     }
 
-    // function saveProfile() {
-    //     let ListOfKeyWords = [];
-    //     let title = document.getElementById("").value;
-    //     let shortde = document.getElementById("").value;
-    //     let longde = document.getElementById("").value;
-    //     var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
-    //     for (i = 0; i < fullListToCheck.length; i++) {
-    //         if (fullListToCheck[i].checked)
-    //             ListOfKeyWords.push(fullListToCheck[i].id);
-    //     }
-
-    //     for (a = 0; a < ListOfKeyWords.length; a++) {
-    //         console.log(ListOfKeyWords[a]);
-    //     }
-    //     let savedJob = new exJob(title, shortde, longde, ListOfKeyWords);
-    //     console.log(savedJob);
-    //     infoUser.className = "userDataShow";
-    // }
-    loadMyInfo();
-
     function saveProfile() {
         let ListOfKeyWords = [];
+        //console.log("CVDATA: " + cvData);
         console.log("Starting to save");
         var userObj = {
             name: document.getElementById("sFName").value,
@@ -425,9 +411,7 @@ window.onload = function () {
         }
 
         for (a = 0; a < ListOfKeyWords.length; a++) {
-            console.log(ListOfKeyWords[a]);
         }
-        console.log(userObj);
         userObj.keywords = ListOfKeyWords;
         userString = JSON.stringify(userObj);
         var xhttp = new XMLHttpRequest();
@@ -439,22 +423,19 @@ window.onload = function () {
             }
         };
         xhttp.open("POST", "changeStudentInfo?userObj=" + userString, true);
-        xhttp.send("&cv" + cvData);
+
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
+        
+        xhttp.send("&cv=" + cvData);
     }
-    loadMyInfo();
-
-
 
     function sendInterest(jobId) {
         //makeInterestBtn.removeEventListener("click", (e) => sendInterest(jobId));
-        console.log("Intresseanmälan");
         var message = document.getElementById("Interestmessage").value;
-        console.log(message);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.response === "true") {
-                    console.log("sent intresseanmälan sucess");
                     loadMyInterests();
                 }
             }
@@ -464,7 +445,6 @@ window.onload = function () {
     }
 
     function showMoreInfoBtn(jobId, val) {
-        console.log(val);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -473,7 +453,7 @@ window.onload = function () {
                 getSpecificJob(jobId);
 
                 makeInterestBtn = document.getElementById("makeInterestSubmit");
-                makeInterestBtn.addEventListener("click", (e) => sendInterest(jobId));
+                makeInterestBtn.addEventListener("click", (e) =>sendInterest(jobId));
                 if (val === '0') {
                     document.getElementById("interestDiv").style.display = "none";
                 }
@@ -492,13 +472,10 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // document.getElementById("option-page-content").innerHTML = this.response;
-                console.log("JOBB HÄMTADE");
                 var jobs = JSON.parse(this.response);
 
                 document.getElementById("logga").src = jobs[0].logoURL;
-                console.log(jobs[0].logoURL)
                 document.getElementById("rubrik").innerHTML = jobs[0].tile;
-                console.log(jobs[0].tile)
                 document.getElementById("shortDescriprion").innerHTML = jobs[0].shortdesc;
                 document.getElementById("longDescriprion").innerHTML = jobs[0].longdesc;
                 var keyWords = document.getElementById("keyWordArea");
@@ -531,6 +508,7 @@ window.onload = function () {
     }
 
     function loadCatalog() {
+        SetCurrentPage(lookAtJobBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -548,7 +526,6 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // document.getElementById("option-page-content").innerHTML = this.response;
-                console.log("JOBB HÄMTADE");
                 var jobs = JSON.parse(this.response);
                 filterAlreadySearchedJobs(jobs);
                 //workAnnouncements(jobs.length, jobs);
@@ -557,13 +534,18 @@ window.onload = function () {
         xhttp.open("GET", "getJobsFromDB", true);
         xhttp.send();
     }
+
     function filterAlreadySearchedJobs(jobs) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                console.log("Filtrerar redan sökta jobb");
                 var obj = JSON.parse(this.response);
                 let newJobList = jobs;
+                if((obj[0].joblist=== undefined || obj[0].joblist.length == 0))
+                {
+                    workAnnouncements(jobs.length, jobs);
+                }
+                else{
                 for (let j = 0; j < obj[0].joblist.length; ++j) {
                     for (let i = 0; i < jobs.length; ++i) {
                         if (jobs[i]._id == obj[0].joblist[j].jobID) {
@@ -572,6 +554,7 @@ window.onload = function () {
                     }
                 }
                 workAnnouncements(newJobList.length, newJobList);
+            }
             }
         };
         xhttp.open("GET", "userDataFromDBStudent", true);
@@ -583,11 +566,11 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.response === "false") {
-                    console.log("No intresseanmälan");
+                    var loadingImage = document.getElementById("loadImg");
+                    loadingImage.style.display = 'none';
                     document.getElementById("msg").innerHTML = "Du har inga intresseanmälningar."
                 } else {
                     let jobb = JSON.parse(this.response);
-                    console.log(jobb);
                     workInterests(jobb.length, jobb);
                 }
             }
@@ -595,8 +578,8 @@ window.onload = function () {
         xhttp.open("GET", "getInterestJob", true);
         xhttp.send();
     }
+
     function removeInterest(removeID) {
-        console.log("Remove click");
         let jobID = removeID.split(",");
         jobIDstr = jobID[0];
         var xhttp = new XMLHttpRequest();
@@ -611,14 +594,13 @@ window.onload = function () {
         xhttp.send();
     }
 
-
     function workInterests(num, jobbig) {
+        var loadingImage = document.getElementById("loadImg");
+        loadingImage.style.display = 'none';
         workAnnouncement.innerHTML = "";
-        //console.log(jobb);
         for (var i = 0; i < num; i++) {
             var jobb = jobbig[i].jobs;
             var message = jobbig[i].message;
-            console.log(jobb);
 
             var outerDiv = document.createElement("div");
             outerDiv.className = "jobsSmall";
@@ -679,52 +661,67 @@ window.onload = function () {
         }
     }
 
-
     function workAnnouncements(num, jobb) {
+        var loadingImage = document.getElementById("loadImg");
+        loadingImage.style.display = 'none';
         workAnnouncement.innerHTML = "";
-        for (var i = 0; i < num; i++) {
-
+        if (num === 0) {
             var outerDiv = document.createElement("div");
+            var newh2 = document.createElement("h2");
+            var newP = document.createElement("p");
+            newP.innerHTML = "Prova att ändra dina önskemål under \"Redigera Information\"";
+            newh2.innerHTML = "Du har inga matchande jobb.";
+            outerDiv.appendChild(newh2);
+            outerDiv.appendChild(newP);
             outerDiv.className = "jobsSmall";
-
-            var top = document.createElement("div"); //topbar
-            top.className = "jobTop";
-
-            var logo = document.createElement("img");//ladda in logga
-
-            logo.className = "jobLogo";
-            var header = document.createElement("div");//rubrik
-            header.className = "jobHeader";
-
-            var info = document.createElement("div");
-            info.className = "jobInfo";
-
-            var newlog = document.createElement("p");
-            newlog.innerHTML = "logga";
-            var newh1 = document.createElement("h2");
-
-            let readBtn = document.createElement("button");
-            readBtn.innerHTML = "Visa annons";
-            readBtn.id = jobb[i]._id;
-
             workAnnouncement.appendChild(outerDiv);
-            workAnnouncement.appendChild(document.createElement("br"));
-            outerDiv.appendChild(top);
-            outerDiv.appendChild(info);
-            outerDiv.appendChild(readBtn);
+        } else {
+            for (var i = 0; i < num; i++) {
+
+                var outerDiv = document.createElement("div");
+                outerDiv.className = "jobsSmall";
+
+                var top = document.createElement("div"); //topbar
+                top.className = "jobTop";
+
+                var logo = document.createElement("img");//ladda in logga
+
+                logo.className = "jobLogo";
+                var header = document.createElement("div");//rubrik
+                header.className = "jobHeader";
+
+                var info = document.createElement("div");
+                info.className = "jobInfo";
+
+                var newlog = document.createElement("p");
+                newlog.innerHTML = "logga";
+                var newh1 = document.createElement("h2");
+
+                let readBtn = document.createElement("button");
+                readBtn.innerHTML = "Visa annons";
+                readBtn.id = jobb[i]._id;
+
+                workAnnouncement.appendChild(outerDiv);
+                workAnnouncement.appendChild(document.createElement("br"));
+                outerDiv.appendChild(top);
+                outerDiv.appendChild(info);
+                outerDiv.appendChild(readBtn);
 
 
-            top.appendChild(logo);
-            top.appendChild(header);
-            logo.appendChild(newlog);
-            header.appendChild(newh1);
+                top.appendChild(logo);
+                top.appendChild(header);
+                logo.appendChild(newlog);
+                header.appendChild(newh1);
 
 
-            logo.src = jobb[i].logoURL; //ladda in logga
-            newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
-            info.innerHTML = jobb[i].shortdesc;//ladda in beskrivning
-            let show = '1';
-            readBtn.addEventListener("click", (e) => showMoreInfoBtn(readBtn.id, show));
+                logo.src = jobb[i].logoURL; //ladda in logga
+                newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
+                info.innerHTML = jobb[i].shortdesc;//ladda in beskrivning
+                let show = '1';
+                readBtn.addEventListener("click", (e) => showMoreInfoBtn(readBtn.id, show));
+            }
         }
     }
+    
+    loadMyInfo();    
 }

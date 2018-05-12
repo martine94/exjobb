@@ -13,14 +13,13 @@ window.onload = function () {
             this.interestList={};
         }
     }
-
+    var currentPage="";
     //#region buttons
     var newExJobBtn = document.getElementById("newExJobBtn");
     var myOffersBtn = document.getElementById("myOffersBtn");
     var myProfileBtn = document.getElementById("myProfileBtn");
     var myInfoBtn = document.getElementById("myInfoBtn");
     var logOutCompanyBtn = document.getElementById("logOutCompanyBtn");
-
     //#region div
     var interestArea = document.getElementById("menu-page-content");
 
@@ -113,12 +112,12 @@ window.onload = function () {
         }
         let ListOfKeyWords = [];
         var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
-        for (i = 0; i < fullListToCheck.length; i++) {
+        for (let i = 0; i < fullListToCheck.length; i++) {
             if (fullListToCheck[i].checked)
                 ListOfKeyWords.push(fullListToCheck[i].id);
         }
         exjobb2.keywords = ListOfKeyWords;
-        stringExjobb = JSON.stringify(exjobb2);
+        let stringExjobb = JSON.stringify(exjobb2);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -142,7 +141,8 @@ window.onload = function () {
                 for(let i = 0; i<jobs[0].studentlist.length;i++){
                     num++;
                 }
-                getInterestAnnouncement(jobs[0].studentlist, num);
+                console.log(jobs[0].studentlist[0]);
+                getInterestAnnouncement(jobs[0].studentlist, num, jobId);
                 // table.style="width:100%";
             }
         };
@@ -214,6 +214,8 @@ window.onload = function () {
 
 
     function workAnnouncements(num, jobb) {
+        var loadingImage = document.getElementById("loadImg");
+        loadingImage.style.display = 'none';
         workAnnouncement.innerHTML="";
         for (var i = 0; i < num; i++) {
 
@@ -262,10 +264,26 @@ window.onload = function () {
             logo.src = jobb[i].logoURL; //ladda in logga
             newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
             readBtn.addEventListener("click", (e) => loadShowExJob(readBtn.id));
+            readBtn.classList.add("btn1");
             changeBtn.addEventListener("click", (e) => loadChangeExJob(readBtn.id));
+            changeBtn.classList.add("btn1");
             interestBtn.addEventListener("click", (e) => loadInterests(readBtn.id));
+            interestBtn.classList.add("btn1");
 
         }
+    }
+    function SetCurrentPage(currentPageBtn){
+        if(currentPage===""){
+            currentPage=currentPageBtn;
+        }
+        else{
+            currentPage.classList.remove('bColorDarkBlue');
+            currentPage.classList.add('bColorBlue');
+        }
+        currentPage=currentPageBtn;
+        currentPageBtn.classList.remove('bColorBlue');
+        currentPageBtn.classList.add('bColorDarkBlue');
+
     }
 
     function loadShowExJob(jobId) {
@@ -276,6 +294,7 @@ window.onload = function () {
                 let showIBtn = document.getElementById("showintressents");
                 showIBtn.addEventListener("click", (e)=> loadInterests(jobId));
                 document.getElementById("closeExJob").addEventListener("click", loadMyOffers);
+                document.getElementById("changeJobBtn").addEventListener("click", (e)=> loadChangeExJob(jobId));
                 getSpecificJob(jobId);
             }
         };
@@ -295,10 +314,12 @@ window.onload = function () {
         xhttp.send();
     }
 
-    function getInterestAnnouncement(studentList, num) {
+    function getInterestAnnouncement(studentList, num, jobId) {
         var interests = document.getElementById("Interests");
         var number = 1;
         for (let i = 0; i < num; i++) {
+
+            console.log(studentList[i].studentID[0]);
             let personDiv = document.createElement("div");
             personDiv.style.backgroundColor = "lightblue";
             personDiv.style.color = "white";
@@ -308,19 +329,37 @@ window.onload = function () {
             row.style.color = "white"; row.className = "Shadow";
             personDiv.appendChild(row);
             personDiv.appendChild(document.createElement("br"));
-            let divInfo = document.createElement("div"); 
-            divInfo.innerHTML = "Personinformation: ";
+            let divInfo = document.createElement("div");
+            let shortDescript = document.createElement("p");
+            shortDescript.style.outlineColor = "brown";
+            shortDescript.innerHTML = "Kort beskrivning om sökanden: ";
+            divInfo.appendChild(shortDescript);
             personDiv.appendChild(divInfo);
             
             personDiv.className = "jobsSmall";
+            let emailDiv = document.createElement("div");
+            console.log("UEMAIL");
+            console.log(studentList[i]);
+            emailDiv.innerHTML = studentList[i].studentID[0].uemail;
 
             let txtArea = document.createElement("div");
-            txtArea.innerHTML = studentList[i].message;
-            txtArea.className = "jobInfo";  
+            txtArea.style.backgroundColor = "white";
+            txtArea.style.color = "black"; 
+            let msg = document.createElement("p");
+            msg.innerHTML = studentList[i].message
+            let strEmail = document.createElement("p");
+            strEmail.innerHTML = "Email:";
+            txtArea.appendChild(msg);
+            txtArea.appendChild(document.createElement("br"));
+            txtArea.className = "jobInfo";
+            txtArea.style.padding = "1%";
             let CVbtn = document.createElement("button");
             CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov Shadow";
             CVbtn.innerHTML = "CV";
             personDiv.appendChild(txtArea);
+            personDiv.appendChild(document.createElement("br"));
+            personDiv.appendChild(strEmail);
+            personDiv.appendChild(emailDiv);
             personDiv.appendChild(document.createElement("br"));
             personDiv.appendChild(CVbtn);
             personDiv.appendChild(document.createElement("br"));
@@ -339,6 +378,7 @@ window.onload = function () {
     //ExJobb
 
     function loadNewExJob() {
+        SetCurrentPage(newExJobBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -457,6 +497,7 @@ window.onload = function () {
 
     //Offers
     function loadMyOffers() {
+        SetCurrentPage(myOffersBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -485,6 +526,8 @@ window.onload = function () {
 
     //Change Profile
     function loadMyProfile() {
+        SetCurrentPage(myProfileBtn);
+
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -580,6 +623,7 @@ window.onload = function () {
     }
 
     function loadMyInfo() {
+        SetCurrentPage(myInfoBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {

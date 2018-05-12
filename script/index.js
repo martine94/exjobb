@@ -2,6 +2,7 @@
 
 window.onload = function () {
     
+    var currentPage="";
     //#region buttons
 
     var regButton = document.getElementById("registerBtn");
@@ -16,7 +17,6 @@ window.onload = function () {
     var companyLoginButton = document.getElementById("companyLoginBtn");
     var studentLoginButton = document.getElementById("studentLoginBtn");
     var searchInput = document.getElementById("searchInput");
-
     //#endregion
     
 
@@ -59,7 +59,7 @@ window.onload = function () {
     //#endregion
 
     showAboutUsInfo();
-}
+
 
 //#region login functions
 
@@ -162,9 +162,23 @@ function openRegisterStudentModal() {
 }
 //#endregion
 
+function SetCurrentPage(currentPageBtn){
+    if(currentPage===""){
+        currentPage=currentPageBtn;
+    }
+    else{
+        currentPage.classList.remove('bColorDarkBlue');
+        currentPage.classList.add('bColorBlue');
+    }
+    currentPage=currentPageBtn;
+    currentPageBtn.classList.remove('bColorBlue');
+    currentPageBtn.classList.add('bColorDarkBlue');
+
+}
 //#region show page content functions   
 
 function showAboutUsInfo() {
+    SetCurrentPage(aboutButton);
     ajaxRequest('GET', 'loadFileIndex?p=/about.html', function(response){
         document.getElementById("option-page-content").innerHTML = response;
         document.getElementById("aboutUsInfo").style.display="block";
@@ -173,6 +187,7 @@ function showAboutUsInfo() {
 }
 
 function showForCompaniesInfo() {
+    SetCurrentPage(companyButton);
     ajaxRequest('GET', 'loadFileIndex?p=/forCompanies.html', function(response){
         document.getElementById("option-page-content").innerHTML = response;
         document.getElementById("forCompaniesInfo").style.display = "block";
@@ -180,6 +195,7 @@ function showForCompaniesInfo() {
 }
 
 function showForStudentsInfo() {
+    SetCurrentPage(studentButton);
     ajaxRequest('GET', 'loadFileIndex?p=/forStudents.html', function(response){
         document.getElementById("option-page-content").innerHTML = response;
         document.getElementById("forStudentsInfo").style.display = "block";
@@ -187,7 +203,7 @@ function showForStudentsInfo() {
 }
 
 //#endregion
-
+}
 //#region shared register functions
 
 function getRadioButtonValue(element){
