@@ -440,7 +440,7 @@ window.onload = function () {
                 }
             }
         };
-        xhttp.open("POST", "addInterest?jobID=" + jobId + "&message=" + message, true);
+        xhttp.open("POST", "addInterestMessage?jobID=" + jobId + "&message=" + message, true);
         xhttp.send();
     }
 
@@ -575,7 +575,7 @@ window.onload = function () {
                 }
             }
         };
-        xhttp.open("GET", "getInterestJob", true);
+        xhttp.open("GET", "getStudentInterestMessages", true);
         xhttp.send();
     }
 
@@ -590,7 +590,7 @@ window.onload = function () {
                 }
             };
         }
-        xhttp.open("GET", "removeInterest?jobID=" + jobIDstr, true);
+        xhttp.open("GET", "removeInterestMessage?jobID=" + jobIDstr, true);
         xhttp.send();
     }
 
