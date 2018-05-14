@@ -318,12 +318,6 @@ window.onload = function () {
         var uemail= document.getElementById("uemailS").value;
         var uname= document.getElementById("unameS").value;
         var psw= document.getElementById("pswS").value;
-        var gender="";
-        if(document.getElementById("maleS").checked){
-            gender="male";
-        } else{
-            gender="female";
-        }
         var keywords = "";
         var cv = ""
 
@@ -342,7 +336,7 @@ window.onload = function () {
             }
         }
         xhttp.open("POST", "register_student?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu 
-        + "&uemail=" + uemail+ "&uname=" + uname + "&psw=" + psw + "&gender=" + gender + "&keywords=" + keywords + "&cv" + cv, true);
+        + "&uemail=" + uemail+ "&uname=" + uname + "&psw=" + psw +  "&keywords=" + keywords + "&cv" + cv, true);
         xhttp.send();
     }
 
