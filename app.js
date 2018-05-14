@@ -168,7 +168,7 @@ app.get('/logginComp', urlEncodedParcer, function (req, res) {
     logger.debug('Username %s', req.query["username"]);
 
     Mongo.findOne("company", { userName: req.query["username"] }, function (result) {
-        logger.debug('Loggin Company query result:', result);
+        logger.silly('Loggin Company query result:', result);
 
         if (result.length === 0) {
             logger.warn('Login failed: No user match');
@@ -191,7 +191,7 @@ app.get('/logginStudent', urlEncodedParcer, function (req, res) {
     logger.debug('Username %s', req.query["_user"]);
 
     Mongo.findOne("student", { uname: req.query["_user"] }, function (result) {
-        logger.debug('Loggin Company query result:', result);
+        logger.silly('Loggin Company query result:', result);
 
         if (result.length === 0) {
             logger.warn('Login failed: No user match');
@@ -311,7 +311,7 @@ app.get('/userDataFromDBStudent', function (req, res) {
                 logger.warn("Could not find user in database");
                 res.send("false");
             } else {
-                logger.debug('Found user', result);
+                logger.silly('Found user', result);
                 res.send(result);
             }
         });
