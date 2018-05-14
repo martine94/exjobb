@@ -314,8 +314,7 @@ window.onload = function () {
         var interests = document.getElementById("Interests");
         var number = 1;
         for (let i = 0; i < num; i++) {
-
-            console.log(studentList[i].studentID[0]);
+            let pdfObject = studentList[i].studentID[0].cv;
             let personDiv = document.createElement("div");
             personDiv.style.backgroundColor = "lightblue";
             personDiv.style.color = "white";
@@ -351,6 +350,7 @@ window.onload = function () {
             txtArea.style.padding = "1%";
             let CVbtn = document.createElement("button");
             CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov Shadow";
+            CVbtn.addEventListener("click", (e)=> loadCV(pdfObject))
             CVbtn.innerHTML = "CV";
             personDiv.appendChild(txtArea);
             personDiv.appendChild(document.createElement("br"));
@@ -366,6 +366,33 @@ window.onload = function () {
         }
         let backBtn = document.getElementById("BackBtn");
         backBtn.addEventListener("click", (e)=>loadMyOffers());
+    }
+
+    function loadCV(pdfObj){
+        
+        // let obj = new window();//.open(pdfObj.replace(/ /g, '+'));
+        // let headet = obj.createElement('head');
+        // obj.createElement('body');
+        // obj.appendChild(headet);
+        /*innerObj = Object();
+        innerObj.type = application/pdf;
+        innerObj.width = "100%";
+        innerObj.height = 50%;
+        innerObj.height = 50%;
+        var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
+        win.document.body.innerHTML = "   trusted="yes" application="yes" standby="Laddar cv"></object>"   */
+
+        let file = pdfObj;
+        //file.name = "CV.pdf";
+        //file.rename(pdfObj, "CV.pdf");
+        console.log(file.name);
+        window.open(file.replace(/ /g, '+'));
+        //obj.innerHTML = "<head></head><body></body>";
+        
+        // obj.onload = () => {
+        //     if(obj.readyState === 4)
+        //         obj.document.getElementsByTagName('title').innerHTML = "<title>CV.pdf</title>";             
+        // } 
     }
 
     //Load Buttons and Events
