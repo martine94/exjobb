@@ -487,10 +487,10 @@ window.onload = function () {
     }
 
     function showHideDataForExJob(elements) {
-        if (elements.className === "content Shadow")
+        if (elements.classList.contains("content"))
             elements.className = "contentShow";
         else
-            elements.className = "content Shadow";
+            elements.className = "content";
     }
 
 
