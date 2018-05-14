@@ -136,6 +136,29 @@ module.exports = {
     });
   },
 
+  createKeywords: function(callback){
+    MongoClient.connect(url, function (err, db) {
+      if(err) throw err;
+      var dbo = db.db(database);
+      dbo.createCollection("keywords", function(err,res){
+        if(err) throw err;
+      });
+      var Område=["Artificiell intelligens","Databaser","Maskininlärning","Robotik","Webbprogrammering","Kommunikationssystem"];
+      var Typ=["Dokumentation","Hårdvaruprojekt","Mjukvaruprojekt","Annat"];
+      var Operativsystem=["Android","IOS","Linux","Windows","Mac","Annat"];
+      var Programmeringsspråk=["Assembler","C","Csharp","Cpp","Java","Javascript","Python","Annat"];
+     // var docs=[Område,Typ,Operativsystem,Programmeringsspråk];
+      dbo.collection("keywords").insertOne({Område,Typ,Operativsystem,Programmeringsspråk},function(err,res){
+        if(err) throw err;
+      });
+      dbo.collection("keywords").findOne({},function(err,result){
+        if(err)throw err;
+        db.close(); 
+        callback(result);
+      });
+    });
+  },
+
   findOne: function (table, query, callback) {
     logger.info('Finding one query %s in table %s', query, table);
 

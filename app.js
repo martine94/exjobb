@@ -90,10 +90,24 @@ app.get('/loadFileIndex', urlEncodedParcer, function (req, res) {
     res.sendFile(path.join(dirIndex, _path));
 });
 
+app.get('/keywords', function (req, res) {
+    //var ObjectId = require('mongodb').ObjectId;
+    //var o_id = new ObjectId("5af93ddba5877426ecf111ba");
+    Mongo.findOne("keywords", {}, function (result) {
+        if (result.length === 0) {
+            Mongo.createKeywords(function(result2){
+                res.send(result2);
+            });
+            res.send("false");
+        } else {
+            res.send(result);
+        }
+    });
+});
 app.get('/removeExjob', urlEncodedParcer, function (req, res) {
     let jobID = req.query["jobID"];
     let companyID = getUserID(req);
-    let userIDInterestArray=[];
+    let userIDInterestArray = [];
     //getting specific Job from DB
     var ObjectId = require('mongodb').ObjectId;
     var o_id = new ObjectId(jobID);
@@ -101,15 +115,16 @@ app.get('/removeExjob', urlEncodedParcer, function (req, res) {
         if (result.length === 0) {
             console.log("false");
         } else {
-            result[0].studentlist.forEach(function(studID){
-                console.log(studID);
-                userIDInterestArray.push(studID.studentID);
-            });
-            console.log(userIDInterestArray);
+            if (result[0].studentlist && result[0].studentlist.length) {
+                result[0].studentlist.forEach(function (studID) {
+                    console.log(studID);
+                    userIDInterestArray.push(studID.studentID);
+                });
+            }
         }
-        if(userIDInterestArray.length>0){
+        if (userIDInterestArray && userIDInterestArray.length) {
             //Removing job from all students that have an interest in it
-            for(let i=0;i<userIDInterestArray.length;++i){
+            for (let i = 0; i < userIDInterestArray.length; ++i) {
                 try {
                     Mongo.removeInterestMessage(userIDInterestArray[i], jobID, function (result2) {
                     });
@@ -117,17 +132,16 @@ app.get('/removeExjob', urlEncodedParcer, function (req, res) {
                     logger.error('Error', error);
                 }
             }
-            //Removing job object
-            try {
-                Mongo.removeJob( jobID, function (result3) {
-                });
-            } catch (error) {
-                logger.error('Error', error);
-            }
-            res.send("true");
-        } else{
-            res.send("false");
         }
+        //Removing job object
+        try {
+            Mongo.removeJob(jobID, function (result3) {
+            });
+        } catch (error) {
+            logger.error('Error', error);
+        }
+        res.send("true");
+        //Kolla så alla studenter som anmält intresse också får jobbet borttaget
     });
 });
 
@@ -254,7 +268,6 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
         uemail: req.query["uemail"],
         uname: req.query["uname"],
         password: req.query["psw"],
-        gender: req.query["gender"],
         keywords: [],
         joblist: [],
         cv: req.query["cv"]

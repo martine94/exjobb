@@ -14,6 +14,7 @@ window.onload = function () {
         }
     }
     var currentPage = "";
+    var globalObjId;
     //#region buttons
     var newExJobBtn = document.getElementById("newExJobBtn");
     var myOffersBtn = document.getElementById("myOffersBtn");
@@ -76,28 +77,9 @@ window.onload = function () {
 
     function loadButtonsAndEventExJob() {
         var ListOfKeyWords = [];
-        progBtn = document.getElementById("ProgrammingLanguageBtn");
-        prog = document.getElementById("ProgrammingLanguage");
-        areaBtn = document.getElementById("AreaBtn");
-        area = document.getElementById("Area");
-        typeBtn = document.getElementById("TypeBtn");
-        types = document.getElementById("Types");
-        operationSystemBtn = document.getElementById("OperationSystemBtn");
-        operationSystems = document.getElementById("operationsystems");
-        databaseBtn = document.getElementById("DatabaseBtn");
-        databases = document.getElementById("Databases");
         saveBtnExJob = document.getElementById("saveBtn");
         cancelBtnExJob = document.getElementById("cancelBtn");
-
-
-        progBtn.addEventListener("click", (e) => showHideDataForExJob(prog));
-        areaBtn.addEventListener("click", (e) => showHideDataForExJob(area));
-        typeBtn.addEventListener("click", (e) => showHideDataForExJob(types));
-        operationSystemBtn.addEventListener("click", (e) => showHideDataForExJob(operationSystems));
-        databaseBtn.addEventListener("click", (e) => showHideDataForExJob(databases));
         cancelBtnExJob.addEventListener("click", loadMyOffers);
-
-
     }
     function updateExJobInfo(jobId, exjobb) {
         var exjobb2 = {
@@ -204,6 +186,7 @@ window.onload = function () {
 
                 saveBtnExJob.addEventListener("click", (e) => updateExJobInfo(jobs[0]._id, jobs[0]));
                 for (let i = 0; i < jobs[0].keywords.length; i++) {
+                    console.log(jobs[0].keywords[i]);
                     document.getElementById(jobs[0].keywords[i]).checked = true;
                 }
             }
@@ -292,7 +275,7 @@ window.onload = function () {
                 //interestArea.innerHTML = this.response;
                 if (this.response === "true") {
                     loadMyOffers();
-                }  
+                }
             }
         };
         xhttp.open("GET", "removeExjob?jobID=" + jobId, true);
@@ -318,6 +301,7 @@ window.onload = function () {
     }
 
     function loadInterests(objId) {
+        globalObjId = objId;
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -333,8 +317,7 @@ window.onload = function () {
         var interests = document.getElementById("Interests");
         var number = 1;
         for (let i = 0; i < num; i++) {
-
-            console.log(studentList[i].studentID[0]);
+            let pdfObject = studentList[i].studentID[0].cv;
             let personDiv = document.createElement("div");
             personDiv.style.backgroundColor = "lightblue";
             personDiv.style.color = "white";
@@ -370,6 +353,7 @@ window.onload = function () {
             txtArea.style.padding = "1%";
             let CVbtn = document.createElement("button");
             CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov Shadow";
+            CVbtn.addEventListener("click", (e)=> loadCV(pdfObject))
             CVbtn.innerHTML = "CV";
             personDiv.appendChild(txtArea);
             personDiv.appendChild(document.createElement("br"));
@@ -387,10 +371,83 @@ window.onload = function () {
         backBtn.addEventListener("click", (e) => loadMyOffers());
     }
 
+    function loadCV(pdfObj){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                interestArea.innerHTML = this.response;
+                var pdfSpace = document.getElementById("pdfSpace");
+                pdfSpace.data = pdfObj.replace(/ /g, '+');
+                var backbtn = document.getElementById("bacBtn");
+                backbtn.addEventListener("click", (e)=>loadInterests(globalObjId));
+            }
+        };
+        xhttp.open("GET", "loadFileCompany?p=" + '/showCv.html', true);
+        xhttp.send();
+   
+    }
+
     //Load Buttons and Events
     //Startsidan
 
     //ExJobb
+    function loadKeywords() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let keywords2 = JSON.parse(this.response);
+                var keyArray = [];
+                for (var key in keywords2[0]) {
+                    if (keywords2[0].hasOwnProperty(key)) {
+                        if (key != "_id") {
+                            keyArray.push(key);
+                        }
+                    }
+                }
+                var keyDIV = document.getElementById("keywordsDIV");
+                for (let i = 0; i < keyArray.length; ++i) {
+                    let overDiv = document.createElement("div");
+                    let btn = document.createElement("button");
+                    btn.classList.add("keywordBtn");
+                    btn.innerHTML = keyArray[i];
+                    overDiv.appendChild(btn);
+                    var kwInArray = keywords2[0][keyArray[i]];
+                    let underDiv = document.createElement("div");
+                    overDiv.className = "contentShow";
+                    underDiv.className = "content";
+                    btn.addEventListener("click", (e) => showUnderDiv(keyArray[i]));
+                    underDiv.id = keyArray[i];
+                    underDiv.style.display = 'none';
+                    for (let j = 0; j < kwInArray.length; ++j) {
+                        let checkbox = document.createElement("input");
+                        checkbox.type = "checkbox";
+                        checkbox.classList.add("ChekedKeyWord");
+                        checkbox.id = kwInArray[j];
+                        let label = document.createElement("label");
+                        label.innerHTML = kwInArray[j];
+                        let breakp = document.createElement("br");
+                        underDiv.appendChild(checkbox);
+                        underDiv.appendChild(label);
+                        underDiv.appendChild(breakp);
+                    }
+                    overDiv.appendChild(underDiv);
+                    keyDIV.appendChild(overDiv);
+                }
+                return 1;
+            }
+
+        };
+        xhttp.open("GET", "keywords", true);
+        xhttp.send();
+    }
+    function showUnderDiv(divID) {
+        let underDiv = document.getElementById(divID);
+        if (underDiv.style.display == 'none') {
+            underDiv.style.display = 'block';
+        } else {
+            underDiv.style.display = 'none';
+        }
+    }
 
     function loadNewExJob() {
         SetCurrentPage(newExJobBtn);
@@ -399,6 +456,7 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 interestArea.innerHTML = this.response;
                 AddEventListerersButtons(2);
+                loadKeywords();
             }
         };
         xhttp.open("GET", "loadFileCompany?p=" + '/newExJob.html', true);
@@ -406,41 +464,16 @@ window.onload = function () {
     }
     function loadButtonsExJob() {
         var ListOfKeyWords = [];
-        progBtn = document.getElementById("ProgrammingLanguageBtn");
-        prog = document.getElementById("ProgrammingLanguage");
-        areaBtn = document.getElementById("AreaBtn");
-        area = document.getElementById("Area");
-        typeBtn = document.getElementById("TypeBtn");
-        types = document.getElementById("Types");
-        operationSystemBtn = document.getElementById("OperationSystemBtn");
-        operationSystems = document.getElementById("operationsystems");
-        databaseBtn = document.getElementById("DatabaseBtn");
-        databases = document.getElementById("Databases");
         abortBtn = document.getElementById("AbortExJob");
-        keyBtn = document.getElementById("KeyWordBtn");
+        //keyBtn = document.getElementById("KeyWordBtn");
         saveBtn = document.getElementById("SaveExJob");
     }
 
     function loadButtonEventsExJob() {
-        progBtn.addEventListener("click", (e) => showHideDataForExJob(prog));
-        areaBtn.addEventListener("click", (e) => showHideDataForExJob(area));
-        typeBtn.addEventListener("click", (e) => showHideDataForExJob(types));
-        operationSystemBtn.addEventListener("click", (e) => showHideDataForExJob(operationSystems));
-        databaseBtn.addEventListener("click", (e) => showHideDataForExJob(databases));
-        progBtn.addEventListener("mouseover", (e) => hoverNewExJob(progBtn, 1));
-        progBtn.addEventListener("mouseleave", (e) => hoverNewExJob(progBtn, 0));
-        areaBtn.addEventListener("mouseover", (e) => hoverNewExJob(areaBtn, 1));
-        areaBtn.addEventListener("mouseleave", (e) => hoverNewExJob(areaBtn, 0));
-        typeBtn.addEventListener("mouseover", (e) => hoverNewExJob(typeBtn, 1));
-        typeBtn.addEventListener("mouseleave", (e) => hoverNewExJob(typeBtn, 0));
-        operationSystemBtn.addEventListener("mouseover", (e) => hoverNewExJob(operationSystemBtn, 1));
-        operationSystemBtn.addEventListener("mouseleave", (e) => hoverNewExJob(operationSystemBtn, 0));
-        databaseBtn.addEventListener("mouseover", (e) => hoverNewExJob(databaseBtn, 1));
-        databaseBtn.addEventListener("mouseleave", (e) => hoverNewExJob(databaseBtn, 0));
+
         saveBtn.addEventListener("click", (e) => saveNewExjob(e));
         abortBtn.addEventListener("click", (e) => loadMyInfo());
-        keyBtn.addEventListener("mouseover", (e) => hoverNewExJob(keyBtn, 1));
-        keyBtn.addEventListener("mouseleave", (e) => hoverNewExJob(keyBtn, 0));
+
     }
 
     function saveNewExjob() {
@@ -530,6 +563,7 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 interestArea.innerHTML = this.response;
+                loadKeywords();
                 changeSpecificJob(jobId);
             }
         };

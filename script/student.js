@@ -180,7 +180,6 @@ window.onload = function () {
                     email: obj[0].uemail,
                     uname: obj[0].uname,
                     pw: obj[0].password,
-                    gender: obj[0].gender,
                     ucv: obj[0].cv
                 }
                 document.getElementById("sFName").value += user.name;
@@ -196,8 +195,6 @@ window.onload = function () {
                     document.getElementById("pdfStatus").innerHTML = "CV upladdat";
                     cvData = user.ucv.replace(/ /g, '+'); //replace all whitespace with +
                 }
-
-                genderData = user.gender;
 
                 for (let i = 0; i < obj[0].keywords.length; i++) {
                    document.getElementById(obj[0].keywords[i]).checked = true;
@@ -365,42 +362,6 @@ window.onload = function () {
                 loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
             }
         }
-    }
-
-    function change_student() {
-        console.log("save");
-
-        /* var ufname = document.getElementById("sFName").value;
-        var ulname = document.getElementById("sLName").value;
-        var ucity = "";//document.getElementById("Undefined").value;
-        var uedu = document.getElementById("sEdu").value;
-        var uemail = document.getElementById("sEmail").value;
-        var uname = document.getElementById("sUname").value;
-        var psw = document.getElementById("sPsw").value;
-        var genderData = "male";
-        var keywords = "";
-        var cv = cvData; */
-
-        var ufname = "apa";
-        var ulname = "apa";
-        var ucity = "apa";
-        var uedu = "apa";
-        var uemail = "apa";
-        var uname = "apa";
-        var psw = "apa";
-        var genderData = "apa";
-        var keywords = "apa";
-        var cv = "apa";
-
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "/changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu
-            + "&uemail=" + uemail + "&uname=" + uname + "&psw=" + psw + "&gender=" + genderData + "&keywords=" + keywords, true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
-        xhttp.send();
-        // xhttp.onreadystatechange = () => {
-        //     console.log(xhttp);
-        // }
-        //xhttp.send("&cv=" + cvData);
     }
 
     function saveProfile() {
