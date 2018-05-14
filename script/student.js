@@ -369,25 +369,38 @@ window.onload = function () {
 
     function change_student() {
         console.log("save");
-        var ufname = document.getElementById("sFName").value;
+
+        /* var ufname = document.getElementById("sFName").value;
         var ulname = document.getElementById("sLName").value;
         var ucity = "";//document.getElementById("Undefined").value;
         var uedu = document.getElementById("sEdu").value;
         var uemail = document.getElementById("sEmail").value;
         var uname = document.getElementById("sUname").value;
         var psw = document.getElementById("sPsw").value;
-        var gender = "male";
-
+        var genderData = "male";
         var keywords = "";
-        var cv = cvData;
+        var cv = cvData; */
+
+        var ufname = "apa";
+        var ulname = "apa";
+        var ucity = "apa";
+        var uedu = "apa";
+        var uemail = "apa";
+        var uname = "apa";
+        var psw = "apa";
+        var genderData = "apa";
+        var keywords = "apa";
+        var cv = "apa";
+
         var xhttp = new XMLHttpRequest();
         xhttp.open("POST", "/changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu
             + "&uemail=" + uemail + "&uname=" + uname + "&psw=" + psw + "&gender=" + genderData + "&keywords=" + keywords, true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
+        xhttp.send();
         // xhttp.onreadystatechange = () => {
         //     console.log(xhttp);
         // }
-        xhttp.send("&cv=" + cvData);
+        //xhttp.send("&cv=" + cvData);
     }
 
     function saveProfile() {

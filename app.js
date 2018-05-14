@@ -84,11 +84,12 @@ var dirStudent = path.join(__dirname, '/views/student');
 //#region LoadFileFunctions
 
 app.get('/loadFileIndex', urlEncodedParcer, function (req, res) {
-    logger.info('GET /loadFileIndex location = %s path = %s', req.query['l'], req.query['p']);
+    logger.info('GET /loadFileIndex path = %s', req.query['p']);
     var location = req.query["l"];
     var _path = req.query["p"];
     res.sendFile(path.join(dirIndex, _path));
 });
+
 app.get('/removeExjob', urlEncodedParcer, function (req, res) {
     let jobID = req.query["jobID"];
     let companyID = getUserID(req);
@@ -131,13 +132,14 @@ app.get('/removeExjob', urlEncodedParcer, function (req, res) {
 });
 
 app.get('/loadFileCompany', urlEncodedParcer, function (req, res) {
-    logger.info('GET /loadFileCompany location = %s path = %s', req.query['l'], req.query['p']);
+    logger.info('GET /loadFileCompany path = %s', req.query['p']);
     var location = req.query["l"];
     var _path = req.query["p"];
     res.sendFile(path.join(dirCompany, _path));
 });
+
 app.get('/loadFileStudent', urlEncodedParcer, function (req, res) {
-    logger.info('GET /loadFileStudent location = %s path = %s', req.query['l'], req.query['p']);
+    logger.info('GET /loadFileStudent path = %s', req.query['p']);
     var location = req.query["l"];
     var _path = req.query["p"];
     res.sendFile(path.join(dirStudent, _path));
@@ -155,7 +157,7 @@ app.get('/logginComp', urlEncodedParcer, function (req, res) {
         logger.debug('Loggin Company query result:', result);
 
         if (result.length === 0) {
-            logger.info('Login failed: No user match');
+            logger.warn('Login failed: No user match');
             res.send("false");
         } else {
             if (result[0].password === req.query["password"]) {
@@ -163,7 +165,7 @@ app.get('/logginComp', urlEncodedParcer, function (req, res) {
                 req.session.user = "_id:" + result[0]._id;
                 res.send("true");
             } else {
-                logger.info('Login failed: Wrong password');
+                logger.warn('Login failed: Wrong password');
                 res.send("false");
             }
         }
@@ -178,7 +180,7 @@ app.get('/logginStudent', urlEncodedParcer, function (req, res) {
         logger.debug('Loggin Company query result:', result);
 
         if (result.length === 0) {
-            logger.info('Login failed: No user match');
+            logger.warn('Login failed: No user match');
             res.send("false");
         } else {
             if (result[0].password === req.query["password"]) {
@@ -186,7 +188,7 @@ app.get('/logginStudent', urlEncodedParcer, function (req, res) {
                 req.session.user = "_id:" + result[0]._id;
                 res.send("true");
             } else {
-                logger.info('Login failed: Wrong password');
+                logger.warn('Login failed: Wrong password');
                 res.send("false");
             }
         }
@@ -200,7 +202,7 @@ app.get('/loggedIn', function (req, resp) {
         logger.debug('Found session', req.session.user);
         resp.end(JSON.stringify(req.session.user));
     } else {
-        logger.debug('No session found', req.session);
+        logger.warn('No session found', req.session);
         resp.redirect('');
     }
 });
@@ -208,7 +210,6 @@ app.get('/loggedIn', function (req, resp) {
 app.get('/logout', function (req, resp) {
     logger.info('GET /logout request');
     req.session.reset();
-    //var redirectAddress = serverAddress + '/index.html';
     resp.send("true");
 });
 
@@ -259,7 +260,7 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
         cv: req.query["cv"]
     };
 
-    logger.debug('Register form is:', response);
+    logger.silly('Student registerform info', response);
 
     try {
         Mongo.addStudent(response, function (result) {
@@ -281,70 +282,28 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
     }
 });
 
-app.post('/changeStudentInfo', urlEncodedParcer, function (req, res) {
-    logger.info('GET /changeStudentInfo request');
-
-    var user = {
-        name: req.query["ufname"],
-        lastname: req.query["ulname"],
-        city: req.query["ucity"],
-        ueducation: req.query["uedu"],
-        uemail: req.query["uemail"],
-        uname: req.query["uname"],
-        password: req.query["psw"],
-        gender: req.query["gender"],
-        keywords: req.query["keywords"],
-        joblist: [],
-        cv: req.body["cv"]
-    }
-
-    logger.debug('Change student info:', user);
-
-    try {
-        let myQuery = getUserID(req);
-        Mongo.changeStudentInfo(myQuery, user, function (result) {
-            if (result instanceof Error) {
-                logger.error('Error', result);
-                if (result.code === 11000) {
-                    res.send("false");
-                }
-            }
-            else {
-                logger.debug('Successfully changed student info');
-                res.send("true");
-            }
-        });
-    }
-    catch (error) {
-        logger.error('Caught error', error);
-    }
-});
-
-
 app.get('/userDataFromDBStudent', function (req, res) {
-    console.log("GET /userDataFromDB.html request");
+    logger.info("GET /userDataFromDBStudent request");
     var userID = getUserID(req);
     if (userID == "false") {
-        console.log("could not find user")
+        logger.warn("Could not find user")
         res.send("false");
     } else {
-        //console.log(userID);
+        logger.debug('Found user: %s', userID);
         var ObjectId = require('mongodb').ObjectId;
         var o_id = new ObjectId(userID);
+
         Mongo.findOne("student", { "_id": o_id }, function (result) {
-            //console.log(JSON.stringify(result));
             if (result.length === 0) {
-                console.log("false");
+                logger.warn("Could not find user in database");
                 res.send("false");
             } else {
-                console.log("userInfo from DB");
-                //console.log(JSON.stringify(result));
+                logger.debug('Found user', result);
                 res.send(result);
             }
         });
     }
 });
-
 
 app.post('/changeStudentInfo', urlEncodedParcer, function (req, res) {
     let userObj = JSON.parse(req.query["userObj"]);
@@ -353,22 +312,20 @@ app.post('/changeStudentInfo', urlEncodedParcer, function (req, res) {
         let studentID = getUserID(req);
         Mongo.changeUserInfo('student', studentID, userObj, function (result) {
             if (result instanceof Error) {
-                console.log("Error!");
+                logger.error("Error", result);
                 if (result.code === 11000) {
-                    console.log("back");
+                    logger.debug('Back');
                     res.send("false");
                 }
             }
             else {
-                console.log("Probably Sucess!");
+                logger.debug('Successfully changed user info');
                 res.send("true");
             }
         });
     }
     catch (error) {
-        console.log("Caught error!");
-        console.log(error.name);
-        console.log(error);
+        logger.error("Caught error", error);
     }
 });
 
@@ -429,7 +386,8 @@ app.get('/getStudentInterestMessages', function (req, res) {
 //#region Company
 
 app.post('/changeCompanyInfo', urlEncodedParcer, function (req, res) {
-    console.log("company change POST request");
+    logger.info("POST /changeCompanyInfo request");
+
     var user = {
         companyName: req.query["cname"],
         companyAddress: req.query["caddress"],
@@ -441,32 +399,32 @@ app.post('/changeCompanyInfo', urlEncodedParcer, function (req, res) {
         logoURL: req.query["clogo"],
         about: req.query["cAboutUs"]
     }
+    logger.silly('Change companyform info', user);
+
     try {
         let companyID = getUserID(req);
         Mongo.changeUserInfo('company', companyID, user, function (result) {
             if (result instanceof Error) {
-                console.log("Error!");
+                logger.error("Error", result);
                 if (result.code === 11000) {
-                    console.log("back");
                     res.send("false");
                 }
             }
             else {
-                console.log("Probably Sucess!");
+                logger.debug('Successfully changed company info');
                 res.send("true");
             }
         });
     }
     catch (error) {
-        console.log("Caught error!");
-        console.log(error.name);
-        console.log(error);
+        logger.error('Caught error:', error);
     }
 });
 
 app.post('/register_company', urlEncodedParcer, function (req, resp) {
-    console.log("company register POST request");
-    response = {
+    logger.info('POST /register_company request');
+
+    var response = {
         companyName: req.query["cname"],
         companyAddress: req.query["caddress"],
         companyCity: req.query["ccity"],
@@ -477,49 +435,47 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
         logoURL: "sad.png",
         about: ""
     };
-    // console.log(response)
+    logger.silly('Company registerform info', response);
 
     try {
         Mongo.addCompany(response, function (result) {
             if (result instanceof Error) {
-                console.log("Error!");
-                // console.log(result);
+                logger.error("Error", result);
                 if (result.code === 11000) {
-                    console.log("back");
                     resp.send("false");
                 }
             }
             else {
-                console.log("Success!");
-                req.session.user = "_id:" + response._id; // för session
+                logger.debug('Successfully added a company');
+                req.session.user = "_id:" + response._id;
                 resp.send("true");
             }
         });
     }
     catch (error) {
-        console.log("Caught error!");
-        console.log(error.name);
+        logger.error('Caught error', error);
     }
 });
 
 app.get('/userDataFromDBCompany', function (req, res) {
-    console.log("GET /userDataFromDB.html request");
+    logger.info('GET /userDataFromDBCompany request');
+
     var userID = getUserID(req);
     if (userID == "false") {
-        console.log("could not find user")
+        logger.warn('Could not find user');
         res.send("false");
     } else {
-        //console.log(userID);
+        logger.debug('Found user %j', userID);
+        
         var ObjectId = require('mongodb').ObjectId;
         var o_id = new ObjectId(userID);
+
         Mongo.findOne("company", { "_id": o_id }, function (result) {
-            // console.log(JSON.stringify(result));
             if (result.length === 0) {
-                console.log("false");
+                logger.warn('Could not find company in database');
                 res.send("false");
             } else {
-                console.log("userInfo from DB");
-                // console.log(JSON.stringify(result));
+                logger.debug('Found company in database', result);
                 res.send(result);
             }
         });
@@ -531,48 +487,48 @@ app.get('/userDataFromDBCompany', function (req, res) {
 //#region Jobs
 
 app.post('/addJobToDB', urlEncodedParcer, function (req, res) {
-    console.log("POST add job request");
+    logger.info('POST /addJobToDB request');
+
     var userID = getUserID(req);
     if (userID == "false") {
-        console.log("could not find user")
+        logger.warn('Could not find user');
         res.send("false");
     } else {
-        // console.log(userID);
+        logger.debug('Found user %j', userID);
+        
         var ObjectId = require('mongodb').ObjectId;
         var o_id = new ObjectId(userID);
+
         Mongo.findOne("company", { "_id": o_id }, function (result) {
             if (result.length === 0) {
-                console.log("false");
+                logger.warn('Could not find company in database');
                 res.send("false");
             } else {
-                console.log("userInfo from DB");
-                //console.log(result);
-                //console.log(req.query["exJobb"]);
+                logger.debug('Found company in database', result);
+
                 var exjobb = JSON.parse(req.query["exJobb"]);
                 exjobb.logoURL = result[0].logoURL;
                 exjobb.companyName = result[0].companyName;
                 exjobb.website = result[0].website;
                 exjobb.companyID = userID;
-                //console.log(exjobb);
+
+                logger.debug('Adding job to database', exjobb);
                 try {
                     Mongo.addJob(exjobb, function (result) {
                         if (result instanceof Error) {
-                            console.log("Error!");
-                            // console.log(result);
+                            logger.error('Error', result);
                             if (result.code === 11000) {
-                                console.log("back");
                                 res.send("false");
                             }
                         }
                         else {
-                            console.log("Success!");
+                            logger.debug('Successfully added job to database');
                             res.send("true");
                         }
                     });
                 }
                 catch (error) {
-                    console.log("Caught error!");
-                    console.log(error.name);
+                    logger.error('Caught error', error);
                 }
             }
         });
@@ -581,10 +537,13 @@ app.post('/addJobToDB', urlEncodedParcer, function (req, res) {
 });
 
 app.get('/getJobsFromDB', function (req, res) {
+    logger.info('GET /getJobsFromDB requst');
+
     Mongo.findOne("job", {}, function (result) {
-        // console.log(JSON.stringify(result));
+        logger.silly('Get jobs result', result);
+
         if (result.length === 0) {
-            console.log("false, job could not be found.");
+            logger.warn('No jobs could be found.');
             res.send("false");
         } else {
             res.send(result);
@@ -593,11 +552,13 @@ app.get('/getJobsFromDB', function (req, res) {
 });
 
 app.get('/getCompanyJobsFromDB', function (req, res) {
+    logger.info('GET /getCompanyJobsFromDB request');
+
     var userid = getUserID(req);
     Mongo.findCompanyJobs(userid, function (result) {
-        // console.log(JSON.stringify(result));
+        logger.silly('Find company jobs result', result);
         if (result.length === 0) {
-            console.log("false, job could not be found.");
+            logger.warn('No company jobs could be found');
             res.send("false");
         } else {
             res.send(result);
@@ -606,43 +567,43 @@ app.get('/getCompanyJobsFromDB', function (req, res) {
 });
 
 app.get('/getSpecificJobFromDB', urlEncodedParcer, function (req, res) {
+    logger.info('GET /getSpecificJobFromDB request');
+
     var jobid = req.query["jobID"];
     Mongo.findSpecificJob(jobid, function (result) {
         if (result.length === 0) {
-            console.log("false, job could not be found.");
+            logger.warn("Could not find specific job in database.");
             res.send("false");
         } else {
-            // console.log("RESULTATET: "+JSON.stringify(result));
+            logger.silly('Find specific job result', result);
             res.send(result);
         }
     });
 });
 
 app.post('/changeExJobInfo', urlEncodedParcer, function (req, res) {
-    console.log("company change POST request");
+    logger.info('POST /changeExJobInfo request');
+
     var exjobb = JSON.parse(req.query["exJobb"]);
     try {
         jobID = req.query["jobID"];
-        //console.log("EXJOBB= "+JSON.stringify(exjobb));
+
+        logger.silly("Exjob info", exjobb);
         Mongo.changeExJobInfo(jobID, exjobb, function (result) {
             if (result instanceof Error) {
-                console.log("Error!");
-                // console.log(result);
+                logger.error('Error', result);
                 if (result.code === 11000) {
-                    console.log("back");
                     res.send("false");
                 }
             }
             else {
-                console.log("Probably Sucess!");
+                logger.debug('Successfully changed exjob information');
                 res.send("true");
             }
         });
     }
     catch (error) {
-        console.log("Caught error!");
-        console.log(error.name);
-        console.log(error);
+        logger.error("Caught error", error);
     }
 });
 
