@@ -364,28 +364,6 @@ window.onload = function () {
         }
     }
 
-    function change_student() {
-        console.log("save");
-        var ufname = document.getElementById("sFName").value;
-        var ulname = document.getElementById("sLName").value;
-        var ucity = "";//document.getElementById("Undefined").value;
-        var uedu = document.getElementById("sEdu").value;
-        var uemail = document.getElementById("sEmail").value;
-        var uname = document.getElementById("sUname").value;
-        var psw = document.getElementById("sPsw").value;
-
-        var keywords = "";
-        var cv = cvData;
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "/changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu
-            + "&uemail=" + uemail + "&uname=" + uname + "&psw=" + psw + "&keywords=" + keywords, true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
-        // xhttp.onreadystatechange = () => {
-        //     console.log(xhttp);
-        // }
-        xhttp.send("&cv=" + cvData);
-    }
-
     function saveProfile() {
         let ListOfKeyWords = [];
         //console.log("CVDATA: " + cvData);

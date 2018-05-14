@@ -36,33 +36,38 @@ var logger = new (winston.Logger)({
 
 module.exports = {
 
-  login: function (table, usr, psw, callback) {
+  login: function (table, user, password, callback) {
+    logger.info("Checking login information in database");
+    logger.debug('Using collection %s, username %s and password %s', table, user, password);
 
-    MongoClient.connect(url, function (err, db) {
-      if (err) throw err;
-
-      console.log("Connected to database!");
-
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
+      
       var dbo = db.db(database);
-      var query = { userName: usr, password: psw };
+      var query = { userName: user, password: password };
 
-      dbo.collection(table).find(query).toArray(function (err, result) {
-        if (err) throw err;
+      dbo.collection(table).find(query).toArray(function (error, result) {
+        if (error) throw error;
 
-        console.log("Entered collection success!");
-
+        logger.silly('Loggin database result', result);
         db.close();
-
         callback(result);
       });
     });
   },
 
   getUserData: function (callback) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) throw err;
-      var dbo = db.db(database);
-      dbo.collection('company').find().toArray(function (err, result) {
+    logger.info('Getting userdata from database');
+
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
+
+      var dbo = db.db(db);
+
+      dbo.collection('company').find().toArray(function (error, result) {
+        if(error) throw error;
+
+        logger.silly('Get user data from database result', result);
         db.close();
         callback(result);
       });
@@ -72,12 +77,19 @@ module.exports = {
 
 
   changeUserInfo: function (table, userID, newValues, callback) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) throw err;
+    logger.info('Changing user information in database');
+    logger.debug('Using userID %s', userID);
+
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
+
       var dbo = db.db(database);
-      console.log(userID);
+      
       var ObjectId = require('mongodb').ObjectID;
       dbo.collection(table).update({ "_id": new ObjectId(userID) }, { $set: newValues }, function (err, result) {
+        if(err) throw err;
+
+        logger.silly('Changing user information in database result', result);
         db.close();
         callback(result);
       });
@@ -85,13 +97,19 @@ module.exports = {
   },
 
   changeExJobInfo: function (jobID, newValues, callback) {
+    logger.info('Change exjob information in database');
+    logger.debug('Using jobID %s, new values %s', jobID, newValues);
+
     MongoClient.connect(url, function (err, db) {
       if (err) throw err;
+
       var dbo = db.db(database);
-      console.log("JOBID: " + jobID);
-      console.log(newValues);
       var ObjectId = require('mongodb').ObjectID;
+
       dbo.collection('job').update({ "_id": new ObjectId(jobID) }, { $set: newValues }, function (err, result) {
+        if(err) throw err;
+
+        logger.silly('Change exjob information in database result', result);
         db.close();
         callback(result);
       });
@@ -99,11 +117,19 @@ module.exports = {
   },
 
   findSpecificJob: function (jobId, callback) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) throw err;
+    logger.info('Searching for specific job in database');
+    logger.debug('jobId %s', jobId);
+
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
+
       var dbo = db.db(database);
       var ObjectId = require('mongodb').ObjectID;
-      dbo.collection('job').find({ "_id": new ObjectId(jobId) }).toArray(function (err, result) {
+
+      dbo.collection('job').find({ "_id": new ObjectId(jobId) }).toArray(function (error, result) {
+        if(error) throw error;
+
+        logger.silly('Searching for specific job in database result', result);
         db.close();
         callback(result);
       });
@@ -134,19 +160,17 @@ module.exports = {
   },
 
   findOne: function (table, query, callback) {
+    logger.info('Finding one query %s in table %s', query, table);
 
-    MongoClient.connect(url, function (err, db) {
-      if (err) throw err;
-
-      console.log("Connected to database!");
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
 
       var dbo = db.db(database);
-      // console.log(query);
-      dbo.collection(table).find(query).toArray(function (err, result) {
-        if (err) throw err;
 
-        console.log("Entered collection success!");
+      dbo.collection(table).find(query).toArray(function (error, result) {
+        if (error) throw error;
 
+        logger.silly('Found one result', result);
         db.close();
         callback(result);
       });
@@ -154,19 +178,18 @@ module.exports = {
   },
 
   findCompanyJobs: function (query, callback) {
-    // console.log("COMPANYID: "+query);
+    logger.info('Searching database for company jobs');
+    logger.debug('Using query %s', query);
 
-    MongoClient.connect(url, function (err, db) {
-      if (err) throw err;
-
-      console.log("Connected to database!");
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
 
       var dbo = db.db(database);
-      dbo.collection('job').find({ companyID: query }).toArray(function (err, result) {
-        if (err) throw err;
 
-        console.log("Entered collection success!");
+      dbo.collection('job').find({ companyID: query }).toArray(function (error, result) {
+        if (error) throw error;
 
+        logger.silly('Searching database for company jobs result', result);
         db.close();
         callback(result);
       });
@@ -174,52 +197,59 @@ module.exports = {
   },
 
   addJob: function (exjobb, callback) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) callback(err);
-      var dbo = db.db("db");
+    logger.info('Adding job to database');
+    logger.debug('Using exjobb object %j', exjobb);
 
-      dbo.collection("job").insertOne(exjobb, function (err, res) {
-        if (err) {
-          db.close();
-          callback(err);
-        }
-        else {
-          console.log("Number of documents inserted: " + res.insertedCount);
-          db.close();
-          callback(res);
-        }
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
+
+      var dbo = db.db(database);
+
+      dbo.collection("job").insertOne(exjobb, function (error, result) {
+        if (error) throw error;
+
+        logger.silly('Adding job to database result', result);
+        db.close();
+        callback(result);
       });
     });
   },
 
   addCompany: function (company, callback) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) callback(err);
-      var dbo = db.db("db");
+    logger.info('Adding company to database');
+    logger.debug('Using company object %j', company);
+
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
+
+      var dbo = db.db(database);
 
       dbo.collection("company").ensureIndex({ userName: 1 }, { unique: true });
 
-      dbo.collection("company").insertOne(company, function (err, res) {
-        if (err) {
-          db.close();
-          callback(err);
-        }
-        else {
-          console.log("Number of documents inserted: " + res.insertedCount);
-          db.close();
-          callback(res);
-        }
+      dbo.collection("company").insertOne(company, function (error, result) {
+        if (error) throw error;
+        
+        logger.silly('Adding company to database result', result);
+        db.close();
+        callback(result);
       });
     });
   },
 
   changeStudentInfo: function (myQuery, newValues, callback) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) throw err;
+    logger.info('Changing student information in database');
+    logger.debug('Using query %s, new values %j', myQuery, newValues);
+
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
+
       var dbo = db.db(database);
-      console.log(myQuery);
       var ObjectId = require('mongodb').ObjectID;
-      dbo.collection('student').update({ "_id": new ObjectId(myQuery) }, { $set: newValues }, function (err, result) {
+
+      dbo.collection('student').update({ "_id": new ObjectId(myQuery) }, { $set: newValues }, function (error, result) {
+        if(error) throw error;
+
+        logger.silly('Changing student information in database result', result);
         db.close();
         callback(result);
       });
@@ -227,58 +257,61 @@ module.exports = {
   },
 
   addStudent: function (student, callback) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) callback(err);
-      var dbo = db.db("db");
+    logger.info('Adding student to database');
+    logger.debug('Using student object %j', student);
+
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
+
+      var dbo = db.db(database);
 
       dbo.collection("student").ensureIndex({ uname: 1 }, { unique: true });
 
-      dbo.collection("student").insertOne(student, function (err, res) {
-        if (err) {
-          db.close();
-          // console.log(JSON.stringify(student));
-          callback(err);
-        }
-        else {
-          console.log("Number of documents inserted: " + res.insertedCount);
-          db.close();
-          callback(res);
-        }
+      dbo.collection("student").insertOne(student, function (error, result) {
+        if (error) throw error;
+
+        logger.silly('Adding student to database result', result);
+        db.close();
+        callback(result);
       });
     });
   },
 
-
   pushInterestToStudent: function (jobID, studentID, message, callback) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) throw err;
+    logger.info('Pushing interest to student');
+    logger.debug('Using jobID %s, studentID %s and message %s', jobID, studentID, message);
+
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
+
       var dbo = db.db(database);
       var ObjectId = require('mongodb').ObjectID;
-      dbo.collection('student').update({ "_id": new ObjectId(studentID) }, { $push: { joblist: { jobID, message } } }, function (err, result) {
-        if (err) {
-          console.log(err);
-          throw err;
-        }
-        db.close();
 
+      dbo.collection('student').update({ "_id": new ObjectId(studentID) }, { $push: { joblist: { jobID, message } } }, function (err, result) {
+        if(err) throw err;
+
+        logger.silly('Pushing interest to student result', result);
+        db.close();
         callback(result);
       });
     });
   },
 
   pushInterest: function (jobId, studentId, message, callback) {
+    logger.info('Pushing interest message to database');
+    logger.debug('Using jobId %s, studentId %s and message %s', jobId, studentId, message);
 
-    logger.debug('Pusing Interest Message to jobId %s from studentId %s', jobId, studentId);
-    MongoClient.connect(url, function (err, db) {
-      if (err) throw err;
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
 
       var dbo = db.db(database);
       var ObjectId = require('mongodb').ObjectID;
 
       dbo.collection('job').update({ "_id": new ObjectId(jobId) },
-        { $push: { studentlist: { studentId, message } } }, function (err, result) {
-          if (err) throw err;
+        { $push: { studentlist: { studentId, message } } }, function (error, result) {
+          if (error) throw error;
 
+          logger.silly('Pushing interest message to database result', result);
           db.close();
           callback(result);
         });
@@ -286,10 +319,11 @@ module.exports = {
   },
 
   pushInterestMessage: function (jobId, studentId, message, callback) {
-    logger.debug('Pusing Interest Message to jobId %s from studentId %s', jobId, studentId);
+    logger.info('Pusing Interest Message to database');
+    logger.debug('Using jobId %s, studentId %s and message %s', jobId, studentId, message);
 
-    MongoClient.connect(url, function (err, db) {
-      if (err) throw err;
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
 
       var dbo = db.db(database);
       var ObjectId = require('mongodb').ObjectID;
@@ -297,7 +331,6 @@ module.exports = {
       addInterestJob(dbo, studentId, jobId, message, function (result) {
         addInterestStudent(dbo, studentId, jobId, message, function (result) {
           db.close()
-
           callback(result);
         });
       });
