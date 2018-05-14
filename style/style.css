@@ -636,6 +636,25 @@ float: right;
     min-height: 10em;
 }
 
+.sInfoOuterDiv{
+	background: rgb(74,150,205);
+	text-align: center;
+	font-family: Open sans;
+	padding: 2% 2% 2% 2%;
+	color: white;
+	width:20em;
+	margin-left:auto;
+margin-right:auto;
+}
+.sInfoInnerDiv{
+background:white;
+width:20em;
+padding: 2% 2% 2% 2%;
+margin-left:auto;
+margin-right:auto;
+margin-top:-1em;
+}
+
 #shortDescription{
 	min-height: 90pt;
 }
