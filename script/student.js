@@ -624,11 +624,12 @@ window.onload = function () {
             let readBtn = document.createElement("button");
             readBtn.innerHTML = "Visa annons";
             readBtn.id = jobb[0]._id;
+            readBtn.classList.add("btn1");
 
             let removeBtn = document.createElement("button");
             removeBtn.innerHTML = "Ta bort intresseanmälan";
             removeBtn.id = jobb[0]._id + ",remove";
-            removeBtn.className = "floatRight";
+            removeBtn.className = "floatRight btn1";
 
             workAnnouncement.appendChild(outerDiv);
             workAnnouncement.appendChild(document.createElement("br"));
@@ -700,6 +701,7 @@ window.onload = function () {
                 let readBtn = document.createElement("button");
                 readBtn.innerHTML = "Visa annons";
                 readBtn.id = jobb[i]._id;
+                readBtn.classList.add("btn1"); 
 
                 workAnnouncement.appendChild(outerDiv);
                 workAnnouncement.appendChild(document.createElement("br"));
