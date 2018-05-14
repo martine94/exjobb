@@ -458,7 +458,7 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 interestArea.innerHTML = this.response;
                 AddEventListerersButtons(2);
-                loadKeywords();
+                loadKeywords(function(){});
             }
         };
         xhttp.open("GET", "loadFileCompany?p=" + '/newExJob.html', true);
