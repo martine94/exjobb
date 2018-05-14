@@ -347,7 +347,7 @@ window.onload = function () {
             let divInfo = document.createElement("div");
             let shortDescript = document.createElement("p");
             shortDescript.style.outlineColor = "brown";
-            shortDescript.innerHTML = "Kort beskrivning om sökanden: ";
+            shortDescript.innerHTML = "Kort meddelande: ";
             divInfo.appendChild(shortDescript);
             personDiv.appendChild(divInfo);
 
@@ -502,10 +502,10 @@ window.onload = function () {
     }
 
     function showHideDataForExJob(elements) {
-        if (elements.className === "content Shadow")
+        if (elements.classList.contains("content"))
             elements.className = "contentShow";
         else
-            elements.className = "content Shadow";
+            elements.className = "content";
     }
 
 

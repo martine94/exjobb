@@ -203,7 +203,9 @@ function showForStudentsInfo() {
 }
 
 //#endregion
-}
+
+//} var tvungen flytta denna till längst ner för vissa funtioner funkar inte
+
 //#region shared register functions
 
 function getRadioButtonValue(element){
@@ -470,3 +472,4 @@ function ajaxRequest(type, route, responseHandler){
 }
 
 //#endregion
+}
