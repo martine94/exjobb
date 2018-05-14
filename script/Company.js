@@ -415,7 +415,6 @@ window.onload = function () {
                     overDiv.appendChild(btn);
                     var kwInArray = keywords2[0][keyArray[i]];
                     let underDiv = document.createElement("div");
-                    overDiv.className = "contentShow";
                     underDiv.className = "content";
                     btn.addEventListener("click", (e) => showUnderDiv(keyArray[i]));
                     underDiv.id = keyArray[i];
@@ -567,11 +566,8 @@ window.onload = function () {
                 interestArea.innerHTML = this.response;
                 loadKeywords(function(){
                     changeSpecificJob(jobId,function(){
-
                     });
                 });
-                //loadKeywords();
-                //changeSpecificJob(jobId);
             }
         };
         xhttp.open("GET", "loadFileCompany?p=" + '/changeExJob.html', true);
