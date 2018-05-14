@@ -309,7 +309,7 @@ window.onload = function () {
     }
 
     function showHide(elements) {
-        if (elements.className === "content") {
+        if (elements.classList.contains("content")) {
             elements.className = "contentShow";
         }
         else {
