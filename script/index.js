@@ -273,6 +273,9 @@ function getStudentForm()
     studentForm["password"] = new formInputHandler(document.getElementById("pswS"), "width100 errInput", "width100", 
         function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
     
+    studentForm["passwordConfirm"] = new formInputHandler(document.getElementById("pswS2"), "width100 errInput", "width100", 
+    function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
+    
     return studentForm;
 }
 
@@ -291,6 +294,13 @@ function checkValidRegStudentInput(){
         }
     }
 
+    if(formInputs["password"].getValue() != formInputs["passwordConfirm"].getValue()){
+        document.getElementById("errorReg").innerHTML+=" *Lösenorden stämmer inte överens.";
+        formInputs["password"].element.value = "";
+        formInputs["passwordConfirm"].element.value = "";
+        error = true;
+    }
+    
     if (error){
         document.getElementById("errorReg").innerHTML = "*Fel input " + "<br/>";
     }
