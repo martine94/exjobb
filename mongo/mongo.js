@@ -128,7 +128,7 @@ module.exports = {
       dbo.collection("keywords").findOne({},function(err,result){
         if(err)throw err;
         db.close(); 
-        res.send(result)
+        callback(result);
       });
     });
   },
