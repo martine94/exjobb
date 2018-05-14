@@ -599,7 +599,7 @@ app.post('/changeExJobInfo', urlEncodedParcer, function (req, res) {
 
     var exjobb = JSON.parse(req.query["exJobb"]);
     try {
-        jobID = req.query["jobID"];
+       let jobID = req.query["jobID"];
 
         logger.silly("Exjob info", exjobb);
         Mongo.changeExJobInfo(jobID, exjobb, function (result) {

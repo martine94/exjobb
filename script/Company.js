@@ -173,7 +173,7 @@ window.onload = function () {
 
     }
 
-    function changeSpecificJob(jobId) {
+    function changeSpecificJob(jobId,callback) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -189,6 +189,7 @@ window.onload = function () {
                     console.log(jobs[0].keywords[i]);
                     document.getElementById(jobs[0].keywords[i]).checked = true;
                 }
+                callback();
             }
         };
         xhttp.open("GET", "getSpecificJobFromDB?jobID=" + jobId, true);
@@ -391,7 +392,9 @@ window.onload = function () {
     //Startsidan
 
     //ExJobb
-    function loadKeywords() {
+    function loadKeywords(callback) {
+        var keyDIV = document.getElementById("keywordsDIV");
+        keyDIV.innerHTML="";
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -404,7 +407,6 @@ window.onload = function () {
                         }
                     }
                 }
-                var keyDIV = document.getElementById("keywordsDIV");
                 for (let i = 0; i < keyArray.length; ++i) {
                     let overDiv = document.createElement("div");
                     let btn = document.createElement("button");
@@ -413,7 +415,6 @@ window.onload = function () {
                     overDiv.appendChild(btn);
                     var kwInArray = keywords2[0][keyArray[i]];
                     let underDiv = document.createElement("div");
-                    overDiv.className = "contentShow";
                     underDiv.className = "content";
                     btn.addEventListener("click", (e) => showUnderDiv(keyArray[i]));
                     underDiv.id = keyArray[i];
@@ -433,7 +434,7 @@ window.onload = function () {
                     overDiv.appendChild(underDiv);
                     keyDIV.appendChild(overDiv);
                 }
-                return 1;
+                callback();
             }
 
         };
@@ -456,7 +457,7 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 interestArea.innerHTML = this.response;
                 AddEventListerersButtons(2);
-                loadKeywords();
+                loadKeywords(function(){});
             }
         };
         xhttp.open("GET", "loadFileCompany?p=" + '/newExJob.html', true);
@@ -563,8 +564,10 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 interestArea.innerHTML = this.response;
-                loadKeywords();
-                changeSpecificJob(jobId);
+                loadKeywords(function(){
+                    changeSpecificJob(jobId,function(){
+                    });
+                });
             }
         };
         xhttp.open("GET", "loadFileCompany?p=" + '/changeExJob.html', true);
