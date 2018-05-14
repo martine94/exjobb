@@ -261,9 +261,6 @@ function getStudentForm()
     studentForm["education"] = new formInputHandler(document.getElementById("ueducationS"), "width100 errInput", "width100", 
         function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
 
-    studentForm["gender"] = new formInputHandler(document.getElementsByName("ugender"), "width100 errInput", "width100", 
-        getRadioButtonValue, checkEmptyInput, setTextInputClass);
-
     studentForm["email"] = new formInputHandler(document.getElementById("uemailS"), "width100 errInput", "width100", 
         function(element){ return element.value; }, checkEmailInput, setTextInputClass);
 
@@ -318,8 +315,7 @@ function createStudentRouteString(formInputs)
     "&uedu=" + formInputs["education"].getValue() + 
     "&uemail=" + formInputs["email"].getValue() + 
     "&uname=" + formInputs["userName"].getValue() + 
-    "&psw=" + formInputs["password"].getValue() + 
-    "&gender=" + formInputs["gender"].getValue();
+    "&psw=" + formInputs["password"].getValue();
 }
 
 function register_student(formInputs) {

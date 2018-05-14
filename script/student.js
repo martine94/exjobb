@@ -180,7 +180,6 @@ window.onload = function () {
                     email: obj[0].uemail,
                     uname: obj[0].uname,
                     pw: obj[0].password,
-                    gender: obj[0].gender,
                     ucv: obj[0].cv
                 }
                 document.getElementById("sFName").value += user.name;
@@ -196,8 +195,6 @@ window.onload = function () {
                     document.getElementById("pdfStatus").innerHTML = "CV upladdat";
                     cvData = user.ucv.replace(/ /g, '+'); //replace all whitespace with +
                 }
-
-                genderData = user.gender;
 
                 for (let i = 0; i < obj[0].keywords.length; i++) {
                    document.getElementById(obj[0].keywords[i]).checked = true;
@@ -376,13 +373,12 @@ window.onload = function () {
         var uemail = document.getElementById("sEmail").value;
         var uname = document.getElementById("sUname").value;
         var psw = document.getElementById("sPsw").value;
-        var gender = "male";
 
         var keywords = "";
         var cv = cvData;
         var xhttp = new XMLHttpRequest();
         xhttp.open("POST", "/changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu
-            + "&uemail=" + uemail + "&uname=" + uname + "&psw=" + psw + "&gender=" + genderData + "&keywords=" + keywords, true);
+            + "&uemail=" + uemail + "&uname=" + uname + "&psw=" + psw + "&keywords=" + keywords, true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
         // xhttp.onreadystatechange = () => {
         //     console.log(xhttp);
