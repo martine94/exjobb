@@ -265,7 +265,6 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
         uemail: req.query["uemail"],
         uname: req.query["uname"],
         password: req.query["psw"],
-        gender: req.query["gender"],
         keywords: [],
         joblist: [],
         cv: req.query["cv"]
@@ -304,7 +303,6 @@ app.post('/changeStudentInfo', urlEncodedParcer, function (req, res) {
         uemail: req.query["uemail"],
         uname: req.query["uname"],
         password: req.query["psw"],
-        gender: req.query["gender"],
         keywords: req.query["keywords"],
         joblist: [],
         cv: req.body["cv"]
@@ -478,7 +476,7 @@ app.post('/changeCompanyInfo', urlEncodedParcer, function (req, res) {
 
 app.post('/register_company', urlEncodedParcer, function (req, resp) {
     console.log("company register POST request");
-    response = {
+    var response = {
         companyName: req.query["cname"],
         companyAddress: req.query["caddress"],
         companyCity: req.query["ccity"],

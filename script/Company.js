@@ -14,6 +14,7 @@ window.onload = function () {
         }
     }
     var currentPage = "";
+    var globalObjId;
     //#region buttons
     var newExJobBtn = document.getElementById("newExJobBtn");
     var myOffersBtn = document.getElementById("myOffersBtn");
@@ -300,6 +301,7 @@ window.onload = function () {
     }
 
     function loadInterests(objId) {
+        globalObjId = objId;
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -315,8 +317,7 @@ window.onload = function () {
         var interests = document.getElementById("Interests");
         var number = 1;
         for (let i = 0; i < num; i++) {
-
-            console.log(studentList[i].studentID[0]);
+            let pdfObject = studentList[i].studentID[0].cv;
             let personDiv = document.createElement("div");
             personDiv.style.backgroundColor = "lightblue";
             personDiv.style.color = "white";
@@ -352,6 +353,7 @@ window.onload = function () {
             txtArea.style.padding = "1%";
             let CVbtn = document.createElement("button");
             CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov Shadow";
+            CVbtn.addEventListener("click", (e)=> loadCV(pdfObject))
             CVbtn.innerHTML = "CV";
             personDiv.appendChild(txtArea);
             personDiv.appendChild(document.createElement("br"));
@@ -367,6 +369,22 @@ window.onload = function () {
         }
         let backBtn = document.getElementById("BackBtn");
         backBtn.addEventListener("click", (e) => loadMyOffers());
+    }
+
+    function loadCV(pdfObj){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                interestArea.innerHTML = this.response;
+                var pdfSpace = document.getElementById("pdfSpace");
+                pdfSpace.data = pdfObj.replace(/ /g, '+');
+                var backbtn = document.getElementById("bacBtn");
+                backbtn.addEventListener("click", (e)=>loadInterests(globalObjId));
+            }
+        };
+        xhttp.open("GET", "loadFileCompany?p=" + '/showCv.html', true);
+        xhttp.send();
+   
     }
 
     //Load Buttons and Events
