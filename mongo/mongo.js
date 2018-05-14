@@ -437,6 +437,7 @@ module.exports = {
         logger.debug('Found student object:', jobList);
         if (jobList.length === 0) {
           logger.info('No job interests found.');
+          db.close();
           callback("false");
         }
         else {
@@ -448,6 +449,7 @@ module.exports = {
 
               if (jobArray.length === jobList.length) {
                 logger.debug('Job array produced', jobArray);
+                db.close();
                 callback(jobArray);
               }
             });

@@ -104,6 +104,7 @@ app.get('/keywords', function (req, res) {
         }
     });
 });
+
 app.get('/removeExjob', urlEncodedParcer, function (req, res) {
     let jobID = req.query["jobID"];
     let companyID = getUserID(req);
