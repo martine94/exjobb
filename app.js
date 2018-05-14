@@ -8,8 +8,8 @@ var app = express();
 
 //Body-parser
 var bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 var urlEncodedParcer = bodyParser.urlencoded({ extended: true });
 
 //Mongo
@@ -88,6 +88,46 @@ app.get('/loadFileIndex', urlEncodedParcer, function (req, res) {
     var location = req.query["l"];
     var _path = req.query["p"];
     res.sendFile(path.join(dirIndex, _path));
+});
+app.get('/removeExjob', urlEncodedParcer, function (req, res) {
+    let jobID = req.query["jobID"];
+    let companyID = getUserID(req);
+    let userIDInterestArray=[];
+    //getting specific Job from DB
+    var ObjectId = require('mongodb').ObjectId;
+    var o_id = new ObjectId(jobID);
+    Mongo.findOne("job", { "_id": o_id }, function (result) {
+        if (result.length === 0) {
+            console.log("false");
+        } else {
+            result[0].studentlist.forEach(function(studID){
+                console.log(studID);
+                userIDInterestArray.push(studID.studentID);
+            });
+            console.log(userIDInterestArray);
+        }
+        if(userIDInterestArray.length>0){
+            //Removing job from all students that have an interest in it
+            for(let i=0;i<userIDInterestArray.length;++i){
+                try {
+                    Mongo.removeInterestMessage(userIDInterestArray[i], jobID, function (result2) {
+                    });
+                } catch (error) {
+                    logger.error('Error', error);
+                }
+            }
+            //Removing job object
+            try {
+                Mongo.removeJob( jobID, function (result3) {
+                });
+            } catch (error) {
+                logger.error('Error', error);
+            }
+            res.send("true");
+        } else{
+            res.send("false");
+        }
+    });
 });
 
 app.get('/loadFileCompany', urlEncodedParcer, function (req, res) {
@@ -189,9 +229,9 @@ function getUserID(req) {
 
 function getUser(req) {
     let userID = getUserID(req);
-    if(userID !== 'false'){
-        Mongo.findOne("student", userID, function (result){
-            logger.debug('UserID is: %s \nMongo found: %j', userID, result);         
+    if (userID !== 'false') {
+        Mongo.findOne("student", userID, function (result) {
+            logger.debug('UserID is: %s \nMongo found: %j', userID, result);
         });
         return userID;
     }
@@ -215,12 +255,12 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
         password: req.query["psw"],
         gender: req.query["gender"],
         keywords: [],
-        joblist:[],
+        joblist: [],
         cv: req.query["cv"]
     };
-    
+
     logger.debug('Register form is:', response);
-    
+
     try {
         Mongo.addStudent(response, function (result) {
             if (result instanceof Error) {
@@ -241,9 +281,9 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
     }
 });
 
-app.post('/changeStudentInfo',urlEncodedParcer, function(req,res){
+app.post('/changeStudentInfo', urlEncodedParcer, function (req, res) {
     logger.info('GET /changeStudentInfo request');
-    
+
     var user = {
         name: req.query["ufname"],
         lastname: req.query["ulname"],
@@ -262,7 +302,7 @@ app.post('/changeStudentInfo',urlEncodedParcer, function(req,res){
 
     try {
         let myQuery = getUserID(req);
-        Mongo.changeStudentInfo(myQuery ,user,function (result) {
+        Mongo.changeStudentInfo(myQuery, user, function (result) {
             if (result instanceof Error) {
                 logger.error('Error', result);
                 if (result.code === 11000) {
@@ -270,7 +310,7 @@ app.post('/changeStudentInfo',urlEncodedParcer, function(req,res){
                 }
             }
             else {
-                logger.debug('Successfully changed student info');        
+                logger.debug('Successfully changed student info');
                 res.send("true");
             }
         });
@@ -306,12 +346,12 @@ app.get('/userDataFromDBStudent', function (req, res) {
 });
 
 
-app.post('/changeStudentInfo',urlEncodedParcer,function(req,res){
-    let userObj= JSON.parse(req.query["userObj"]);
+app.post('/changeStudentInfo', urlEncodedParcer, function (req, res) {
+    let userObj = JSON.parse(req.query["userObj"]);
     userObj["cv"] = req.body["cv"];
     try {
         let studentID = getUserID(req);
-        Mongo.changeUserInfo('student',studentID, userObj, function (result) {
+        Mongo.changeUserInfo('student', studentID, userObj, function (result) {
             if (result instanceof Error) {
                 console.log("Error!");
                 if (result.code === 11000) {
@@ -340,29 +380,29 @@ app.get('/removeInterestMessage', function (req, res) {
     let userId = getUserID(req);
     let jobId = req.query["jobID"];
     logger.debug('Removing interest from user: %s and jobid: %s', userId, jobId);
-    
-    try{
-        Mongo.removeInterestMessage(userId, jobId, function(result){
+
+    try {
+        Mongo.removeInterestMessage(userId, jobId, function (result) {
             res.send("true");
         });
-    }catch(error){
+    } catch (error) {
         logger.error('Error', error);
     }
-    
+
 });
 
-app.post('/addInterestMessage', urlEncodedParcer, function(req, res){
+app.post('/addInterestMessage', urlEncodedParcer, function (req, res) {
     logger.info('GET /removeInterestMessage request');
 
     let userId = getUserID(req);
     let jobId = req.query["jobID"];
     logger.debug('Removing interest from user: %s and jobid: %s', userId, jobId);
 
-    try{
-        Mongo.pushInterestMessage(jobId, userId, req.query["message"], function(result){
+    try {
+        Mongo.pushInterestMessage(jobId, userId, req.query["message"], function (result) {
             res.send('true');
         })
-    }catch(error){
+    } catch (error) {
         logger.error('Error', error);
         res.send('false');
     }
@@ -370,13 +410,13 @@ app.post('/addInterestMessage', urlEncodedParcer, function(req, res){
 
 app.get('/getStudentInterestMessages', function (req, res) {
     logger.info("GET /getStudentInterestMessages request");
-    
+
     let userId = getUserID(req);
     if (userId == "false") {
         logger.info("Could not find user");
         res.send("false");
     } else {
-        Mongo.getStudentInterestMessages(userId, function(result){
+        Mongo.getStudentInterestMessages(userId, function (result) {
             res.send(result);
         });
     }
@@ -403,7 +443,7 @@ app.post('/changeCompanyInfo', urlEncodedParcer, function (req, res) {
     }
     try {
         let companyID = getUserID(req);
-        Mongo.changeUserInfo('company',companyID, user, function (result) {
+        Mongo.changeUserInfo('company', companyID, user, function (result) {
             if (result instanceof Error) {
                 console.log("Error!");
                 if (result.code === 11000) {
