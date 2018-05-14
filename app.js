@@ -91,10 +91,13 @@ app.get('/loadFileIndex', urlEncodedParcer, function (req, res) {
 });
 
 app.get('/keywords', function (req, res) {
-    var ObjectId = require('mongodb').ObjectId;
-    var o_id = new ObjectId("5af93ddba5877426ecf111ba");
-    Mongo.findOne("keywords", { "_id": o_id }, function (result) {
+    //var ObjectId = require('mongodb').ObjectId;
+    //var o_id = new ObjectId("5af93ddba5877426ecf111ba");
+    Mongo.findOne("keywords", {}, function (result) {
         if (result.length === 0) {
+            Mongo.createKeywords(function(result2){
+                res.send(result2);
+            });
             res.send("false");
         } else {
             res.send(result);
