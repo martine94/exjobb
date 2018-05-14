@@ -10,10 +10,10 @@ window.onload = function () {
             this.companyID = "";
             this.companyName = "";
             this.website = "";
-            this.interestList={};
+            this.interestList = {};
         }
     }
-    var currentPage="";
+    var currentPage = "";
     //#region buttons
     var newExJobBtn = document.getElementById("newExJobBtn");
     var myOffersBtn = document.getElementById("myOffersBtn");
@@ -130,7 +130,7 @@ window.onload = function () {
         xhttp.send();
     }
 
-    function getspecificIntresents(jobId){
+    function getspecificIntresents(jobId) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -138,7 +138,7 @@ window.onload = function () {
                 console.log("JOBB HÄMTADE");
                 let num = 0;
                 var jobs = JSON.parse(this.response);
-                for(let i = 0; i<jobs[0].studentlist.length;i++){
+                for (let i = 0; i < jobs[0].studentlist.length; i++) {
                     num++;
                 }
                 console.log(jobs[0].studentlist[0]);
@@ -216,7 +216,7 @@ window.onload = function () {
     function workAnnouncements(num, jobb) {
         var loadingImage = document.getElementById("loadImg");
         loadingImage.style.display = 'none';
-        workAnnouncement.innerHTML="";
+        workAnnouncement.innerHTML = "";
         for (var i = 0; i < num; i++) {
 
             var outerDiv = document.createElement("div");
@@ -264,23 +264,39 @@ window.onload = function () {
             logo.src = jobb[i].logoURL; //ladda in logga
             newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
             readBtn.addEventListener("click", (e) => loadShowExJob(readBtn.id));
+            readBtn.classList.add("btn1");
             changeBtn.addEventListener("click", (e) => loadChangeExJob(readBtn.id));
+            changeBtn.classList.add("btn1");
             interestBtn.addEventListener("click", (e) => loadInterests(readBtn.id));
+            interestBtn.classList.add("btn1");
 
         }
     }
-    function SetCurrentPage(currentPageBtn){
-        if(currentPage===""){
-            currentPage=currentPageBtn;
+    function SetCurrentPage(currentPageBtn) {
+        if (currentPage === "") {
+            currentPage = currentPageBtn;
         }
-        else{
+        else {
             currentPage.classList.remove('bColorDarkBlue');
             currentPage.classList.add('bColorBlue');
         }
-        currentPage=currentPageBtn;
+        currentPage = currentPageBtn;
         currentPageBtn.classList.remove('bColorBlue');
         currentPageBtn.classList.add('bColorDarkBlue');
 
+    }
+    function removeExjob(jobId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                //interestArea.innerHTML = this.response;
+                if (this.response === "true") {
+                    loadMyOffers();
+                }  
+            }
+        };
+        xhttp.open("GET", "removeExjob?jobID=" + jobId, true);
+        xhttp.send();
     }
 
     function loadShowExJob(jobId) {
@@ -289,8 +305,11 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 interestArea.innerHTML = this.response;
                 let showIBtn = document.getElementById("showintressents");
-                showIBtn.addEventListener("click", (e)=> loadInterests(jobId));
+                showIBtn.addEventListener("click", (e) => loadInterests(jobId));
                 document.getElementById("closeExJob").addEventListener("click", loadMyOffers);
+                document.getElementById("changeJobBtn").addEventListener("click", (e) => loadChangeExJob(jobId));
+                document.getElementById("removeExJobbBtn").addEventListener("click", (e) => removeExjob(jobId));
+
                 getSpecificJob(jobId);
             }
         };
@@ -304,7 +323,7 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 interestArea.innerHTML = this.response;
                 getspecificIntresents(objId);
-                }
+            }
         };
         xhttp.open("GET", "loadFileCompany?p=" + '/CExJobInterests.html', true);
         xhttp.send();
@@ -327,10 +346,10 @@ window.onload = function () {
             let divInfo = document.createElement("div");
             let shortDescript = document.createElement("p");
             shortDescript.style.outlineColor = "brown";
-            shortDescript.innerHTML = "Kort beskrivning om sökanden: ";
+            shortDescript.innerHTML = "Kort meddelande: ";
             divInfo.appendChild(shortDescript);
             personDiv.appendChild(divInfo);
-            
+
             personDiv.className = "jobsSmall";
             let emailDiv = document.createElement("div");
             console.log("UEMAIL");
@@ -339,7 +358,7 @@ window.onload = function () {
 
             let txtArea = document.createElement("div");
             txtArea.style.backgroundColor = "white";
-            txtArea.style.color = "black"; 
+            txtArea.style.color = "black";
             let msg = document.createElement("p");
             msg.innerHTML = studentList[i].message
             let strEmail = document.createElement("p");
@@ -365,7 +384,7 @@ window.onload = function () {
             number++;
         }
         let backBtn = document.getElementById("BackBtn");
-        backBtn.addEventListener("click", (e)=>loadMyOffers());
+        backBtn.addEventListener("click", (e) => loadMyOffers());
     }
 
     function loadCV(pdfObj){
@@ -510,10 +529,10 @@ window.onload = function () {
     }
 
     function showHideDataForExJob(elements) {
-        if (elements.className === "content Shadow")
+        if (elements.classList.contains("content"))
             elements.className = "contentShow";
         else
-            elements.className = "content Shadow";
+            elements.className = "content";
     }
 
 

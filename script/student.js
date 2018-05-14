@@ -180,7 +180,6 @@ window.onload = function () {
                     email: obj[0].uemail,
                     uname: obj[0].uname,
                     pw: obj[0].password,
-                    gender: obj[0].gender,
                     ucv: obj[0].cv
                 }
                 document.getElementById("sFName").value += user.name;
@@ -196,8 +195,6 @@ window.onload = function () {
                     document.getElementById("pdfStatus").innerHTML = "CV upladdat";
                     cvData = user.ucv.replace(/ /g, '+'); //replace all whitespace with +
                 }
-
-                genderData = user.gender;
 
                 for (let i = 0; i < obj[0].keywords.length; i++) {
                    document.getElementById(obj[0].keywords[i]).checked = true;
@@ -309,7 +306,7 @@ window.onload = function () {
     }
 
     function showHide(elements) {
-        if (elements.className === "content") {
+        if (elements.classList.contains("content")) {
             elements.className = "contentShow";
         }
         else {
@@ -376,13 +373,12 @@ window.onload = function () {
         var uemail = document.getElementById("sEmail").value;
         var uname = document.getElementById("sUname").value;
         var psw = document.getElementById("sPsw").value;
-        var gender = "male";
 
         var keywords = "";
         var cv = cvData;
         var xhttp = new XMLHttpRequest();
         xhttp.open("POST", "/changeStudentInfo?ufname=" + ufname + "&ulname=" + ulname + "&ucity=" + ucity + "&uedu=" + uedu
-            + "&uemail=" + uemail + "&uname=" + uname + "&psw=" + psw + "&gender=" + genderData + "&keywords=" + keywords, true);
+            + "&uemail=" + uemail + "&uname=" + uname + "&psw=" + psw + "&keywords=" + keywords, true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
         // xhttp.onreadystatechange = () => {
         //     console.log(xhttp);
@@ -440,7 +436,7 @@ window.onload = function () {
                 }
             }
         };
-        xhttp.open("POST", "addInterest?jobID=" + jobId + "&message=" + message, true);
+        xhttp.open("POST", "addInterestMessage?jobID=" + jobId + "&message=" + message, true);
         xhttp.send();
     }
 
@@ -575,7 +571,7 @@ window.onload = function () {
                 }
             }
         };
-        xhttp.open("GET", "getInterestJob", true);
+        xhttp.open("GET", "getStudentInterestMessages", true);
         xhttp.send();
     }
 
@@ -590,7 +586,7 @@ window.onload = function () {
                 }
             };
         }
-        xhttp.open("GET", "removeInterest?jobID=" + jobIDstr, true);
+        xhttp.open("GET", "removeInterestMessage?jobID=" + jobIDstr, true);
         xhttp.send();
     }
 
@@ -624,11 +620,12 @@ window.onload = function () {
             let readBtn = document.createElement("button");
             readBtn.innerHTML = "Visa annons";
             readBtn.id = jobb[0]._id;
+            readBtn.classList.add("btn1");
 
             let removeBtn = document.createElement("button");
             removeBtn.innerHTML = "Ta bort intresseanmälan";
             removeBtn.id = jobb[0]._id + ",remove";
-            removeBtn.className = "floatRight";
+            removeBtn.className = "floatRight btn1";
 
             workAnnouncement.appendChild(outerDiv);
             workAnnouncement.appendChild(document.createElement("br"));
@@ -700,6 +697,7 @@ window.onload = function () {
                 let readBtn = document.createElement("button");
                 readBtn.innerHTML = "Visa annons";
                 readBtn.id = jobb[i]._id;
+                readBtn.classList.add("btn1"); 
 
                 workAnnouncement.appendChild(outerDiv);
                 workAnnouncement.appendChild(document.createElement("br"));

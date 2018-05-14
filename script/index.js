@@ -203,7 +203,9 @@ function showForStudentsInfo() {
 }
 
 //#endregion
-}
+
+//} var tvungen flytta denna till längst ner för vissa funtioner funkar inte
+
 //#region shared register functions
 
 function getRadioButtonValue(element){
@@ -259,9 +261,6 @@ function getStudentForm()
     studentForm["education"] = new formInputHandler(document.getElementById("ueducationS"), "width100 errInput", "width100", 
         function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
 
-    studentForm["gender"] = new formInputHandler(document.getElementsByName("ugender"), "width100 errInput", "width100", 
-        getRadioButtonValue, checkEmptyInput, setTextInputClass);
-
     studentForm["email"] = new formInputHandler(document.getElementById("uemailS"), "width100 errInput", "width100", 
         function(element){ return element.value; }, checkEmailInput, setTextInputClass);
 
@@ -270,6 +269,9 @@ function getStudentForm()
 
     studentForm["password"] = new formInputHandler(document.getElementById("pswS"), "width100 errInput", "width100", 
         function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
+    
+    studentForm["passwordConfirm"] = new formInputHandler(document.getElementById("pswS2"), "width100 errInput", "width100", 
+    function(element){ return element.value; }, checkEmptyInput, setTextInputClass);
     
     return studentForm;
 }
@@ -289,6 +291,13 @@ function checkValidRegStudentInput(){
         }
     }
 
+    if(formInputs["password"].getValue() != formInputs["passwordConfirm"].getValue()){
+        document.getElementById("errorReg").innerHTML+=" *Lösenorden stämmer inte överens.";
+        formInputs["password"].element.value = "";
+        formInputs["passwordConfirm"].element.value = "";
+        error = true;
+    }
+    
     if (error){
         document.getElementById("errorReg").innerHTML = "*Fel input " + "<br/>";
     }
@@ -306,8 +315,7 @@ function createStudentRouteString(formInputs)
     "&uedu=" + formInputs["education"].getValue() + 
     "&uemail=" + formInputs["email"].getValue() + 
     "&uname=" + formInputs["userName"].getValue() + 
-    "&psw=" + formInputs["password"].getValue() + 
-    "&gender=" + formInputs["gender"].getValue();
+    "&psw=" + formInputs["password"].getValue();
 }
 
 function register_student(formInputs) {
@@ -470,3 +478,4 @@ function ajaxRequest(type, route, responseHandler){
 }
 
 //#endregion
+}
