@@ -14,6 +14,7 @@ window.onload = function () {
         }
     }
     var currentPage = "";
+    var globalObjId;
     //#region buttons
     var newExJobBtn = document.getElementById("newExJobBtn");
     var myOffersBtn = document.getElementById("myOffersBtn");
@@ -318,6 +319,7 @@ window.onload = function () {
     }
 
     function loadInterests(objId) {
+        globalObjId = objId;
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -388,30 +390,19 @@ window.onload = function () {
     }
 
     function loadCV(pdfObj){
-        
-        // let obj = new window();//.open(pdfObj.replace(/ /g, '+'));
-        // let headet = obj.createElement('head');
-        // obj.createElement('body');
-        // obj.appendChild(headet);
-        /*innerObj = Object();
-        innerObj.type = application/pdf;
-        innerObj.width = "100%";
-        innerObj.height = 50%;
-        innerObj.height = 50%;
-        var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
-        win.document.body.innerHTML = "   trusted="yes" application="yes" standby="Laddar cv"></object>"   */
-
-        let file = pdfObj;
-        //file.name = "CV.pdf";
-        //file.rename(pdfObj, "CV.pdf");
-        console.log(file.name);
-        window.open(file.replace(/ /g, '+'));
-        //obj.innerHTML = "<head></head><body></body>";
-        
-        // obj.onload = () => {
-        //     if(obj.readyState === 4)
-        //         obj.document.getElementsByTagName('title').innerHTML = "<title>CV.pdf</title>";             
-        // } 
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                interestArea.innerHTML = this.response;
+                var pdfSpace = document.getElementById("pdfSpace");
+                pdfSpace.data = pdfObj.replace(/ /g, '+');
+                var backbtn = document.getElementById("bacBtn");
+                backbtn.addEventListener("click", (e)=>loadInterests(globalObjId));
+            }
+        };
+        xhttp.open("GET", "loadFileCompany?p=" + '/showCv.html', true);
+        xhttp.send();
+   
     }
 
     //Load Buttons and Events
