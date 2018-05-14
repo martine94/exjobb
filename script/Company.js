@@ -332,7 +332,7 @@ window.onload = function () {
             let divInfo = document.createElement("div");
             let shortDescript = document.createElement("p");
             shortDescript.style.outlineColor = "brown";
-            shortDescript.innerHTML = "Kort beskrivning om sökanden: ";
+            shortDescript.innerHTML = "Kort meddelande: ";
             divInfo.appendChild(shortDescript);
             personDiv.appendChild(divInfo);
             
