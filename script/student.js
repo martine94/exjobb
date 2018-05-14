@@ -474,6 +474,7 @@ window.onload = function () {
                 document.getElementById("shortDescriprion").innerHTML = jobs[0].shortdesc;
                 document.getElementById("longDescriprion").innerHTML = jobs[0].longdesc;
                 var keyWords = document.getElementById("keyWordArea");
+                keyWords.innerHTML="";
                 var table = document.createElement("table");
                 keyWords.appendChild(table);
                 table.className = "tableKeywords";
