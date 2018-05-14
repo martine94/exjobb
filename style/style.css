@@ -620,7 +620,8 @@ button:focus { outline:0 !important; }
 float: right;
 }
 .descriptionBoxes{
-	width: 100%;
+    width: 100%;
+    min-height: 10em;
 }
 
 #shortDescription{
