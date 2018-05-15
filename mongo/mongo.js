@@ -457,6 +457,30 @@ module.exports = {
         }
       });
     });
+  },
+
+  getStudentsById: function(idArray, callback){
+    logger.info('Getting students by ids');
+    logger.debug('Using idArray %j', idArray);
+
+    //var ObjectId = require('mongodb').ObjectID;
+    
+    MongoClient.connect(url, function (error, db) {
+      if(error) throw error;
+
+      var dbo = db.db(database);
+      dbo.collection('student').find({ _id: { $in : idArray } }, 
+      { projection: { _id: 1, uemail: 1 } }, function (error, result) {
+        if (error){
+          db.close();
+          throw error;
+        }
+
+        logger.silly('Getting students by ids result:', result);
+        db.close();
+        callback(result);
+      });
+    });
   }
 };
 
