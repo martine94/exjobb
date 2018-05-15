@@ -18,8 +18,25 @@ li{
 	width:6.25em;
 	height: 1.5625em;
 }
+#myUL>li{
+	width:100%;
+	height: relative;
+}
 a:link {
     text-decoration: none;
+}
+#myUL {
+    list-style-type: none;
+    padding: 0;
+	margin: 0;
+	background-color: rgb(248, 248, 248);
+}
+
+.hide{
+	display: none;
+}
+.show{
+	display: block;
 }
 .exjobbInput{
 	color:black;
@@ -181,6 +198,11 @@ padding: 0.2em;
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: 100%;
+	}
+	.searchContainer{
+		width: 80%;
+		margin-left: 10%;
+		padding:0 1% 0 1%;
 	}
 #searchInput {
 		background-image: url("https://www.shareicon.net/download/2015/10/03/110917_search_512x512.png");
@@ -635,9 +657,34 @@ float: right;
     width: 100%;
     min-height: 10em;
 }
+.logoDiv{
+	width:100px;
+	height: 100px;
+	float:left;
+	margin-left:2em;
+	margin-top:2em;
+	margin-right:2em;
+}
+.contactInfoDiv{
+	margin-left:2em;
+	line-height: 50%;
+	padding-top:1em;
+}
+.aboutCompanyDiv{
+	width:25em;
+	display:inline-block;
+	margin-bottom:2em;
+	text-align:justify;
+}
 #profileInfo{
-	width:20em;
-	box-shadow: 14px 3px 10px #999;
+	width:30em;
+	box-shadow: 20px 3px 10px #999;
+	margin-left:auto;
+	margin-right:auto;
+}
+#profileCInfo{
+	width:40em;
+	box-shadow: 25px 3px 10px #999;
 	margin-left:auto;
 	margin-right:auto;
 }
