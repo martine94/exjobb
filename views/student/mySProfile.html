@@ -20,10 +20,12 @@
         </div>
         <div>
             <p id="pdfStatus">Inget cv uppladdat</p>
-            <button type="button" class="bColorBlue mediumBtn" onclick="document.getElementById('pdfUpload').click()">Ladda upp cv(pdf)</button>                     
-            <input type="file" style="display: none" id="pdfUpload"> <!--För att ändra den "fula" designen på default download style="display: none" -->                     
-            <button type="button" id="pdfOpen" class="bColorBlue mediumBtn">Öppna sparat cv(pdf)</button><br>   
-            <object id="pdfSpace" width="100%" height="0em" type="application/pdf" trusted="yes" application="yes" standby="Laddar cv"></object>            
+            <button type="button" class="bColorBlue mediumBtn" onclick="document.getElementById('pdfUpload').click()">Ladda upp cv(pdf)</button>
+            <input type="file" style="display: none" id="pdfUpload">
+            <!--För att ändra den "fula" designen på default download style="display: none" -->
+            <button type="button" id="pdfOpen" class="bColorBlue mediumBtn">Öppna sparat cv(pdf)</button>
+            <br>
+            <object id="pdfSpace" width="100%" height="0em" type="application/pdf" trusted="yes" application="yes" standby="Laddar cv"></object>
         </div>
 
 
@@ -37,79 +39,18 @@
             <input class="width50 lowb" type="text" id="sUname">
         </div>
         <div>
-            <label class="alignRight" for="sPsw" >Lösenord:</label>
+            <label class="alignRight" for="sPsw">Lösenord:</label>
             <input class="width50 lowb" id="sPsw" type="password">
         </div>
         <p class="hTextContainer bColorBlue">Nyckelord</p>
-        <div>
-            <div id="KeyWordStack" class="KeyWordStack Shadow">
-                <button type="button" id="ProgrammingLanguageBtn" class="containerOfKeyWords">Programmeringsspråk</button>
-                <div id="ProgrammingLanguage" class="content Shadow">
-                    <input type="checkbox" id="C" class="ChekedKeyWord">
-                    <label for="C">C</label>
-                    <hr>
-                    <input type="checkbox" id="Cs" class="ChekedKeyWord">
-                    <label for="Cs">C#</label>
-                    <hr>
-                    <input type="checkbox" id="Cpp" class="ChekedKeyWord">
-                    <label for="Cpp">C++</label>
-                    <hr>
-                    <input type="checkbox" id="Java" class="ChekedKeyWord">
-                    <label for="Java">Java</label>
-                    <hr>
-                    <input type="checkbox" id="Javascript" class="ChekedKeyWord">
-                    <label for="Javascript">Javascript</label>
-                    <hr>
-                    <input type="checkbox" id="Python" class="ChekedKeyWord">
-                    <label for="Python">Python</label>
-                    <hr>
-                </div>
-                <button id="TypeBtn" type="button" class="containerOfKeyWords">Typ</button>
-                <div id="Types" class="content Shadow">
-                    <hr>
-                    <input type="checkbox" id="Hårdvara" class="ChekedKeyWord">
-                    <label for="Hårdvara">Hårdvara</label>
-                    <hr>
-                    <input type="checkbox" id="Mjukvara" class="ChekedKeyWord">
-                    <label for="Mjukvara">Mjukvara</label>
-                    <hr>
-                </div>
-                <button id="OperationSystemBtn" type="button" class="containerOfKeyWords">Operativsystem</button>
-                <div id="operationsystems" class="content Shadow">
-                    <input type="checkbox" id="Linux" class="ChekedKeyWord">
-                    <label for="Linux">Linux</label>
-                    <hr>
-                    <input type="checkbox" id="Windows" class="ChekedKeyWord">
-                    <label for="Windows">Windows</label>
-                    <hr>
-                </div>
-                <button id="DatabaseBtn" type="button" class="containerOfKeyWords">Databas</button>
-                <div id="Databases" class="content Shadow">
-                    <input type="checkbox" id="SQL" class="ChekedKeyWord">
-                    <label for="SQL">SQL</label>
-                    <hr>
-                    <input type="checkbox" id="MySQL" class="ChekedKeyWord">
-                    <label for="MySQL">MySQL</label>
-                    <hr>
-                    <input type="checkbox" id="MongoDB" class="ChekedKeyWord">
-                    <label for="MongoDB">MongoDB</label>
-                    <hr>
-                    <input type="checkbox" id="XML" class="ChekedKeyWord">
-                    <label for="XML">XML</label>
-                    <hr>
-                </div>
-                <button id="RestBtn" type="button" class="containerOfKeyWords">Övrigt</button>
-                <div id="TheRest" class="content Shadow">
-                    <input type="checkbox" id="Dokumentation" class="ChekedKeyWord">
-                    <label for="Dokumentation">Dokumentation</label>
-                    <hr>
-                </div>
-            </div>
-            <br>
-            <br>
-            <button id="saveBtnStudent" class="btn1" onClick="this.disabled = true;">Spara</button>
-            <button id="cancelBtnStudent" class="btn1">Avbryt</button>
+        <div id="keywordsDIV">
+
         </div>
+        <br>
+        <br>
+        <button id="saveBtnStudent" class="btn1" onClick="this.disabled = true;">Spara</button>
+        <button id="cancelBtnStudent" class="btn1">Avbryt</button>
     </div>
+</div>
 
 </html>

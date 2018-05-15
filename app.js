@@ -104,6 +104,7 @@ app.get('/keywords', function (req, res) {
         }
     });
 });
+
 app.get('/removeExjob', urlEncodedParcer, function (req, res) {
     let jobID = req.query["jobID"];
     let companyID = getUserID(req);
@@ -168,7 +169,7 @@ app.get('/logginComp', urlEncodedParcer, function (req, res) {
     logger.debug('Username %s', req.query["username"]);
 
     Mongo.findOne("company", { userName: req.query["username"] }, function (result) {
-        logger.debug('Loggin Company query result:', result);
+        logger.silly('Loggin Company query result:', result);
 
         if (result.length === 0) {
             logger.warn('Login failed: No user match');
@@ -191,7 +192,7 @@ app.get('/logginStudent', urlEncodedParcer, function (req, res) {
     logger.debug('Username %s', req.query["_user"]);
 
     Mongo.findOne("student", { uname: req.query["_user"] }, function (result) {
-        logger.debug('Loggin Company query result:', result);
+        logger.silly('Loggin Company query result:', result);
 
         if (result.length === 0) {
             logger.warn('Login failed: No user match');
@@ -311,7 +312,7 @@ app.get('/userDataFromDBStudent', function (req, res) {
                 logger.warn("Could not find user in database");
                 res.send("false");
             } else {
-                logger.debug('Found user', result);
+                logger.silly('Found user', result);
                 res.send(result);
             }
         });
@@ -581,6 +582,7 @@ app.get('/getJobsFromDB', function (req, res) {
     });
 });
 
+
 app.get('/getCompanyJobsFromDB', function (req, res) {
     logger.info('GET /getCompanyJobsFromDB request');
 
@@ -596,6 +598,20 @@ app.get('/getCompanyJobsFromDB', function (req, res) {
     });
 });
 
+app.get('/getSearchedJobsFromDB', urlEncodedParcer, function (req, res) {
+    logger.info('GET /getSearchedJobsFromDB requst');
+    var keyw=req.query["keyword"];
+    Mongo.findOnKeyWord("job", keyw, function (result) {
+        logger.silly('Get jobs result', result);
+
+        if (result.length === 0) {
+            logger.warn('No jobs could be found.');
+            res.send("false");
+        } else {
+            res.send(result);
+        }
+    });
+});
 app.get('/getSpecificJobFromDB', urlEncodedParcer, function (req, res) {
     logger.info('GET /getSpecificJobFromDB request');
 
@@ -616,7 +632,7 @@ app.post('/changeExJobInfo', urlEncodedParcer, function (req, res) {
 
     var exjobb = JSON.parse(req.query["exJobb"]);
     try {
-        jobID = req.query["jobID"];
+       let jobID = req.query["jobID"];
 
         logger.silly("Exjob info", exjobb);
         Mongo.changeExJobInfo(jobID, exjobb, function (result) {
