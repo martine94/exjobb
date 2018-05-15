@@ -143,9 +143,44 @@ window.onload = function () {
                         underDiv.appendChild(breakp);
                     }
                     overDiv.appendChild(underDiv);
-                    keyDIV.appendChild(overDiv);
+                    keyDIV.appendChild(overDiv);               
                 }
                 callback();
+            }
+
+        };
+        xhttp.open("GET", "keywords", true);
+        xhttp.send();
+    }
+
+    function loadSearchKeywords() {
+        var myUL = document.getElementById("myUL");
+        myUL.innerHTML = "";
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let keywords2 = JSON.parse(this.response);
+                var keyArray = [];
+                for (var key in keywords2[0]) {
+                    if (keywords2[0].hasOwnProperty(key)) {
+                        if (key != "_id") {
+                            keyArray.push(key);
+                        }
+                    }
+                }
+                for (let i = 0; i < keyArray.length; ++i) {
+                    var kwInArray = keywords2[0][keyArray[i]];
+                  
+                    for (let j = 0; j < kwInArray.length; ++j) {
+                        
+                        let li = document.createElement("li");
+                        let p=document.createElement("p");
+                        p.innerHTML = kwInArray[j];
+                        if(p.innerHTML!="Annat"){
+                        li.appendChild(p);
+                        myUL.appendChild(li);}
+                    }
+                }
             }
 
         };
@@ -247,9 +282,9 @@ window.onload = function () {
                     cvData = user.ucv.replace(/ /g, '+'); //replace all whitespace with +
                 }
 
-                for (let i = 0; i < obj[0].keywords.length; i++) {
-                    document.getElementById(obj[0].keywords[i]).checked = true;
-                }
+                 for (let i = 0; i < obj[0].keywords.length; i++) {
+                     document.getElementById(obj[0].keywords[i]).checked = true;
+                 }
 
                 loadButtonsStudentprofile();
                 loadButtonEventsStudentprofile();
@@ -577,8 +612,34 @@ window.onload = function () {
     function eventListenerOnSearch() {
         //Search bar in student cataloge
         searchInput = document.getElementById("searchInput");
-        searchInput.addEventListener("keypress", function (event) {
+        //show list of searchwords
+        searchInput.addEventListener("focus", function (event){
+            document.getElementById("myUL").className="show";
+        });
+        //hide list of searchwords
+        searchInput.addEventListener("focusout", function (event){
+            document.getElementById("myUL").className="hide";
+        });
+        //filter Search words
+        searchInput.addEventListener("keyup", function (event) {
+            var input, filter, ul, li, a, i;
+            input = searchInput;
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName('li');
 
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                p = li[i].getElementsByTagName("p")[0];
+                if (p.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        });
+        //search
+        searchInput.addEventListener("keypress", function (event) {
             if (event.keyCode == 13) {
                 document.getElementById("workAnnouncement").innerHTML = "<img class=\"loadingImg\" id=\"loadImg\" src=\"LoadingImg.svg\" position>";
                 if (searchInput.value == "") {
@@ -619,6 +680,7 @@ window.onload = function () {
                 document.getElementById("menu-page-content").innerHTML = this.response;
                 document.getElementById("SCatalog").style.display = "block";
                 eventListenerOnSearch();
+                loadSearchKeywords();
                 getJobsFromDB();
             }
         };

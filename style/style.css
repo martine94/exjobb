@@ -18,8 +18,25 @@ li{
 	width:6.25em;
 	height: 1.5625em;
 }
+#myUL>li{
+	width:100%;
+	height: relative;
+}
 a:link {
     text-decoration: none;
+}
+#myUL {
+    list-style-type: none;
+    padding: 0;
+	margin: 0;
+	background-color: rgb(248, 248, 248);
+}
+
+.hide{
+	display: none;
+}
+.show{
+	display: block;
 }
 .exjobbInput{
 	color:black;
@@ -181,6 +198,11 @@ padding: 0.2em;
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: 100%;
+	}
+	.searchContainer{
+		width: 80%;
+		margin-left: 10%;
+		padding:0 1% 0 1%;
 	}
 #searchInput {
 		background-image: url("https://www.shareicon.net/download/2015/10/03/110917_search_512x512.png");
@@ -703,4 +725,8 @@ float: right;
 	height:4em; 
 	text-align: center;
 	width:100%;
+}
+
+.smoothTransition{
+	transition: all 1s; 
 }
