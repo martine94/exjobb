@@ -543,7 +543,9 @@ window.onload = function () {
                     loadCatalog();
                 }
                 //sök efter jobb
+            else{
             getSeachedKeyWordJob(searchInput.value);
+            }
             }
         });
 
