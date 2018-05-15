@@ -565,6 +565,7 @@ app.get('/getJobsFromDB', function (req, res) {
     });
 });
 
+
 app.get('/getCompanyJobsFromDB', function (req, res) {
     logger.info('GET /getCompanyJobsFromDB request');
 
@@ -580,6 +581,20 @@ app.get('/getCompanyJobsFromDB', function (req, res) {
     });
 });
 
+app.get('/getSearchedJobsFromDB', urlEncodedParcer, function (req, res) {
+    logger.info('GET /getSearchedJobsFromDB requst');
+    var keyw=req.query["keyword"];
+    Mongo.findOnKeyWord("job", keyw, function (result) {
+        logger.silly('Get jobs result', result);
+
+        if (result.length === 0) {
+            logger.warn('No jobs could be found.');
+            res.send("false");
+        } else {
+            res.send(result);
+        }
+    });
+});
 app.get('/getSpecificJobFromDB', urlEncodedParcer, function (req, res) {
     logger.info('GET /getSpecificJobFromDB request');
 

@@ -7,7 +7,7 @@ window.onload = function () {
     var mySInfoBtn = document.getElementById("myInfoBtn");
     var lookAtJobBtn = document.getElementById("lookAtJobBtn");
     var logOutStudentBtn = document.getElementById("logOutStudentBtn");
-
+    var searchInput;
     //#endregions
 
     //#region eventListeners
@@ -17,7 +17,9 @@ window.onload = function () {
     mySInfoBtn.addEventListener("click", loadMyInfo);
     lookAtJobBtn.addEventListener("click", loadCatalog);
     logOutStudentBtn.addEventListener("click", logOut);
+    
     //#endregions
+
 
     //Buttons, divs, inputs and an array for newExJob.html
    
@@ -530,13 +532,51 @@ window.onload = function () {
         xhttp.send();
     }
 
+    function eventListenerOnSearch(){
+            //Search bar in student cataloge
+         searchInput = document.getElementById("searchInput");
+         searchInput.addEventListener("keypress", function(event) {
+
+            if (event.keyCode == 13){
+                document.getElementById("workAnnouncement").innerHTML="<img class=\"loadingImg\" id=\"loadImg\" src=\"LoadingImg.svg\" position>";
+                if(searchInput.value==""){
+                    loadCatalog();
+                }
+                //sök efter jobb
+            else{
+            getSeachedKeyWordJob(searchInput.value);
+            }
+            }
+        });
+
+    }
+    function getSeachedKeyWordJob(keyw) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // document.getElementById("option-page-content").innerHTML = this.response;
+                var jobs = JSON.parse(this.response);
+                if(jobs.length=== undefined ||jobs.length==0){
+                    document.getElementById("workAnnouncement").innerHTML="Vi hittade inga jobb som matchade din sökning!";
+                }
+                else{
+                filterAlreadySearchedJobs(jobs);
+                }
+            }
+        };
+        xhttp.open("GET", "getSearchedJobsFromDB?keyword="+keyw, true);
+        xhttp.send();
+    }
+
     function loadCatalog() {
         SetCurrentPage(lookAtJobBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
+               
                 document.getElementById("menu-page-content").innerHTML = this.response;
                 document.getElementById("SCatalog").style.display = "block";
+                eventListenerOnSearch();
                 getJobsFromDB();
             }
         };
@@ -575,6 +615,9 @@ window.onload = function () {
                             newJobList = newJobList.filter(job => job != jobs[i]);
                         }
                     }
+                }
+                if(newJobList.length==0){
+                    document.getElementById("workAnnouncements").innerHTML="Vi hittade inga jobb som matchade din sökning!";
                 }
                 workAnnouncements(newJobList.length, newJobList);
             }
