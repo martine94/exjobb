@@ -635,6 +635,12 @@ float: right;
     width: 100%;
     min-height: 10em;
 }
+#profileInfo{
+	width:20em;
+	box-shadow: 14px 3px 10px #999;
+	margin-left:auto;
+	margin-right:auto;
+}
 
 .sInfoOuterDiv{
 	background: rgb(74,150,205);
@@ -642,17 +648,13 @@ float: right;
 	font-family: Open sans;
 	padding: 2% 2% 2% 2%;
 	color: white;
-	width:20em;
-	margin-left:auto;
-margin-right:auto;
+	width:100%;
 }
 .sInfoInnerDiv{
-background:white;
-width:20em;
-padding: 2% 2% 2% 2%;
-margin-left:auto;
-margin-right:auto;
-margin-top:-1em;
+	background:white;
+	width:100%;
+	padding: 2% 2% 2% 2%;
+	margin-top:-1em;
 }
 
 #shortDescription{
