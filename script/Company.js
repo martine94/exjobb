@@ -318,74 +318,97 @@ window.onload = function () {
         var interests = document.getElementById("Interests");
         let xhttp = new XMLHttpRequest();
         var objList= [];
+
         xhttp.onreadystatechange = function () {
             if(this.readyState == 4 && this.status == 200){
             objList = this.response;
-            console.log("**********");
             console.log(objList);
-            console.log("**********");
-            
+            createstuff(objList, studentList, num, jobId);
             }
 
         }
        // JSON.stringify(studentList)
        //var ob = new Object(JSON.stringify(studentList));
-        xhttp.open("GET", "/getSpecPersons?studentList=" + JSON.stringify(studentList) + "&num=" + num, true);
+       //console.log(studentList);
+        xhttp.open("GET", "/getSpecPersons?num=" + num + "&studentList=" + JSON.stringify(studentList), true);
         xhttp.send();
+    }
+    function createstuff(objList, message, num, jobId){
+        //console.log("objList");
+        //console.log(objList);
+        //console.log("num");
+        //console.log(num);
+        //console.log("message");
+        //console.log(message);
+        //console.log("JOBBIG ID");
+        //console.log(jobId);
+        var interests = document.getElementById("Interests");
+        var number = 1;
+        let pdfObject;
+        objList = JSON.parse(objList);
+        for (let i = 0; i < num; i++) {
+            //console.log(objList[i]);
+            if(objList[i].cv){
+            pdfObject = objList[i].cv.replace(/ /g, '+');
+            }
+            //console.log(pdfObject);
+            let personDiv = document.createElement("div");
+            personDiv.style.backgroundColor = "lightblue";
+            personDiv.style.color = "white";
+            personDiv.appendChild(document.createElement("br"));
+            personDiv.innerHTML = "Person " + number;
+            let row = document.createElement("hr");
+            row.style.color = "white"; row.className = "Shadow";
+            personDiv.appendChild(row);
+            personDiv.appendChild(document.createElement("br"));
+            let divInfo = document.createElement("div");
+            let shortDescript = document.createElement("p");
+            shortDescript.style.outlineColor = "brown";
+            shortDescript.innerHTML = "Kort meddelande: ";
+            divInfo.appendChild(shortDescript);
+            personDiv.appendChild(divInfo);
 
-        // for (let i = 0; i < num; i++) {
-        //     let pdfObject = studentList[i].studentID[0].cv;
-        //     let personDiv = document.createElement("div");
-        //     personDiv.style.backgroundColor = "lightblue";
-        //     personDiv.style.color = "white";
-        //     personDiv.appendChild(document.createElement("br"));
-        //     personDiv.innerHTML = "Person " + number;
-        //     let row = document.createElement("hr");
-        //     row.style.color = "white"; row.className = "Shadow";
-        //     personDiv.appendChild(row);
-        //     personDiv.appendChild(document.createElement("br"));
-        //     let divInfo = document.createElement("div");
-        //     let shortDescript = document.createElement("p");
-        //     shortDescript.style.outlineColor = "brown";
-        //     shortDescript.innerHTML = "Kort meddelande: ";
-        //     divInfo.appendChild(shortDescript);
-        //     personDiv.appendChild(divInfo);
+            personDiv.className = "jobsSmall";
+            let emailDiv = document.createElement("div");
+            console.log("UEMAIL");
+            console.log(message);
+            emailDiv.innerHTML = objList[i].uemail;
 
-        //     personDiv.className = "jobsSmall";
-        //     let emailDiv = document.createElement("div");
-        //     console.log("UEMAIL");
-        //     console.log(studentList[i]);
-        //     emailDiv.innerHTML = studentList[i].studentID[0].uemail;
-
-        //     let txtArea = document.createElement("div");
-        //     txtArea.style.backgroundColor = "white";
-        //     txtArea.style.color = "black";
-        //     let msg = document.createElement("p");
-        //     msg.innerHTML = studentList[i].message
-        //     let strEmail = document.createElement("p");
-        //     strEmail.innerHTML = "Email:";
-        //     txtArea.appendChild(msg);
-        //     txtArea.appendChild(document.createElement("br"));
-        //     txtArea.className = "jobInfo";
-        //     txtArea.style.padding = "1%";
-        //     let CVbtn = document.createElement("button");
-        //     CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov Shadow";
-        //     CVbtn.addEventListener("click", (e)=> loadCV(pdfObject))
-        //     CVbtn.innerHTML = "CV";
-        //     personDiv.appendChild(txtArea);
-        //     personDiv.appendChild(document.createElement("br"));
-        //     personDiv.appendChild(strEmail);
-        //     personDiv.appendChild(emailDiv);
-        //     personDiv.appendChild(document.createElement("br"));
-        //     personDiv.appendChild(CVbtn);
-        //     personDiv.appendChild(document.createElement("br"));
-        //     personDiv.appendChild(document.createElement("br"));
-        //     interests.appendChild(personDiv);
-        //     interests.appendChild(document.createElement("br"));
-        //     number++;
-        // }
-        // let backBtn = document.getElementById("BackBtn");
-        // backBtn.addEventListener("click", (e) => loadMyOffers());
+            let txtArea = document.createElement("div");
+            txtArea.style.backgroundColor = "white";
+            txtArea.style.color = "black";
+            let msg = document.createElement("p");
+            msg.innerHTML = message[i].message
+            let strEmail = document.createElement("p");
+            strEmail.innerHTML = "Email:";
+            txtArea.appendChild(msg);
+            txtArea.appendChild(document.createElement("br"));
+            txtArea.className = "jobInfo";
+            txtArea.style.padding = "1%";
+            let CVbtn = document.createElement("button");
+            CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov Shadow";
+            if(objList[i].cv){
+            CVbtn.addEventListener("click", (e)=> loadCV(pdfObject));
+            CVbtn.innerHTML = "CV";
+            }
+            else{
+            CVbtn.innerHTML = "CV saknas";
+            CVbtn.style.backgroundColor = "red"; 
+            }
+            personDiv.appendChild(txtArea);
+            personDiv.appendChild(document.createElement("br"));
+            personDiv.appendChild(strEmail);
+            personDiv.appendChild(emailDiv);
+            personDiv.appendChild(document.createElement("br"));
+            personDiv.appendChild(CVbtn);
+            personDiv.appendChild(document.createElement("br"));
+            personDiv.appendChild(document.createElement("br"));
+            interests.appendChild(personDiv);
+            interests.appendChild(document.createElement("br"));
+            number++;
+        }
+        let backBtn = document.getElementById("BackBtn");
+        backBtn.addEventListener("click", (e) => loadMyOffers());
     }
 
     function loadCV(pdfObj){

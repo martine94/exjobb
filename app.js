@@ -95,7 +95,7 @@ app.get('/keywords', function (req, res) {
     //var o_id = new ObjectId("5af93ddba5877426ecf111ba");
     Mongo.findOne("keywords", {}, function (result) {
         if (result.length === 0) {
-            Mongo.createKeywords(function(result2){
+            Mongo.createKeywords(function (result2) {
                 res.send(result2);
             });
             res.send("false");
@@ -480,7 +480,7 @@ app.get('/userDataFromDBCompany', function (req, res) {
         res.send("false");
     } else {
         logger.debug('Found user %j', userID);
-        
+
         var ObjectId = require('mongodb').ObjectId;
         var o_id = new ObjectId(userID);
 
@@ -496,21 +496,22 @@ app.get('/userDataFromDBCompany', function (req, res) {
     }
 });
 
-app.get("/getSpecPersons",urlEncodedParcer, function(req, res){
-   var personList = JSON.parse(req.query["studentList"]);
-   var num = req.query["num"];
-   //logger.debug("testList = ", testList[1].studentID);
-   logger.debug("PersonList = ", personList[1].studentID);
-   logger.debug("PersonList tesT =", JSON.stringify(personList));
+app.get("/getSpecPersons", urlEncodedParcer, function (req, res) {
+    var personList = JSON.parse(req.query["studentList"]);
+    var num = req.query["num"];
+    logger.debug("num", num);
+    logger.debug("plist %j", personList);
+    //logger.debug("testList = ", testList[1].studentID);
+    logger.debug("PersonList = ", personList[1].studentID);
     var list = [];
-    var i= 0;
-    // for(i; i < num; i++){
-    //     console.log(personList[i].studentID);
-    //     Mongo.(personList[i].studentID, function(req, res){
-    //         list.push(res);
-    //     });
-    // }
-    return list;
+    for (let i = 0; i < num; i++) {
+        list.push(personList[i].studentID);
+    }
+    Mongo.getStudentsById(list, function (result) {
+
+        res.send(result);
+
+    });
 });
 
 //#endregion
@@ -526,7 +527,7 @@ app.post('/addJobToDB', urlEncodedParcer, function (req, res) {
         res.send("false");
     } else {
         logger.debug('Found user %j', userID);
-        
+
         var ObjectId = require('mongodb').ObjectId;
         var o_id = new ObjectId(userID);
 
@@ -600,7 +601,7 @@ app.get('/getCompanyJobsFromDB', function (req, res) {
 
 app.get('/getSearchedJobsFromDB', urlEncodedParcer, function (req, res) {
     logger.info('GET /getSearchedJobsFromDB requst');
-    var keyw=req.query["keyword"];
+    var keyw = req.query["keyword"];
     Mongo.findOnKeyWord("job", keyw, function (result) {
         logger.silly('Get jobs result', result);
 
@@ -632,7 +633,7 @@ app.post('/changeExJobInfo', urlEncodedParcer, function (req, res) {
 
     var exjobb = JSON.parse(req.query["exJobb"]);
     try {
-       let jobID = req.query["jobID"];
+        let jobID = req.query["jobID"];
 
         logger.silly("Exjob info", exjobb);
         Mongo.changeExJobInfo(jobID, exjobb, function (result) {

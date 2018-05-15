@@ -485,13 +485,11 @@ module.exports = {
     logger.debug('Using idArray %j', idArray);
 
     var objectIdArray = makeObjectIdArray(idArray)
-    
     MongoClient.connect(url, function (error, db) {
       if(error) throw error;
-
       var dbo = db.db(database);
       dbo.collection('student').find({ _id: { $in : objectIdArray } }, 
-      { projection: { _id: 0, uemail: 1, cv: 1 } }).toArray(function (error, result) {
+      { projection: { _id: 1, uemail: 1, cv: 1 } }).toArray(function (error, result) {
         if (error){
           db.close();
           throw error;
