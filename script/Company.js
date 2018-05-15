@@ -712,13 +712,45 @@ window.onload = function () {
     }
 
     function SetListedData(user) {
-        document.getElementById("clogo").innerHTML = "<img src=" + user.logo + " height=\"70\" width=\"70\" >";
-        document.getElementById("cname").innerHTML = "<h1>" + user.name + "</h1>";
-        document.getElementById("caddress").innerHTML = "<p> Adress: " + user.address + "</p>";
-        document.getElementById("ccity").innerHTML = "<p> Ort: " + user.city + "</p>";
-        document.getElementById("cemail").innerHTML = "<p>Email: " + user.email + "</p>";
-        document.getElementById("cweb").innerHTML = "<p>Hemsida: <a href=" + user.web + ">" + user.web + "</a> </p>";
-        document.getElementById("About_Us").innerHTML = user.about;
+        var userInfoDiv=document.getElementById("profileCInfo");
+        userInfoDiv.innerHTML="";
+        let outerDiv=document.createElement("div");
+        let infoDiv=document.createElement("div");
+        let name=document.createElement("h2");
+        let about=document.createElement("p");
+        let email=document.createElement("p");
+        let city=document.createElement("p");
+        let address=document.createElement("p");
+        let webpage=document.createElement("a");
+        let logo=document.createElement("img");
+        let logoDiv=document.createElement("div");
+        let aboutDiv=document.createElement("div");
+        let contactInfoDiv=document.createElement("div");
+        logo.src=user.logo;
+        name.innerHTML=user.name;
+        about.innerHTML=user.about;
+        email.innerHTML=user.email;
+        city.innerHTML=user.city;
+        webpage.innerHTML=user.web;
+        webpage.href=user.web;
+        address.innerHTML=user.address;
+        logoDiv.appendChild(logo);
+        aboutDiv.appendChild(about);
+        outerDiv.appendChild(logoDiv);
+        outerDiv.appendChild(name);
+        outerDiv.appendChild(aboutDiv);
+        userInfoDiv.appendChild(outerDiv);
+        contactInfoDiv.appendChild(address);
+        contactInfoDiv.appendChild(city);
+        contactInfoDiv.appendChild(email);
+        contactInfoDiv.appendChild(webpage);
+        infoDiv.appendChild(contactInfoDiv);
+        userInfoDiv.appendChild(infoDiv);
+        contactInfoDiv.classList.add("contactInfoDiv");
+        aboutDiv.classList.add("aboutCompanyDiv");
+        logoDiv.classList.add("logoDiv");
+        outerDiv.classList.add("sInfoOuterDiv");
+        infoDiv.classList.add("sInfoInnerDiv");
     }
 
 
