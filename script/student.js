@@ -285,6 +285,8 @@ window.onload = function () {
                 let email=document.createElement("p");
                 let city=document.createElement("p");
                 let interestCount=document.createElement("p");
+                let logoDiv=document.createElement("div");
+                let otherInfoDiv=document.createElement("div");
                 let cvIcon=document.createElement("img");
                 cvIcon.src="cvIcon80.png";
                 cvIcon.alt="Klicka här för att se ditt CV";
@@ -294,14 +296,19 @@ window.onload = function () {
                 edu.innerHTML=user.edu;
                 email.innerHTML=user.email;
                 city.innerHTML=user.city;
-                outerDiv.appendChild(cvIcon);
+                logoDiv.appendChild(cvIcon);
+                outerDiv.appendChild(logoDiv);
                 outerDiv.appendChild(name);
                 outerDiv.appendChild(edu);
                 userInfoDiv.appendChild(outerDiv);
-                infoDiv.appendChild(email);
-                infoDiv.appendChild(city);
-                infoDiv.appendChild(interestCount);
+                otherInfoDiv.appendChild(email);
+                otherInfoDiv.appendChild(city);
+                otherInfoDiv.appendChild(interestCount);
+                infoDiv.appendChild(otherInfoDiv);
                 userInfoDiv.appendChild(infoDiv);
+                otherInfoDiv.classList.add("contactInfoDiv");
+                logoDiv.classList.add("logoDiv");
+
 
                 outerDiv.classList.add("sInfoOuterDiv");
                 infoDiv.classList.add("sInfoInnerDiv");
