@@ -244,10 +244,11 @@ window.onload = function () {
                     document.getElementById("pdfStatus").innerHTML = "CV upladdat";
                     cvData = user.ucv.replace(/ /g, '+'); //replace all whitespace with +
                 }
-
-                for (let i = 0; i < obj[0].keywords.length; i++) {
-                   document.getElementById(obj[0].keywords[i]).checked = true;
-                }
+                
+                //Cannot set 'checked' of null (verkar inte hitta elementen...)
+                // for (let i = 0; i < obj[0].keywords.length; i++) {
+                //    document.getElementById(obj[0].keywords[i]).checked = true;
+                // }
 
                 loadButtonsStudentprofile();
                 loadButtonEventsStudentprofile();
