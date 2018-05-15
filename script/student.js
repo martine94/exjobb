@@ -308,8 +308,6 @@ window.onload = function () {
                 userInfoDiv.appendChild(infoDiv);
                 otherInfoDiv.classList.add("contactInfoDiv");
                 logoDiv.classList.add("logoDiv");
-
-
                 outerDiv.classList.add("sInfoOuterDiv");
                 infoDiv.classList.add("sInfoInnerDiv");
             }
