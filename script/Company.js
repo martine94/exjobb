@@ -373,12 +373,15 @@ window.onload = function () {
             console.log("UEMAIL");
             console.log(message);
             emailDiv.innerHTML = objList[i].uemail;
-
             let txtArea = document.createElement("div");
             txtArea.style.backgroundColor = "white";
             txtArea.style.color = "black";
             let msg = document.createElement("p");
-            msg.innerHTML = message[i].message
+            for(let j = 0;j<num;j++){
+            if(objList[i]._id === message[j].studentID){
+            msg.innerHTML = message[j].message;
+            }
+            }
             let strEmail = document.createElement("p");
             strEmail.innerHTML = "Email:";
             txtArea.appendChild(msg);

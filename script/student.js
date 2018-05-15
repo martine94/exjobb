@@ -854,8 +854,14 @@ window.onload = function () {
             var outerDiv = document.createElement("div");
             var newh2 = document.createElement("h2");
             var newP = document.createElement("p");
+            if (currentPage.id=="recomendedJobBtn"){
             newP.innerHTML = "Prova att ändra dina önskemål under \"Redigera Information\"";
             newh2.innerHTML = "Du har inga matchande jobb.";
+            }
+            else{
+                newP.innerHTML = "";
+                newh2.innerHTML = "Vi hittade inga jobb.";
+            }
             outerDiv.appendChild(newh2);
             outerDiv.appendChild(newP);
             outerDiv.className = "jobsSmall";
