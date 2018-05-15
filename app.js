@@ -495,6 +495,23 @@ app.get('/userDataFromDBCompany', function (req, res) {
     }
 });
 
+app.get("/getSpecPersons",urlEncodedParcer, function(req, res){
+   var personList = JSON.parse(req.query["studentList"]);
+   var num = req.query["num"];
+   //logger.debug("testList = ", testList[1].studentID);
+   logger.debug("PersonList = ", personList[1].studentID);
+   logger.debug("PersonList tesT =", JSON.stringify(personList));
+    var list = [];
+    var i= 0;
+    // for(i; i < num; i++){
+    //     console.log(personList[i].studentID);
+    //     Mongo.(personList[i].studentID, function(req, res){
+    //         list.push(res);
+    //     });
+    // }
+    return list;
+});
+
 //#endregion
 
 //#region Jobs
