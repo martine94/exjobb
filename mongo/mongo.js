@@ -196,6 +196,27 @@ module.exports = {
     });
   },
 
+  findOnKeyWord: function (table, query, callback) {
+    logger.info('Finding one in table %s', table);
+
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
+
+      var dbo = db.db(database);
+
+      dbo.collection(table).find({keywords:query}).toArray(function (error, result) {
+        if (error){
+          db.close();
+          throw error;
+        }
+
+        logger.silly('Found one result', result);
+        db.close();
+        callback(result);
+      });
+    });
+  },
+
   findCompanyJobs: function (query, callback) {
     logger.info('Searching database for company jobs');
     logger.silly('Using query %s', query);
