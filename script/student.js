@@ -281,18 +281,10 @@ window.onload = function () {
                     document.getElementById("pdfStatus").innerHTML = "CV upladdat";
                     cvData = user.ucv.replace(/ /g, '+'); //replace all whitespace with +
                 }
-<<<<<<< HEAD
-                
-                //Cannot set 'checked' of null (verkar inte hitta elementen...)
-                // for (let i = 0; i < obj[0].keywords.length; i++) {
-                //    document.getElementById(obj[0].keywords[i]).checked = true;
-                // }
-=======
 
-                for (let i = 0; i < obj[0].keywords.length; i++) {
-                    document.getElementById(obj[0].keywords[i]).checked = true;
-                }
->>>>>>> e331b7b0b24a1ae224039f73f15cb56668b83a99
+                // for (let i = 0; i < obj[0].keywords.length; i++) {
+                //     document.getElementById(obj[0].keywords[i]).checked = true;
+                // }
 
                 loadButtonsStudentprofile();
                 loadButtonEventsStudentprofile();
@@ -445,13 +437,8 @@ window.onload = function () {
     }
 
     function readCvData() {
-<<<<<<< HEAD
-        if(cvData)
-        {
-            document.getElementById('pdfSpace').data = cvData;            
-=======
         if (cvData) {
->>>>>>> e331b7b0b24a1ae224039f73f15cb56668b83a99
+            document.getElementById('pdfSpace').data = cvData;            
             document.getElementById('pdfSpace').height = "1000em";
             loadCvBtn.innerHTML = "Stäng " + UploadOrSaved + " cv(pdf)";
 
