@@ -463,14 +463,14 @@ module.exports = {
     logger.info('Getting students by ids');
     logger.debug('Using idArray %j', idArray);
 
-    //var ObjectId = require('mongodb').ObjectID;
+    var objectIdArray = makeObjectIdArray(idArray)
     
     MongoClient.connect(url, function (error, db) {
       if(error) throw error;
 
       var dbo = db.db(database);
-      dbo.collection('student').find({ _id: { $in : idArray } }, 
-      { projection: { _id: 1, uemail: 1 } }, function (error, result) {
+      dbo.collection('student').find({ _id: { $in : objectIdArray } }, 
+      { projection: { _id: 0, uemail: 1, cv: 1 } }).toArray(function (error, result) {
         if (error){
           db.close();
           throw error;
@@ -641,4 +641,15 @@ function addCompany(company, callback) {
       callback(result);
     });
   });
+}
+
+function makeObjectIdArray(idArray){
+  var ObjectId = require('mongodb').ObjectID;
+  
+  let objectIdArray = [];
+  for(let id in idArray){
+    objectIdArray.push(new ObjectId(idArray[id]));
+  }
+
+  return objectIdArray;
 }
