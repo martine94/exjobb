@@ -535,8 +535,7 @@ window.onload = function () {
             //Search bar in student cataloge
          searchInput = document.getElementById("searchInput");
          searchInput.addEventListener("keypress", function(event) {
-            
-            console.log(event.keyCode);
+
             if (event.keyCode == 13){
                 document.getElementById("workAnnouncement").innerHTML="<img class=\"loadingImg\" id=\"loadImg\" src=\"LoadingImg.svg\" position>";
                 if(searchInput.value==""){
@@ -556,8 +555,12 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // document.getElementById("option-page-content").innerHTML = this.response;
                 var jobs = JSON.parse(this.response);
+                if(jobs.length=== undefined ||jobs.length==0){
+                    document.getElementById("workAnnouncement").innerHTML="Vi hittade inga jobb som matchade din sökning!";
+                }
+                else{
                 filterAlreadySearchedJobs(jobs);
-                //workAnnouncements(jobs.length, jobs);
+                }
             }
         };
         xhttp.open("GET", "getSearchedJobsFromDB?keyword="+keyw, true);
@@ -611,6 +614,9 @@ window.onload = function () {
                             newJobList = newJobList.filter(job => job != jobs[i]);
                         }
                     }
+                }
+                if(newJobList.length==0){
+                    document.getElementById("workAnnouncements").innerHTML="Vi hittade inga jobb som matchade din sökning!";
                 }
                 workAnnouncements(newJobList.length, newJobList);
             }
