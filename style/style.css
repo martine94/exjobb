@@ -667,7 +667,7 @@ float: right;
 }
 .contactInfoDiv{
 	margin-left:2em;
-	line-height: 50%;
+	line-height: 100%;
 	padding-top:1em;
 }
 .aboutCompanyDiv{
@@ -675,6 +675,9 @@ float: right;
 	display:inline-block;
 	margin-bottom:2em;
 	text-align:justify;
+}
+#warningText{
+	line-height: 150%;
 }
 #profileInfo{
 	width:35em;
