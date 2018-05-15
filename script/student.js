@@ -344,16 +344,14 @@ window.onload = function () {
                 otherInfoDiv.appendChild(email);
                 otherInfoDiv.appendChild(city);
                 otherInfoDiv.appendChild(interestCount);
+                otherInfoDiv.appendChild(loadCvBtn);
                 infoDiv.appendChild(otherInfoDiv);
-                infoDiv.appendChild(loadCvBtn);
                 userInfoDiv.appendChild(infoDiv);
                 otherInfoDiv.classList.add("contactInfoDiv");
                 logoDiv.classList.add("logoDiv");
                 logoDiv.classList.add("pointer");
                 outerDiv.classList.add("sInfoOuterDiv");
                 infoDiv.classList.add("sInfoInnerDiv");
-                //logoDiv.addEventListener("click", getCVtoMyInfo);
-                //loadCvBtn.addEventListener("click", getCVtoMyInfo);
                 logoDiv.onclick =getCVtoMyInfo;
                 loadCvBtn.onclick=getCVtoMyInfo;
             }
@@ -368,7 +366,7 @@ window.onload = function () {
             let userInfoDiv = document.getElementById("profileInfo");
             pdfSpace.id = "pdfSpace";
             pdfSpace.type = "application/pdf";
-            pdfSpace.width = "100%";
+            pdfSpace.width = "600em";
             pdfSpace.height = "0em";
             pdfSpace.setAttribute("trusted", "yes");
             pdfSpace.setAttribute("application", "yes");
@@ -469,7 +467,6 @@ window.onload = function () {
             document.getElementById('pdfSpace').style.display = "block";
             document.getElementById('pdfSpace').height = "1000em";
             document.getElementById('pdfSpace').data = cvData;
-            //console.log(cvData);
             loadCvBtn.innerHTML = "Stäng " + UploadOrSaved + " cv(pdf)";
 
             loadCvBtn.onclick = () => {
@@ -485,6 +482,7 @@ window.onload = function () {
                     document.getElementById('pdfSpace').data = "";
                     document.getElementById('pdfSpace').height = "0em";
                     document.getElementById('pdfSpace').style.display = "none";
+                    loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
                     logoDiv.onclick = readCvData;
                 }
             }
