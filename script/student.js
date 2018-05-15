@@ -143,7 +143,7 @@ window.onload = function () {
                         underDiv.appendChild(breakp);
                     }
                     overDiv.appendChild(underDiv);
-                    keyDIV.appendChild(overDiv);
+                    keyDIV.appendChild(overDiv);               
                 }
                 callback();
             }
@@ -400,9 +400,8 @@ window.onload = function () {
     function readCvData() {
         if(cvData)
         {
+            document.getElementById('pdfSpace').data = cvData;            
             document.getElementById('pdfSpace').height = "1000em";
-            document.getElementById('pdfSpace').data = cvData;
-            console.log(cvData);
             loadCvBtn.innerHTML = "Stäng " + UploadOrSaved + " cv(pdf)";
 
             loadCvBtn.onclick = () => {

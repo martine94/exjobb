@@ -679,3 +679,7 @@ float: right;
 	text-align: center;
 	width:100%;
 }
+
+.smoothTransition{
+	transition: all 1s; 
+}
