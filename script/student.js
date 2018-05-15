@@ -311,33 +311,38 @@ window.onload = function () {
                     city: obj[0].city,
                     interestCount: obj[0].joblist.length
                 }
-                var userInfoDiv = document.getElementById("profileInfo");
-                userInfoDiv.innerHTML = "";
-                let outerDiv = document.createElement("div");
-                let infoDiv = document.createElement("div");
-                let name = document.createElement("h2");
-                let edu = document.createElement("p");
-                let email = document.createElement("p");
-                let city = document.createElement("p");
-                let interestCount = document.createElement("p");
-                let cvIcon = document.createElement("img");
-                cvIcon.src = "cvIcon80.png";
-                cvIcon.alt = "Klicka här för att se ditt CV";
+                var userInfoDiv=document.getElementById("profileInfo");
+                userInfoDiv.innerHTML="";
+                let outerDiv=document.createElement("div");
+                let infoDiv=document.createElement("div");
+                let name=document.createElement("h2");
+                let edu=document.createElement("p");
+                let email=document.createElement("p");
+                let city=document.createElement("p");
+                let interestCount=document.createElement("p");
+                let logoDiv=document.createElement("div");
+                let otherInfoDiv=document.createElement("div");
+                let cvIcon=document.createElement("img");
+                cvIcon.src="cvIcon80.png";
+                cvIcon.alt="Klicka här för att se ditt CV";
                 cvIcon.classList.add("floatLeft");
-                interestCount.innerHTML = "Intresseansökningar: " + user.interestCount;
-                name.innerHTML = user.name + " " + user.ulname;
-                edu.innerHTML = user.edu;
-                email.innerHTML = user.email;
-                city.innerHTML = user.city;
-                outerDiv.appendChild(cvIcon);
+                interestCount.innerHTML="Intresseansökningar: "+user.interestCount;
+                name.innerHTML=user.name+" "+user.ulname;
+                edu.innerHTML=user.edu;
+                email.innerHTML=user.email;
+                city.innerHTML=user.city;
+                logoDiv.appendChild(cvIcon);
+                outerDiv.appendChild(logoDiv);
                 outerDiv.appendChild(name);
                 outerDiv.appendChild(edu);
                 userInfoDiv.appendChild(outerDiv);
-                infoDiv.appendChild(email);
-                infoDiv.appendChild(city);
-                infoDiv.appendChild(interestCount);
+                otherInfoDiv.appendChild(email);
+                otherInfoDiv.appendChild(city);
+                otherInfoDiv.appendChild(interestCount);
+                infoDiv.appendChild(otherInfoDiv);
                 userInfoDiv.appendChild(infoDiv);
-
+                otherInfoDiv.classList.add("contactInfoDiv");
+                logoDiv.classList.add("logoDiv");
                 outerDiv.classList.add("sInfoOuterDiv");
                 infoDiv.classList.add("sInfoInnerDiv");
             }
