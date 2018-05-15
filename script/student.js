@@ -717,9 +717,7 @@ window.onload = function () {
                             }
                         }
                     }
-                    if (newJobList.length == 0) {
-                        document.getElementById("workAnnouncements").innerHTML = "Vi hittade inga jobb som matchade din sökning!";
-                    }
+
                     workAnnouncements(newJobList.length, newJobList);
                 }
             }
