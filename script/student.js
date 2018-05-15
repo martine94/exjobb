@@ -12,7 +12,7 @@ window.onload = function () {
 
     //#region eventListeners
     interestsBtn.addEventListener("click", loadMyInterests);
-    mySPagesBtn.addEventListener("click", loadMyProfile);
+    mySPagesBtn.addEventListener("click", loadEditMyProfile);
     recomendedJobBtn.addEventListener("click", loadMyRecomendedJobs);
     mySInfoBtn.addEventListener("click", loadMyInfo);
     lookAtJobBtn.addEventListener("click", loadCatalog);
@@ -85,7 +85,7 @@ window.onload = function () {
         xhttp.send();
     }
 
-    function loadMyProfile() {
+    function loadEditMyProfile() {
         SetCurrentPage(mySPagesBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -274,13 +274,13 @@ window.onload = function () {
                     pw: obj[0].password,
                     ucv: obj[0].cv
                 }
-                document.getElementById("sFName").value += user.name;
-                document.getElementById("sLName").value += user.ulname;
-                document.getElementById("sEdu").value += user.edu;
-                document.getElementById("city").value += user.city;
-                document.getElementById("sUname").value += user.uname;
-                document.getElementById("sEmail").value += user.email;
-                document.getElementById("sPsw").value += user.pw;
+                document.getElementById("sFName").value = user.name;
+                document.getElementById("sLName").value = user.ulname;
+                document.getElementById("sEdu").value = user.edu;
+                document.getElementById("city").value = user.city;
+                document.getElementById("sUname").value = user.uname;
+                document.getElementById("sEmail").value = user.email;
+                document.getElementById("sPsw").value = user.pw;
 
 
                 if (typeof user.ucv !== 'undefined' && user.ucv) {
