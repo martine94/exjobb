@@ -583,6 +583,28 @@ app.get('/getJobsFromDB', function (req, res) {
     });
 });
 
+app.get('/getJobsForFirstPage', function (req, res) {
+    logger.info('GET /getJobsForFirstPage requst');
+
+    Mongo.getJobsDescriptions(5, function (result) {
+        logger.silly('Get jobs result', result);
+
+        if (result.length === 0) {
+            logger.warn('No jobs could be found.');
+            res.send("false");
+        } else {
+            res.send(result);
+        }
+    });
+});
+
+app.get('/getNumberOfJobs', function(request, response){
+    logger.info('GET /getNumberOfJobs requst');
+
+    Mongo.getNumberOfJobs(function(result){
+        response.send(JSON.stringify(result));
+    });
+});
 
 app.get('/getCompanyJobsFromDB', function (req, res) {
     logger.info('GET /getCompanyJobsFromDB request');
