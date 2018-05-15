@@ -430,26 +430,27 @@ function register_company(formInputs) {
 //#region get exjobs list functions
 
 function getJobsFromDB(){
-    ajaxRequest('GET', "getJobsFromDB", function(response){
+    ajaxRequest('GET', "getJobsForFirstPage", function(response){
         var jobs=JSON.parse(response);
-        workAnnouncements(jobs.length, jobs);
+        ajaxRequest('GET', 'getNumberOfJobs',function(response){
+            var numberOfJobs = JSON.parse(response);
+            workAnnouncements(numberOfJobs, jobs);
+        });
+        
     });
 }
 
-function workAnnouncements(num, jobb){
+function workAnnouncements(numberOfJobs, jobArray){
     ajaxRequest('GET', 'loadFileIndex?p=/worktemplate.html', function(response){
         var worktemplate = response;
         var jobbString = "";
-        var numberOfJobs=num;
-        if(num>5){
-            num=5;
-        }
+        
         jobbString ="<h3 align=\"center\">Vi har för tillfället <b>"+numberOfJobs+"</b> examensarbeten registrerade hos oss.<br></h3>";
-        for (var i = 0; i < num; i++) {
+        for (var i = 0; i < jobArray.length; i++) {
             var tempJobbString = worktemplate;
-            tempJobbString = tempJobbString.replace("logoPlaceholder", jobb[i].logoURL);
-            tempJobbString = tempJobbString.replace("titlePlaceholder", jobb[i].tile);
-            tempJobbString = tempJobbString.replace("shortDescPlaceholder", jobb[i].shortdesc);
+            tempJobbString = tempJobbString.replace("logoPlaceholder", jobArray[i].logoURL);
+            tempJobbString = tempJobbString.replace("titlePlaceholder", jobArray[i].tile);
+            tempJobbString = tempJobbString.replace("shortDescPlaceholder", jobArray[i].shortdesc);
             tempJobbString = tempJobbString.replace("buttonPlaceholder", "readMoreButton" + i);
 
             jobbString += tempJobbString;
@@ -457,7 +458,7 @@ function workAnnouncements(num, jobb){
 
         document.getElementById('workAnnouncement').innerHTML = jobbString;
 
-        for(var i = 0; i<num; i++){
+        for(var i = 0; i < jobArray.length; i++){
             document.getElementById("readMoreButton" + i).addEventListener("click", openLoginStudentModal); 
         }
 
@@ -478,9 +479,6 @@ function workAnnouncements(num, jobb){
         reglinkC.addEventListener("click", openRegisterCompanyModal);
         var loginLinkC=document.getElementById("logInLinkC");
         loginLinkC.addEventListener("click", openLoginCompanyModal);
-
-        
-
     });
 }
 

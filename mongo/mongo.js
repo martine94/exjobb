@@ -502,6 +502,60 @@ module.exports = {
         callback(result);
       });
     });
+  },
+
+  getJobsDescriptions: function(NumberOfJobs, callback){
+    logger.debug('Get %s job descriptions', NumberOfJobs);
+  
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
+  
+      var dbo = db.db("db");
+  
+      dbo.collection("job").aggregate([
+        { '$project': {
+          'tile': 1,
+          'logoURL': 1,
+          'shortdesc': 1,
+          'popularity': {'$size': '$studentlist'}
+        }},
+        { '$sort': {'popularity': -1}}
+      ])
+      .limit(NumberOfJobs)
+      .toArray(function (error, result) {
+        if (error){
+          db.close();
+          throw error;
+        }
+  
+        logger.debug("Get job description result", result);
+  
+        db.close();
+        callback(result);
+      });
+    });
+  },
+
+  getNumberOfJobs: function(callback) {
+    logger.debug('Get number of jobs');
+  
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
+  
+      var dbo = db.db("db");
+  
+      dbo.collection("job").count(function (error, result) {
+        if (error){
+          db.close();
+          throw error;
+        }
+  
+        logger.debug("Got %s jobs", result);
+  
+        db.close();
+        callback(result);
+      });
+    });
   }
 };
 
@@ -674,3 +728,37 @@ function makeObjectIdArray(idArray){
 
   return objectIdArray;
 }
+
+function getJobsDescriptions(NumberOfJobs, callback){
+  logger.debug('Get %s job descriptions', NumberOfJobs);
+
+  MongoClient.connect(url, function (error, db) {
+    if (error) throw error;
+
+    var dbo = db.db("db");
+
+    dbo.collection("job").aggregate([
+      { '$project': {
+        'title': 1,
+        'logoURL': 1,
+        'shortdesc': 1,
+        'popularity': {'$size': '$studentlist'}
+      }},
+      { '$sort': {'popularity': -1}}
+    ])
+    .limit(NumberOfJobs)
+    .toArray(function (error, result) {
+      if (error){
+        db.close();
+        throw error;
+      }
+
+      logger.debug("Get job description result", result);
+
+      db.close();
+      callback(result);
+    });
+  });
+}
+
+
