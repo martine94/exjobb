@@ -1,5 +1,5 @@
 window.onload = function () {
-    var currentPage="";
+    var currentPage = "";
     //#region buttons
     var interestsBtn = document.getElementById("interestsBtn");
     var mySPagesBtn = document.getElementById("mySPagesBtn");
@@ -17,12 +17,12 @@ window.onload = function () {
     mySInfoBtn.addEventListener("click", loadMyInfo);
     lookAtJobBtn.addEventListener("click", loadCatalog);
     logOutStudentBtn.addEventListener("click", logOut);
-    
+
     //#endregions
 
 
     //Buttons, divs, inputs and an array for newExJob.html
-   
+
     var work_Announcement;
     var cvData;
     var UploadOrSaved = "sparad";
@@ -40,15 +40,15 @@ window.onload = function () {
         xhttp.open("GET", "logout", true);
         xhttp.send();
     }
-    function SetCurrentPage(currentPageBtn){
-        if(currentPage===""){
-            currentPage=currentPageBtn;
+    function SetCurrentPage(currentPageBtn) {
+        if (currentPage === "") {
+            currentPage = currentPageBtn;
         }
-        else{
+        else {
             currentPage.classList.remove('bColorDarkBlue');
             currentPage.classList.add('bColorBlue');
         }
-        currentPage=currentPageBtn;
+        currentPage = currentPageBtn;
         currentPageBtn.classList.remove('bColorBlue');
         currentPageBtn.classList.add('bColorDarkBlue');
 
@@ -86,8 +86,8 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("menu-page-content").innerHTML = this.response;
-                loadKeywords(function(){
-                    fillEditProfile(function(){
+                loadKeywords(function () {
+                    fillEditProfile(function () {
                     });
                 });
             }
@@ -105,7 +105,7 @@ window.onload = function () {
     }
     function loadKeywords(callback) {
         var keyDIV = document.getElementById("keywordsDIV");
-        keyDIV.innerHTML="";
+        keyDIV.innerHTML = "";
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -215,7 +215,7 @@ window.onload = function () {
         xhttp.open("GET", "userDataFromDBStudent", true);
         xhttp.send();
     }
-    
+
     function fillEditProfile(callback) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function (res) {
@@ -248,7 +248,7 @@ window.onload = function () {
                 }
 
                 for (let i = 0; i < obj[0].keywords.length; i++) {
-                   document.getElementById(obj[0].keywords[i]).checked = true;
+                    document.getElementById(obj[0].keywords[i]).checked = true;
                 }
 
                 loadButtonsStudentprofile();
@@ -273,29 +273,34 @@ window.onload = function () {
                     edu: obj[0].ueducation,
                     email: obj[0].uemail,
                     pw: obj[0].password,
-                    city:obj[0].city,
-                    interestCount:obj[0].joblist.length
+                    city: obj[0].city,
+                    interestCount: obj[0].joblist.length
                 }
-                var userInfoDiv=document.getElementById("profileInfo");
-                userInfoDiv.innerHTML="";
-                let outerDiv=document.createElement("div");
-                let infoDiv=document.createElement("div");
-                let name=document.createElement("h2");
-                let edu=document.createElement("p");
-                let email=document.createElement("p");
-                let city=document.createElement("p");
-                let interestCount=document.createElement("p");
-                let logoDiv=document.createElement("div");
-                let otherInfoDiv=document.createElement("div");
-                let cvIcon=document.createElement("img");
-                cvIcon.src="cvIcon80.png";
-                cvIcon.alt="Klicka här för att se ditt CV";
+                cvData = obj[0].cv.replace(/ /g, '+');
+                var userInfoDiv = document.getElementById("profileInfo");
+                userInfoDiv.innerHTML = "";
+                let outerDiv = document.createElement("div");
+                let infoDiv = document.createElement("div");
+                let name = document.createElement("h2");
+                let edu = document.createElement("p");
+                let email = document.createElement("p");
+                let city = document.createElement("p");
+                let interestCount = document.createElement("p");
+                let logoDiv = document.createElement("div");
+                let otherInfoDiv = document.createElement("div");
+                let loadCvBtn = document.createElement("button");
+                let cvIcon = document.createElement("img");
+                loadCvBtn.id = "loadCvBtn";
+                logoDiv.id = "logoDiv";
+                loadCvBtn.innerHTML = "Öppna sparat cv(pdf)";
+                cvIcon.src = "cvIcon80.png";
+                cvIcon.alt = "Klicka här för att se ditt CV";
                 cvIcon.classList.add("floatLeft");
-                interestCount.innerHTML="Intresseansökningar: "+user.interestCount;
-                name.innerHTML=user.name+" "+user.ulname;
-                edu.innerHTML=user.edu;
-                email.innerHTML=user.email;
-                city.innerHTML=user.city;
+                interestCount.innerHTML = "Intresseansökningar: " + user.interestCount;
+                name.innerHTML = user.name + " " + user.ulname;
+                edu.innerHTML = user.edu;
+                email.innerHTML = user.email;
+                city.innerHTML = user.city;
                 logoDiv.appendChild(cvIcon);
                 outerDiv.appendChild(logoDiv);
                 outerDiv.appendChild(name);
@@ -305,15 +310,38 @@ window.onload = function () {
                 otherInfoDiv.appendChild(city);
                 otherInfoDiv.appendChild(interestCount);
                 infoDiv.appendChild(otherInfoDiv);
+                infoDiv.appendChild(loadCvBtn);
                 userInfoDiv.appendChild(infoDiv);
                 otherInfoDiv.classList.add("contactInfoDiv");
                 logoDiv.classList.add("logoDiv");
+                logoDiv.classList.add("pointer");
                 outerDiv.classList.add("sInfoOuterDiv");
                 infoDiv.classList.add("sInfoInnerDiv");
+                //logoDiv.addEventListener("click", getCVtoMyInfo);
+                //loadCvBtn.addEventListener("click", getCVtoMyInfo);
+                logoDiv.onclick =getCVtoMyInfo;
+                loadCvBtn.onclick=getCVtoMyInfo;
             }
         };
         xhttp.open("GET", "userDataFromDBStudent", true)
         xhttp.send();
+    }
+    function getCVtoMyInfo() {
+        if (!document.getElementById("pdfSpace")) {
+            console.log("click");
+            let pdfSpace = document.createElement("object");
+            let userInfoDiv = document.getElementById("profileInfo");
+            pdfSpace.id = "pdfSpace";
+            pdfSpace.type = "application/pdf";
+            pdfSpace.width = "100%";
+            pdfSpace.height = "0em";
+            pdfSpace.setAttribute("trusted", "yes");
+            pdfSpace.setAttribute("application", "yes");
+            pdfSpace.standby = "Laddar cv..";
+            userInfoDiv.appendChild(pdfSpace);
+        }
+        readCvData();
+
     }
 
     function loadButtonsStudentprofile() {
@@ -402,18 +430,28 @@ window.onload = function () {
     }
 
     function readCvData() {
-        if(cvData)
-        {
+        if (cvData) {
+            document.getElementById('pdfSpace').style.display = "block";
             document.getElementById('pdfSpace').height = "1000em";
             document.getElementById('pdfSpace').data = cvData;
-            console.log(cvData);
+            //console.log(cvData);
             loadCvBtn.innerHTML = "Stäng " + UploadOrSaved + " cv(pdf)";
 
             loadCvBtn.onclick = () => {
                 document.getElementById('pdfSpace').data = "";
                 document.getElementById('pdfSpace').height = "0em";
+                document.getElementById('pdfSpace').style.display = "none";
                 loadCvBtn.onclick = readCvData;
                 loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
+            }
+            if (document.getElementById("logoDiv")) {
+                let logoDiv = document.getElementById("logoDiv");
+                logoDiv.onclick = () => {
+                    document.getElementById('pdfSpace').data = "";
+                    document.getElementById('pdfSpace').height = "0em";
+                    document.getElementById('pdfSpace').style.display = "none";
+                    logoDiv.onclick = readCvData;
+                }
             }
         }
     }
@@ -453,7 +491,7 @@ window.onload = function () {
         xhttp.open("POST", "changeStudentInfo?userObj=" + userString, true);
 
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
-        
+
         xhttp.send("&cv=" + cvData);
     }
 
@@ -481,7 +519,7 @@ window.onload = function () {
                 getSpecificJob(jobId);
 
                 makeInterestBtn = document.getElementById("makeInterestSubmit");
-                makeInterestBtn.addEventListener("click", (e) =>sendInterest(jobId));
+                makeInterestBtn.addEventListener("click", (e) => sendInterest(jobId));
                 if (val === '0') {
                     document.getElementById("interestDiv").style.display = "none";
                 }
@@ -507,7 +545,7 @@ window.onload = function () {
                 document.getElementById("shortDescriprion").innerHTML = jobs[0].shortdesc;
                 document.getElementById("longDescriprion").innerHTML = jobs[0].longdesc;
                 var keyWords = document.getElementById("keyWordArea");
-                keyWords.innerHTML="";
+                keyWords.innerHTML = "";
                 var table = document.createElement("table");
                 keyWords.appendChild(table);
                 table.className = "tableKeywords";
@@ -536,20 +574,20 @@ window.onload = function () {
         xhttp.send();
     }
 
-    function eventListenerOnSearch(){
-            //Search bar in student cataloge
-         searchInput = document.getElementById("searchInput");
-         searchInput.addEventListener("keypress", function(event) {
+    function eventListenerOnSearch() {
+        //Search bar in student cataloge
+        searchInput = document.getElementById("searchInput");
+        searchInput.addEventListener("keypress", function (event) {
 
-            if (event.keyCode == 13){
-                document.getElementById("workAnnouncement").innerHTML="<img class=\"loadingImg\" id=\"loadImg\" src=\"LoadingImg.svg\" position>";
-                if(searchInput.value==""){
+            if (event.keyCode == 13) {
+                document.getElementById("workAnnouncement").innerHTML = "<img class=\"loadingImg\" id=\"loadImg\" src=\"LoadingImg.svg\" position>";
+                if (searchInput.value == "") {
                     loadCatalog();
                 }
                 //sök efter jobb
-            else{
-            getSeachedKeyWordJob(searchInput.value);
-            }
+                else {
+                    getSeachedKeyWordJob(searchInput.value);
+                }
             }
         });
 
@@ -560,15 +598,15 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // document.getElementById("option-page-content").innerHTML = this.response;
                 var jobs = JSON.parse(this.response);
-                if(jobs.length=== undefined ||jobs.length==0){
-                    document.getElementById("workAnnouncement").innerHTML="Vi hittade inga jobb som matchade din sökning!";
+                if (jobs.length === undefined || jobs.length == 0) {
+                    document.getElementById("workAnnouncement").innerHTML = "Vi hittade inga jobb som matchade din sökning!";
                 }
-                else{
-                filterAlreadySearchedJobs(jobs);
+                else {
+                    filterAlreadySearchedJobs(jobs);
                 }
             }
         };
-        xhttp.open("GET", "getSearchedJobsFromDB?keyword="+keyw, true);
+        xhttp.open("GET", "getSearchedJobsFromDB?keyword=" + keyw, true);
         xhttp.send();
     }
 
@@ -577,7 +615,7 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-               
+
                 document.getElementById("menu-page-content").innerHTML = this.response;
                 document.getElementById("SCatalog").style.display = "block";
                 eventListenerOnSearch();
@@ -608,23 +646,22 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var obj = JSON.parse(this.response);
                 let newJobList = jobs;
-                if((obj[0].joblist=== undefined || obj[0].joblist.length == 0))
-                {
+                if ((obj[0].joblist === undefined || obj[0].joblist.length == 0)) {
                     workAnnouncements(jobs.length, jobs);
                 }
-                else{
-                for (let j = 0; j < obj[0].joblist.length; ++j) {
-                    for (let i = 0; i < jobs.length; ++i) {
-                        if (jobs[i]._id == obj[0].joblist[j].jobID) {
-                            newJobList = newJobList.filter(job => job != jobs[i]);
+                else {
+                    for (let j = 0; j < obj[0].joblist.length; ++j) {
+                        for (let i = 0; i < jobs.length; ++i) {
+                            if (jobs[i]._id == obj[0].joblist[j].jobID) {
+                                newJobList = newJobList.filter(job => job != jobs[i]);
+                            }
                         }
                     }
+                    if (newJobList.length == 0) {
+                        document.getElementById("workAnnouncements").innerHTML = "Vi hittade inga jobb som matchade din sökning!";
+                    }
+                    workAnnouncements(newJobList.length, newJobList);
                 }
-                if(newJobList.length==0){
-                    document.getElementById("workAnnouncements").innerHTML="Vi hittade inga jobb som matchade din sökning!";
-                }
-                workAnnouncements(newJobList.length, newJobList);
-            }
             }
         };
         xhttp.open("GET", "userDataFromDBStudent", true);
@@ -771,7 +808,7 @@ window.onload = function () {
                 let readBtn = document.createElement("button");
                 readBtn.innerHTML = "Visa annons";
                 readBtn.id = jobb[i]._id;
-                readBtn.classList.add("btn1"); 
+                readBtn.classList.add("btn1");
 
                 workAnnouncement.appendChild(outerDiv);
                 workAnnouncement.appendChild(document.createElement("br"));
@@ -794,6 +831,6 @@ window.onload = function () {
             }
         }
     }
-    
-    loadMyInfo();    
+
+    loadMyInfo();
 }
