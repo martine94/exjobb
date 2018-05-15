@@ -436,7 +436,11 @@ function workAnnouncements(num, jobb){
     ajaxRequest('GET', 'loadFileIndex?p=/worktemplate.html', function(response){
         var worktemplate = response;
         var jobbString = "";
-
+        var numberOfJobs=num;
+        if(num>5){
+            num=5;
+        }
+        jobbString ="<h3 align=\"center\">Vi har för tillfället <b>"+numberOfJobs+"</b> examensarbeten registrerade hos oss.<br></h3>";
         for (var i = 0; i < num; i++) {
             var tempJobbString = worktemplate;
             tempJobbString = tempJobbString.replace("logoPlaceholder", jobb[i].logoURL);
@@ -452,6 +456,27 @@ function workAnnouncements(num, jobb){
         for(var i = 0; i<num; i++){
             document.getElementById("readMoreButton" + i).addEventListener("click", openLoginStudentModal); 
         }
+
+        var moreText= document.createElement("p");
+        moreText.innerHTML="För att se resterande jobb. <br>Var vänlig att <strong id=\"logInLink\" class=\"pointer\">Logga in</strong> eller <strong id=\"regLink\" class=\"pointer\">Registrera</strong> ett kostnadsfritt studentkonto.";
+
+        var companyText=document.createElement("p");
+        companyText.innerHTML="Företag kan lägga upp egna examensarbeten.<br>För att göra detta var vänlig att <strong id=\"logInLinkC\" class=\"pointer\">Logga in</strong> eller <strong id=\"regLinkC\" class=\"pointer\">Registrera</strong> ett kostnadsfritt företagskonto.";
+        
+        document.getElementById('workAnnouncement').appendChild(moreText);
+        document.getElementById('workAnnouncement').appendChild(companyText);
+
+        var reglink=document.getElementById("regLink");
+        reglink.addEventListener("click", openRegisterStudentModal);
+        var loginLink=document.getElementById("logInLink");
+        loginLink.addEventListener("click", openLoginStudentModal);
+        var reglinkC=document.getElementById("regLinkC");
+        reglinkC.addEventListener("click", openRegisterCompanyModal);
+        var loginLinkC=document.getElementById("logInLinkC");
+        loginLinkC.addEventListener("click", openLoginCompanyModal);
+
+        
+
     });
 }
 
