@@ -191,6 +191,8 @@ function showForCompaniesInfo() {
     ajaxRequest('GET', 'loadFileIndex?p=/forCompanies.html', function(response){
         document.getElementById("option-page-content").innerHTML = response;
         document.getElementById("forCompaniesInfo").style.display = "block";
+        var regCompLink=document.getElementById("regCompanyLink");
+        regCompLink.addEventListener("click", openRegisterCompanyModal);
     });
 }
 
@@ -199,6 +201,8 @@ function showForStudentsInfo() {
     ajaxRequest('GET', 'loadFileIndex?p=/forStudents.html', function(response){
         document.getElementById("option-page-content").innerHTML = response;
         document.getElementById("forStudentsInfo").style.display = "block";
+        var regStudLink=document.getElementById("regStudLink");
+        regStudLink.addEventListener("click", openRegisterStudentModal);
     });
 }
 
