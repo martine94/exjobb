@@ -369,8 +369,9 @@ window.onload = function () {
         headderLineDiv.style.textAlign = "center";
         headderLineDiv.style.fontSize = "2em";
         let peopleSearched = document.createElement("div");
+        let numberOfPeopleSearched = document.createElement("div");
         //peopleSearched.className= "bColorBlue";
-        peopleSearched.innerHTML = "Sökanden:"
+        peopleSearched.innerHTML = num + " stycken sökanden:";
         interests.appendChild(headderLineDiv);
         interests.appendChild(document.createElement("br"));
         interests.appendChild(document.createElement("br"));
