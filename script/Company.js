@@ -359,12 +359,16 @@ window.onload = function () {
             }
             //console.log(pdfObject);
             let personDiv = document.createElement("div");
-            personDiv.style.backgroundColor = "lightblue";
-            personDiv.style.color = "white";
+            personDiv.style.borderRadius = "3%";
+            personDiv.style.boxShadow = "0.2em 0.2em 0.2em #999";
+            personDiv.style.border= "solid 0.3  em 0.3em 0.3em lightblue";
+            personDiv.style.borderColor= "lightblue";
+            personDiv.style.borderLeft = "0.1em";
+            personDiv.style.color = "black";
             personDiv.appendChild(document.createElement("br"));
             personDiv.innerHTML = "Person " + number;
             let row = document.createElement("hr");
-            row.style.color = "white"; row.className = "Shadow";
+            row.style.color = "white";
             personDiv.appendChild(row);
             personDiv.appendChild(document.createElement("br"));
             let divInfo = document.createElement("div");
@@ -382,6 +386,8 @@ window.onload = function () {
             let txtArea = document.createElement("div");
             txtArea.style.backgroundColor = "white";
             txtArea.style.color = "black";
+            txtArea.style.border= "solid 0.1em";
+            txtArea.style.borderColor = "lightblue";
             let msg = document.createElement("p");
             for(let j = 0;j<num;j++){
             if(objList[i]._id === message[j].studentID){
@@ -395,7 +401,7 @@ window.onload = function () {
             txtArea.className = "jobInfo";
             txtArea.style.padding = "1%";
             let CVbtn = document.createElement("button");
-            CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov Shadow";
+            CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov";
             if(objList[i].cv){
             CVbtn.addEventListener("click", (e)=> loadCV(pdfObject));
             CVbtn.innerHTML = "CV";
