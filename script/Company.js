@@ -328,15 +328,10 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("loadingScreen").style.display = "none";
                 objList = this.response;
-                console.log("**JobId***");
-                console.log(objList);
                 loadJob(objList, studentList, num, jobId);
             }
 
         }
-        // JSON.stringify(studentList)
-        //var ob = new Object(JSON.stringify(studentList));
-        //console.log(studentList);
         xhttp.open("GET", "/getSpecPersons?num=" + num + "&studentList=" + JSON.stringify(studentList), true);
         xhttp.send();
     }
@@ -347,10 +342,6 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("loadingScreen").style.display = "none";
                 job = JSON.parse(this.response)[0].tile;
-                console.log("--this.response--");
-                console.log(job);
-                console.log("**JobId***");
-                console.log(objList);
                 createstuff(objList, studentList, num, job);
             };
         }
@@ -364,13 +355,12 @@ window.onload = function () {
         let pdfObject;
         objList = JSON.parse(objList);
         let headderLineDiv = document.createElement("div");
-        //headderLineDiv.className = "bColorBlue";
         headderLineDiv.innerHTML = jobId;
         headderLineDiv.style.textAlign = "center";
         headderLineDiv.style.fontSize = "2em";
         let peopleSearched = document.createElement("div");
-        //peopleSearched.className= "bColorBlue";
-        peopleSearched.innerHTML = "Sökanden:"
+        let numberOfPeopleSearched = document.createElement("div");
+        peopleSearched.innerHTML = num + " stycken sökanden:";
         interests.appendChild(headderLineDiv);
         interests.appendChild(document.createElement("br"));
         interests.appendChild(document.createElement("br"));
@@ -378,11 +368,9 @@ window.onload = function () {
         interests.appendChild(document.createElement("br"));
         interests.appendChild(document.createElement("br"));
         for (let i = 0; i < num; i++) {
-            //console.log(objList[i]);
             if (objList[i].cv) {
                 pdfObject = objList[i].cv.replace(/ /g, '+');
             }
-            //console.log(pdfObject);
             let personDiv = document.createElement("div");
             personDiv.style.borderRadius = "3%";
             personDiv.style.boxShadow = "0.2em 0.2em 0.2em 0.2em #999";
@@ -401,11 +389,8 @@ window.onload = function () {
             shortDescript.innerHTML = "Kort meddelande: ";
             divInfo.appendChild(shortDescript);
             personDiv.appendChild(divInfo);
-
             personDiv.className = "jobsSmall";
             let emailDiv = document.createElement("div");
-            console.log("UEMAIL");
-            console.log(message);
             emailDiv.innerHTML = objList[i].uemail;
             let txtArea = document.createElement("div");
             txtArea.style.backgroundColor = "white";
