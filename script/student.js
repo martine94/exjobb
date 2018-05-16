@@ -337,7 +337,7 @@ window.onload = function () {
                 warningText.id = "warningText";
                 otherInfoDiv.id = "otherInfoDiv";
                 loadCvBtn.id = "loadCvBtn";
-                loadCvBtn.className = "bColorBlue mediumBtn smoothTransition";          
+                loadCvBtn.className = "bColorBlue mediumBtn";          
                 logoDiv.id = "logoDiv";
                 loadCvBtn.innerHTML = "Öppna sparat cv(pdf)";
                 cvIcon.src = "cvIcon80.png";
@@ -365,8 +365,8 @@ window.onload = function () {
                 logoDiv.classList.add("pointer");
                 outerDiv.classList.add("sInfoOuterDiv");
                 infoDiv.classList.add("sInfoInnerDiv");
-                logoDiv.onclick = getCVtoMyInfo;
                 loadCvBtn.onclick = getCVtoMyInfo;
+                logoDiv.onclick = () => loadCvBtn.click();//loadCvBtn.click;                
                 document.getElementById("loadingScreen").style.display="none";
             }
         };
@@ -374,25 +374,6 @@ window.onload = function () {
         xhttp.send();
     }
     function getCVtoMyInfo() {
-<<<<<<< HEAD
-        //if (!document.getElementById("pdfSpace")) {
-            console.log("click");
-            console.log(cvData);
-            
-            let pdfSpace = document.createElement("object");
-            let userInfoDiv = document.getElementById("profileInfo");
-            pdfSpace.id = "pdfSpace";
-            pdfSpace.type = "application/pdf";
-            pdfSpace.width = "100%";
-            pdfSpace.height = "0em";
-            pdfSpace.setAttribute("trusted", "yes");
-            pdfSpace.setAttribute("application", "yes");
-            pdfSpace.standby = "Laddar cv..";
-            pdfSpace.className = "smoothTransition";
-            userInfoDiv.appendChild(pdfSpace);
-        //}
-        readCvData();
-=======
         if (cvData == null) {
             let warningText = document.getElementById("warningText");
             warningText.innerHTML = "Du har inte laddat upp något cv.<br>Du kan göra detta under fliken<br><b>Redigera Information</b>."
@@ -401,19 +382,20 @@ window.onload = function () {
             if (!document.getElementById("pdfSpace")) {
                 console.log("click");
                 let pdfSpace = document.createElement("object");
-                let userInfoDiv = document.getElementById("profileInfo");
+                let userInfoDiv = document.getElementById("menu-page-content");
                 pdfSpace.id = "pdfSpace";
                 pdfSpace.type = "application/pdf";
-                pdfSpace.width = "600em";
+                pdfSpace.width = "100%";
                 pdfSpace.height = "0em";
                 pdfSpace.setAttribute("trusted", "yes");
                 pdfSpace.setAttribute("application", "yes");
                 pdfSpace.standby = "Laddar cv..";
+                pdfSpace.className = "smoothTransition";
                 userInfoDiv.appendChild(pdfSpace);
+                
             }
             readCvData();
         }
->>>>>>> 07e5fc7158c1997144fdfdb1276721d753a3bfb7
 
     }
 
@@ -503,10 +485,9 @@ window.onload = function () {
     }
 
     function readCvData() {
-        if (cvData) {
+        if (cvData && document.getElementById('pdfSpace')) {
             document.getElementById('pdfSpace').data = cvData;      
             document.getElementById('pdfSpace').height = "1000em";
-<<<<<<< HEAD
 
             if (document.getElementById("loadCvBtn")) {
                 loadCvBtn = document.getElementById("loadCvBtn");
@@ -514,24 +495,19 @@ window.onload = function () {
             }
             
             //console.log(cvData);
-=======
-            document.getElementById('pdfSpace').data = cvData;
->>>>>>> 07e5fc7158c1997144fdfdb1276721d753a3bfb7
             loadCvBtn.innerHTML = "Stäng " + UploadOrSaved + " cv(pdf)";
 
             loadCvBtn.onclick = () => {
                     document.getElementById('pdfSpace').data = "";
                     document.getElementById('pdfSpace').height = "0em";
-<<<<<<< HEAD
                     loadCvBtn.onclick = readCvData;
                     loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
-=======
-                    document.getElementById('pdfSpace').style.display = "none";
-                    loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
-                    logoDiv.onclick = readCvData;
-                }
->>>>>>> 07e5fc7158c1997144fdfdb1276721d753a3bfb7
             }
+        }
+        else if(!document.getElementById('pdfSpace'))
+        {
+            //logger.error("No pdf container", document.getElementById('pdfSpace'));
+            console.error("No pdfSpace defined!")
         }
     }
 
