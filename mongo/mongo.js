@@ -22,7 +22,7 @@ var logger = new (winston.Logger)({
       name: 'debug-console',
       colorize: true,
       label: 'mongo.js',
-      level: 'debug'
+      level: 'silly'
     }),
     new (winston.transports.File)({
       name: 'error-file',
@@ -109,7 +109,7 @@ module.exports = {
     logger.info('Change exjob information in database');
     logger.silly('Using jobID %s, new values %s', jobID, newValues);
 
-    MongoClient.connect(url, function (err, db) {
+    MongoClient.connect(url, function (error, db) {
       if(error) throw error;
 
       var dbo = db.db(database);
