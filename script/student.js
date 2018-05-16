@@ -12,7 +12,7 @@ window.onload = function () {
 
     //#region eventListeners
     interestsBtn.addEventListener("click", loadMyInterests);
-    mySPagesBtn.addEventListener("click", loadMyProfile);
+    mySPagesBtn.addEventListener("click", loadEditMyProfile);
     recomendedJobBtn.addEventListener("click", loadMyRecomendedJobs);
     mySInfoBtn.addEventListener("click", loadMyInfo);
     lookAtJobBtn.addEventListener("click", loadCatalog);
@@ -59,7 +59,12 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("menu-page-content").innerHTML = this.response;
-
+                let page = document.getElementById("menu-page-content");
+                let loadingscreen = document.createElement("img");
+                loadingscreen.src = "LoadingImg.svg";
+                loadingscreen.classList.add("loadingImg");
+                loadingscreen.id = "loadingScreen";
+                page.appendChild(loadingscreen);
                 listUserDataFromDB(); //genererar användarinfo
             }
         };
@@ -80,7 +85,7 @@ window.onload = function () {
         xhttp.send();
     }
 
-    function loadMyProfile() {
+    function loadEditMyProfile() {
         SetCurrentPage(mySPagesBtn);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -143,7 +148,7 @@ window.onload = function () {
                         underDiv.appendChild(breakp);
                     }
                     overDiv.appendChild(underDiv);
-                    keyDIV.appendChild(overDiv);               
+                    keyDIV.appendChild(overDiv);
                 }
                 callback();
             }
@@ -170,15 +175,16 @@ window.onload = function () {
                 }
                 for (let i = 0; i < keyArray.length; ++i) {
                     var kwInArray = keywords2[0][keyArray[i]];
-                  
+
                     for (let j = 0; j < kwInArray.length; ++j) {
-                        
+
                         let li = document.createElement("li");
-                        let p=document.createElement("p");
+                        let p = document.createElement("p");
                         p.innerHTML = kwInArray[j];
-                        if(p.innerHTML!="Annat"){
-                        li.appendChild(p);
-                        myUL.appendChild(li);}
+                        if (p.innerHTML != "Annat") {
+                            li.appendChild(p);
+                            myUL.appendChild(li);
+                        }
                     }
                 }
             }
@@ -268,13 +274,13 @@ window.onload = function () {
                     pw: obj[0].password,
                     ucv: obj[0].cv
                 }
-                document.getElementById("sFName").value += user.name;
-                document.getElementById("sLName").value += user.ulname;
-                document.getElementById("sEdu").value += user.edu;
-                document.getElementById("city").value += user.city;
-                document.getElementById("sUname").value += user.uname;
-                document.getElementById("sEmail").value += user.email;
-                document.getElementById("sPsw").value += user.pw;
+                document.getElementById("sFName").value = user.name;
+                document.getElementById("sLName").value = user.ulname;
+                document.getElementById("sEdu").value = user.edu;
+                document.getElementById("city").value = user.city;
+                document.getElementById("sUname").value = user.uname;
+                document.getElementById("sEmail").value = user.email;
+                document.getElementById("sPsw").value = user.pw;
 
 
                 if (typeof user.ucv !== 'undefined' && user.ucv) {
@@ -282,9 +288,9 @@ window.onload = function () {
                     cvData = user.ucv.replace(/ /g, '+'); //replace all whitespace with +
                 }
 
-                 for (let i = 0; i < obj[0].keywords.length; i++) {
-                     document.getElementById(obj[0].keywords[i]).checked = true;
-                 }
+                for (let i = 0; i < obj[0].keywords.length; i++) {
+                    document.getElementById(obj[0].keywords[i]).checked = true;
+                }
 
                 loadButtonsStudentprofile();
                 loadButtonEventsStudentprofile();
@@ -311,7 +317,9 @@ window.onload = function () {
                     city: obj[0].city,
                     interestCount: obj[0].joblist.length
                 }
-                cvData = obj[0].cv.replace(/ /g, '+');
+                if (obj[0].cv != null) {
+                    cvData = obj[0].cv.replace(/ /g, '+');
+                }
                 var userInfoDiv = document.getElementById("profileInfo");
                 userInfoDiv.innerHTML = "";
                 let outerDiv = document.createElement("div");
@@ -321,10 +329,13 @@ window.onload = function () {
                 let email = document.createElement("p");
                 let city = document.createElement("p");
                 let interestCount = document.createElement("p");
+                let warningText = document.createElement("p");
                 let logoDiv = document.createElement("div");
                 let otherInfoDiv = document.createElement("div");
                 let loadCvBtn = document.createElement("button");
                 let cvIcon = document.createElement("img");
+                warningText.id = "warningText";
+                otherInfoDiv.id = "otherInfoDiv";
                 loadCvBtn.id = "loadCvBtn";
                 loadCvBtn.className = "bColorBlue mediumBtn smoothTransition";          
                 logoDiv.id = "logoDiv";
@@ -345,24 +356,25 @@ window.onload = function () {
                 otherInfoDiv.appendChild(email);
                 otherInfoDiv.appendChild(city);
                 otherInfoDiv.appendChild(interestCount);
+                otherInfoDiv.appendChild(loadCvBtn);
+                otherInfoDiv.appendChild(warningText);
                 infoDiv.appendChild(otherInfoDiv);
-                infoDiv.appendChild(loadCvBtn);
                 userInfoDiv.appendChild(infoDiv);
                 otherInfoDiv.classList.add("contactInfoDiv");
                 logoDiv.classList.add("logoDiv");
                 logoDiv.classList.add("pointer");
                 outerDiv.classList.add("sInfoOuterDiv");
                 infoDiv.classList.add("sInfoInnerDiv");
-                //logoDiv.addEventListener("click", getCVtoMyInfo);
-                //loadCvBtn.addEventListener("click", getCVtoMyInfo);
-                logoDiv.onclick =getCVtoMyInfo;
-                loadCvBtn.onclick=getCVtoMyInfo;
+                logoDiv.onclick = getCVtoMyInfo;
+                loadCvBtn.onclick = getCVtoMyInfo;
+                document.getElementById("loadingScreen").style.display="none";
             }
         };
         xhttp.open("GET", "userDataFromDBStudent", true)
         xhttp.send();
     }
     function getCVtoMyInfo() {
+<<<<<<< HEAD
         //if (!document.getElementById("pdfSpace")) {
             console.log("click");
             console.log(cvData);
@@ -380,6 +392,28 @@ window.onload = function () {
             userInfoDiv.appendChild(pdfSpace);
         //}
         readCvData();
+=======
+        if (cvData == null) {
+            let warningText = document.getElementById("warningText");
+            warningText.innerHTML = "Du har inte laddat upp något cv.<br>Du kan göra detta under fliken<br><b>Redigera Information</b>."
+        }
+        else {
+            if (!document.getElementById("pdfSpace")) {
+                console.log("click");
+                let pdfSpace = document.createElement("object");
+                let userInfoDiv = document.getElementById("profileInfo");
+                pdfSpace.id = "pdfSpace";
+                pdfSpace.type = "application/pdf";
+                pdfSpace.width = "600em";
+                pdfSpace.height = "0em";
+                pdfSpace.setAttribute("trusted", "yes");
+                pdfSpace.setAttribute("application", "yes");
+                pdfSpace.standby = "Laddar cv..";
+                userInfoDiv.appendChild(pdfSpace);
+            }
+            readCvData();
+        }
+>>>>>>> 07e5fc7158c1997144fdfdb1276721d753a3bfb7
 
     }
 
@@ -472,6 +506,7 @@ window.onload = function () {
         if (cvData) {
             document.getElementById('pdfSpace').data = cvData;      
             document.getElementById('pdfSpace').height = "1000em";
+<<<<<<< HEAD
 
             if (document.getElementById("loadCvBtn")) {
                 loadCvBtn = document.getElementById("loadCvBtn");
@@ -479,13 +514,23 @@ window.onload = function () {
             }
             
             //console.log(cvData);
+=======
+            document.getElementById('pdfSpace').data = cvData;
+>>>>>>> 07e5fc7158c1997144fdfdb1276721d753a3bfb7
             loadCvBtn.innerHTML = "Stäng " + UploadOrSaved + " cv(pdf)";
 
             loadCvBtn.onclick = () => {
                     document.getElementById('pdfSpace').data = "";
                     document.getElementById('pdfSpace').height = "0em";
+<<<<<<< HEAD
                     loadCvBtn.onclick = readCvData;
                     loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
+=======
+                    document.getElementById('pdfSpace').style.display = "none";
+                    loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
+                    logoDiv.onclick = readCvData;
+                }
+>>>>>>> 07e5fc7158c1997144fdfdb1276721d753a3bfb7
             }
         }
     }
@@ -612,12 +657,12 @@ window.onload = function () {
         //Search bar in student cataloge
         searchInput = document.getElementById("searchInput");
         //show list of searchwords
-        searchInput.addEventListener("focus", function (event){
-            document.getElementById("myUL").className="show";
+        searchInput.addEventListener("focus", function (event) {
+            document.getElementById("myUL").className = "show";
         });
         //hide list of searchwords
-        searchInput.addEventListener("focusout", function (event){
-            document.getElementById("myUL").className="hide";
+        searchInput.addEventListener("focusout", function (event) {
+            document.getElementById("myUL").className = "hide";
         });
         //filter Search words
         searchInput.addEventListener("keyup", function (event) {
@@ -836,8 +881,14 @@ window.onload = function () {
             var outerDiv = document.createElement("div");
             var newh2 = document.createElement("h2");
             var newP = document.createElement("p");
+            if (currentPage.id=="recomendedJobBtn"){
             newP.innerHTML = "Prova att ändra dina önskemål under \"Redigera Information\"";
             newh2.innerHTML = "Du har inga matchande jobb.";
+            }
+            else{
+                newP.innerHTML = "";
+                newh2.innerHTML = "Vi hittade inga jobb.";
+            }
             outerDiv.appendChild(newh2);
             outerDiv.appendChild(newP);
             outerDiv.className = "jobsSmall";
