@@ -22,7 +22,7 @@ var logger = new (winston.Logger)({
       name: 'debug-console',
       colorize: true,
       label: 'mongo.js',
-      level: 'silly'
+      level: 'debug'
     }),
     new (winston.transports.File)({
       name: 'error-file',
