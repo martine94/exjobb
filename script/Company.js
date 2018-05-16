@@ -117,7 +117,6 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // document.getElementById("option-page-content").innerHTML = this.response;
-                console.log("JOBB HÄMTADE");
                 let num = 0;
                 var jobs = JSON.parse(this.response);
                 for (let i = 0; i < jobs[0].studentlist.length; i++) {
@@ -307,6 +306,12 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 interestArea.innerHTML = this.response;
+                let page= document.getElementById("Interests")
+                let loadingscreen = document.createElement("img");
+                loadingscreen.src = "LoadingImg.svg";
+                loadingscreen.classList.add("loadingImg");
+                loadingscreen.id = "loadingScreen";
+                page.appendChild(loadingscreen);
                 getspecificIntresents(objId);
             }
         };
@@ -321,6 +326,7 @@ window.onload = function () {
 
         xhttp.onreadystatechange = function () {
             if(this.readyState == 4 && this.status == 200){
+            document.getElementById("loadingScreen").style.display="none";
             objList = this.response;
             console.log(objList);
             createstuff(objList, studentList, num, jobId);
@@ -722,6 +728,12 @@ window.onload = function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 interestArea.innerHTML = this.response;
+                let page = document.getElementById("menu-page-content");
+                let loadingscreen = document.createElement("img");
+                loadingscreen.src = "LoadingImg.svg";
+                loadingscreen.classList.add("loadingImg");
+                loadingscreen.id = "loadingScreen";
+                page.appendChild(loadingscreen);
                 listUserDataFromDB();
             }
         };
@@ -733,7 +745,7 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function (res) {
             if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
+                //console.log(this.responseText);
                 let removeBrace = this.responseText.replace(/[\[\]']+/g, "");
                 var obj = JSON.parse(removeBrace);
                 var user = {
@@ -793,6 +805,8 @@ window.onload = function () {
         logoDiv.classList.add("logoDiv");
         outerDiv.classList.add("sInfoOuterDiv");
         infoDiv.classList.add("sInfoInnerDiv");
+        document.getElementById("loadingScreen").style.display="none";
+
     }
 
 
