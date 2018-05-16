@@ -307,8 +307,10 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // removeBrace = this.responseText.replace(/[\[\]']+/g, "");
                 var obj = JSON.parse(this.response);
+                console.log(obj);
                 var user = {
                     id: obj[0]._id,
+                    uname: obj[0].uname,
                     name: obj[0].name,
                     ulname: obj[0].lastname,
                     edu: obj[0].ueducation,
@@ -324,6 +326,7 @@ window.onload = function () {
                 userInfoDiv.innerHTML = "";
                 let outerDiv = document.createElement("div");
                 let infoDiv = document.createElement("div");
+                let uname = document.createElement("h1");                
                 let name = document.createElement("h2");
                 let edu = document.createElement("p");
                 let email = document.createElement("p");
@@ -344,12 +347,14 @@ window.onload = function () {
                 cvIcon.alt = "Klicka här för att se ditt CV";
                 cvIcon.classList.add("floatLeft");
                 interestCount.innerHTML = "Intresseansökningar: " + user.interestCount;
+                uname.innerHTML = user.uname;
                 name.innerHTML = user.name + " " + user.ulname;
                 edu.innerHTML = user.edu;
                 email.innerHTML = user.email;
                 city.innerHTML = user.city;
                 logoDiv.appendChild(cvIcon);
                 outerDiv.appendChild(logoDiv);
+                outerDiv.appendChild(uname);
                 outerDiv.appendChild(name);
                 outerDiv.appendChild(edu);
                 userInfoDiv.appendChild(outerDiv);
