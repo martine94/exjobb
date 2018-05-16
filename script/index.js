@@ -13,6 +13,7 @@ window.onload = function () {
     var companyButton = document.getElementById("companyBtn");
     var studentButton = document.getElementById("studentBtn");
     var companyRegButton = document.getElementById("companyRegBtn");
+    
     var studentRegButton = document.getElementById("studentRegBtn");
     var companyLoginButton = document.getElementById("companyLoginBtn");
     var studentLoginButton = document.getElementById("studentLoginBtn");
@@ -27,6 +28,7 @@ window.onload = function () {
     logInContainer.addEventListener("mouseover", function () { dropDown("logInContainer", true); });
     logInContainer.addEventListener("mouseleave", function () { dropDown("logInContainer", false); });
     companyLoginButton.addEventListener("click", openLoginCompanyModal);
+    
     studentLoginButton.addEventListener("click", openLoginStudentModal);
 
     regButton.addEventListener("mouseover", function () { dropDown("registerContainer", true); });
@@ -112,6 +114,9 @@ window.onload = function () {
             var reglink = document.getElementById("regLinkC");
             reglink.addEventListener("click", openRegisterCompanyModal);
 
+            var companyPasswordTextfield = document.getElementById('cPsw');
+            companyPasswordTextfield.addEventListener('keypress', (event) => { if(event.keyCode === 13) LogInCompany(); });
+
             dropDown("modal-test", true);
         });
     }
@@ -128,6 +133,9 @@ window.onload = function () {
 
             var reglink = document.getElementById("regLinkS");
             reglink.addEventListener("click", openRegisterStudentModal);
+
+            var studentPasswordTextfield = document.getElementById('sPsw');
+            studentPasswordTextfield.addEventListener('keypress', (event) => { if(event.keyCode === 13) LogInStudent(); });
 
             dropDown("modal-test", true);
         });
