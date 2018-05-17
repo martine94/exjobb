@@ -659,6 +659,7 @@ window.onload = function () {
     }
 
     function changeInfo() {
+        if(document.getElementById("c_Psw").value === document.getElementById("c_PswConfirm").value){
         var cname = document.getElementById("c_Name").value;
         var cuname = document.getElementById("c_Uname").value;
         var cAboutUs = document.getElementById("about_Us").value;
@@ -677,10 +678,15 @@ window.onload = function () {
                     loadMyInfo();
                 }
             }
-        };
+        }
         xhttp.open("POST", "changeCompanyInfo?cname=" + cname + "&psw=" + psw + "&cuname=" + cuname + "&caddress=" + caddress + "&cemail=" + cemail + "&ccity=" + ccity + "&cweb=" + cweb + "&clogo=" + clogo + "&cAboutUs=" + cAboutUs, true);
-        xhttp.send();
-    }
+        xhttp.send();}
+        else{
+            if(!document.getElementById('error')){
+                document.getElementById("ErrorMessage").innerHTML += "<div id='error' style='color:red;padding-left:20em'>lösenord är olika!</div>";
+            }
+        }
+    };
 
     function fillEditProfile() {
         var xhttp = new XMLHttpRequest();
@@ -697,6 +703,7 @@ window.onload = function () {
                     email: obj.companyEmail,
                     web: obj.website,
                     logo: obj.logoURL,
+                    password: obj.password,
                     uname: obj.userName,
                     about: obj.about
                 }
@@ -712,6 +719,7 @@ window.onload = function () {
         document.getElementById("c_Name").value += user.name;
         document.getElementById("c_Address").value += user.address;
         document.getElementById("c_City").value += user.city;
+        document.getElementById("c_Psw").value += user.password;
         document.getElementById("c_Email").value += user.email;
         document.getElementById("c_WebP").value += user.web;
         document.getElementById("c_Uname").value += user.uname;
