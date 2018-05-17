@@ -502,7 +502,7 @@ app.get("/getSpecPersons", urlEncodedParcer, function (req, res) {
     logger.debug("num", num);
     logger.debug("plist %j", personList);
     //logger.debug("testList = ", testList[1].studentID);
-    logger.debug("PersonList = ", personList[1].studentID);
+    //logger.debug("PersonList = ", personList[1].studentID);
     var list = [];
     for (let i = 0; i < num; i++) {
         list.push(personList[i].studentID);
@@ -656,7 +656,6 @@ app.post('/changeExJobInfo', urlEncodedParcer, function (req, res) {
     var exjobb = JSON.parse(req.query["exJobb"]);
     try {
         let jobID = req.query["jobID"];
-
         logger.silly("Exjob info", exjobb);
         Mongo.changeExJobInfo(jobID, exjobb, function (result) {
             if (result instanceof Error) {

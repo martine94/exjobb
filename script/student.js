@@ -313,8 +313,10 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // removeBrace = this.responseText.replace(/[\[\]']+/g, "");
                 var obj = JSON.parse(this.response);
+                console.log(obj);
                 var user = {
                     id: obj[0]._id,
+                    uname: obj[0].uname,
                     name: obj[0].name,
                     ulname: obj[0].lastname,
                     edu: obj[0].ueducation,
@@ -330,6 +332,7 @@ window.onload = function () {
                 userInfoDiv.innerHTML = "";
                 let outerDiv = document.createElement("div");
                 let infoDiv = document.createElement("div");
+                let uname = document.createElement("h1");                
                 let name = document.createElement("h2");
                 let edu = document.createElement("p");
                 let email = document.createElement("p");
@@ -343,18 +346,21 @@ window.onload = function () {
                 warningText.id = "warningText";
                 otherInfoDiv.id = "otherInfoDiv";
                 loadCvBtn.id = "loadCvBtn";
+                loadCvBtn.className = "bColorBlue mediumBtn";          
                 logoDiv.id = "logoDiv";
                 loadCvBtn.innerHTML = "Öppna sparat cv(pdf)";
                 cvIcon.src = "cvIcon80.png";
                 cvIcon.alt = "Klicka här för att se ditt CV";
                 cvIcon.classList.add("floatLeft");
                 interestCount.innerHTML = "Intresseansökningar: " + user.interestCount;
+                uname.innerHTML = user.uname;
                 name.innerHTML = user.name + " " + user.ulname;
                 edu.innerHTML = user.edu;
                 email.innerHTML = user.email;
                 city.innerHTML = user.city;
                 logoDiv.appendChild(cvIcon);
                 outerDiv.appendChild(logoDiv);
+                outerDiv.appendChild(uname);
                 outerDiv.appendChild(name);
                 outerDiv.appendChild(edu);
                 userInfoDiv.appendChild(outerDiv);
@@ -370,8 +376,8 @@ window.onload = function () {
                 logoDiv.classList.add("pointer");
                 outerDiv.classList.add("sInfoOuterDiv");
                 infoDiv.classList.add("sInfoInnerDiv");
-                logoDiv.onclick = getCVtoMyInfo;
                 loadCvBtn.onclick = getCVtoMyInfo;
+                logoDiv.onclick = () => loadCvBtn.click();//loadCvBtn.click;                
                 document.getElementById("loadingScreen").style.display="none";
             }
         };
@@ -387,15 +393,17 @@ window.onload = function () {
             if (!document.getElementById("pdfSpace")) {
                 console.log("click");
                 let pdfSpace = document.createElement("object");
-                let userInfoDiv = document.getElementById("profileInfo");
+                let userInfoDiv = document.getElementById("menu-page-content");
                 pdfSpace.id = "pdfSpace";
                 pdfSpace.type = "application/pdf";
-                pdfSpace.width = "600em";
+                pdfSpace.width = "100%";
                 pdfSpace.height = "0em";
                 pdfSpace.setAttribute("trusted", "yes");
                 pdfSpace.setAttribute("application", "yes");
                 pdfSpace.standby = "Laddar cv..";
+                pdfSpace.className = "smoothTransition";
                 userInfoDiv.appendChild(pdfSpace);
+                
             }
             readCvData();
         }
@@ -488,29 +496,29 @@ window.onload = function () {
     }
 
     function readCvData() {
-        if (cvData) {
-            document.getElementById('pdfSpace').style.display = "block";
+        if (cvData && document.getElementById('pdfSpace')) {
+            document.getElementById('pdfSpace').data = cvData;      
             document.getElementById('pdfSpace').height = "1000em";
-            document.getElementById('pdfSpace').data = cvData;
+
+            if (document.getElementById("loadCvBtn")) {
+                loadCvBtn = document.getElementById("loadCvBtn");
+                
+            }
+            
+            //console.log(cvData);
             loadCvBtn.innerHTML = "Stäng " + UploadOrSaved + " cv(pdf)";
 
             loadCvBtn.onclick = () => {
-                document.getElementById('pdfSpace').data = "";
-                document.getElementById('pdfSpace').height = "0em";
-                document.getElementById('pdfSpace').style.display = "none";
-                loadCvBtn.onclick = readCvData;
-                loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
-            }
-            if (document.getElementById("logoDiv")) {
-                let logoDiv = document.getElementById("logoDiv");
-                logoDiv.onclick = () => {
                     document.getElementById('pdfSpace').data = "";
                     document.getElementById('pdfSpace').height = "0em";
-                    document.getElementById('pdfSpace').style.display = "none";
+                    loadCvBtn.onclick = readCvData;
                     loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
-                    logoDiv.onclick = readCvData;
-                }
             }
+        }
+        else if(!document.getElementById('pdfSpace'))
+        {
+            //logger.error("No pdf container", document.getElementById('pdfSpace'));
+            console.error("No pdfSpace defined!")
         }
     }
 

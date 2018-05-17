@@ -109,7 +109,7 @@ module.exports = {
     logger.info('Change exjob information in database');
     logger.silly('Using jobID %s, new values %s', jobID, newValues);
 
-    MongoClient.connect(url, function (err, db) {
+    MongoClient.connect(url, function (error, db) {
       if(error) throw error;
 
       var dbo = db.db(database);
