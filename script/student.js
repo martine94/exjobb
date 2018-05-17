@@ -522,6 +522,18 @@ window.onload = function () {
         }
     }
 
+    function removeError(){
+        if(document.getElementById("c_Psw") && document.getElementById("c_PswConfirm") 
+           && document.getElementById("error"))
+        {
+            document.getElementById("c_Psw").classList.remove("errInput");
+            document.getElementById("c_PswConfirm").classList.remove("errInput");
+            document.getElementById("error").remove();
+            document.getElementById("c_Psw").onkeyup = "";
+            document.getElementById("c_PswConfirm").onkeyup = "";   
+        }            
+    };
+
     function saveProfile() {
         if(document.getElementById("sPsw").value === document.getElementById("sPswConfirm").value){
             let ListOfKeyWords = [];
@@ -561,6 +573,12 @@ window.onload = function () {
     }
         else{
             if(!document.getElementById('error')){
+
+                document.getElementById("sPsw").classList.add("errInput");
+                document.getElementById("sPswConfirm").classList.add("errInput");                
+                
+                document.getElementById("sPsw").onkeyup = () => {removeError();}; //funkar inte av någon anledning
+                document.getElementById("sPswConfirm").onkeyup = () => {removeError();}; //funkar inte av någon anledning
                 document.getElementById("ErrorMessage").innerHTML += "<div id='error' style='color:red;padding-left:20em'>lösenord är olika!</div>";
             }
         }
