@@ -347,7 +347,7 @@ app.post('/changeStudentInfo', urlEncodedParcer, function (req, res) {
     try {
         var crypt = require('crypto');
         var key = crypt.createCipher('aes-128-cbc','password');
-        var password = userObj.psw;
+        var password = userObj.password;
         var pString = key.update(password,'utf8','hex');
         pString += key.final('hex');
         userObj.password = pString;
