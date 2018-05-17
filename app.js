@@ -170,13 +170,13 @@ app.get('/logginComp', urlEncodedParcer, function (req, res) {
 
     Mongo.findOne("company", { userName: req.query["username"] }, function (result) {
         logger.silly('Loggin Company query result:', result);
-
+        logger.silly(result)
         if (result.length === 0) {
             logger.warn('Login failed: No user match');
             res.send("false");
         } else {
             var crypt = require('crypto');
-            var key = crypt.createDecipher('aes-128-cbc', 'password');
+            var key = crypt.createDecipher('aes-128-cbc', result[0].userName);
             var passw = result[0].password;
             var pString = key.update(passw, 'hex', 'utf8');
             pString += key.final('utf8');
@@ -203,7 +203,7 @@ app.get('/logginStudent', urlEncodedParcer, function (req, res) {
             res.send("false");
         } else {
         var crypt = require('crypto');
-        var key = crypt.createDecipher('aes-128-cbc', 'password');
+        var key = crypt.createDecipher('aes-128-cbc', result[0].uname);
         var passw = result[0].password;
         var pString = key.update(passw, 'hex', 'utf8');
         pString += key.final('utf8');
@@ -271,7 +271,8 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
     logger.info('GET /register_student request');
 
     var crypt = require('crypto');
-    var key = crypt.createCipher('aes-128-cbc','password');
+    var partialKey = req.query["uname"];
+    var key = crypt.createCipher('aes-128-cbc',partialKey);
     var password = req.query["psw"];
     var pString = key.update(password,'utf8','hex');
     pString += key.final('hex');
@@ -343,7 +344,7 @@ app.get('/userDataFromDBStudent', function (req, res) {
             } else {
                 logger.silly('Found user', result);
                 var crypt = require('crypto');
-                var key = crypt.createDecipher('aes-128-cbc', 'password');
+                var key = crypt.createDecipher('aes-128-cbc', result[0].uname);
                 var passw = result[0].password;
                 var pString = key.update(passw, 'hex', 'utf8');
                 pString += key.final('utf8');
@@ -359,7 +360,7 @@ app.post('/changeStudentInfo', urlEncodedParcer, function (req, res) {
     userObj["cv"] = req.body["cv"];
     try {
         var crypt = require('crypto');
-        var key = crypt.createCipher('aes-128-cbc','password');
+        var key = crypt.createCipher('aes-128-cbc',userObj.uname);
         var password = userObj.password;
         var pString = key.update(password,'utf8','hex');
         pString += key.final('hex');
@@ -442,8 +443,9 @@ app.get('/getStudentInterestMessages', function (req, res) {
 
 app.post('/changeCompanyInfo', urlEncodedParcer, function (req, res) {
     logger.info("POST /changeCompanyInfo request");
+    var partialKey = req.query["cuname"];
     var crypt = require('crypto');
-    var key = crypt.createCipher('aes-128-cbc','password');
+    var key = crypt.createCipher('aes-128-cbc',partialKey);
     var password = req.query["psw"];
     var pString = key.update(password,'utf8','hex');
     pString += key.final('hex');
@@ -483,9 +485,9 @@ app.post('/changeCompanyInfo', urlEncodedParcer, function (req, res) {
 
 app.post('/register_company', urlEncodedParcer, function (req, resp) {
     logger.info('POST /register_company request');
-
+    var partialKey = req.query["cuname"];
     var crypt = require('crypto');
-    var key = crypt.createCipher('aes-128-cbc','password');
+    var key = crypt.createCipher('aes-128-cbc',partialKey);
     var password = req.query["psw"];
     var pString = key.update(password,'utf8','hex');
     pString += key.final('hex');
@@ -541,9 +543,8 @@ app.get('/userDataFromDBCompany', function (req, res) {
                 res.send("false");
             } else {
                 logger.silly('Found company in database', result);
-                
                 var crypt = require('crypto');
-                var key = crypt.createDecipher('aes-128-cbc', 'password');
+                var key = crypt.createDecipher('aes-128-cbc', result[0].userName);
                 var passw = result[0].password;
                 var pString = key.update(passw, 'hex', 'utf8');
                 pString += key.final('utf8');
