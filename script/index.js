@@ -231,8 +231,6 @@ window.onload = function () {
     }
     function faq(qas) {
         qas = JSON.parse(qas);
-        console.log(qas);
-        console.log(qas.length);
         var faqContainer = document.getElementById("FAQ");
         let h3 = document.createElement("h3");
         h3.innerHTML = "Vanliga frågor och svar:";
@@ -252,8 +250,6 @@ window.onload = function () {
             question.addEventListener("click", (e) => showAnswere(div.id));
             div.classList.add("hide");
         }
-
-
     }
     function showAnswere(questionID) {
         if (document.getElementById(questionID).classList.contains("hide")) {

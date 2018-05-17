@@ -183,29 +183,8 @@ module.exports = {
         dbo.createCollection("faq", function (err, res) {
           if (err) throw err;
         });
-        var place = "companyUtlogg";
-        var question = "Hur loggar jag in som företag?";
-        var answer = "Håll muspekaren över fliken 'logga in' högst upp i högra hörnet. <br> Klicka därefter på 'Företag' på menyn som fälls ned.<br>Fyll därefter i dina uppgifter och klicka på knappen 'LOGGA IN'.";
-        dbo.collection("faq").insertOne({ place, question, answer }, function (err, res) {
-          if (err) throw err;
-        });
-        var place = "companyUtlogg";
-        var question = "Hur registrerar jag ett företag?";
-        var answer = "Håll muspekaren över fliken 'Registrera' högst upp i högra hörnet.<br>Klicka därefter på 'Företag' på menyn som fälls ned.<br>Fyll därefter i dina uppgifter och klicka på knappen 'Registrera'.";
-        dbo.collection("faq").insertOne({ place, question, answer }, function (err, res) {
-          if (err) throw err;
-        });
-        var place = "studentUtlogg";
-        var question = "Hur registrerar jag ett studentkonto?";
-        var answer = "Håll muspekaren över fliken 'Registrera' högst upp i högra hörnet.<br>Klicka därefter på 'Student' på menyn som fälls ned.<br>Fyll därefter i dina uppgifter och klicka på knappen 'Registrera'.";
-        dbo.collection("faq").insertOne({ place, question, answer }, function (err, res) {
-          if (err) throw err;
-        });
-        var place = "studentUtlogg";
-        var question = "Hur loggar jag in som student?";
-        var answer = "Håll muspekaren över fliken 'logga in' högst upp i högra hörnet. <br> Klicka därefter på 'Student' på menyn som fälls ned.<br>Fyll därefter i dina uppgifter och klicka på knappen 'LOGGA IN'.";
-        dbo.collection("faq").insertOne({ place, question, answer }, function (err, res) {
-          if (err) throw err;
+        dbo.collection("faq").insertMany(faqList,function(err,res){
+          if(err) throw err;
         });
         dbo.collection("faq").find({ place: placeQuery }).toArray( function (err, result) {
           if (err) throw err;
@@ -605,6 +584,73 @@ module.exports = {
     });
   }
 };
+
+var faqList=[
+  {place:"companyUtlogg",
+  question:"Hur registrerar jag ett företag?",
+  answer:"Håll muspekaren över fliken 'Registrera' högst upp i högra hörnet.<br>Klicka därefter på 'Företag' på menyn som fälls ned.<br>Fyll därefter i dina uppgifter och klicka på knappen 'Registrera'."},
+
+  {place:"companyUtlogg",
+  question:"Hur loggar jag in som företag?",
+  answer:"Håll muspekaren över fliken 'logga in' högst upp i högra hörnet. <br> Klicka därefter på 'Företag' på menyn som fälls ned.<br>Fyll därefter i dina uppgifter och klicka på knappen 'LOGGA IN'."},
+
+  {place:"studentUtlogg",
+  question:"Hur registrerar jag ett studentkonto?",
+  answer:"Håll muspekaren över fliken 'Registrera' högst upp i högra hörnet.<br>Klicka därefter på 'Student' på menyn som fälls ned.<br>Fyll därefter i dina uppgifter och klicka på knappen 'Registrera'."},
+
+  {place:"studentUtlogg",
+  question:"Hur loggar jag in som student?",
+  answer:"Håll muspekaren över fliken 'logga in' högst upp i högra hörnet. <br> Klicka därefter på 'Student' på menyn som fälls ned.<br>Fyll därefter i dina uppgifter och klicka på knappen 'LOGGA IN'."},
+
+  {place:"studentInlogg",
+  question:"Hur anmäler jag intresse till ett examensarbete?",
+  answer:"Du anmäler ditt intresse till ett examensarbete genom följande steg.<br> 1. Klicka på 'Bläddra examensarbete' eller 'Rekommenderade jobb'.<br>2. Klicka sedan 'Visa annons' på den annons du vill anmäla ditt intresse till.<br>3. Skriv sedan ett kort meddelande till företaget. Detta meddelande ger dig chansen att lämna ett första intryck hos företaget.<br>4. Klicka på 'Lämna intresseanmälan'."},
+
+  {place:"studentInlogg",
+  question:"Vad är 'Rekommenderade jobb'?",
+  answer:"Rekommenderade jobb är arbeten som vi tror kan passa dig. Detta baseras på de nyckelord du valt att klickat i under 'Redigera information'."},
+
+  {place:"studentInlogg",
+  question:"Hur får jag matchande jobb?",
+  answer:"Matchande jobb får du genom att klicka i en eller flera nyckelord under 'Redigera information'.<br>Dessa nyckelord matchas sedan ihop med företags examensarbetens områden.<br>Matchar ett eller flera av era nyckelord kommer examensarbetet visas under dina 'Rekommenderade jobb'"},
+
+  {place:"studentInlogg",
+  question:"Hur laddar jag upp mitt CV?",
+  answer:"Du kan ladda upp ditt CV med dessa steg.<br>1. Klicka på 'Redigera information'.<br>2. Klicka på 'Ladda upp cv(pdf)' under Personlig information.<br>3. Välj sedan ditt CV från din dator, detta cv måste vara av formatet .pdf.<br>4. Skriv sedan in ditt lösenord för att bekräfta att det är just du som utför förändringarna.<br>5. Klicka på 'Spara'."},
+
+  {place:"studentInlogg",
+  question:"Hur tar jag bort ett anmält intresse?",
+  answer:"Detta gör du genom att klicka på fliken 'Mina intresseanmälningar'.<br>Klicka sedan på 'Ta bort intresseanmälan'"},
+
+  {place:"studentInlogg",
+  question:"Hur redigerar jag min information?",
+  answer:"Klicka på fliken 'Redigera information'.<br>Fyll sedan i dina uppgifter efter angiven efterfråga.<br>Bekräfta din identitet med att ange ditt lösenord.<br>Glöm inte att klicka 'Spara'"},
+
+
+  {place:"studentInlogg",
+  question:"Hur avaktiverar jag mitt konot?",
+  answer:"Det kan du inte. <br>Ändra din utbildning till tom och skicka ett mail till oss på skynet@oru.se, så tar vi bort ditt konto åt dig."},
+
+  {place:"companyInlogg",
+  question:"1",
+  answer:"1"},
+
+  {place:"companyInlogg",
+  question:"2",
+  answer:"2"},
+
+  {place:"companyInlogg",
+  question:"3",
+  answer:"3"},
+
+  {place:"companyInlogg",
+  question:"4",
+  answer:"4"},
+
+  {place:"companyInlogg",
+  question:"5",
+  answer:"5"}
+];
 
 function addInterestStudent(database, studentId, jobId, message, callback) {
   logger.info('Adding interest to student');

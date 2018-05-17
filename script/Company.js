@@ -21,22 +21,11 @@ window.onload = function () {
     var myProfileBtn = document.getElementById("myProfileBtn");
     var myInfoBtn = document.getElementById("myInfoBtn");
     var logOutCompanyBtn = document.getElementById("logOutCompanyBtn");
+    var faqCBtn = document.getElementById("FAQC");
     //#region div
     var interestArea = document.getElementById("menu-page-content");
 
     //Buttons and divs for newExJob.html
-    var progBtn;
-    var prog;
-    var areaBtn;
-    var area;
-    var typeBtn;
-    var types;
-    var operationSystemBtn;
-    var operationSystems;
-    var databaseBtn;
-    var databases;
-    var otherBtn;
-    var other;
     var keyBtn;
     var saveBtn;
     var abortBtn;
@@ -53,6 +42,7 @@ window.onload = function () {
             myProfileBtn.addEventListener("click", loadMyProfile);
             myInfoBtn.addEventListener("click", loadMyInfo);
             logOutCompanyBtn.addEventListener("click", logOut);
+            faqCBtn.addEventListener("click", loadFAQC);
         }
         else if (choice === 2) {
             loadButtonsExJob();
@@ -68,13 +58,61 @@ window.onload = function () {
 
         }
     }
+    function ajaxRequest(type, route, responseHandler) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                responseHandler(this.response);
+            }
+        };
+        xhttp.open(type, route, true);
+        xhttp.send();
+    }
+    function loadFAQC() {
+        SetCurrentPage(faqCBtn);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("menu-page-content").innerHTML = this.response;
+                let place = "companyInlogg";
+                ajaxRequest('GET', 'getFAQ?place=' + place, function (response) {
+                    faq(response);
+                });
+            }
+        };
+        xhttp.open("GET", "loadFileStudent?p=" + '/faq.html', true);
+        xhttp.send();
+    }
+    function faq(qas) {
+        qas = JSON.parse(qas);
+        var faqContainer = document.getElementById("FAQS");
+        let h3 = document.createElement("h3");
+        h3.innerHTML = "Vanliga frågor och svar:";
+        faqContainer.appendChild(h3);
+        for (let i = 0; i < qas.length; ++i) {
+            let question = document.createElement("b");
+            question.innerHTML = qas[i].question + "<br>";
+            question.classList.add("pointer");
 
-
-
-
-
-
-
+            let answer = document.createElement("p");
+            let div = document.createElement("div");
+            div.id = qas[i]._id;
+            answer.innerHTML = qas[i].answer;
+            faqContainer.appendChild(question);
+            faqContainer.appendChild(div);
+            div.appendChild(answer);
+            question.addEventListener("click", (e) => showAnswere(div.id));
+            div.classList.add("hide");
+        }
+    }
+    function showAnswere(questionID) {
+        if (document.getElementById(questionID).classList.contains("hide")) {
+            document.getElementById(questionID).classList.remove("hide");
+        }
+        else {
+            document.getElementById(questionID).classList.add("hide");
+        }
+    }
     function loadButtonsAndEventExJob() {
         var ListOfKeyWords = [];
         saveBtnExJob = document.getElementById("saveBtn");

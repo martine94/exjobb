@@ -7,6 +7,7 @@ window.onload = function () {
     var mySInfoBtn = document.getElementById("myInfoBtn");
     var lookAtJobBtn = document.getElementById("lookAtJobBtn");
     var logOutStudentBtn = document.getElementById("logOutStudentBtn");
+    var faqBtn = document.getElementById("FAQ");
     var searchInput;
     //#endregions
 
@@ -17,6 +18,7 @@ window.onload = function () {
     mySInfoBtn.addEventListener("click", loadMyInfo);
     lookAtJobBtn.addEventListener("click", loadCatalog);
     logOutStudentBtn.addEventListener("click", logOut);
+    faqBtn.addEventListener("click", loadFAQ);
 
     //#endregions
 
@@ -39,6 +41,61 @@ window.onload = function () {
         };
         xhttp.open("GET", "logout", true);
         xhttp.send();
+    }
+    function ajaxRequest(type, route, responseHandler) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                responseHandler(this.response);
+            }
+        };
+        xhttp.open(type, route, true);
+        xhttp.send();
+    }
+    function loadFAQ() {
+        SetCurrentPage(faqBtn);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("menu-page-content").innerHTML = this.response;
+                let place = "studentInlogg";
+                ajaxRequest('GET', 'getFAQ?place=' + place, function (response) {
+                    faq(response);
+                });
+            }
+        };
+        xhttp.open("GET", "loadFileStudent?p=" + '/faq.html', true);
+        xhttp.send();
+    }
+    function faq(qas) {
+        qas = JSON.parse(qas);
+        var faqContainer = document.getElementById("FAQS");
+        let h3 = document.createElement("h3");
+        h3.innerHTML = "Vanliga frågor och svar:";
+        faqContainer.appendChild(h3);
+        for (let i = 0; i < qas.length; ++i) {
+            let question = document.createElement("b");
+            question.innerHTML = qas[i].question + "<br>";
+            question.classList.add("pointer");
+
+            let answer = document.createElement("p");
+            let div = document.createElement("div");
+            div.id = qas[i]._id;
+            answer.innerHTML = qas[i].answer;
+            faqContainer.appendChild(question);
+            faqContainer.appendChild(div);
+            div.appendChild(answer);
+            question.addEventListener("click", (e) => showAnswere(div.id));
+            div.classList.add("hide");
+        }
+    }
+    function showAnswere(questionID) {
+        if (document.getElementById(questionID).classList.contains("hide")) {
+            document.getElementById(questionID).classList.remove("hide");
+        }
+        else {
+            document.getElementById(questionID).classList.add("hide");
+        }
     }
     function SetCurrentPage(currentPageBtn) {
         if (currentPage === "") {
@@ -184,7 +241,7 @@ window.onload = function () {
                         if (p.innerHTML != "Annat") {
                             li.appendChild(p);
                             myUL.appendChild(li);
-                            p.addEventListener("click",(e) => keyWordToSearchValue(p.innerHTML));
+                            p.addEventListener("click", (e) => keyWordToSearchValue(p.innerHTML));
                         }
                     }
                 }
@@ -195,9 +252,9 @@ window.onload = function () {
         xhttp.send();
     }
 
-    function keyWordToSearchValue(word){
+    function keyWordToSearchValue(word) {
         console.log("hej");
-        document.getElementById("searchInput").value=word;
+        document.getElementById("searchInput").value = word;
     }
 
     function loadMyRecomendedJobs() {
@@ -332,7 +389,7 @@ window.onload = function () {
                 userInfoDiv.innerHTML = "";
                 let outerDiv = document.createElement("div");
                 let infoDiv = document.createElement("div");
-                let uname = document.createElement("h1");                
+                let uname = document.createElement("h1");
                 let name = document.createElement("h2");
                 let edu = document.createElement("p");
                 let email = document.createElement("p");
@@ -346,7 +403,7 @@ window.onload = function () {
                 warningText.id = "warningText";
                 otherInfoDiv.id = "otherInfoDiv";
                 loadCvBtn.id = "loadCvBtn";
-                loadCvBtn.className = "bColorBlue mediumBtn";          
+                loadCvBtn.className = "bColorBlue mediumBtn";
                 logoDiv.id = "logoDiv";
                 loadCvBtn.innerHTML = "Öppna sparat cv(pdf)";
                 cvIcon.src = "cvIcon80.png";
@@ -378,7 +435,7 @@ window.onload = function () {
                 infoDiv.classList.add("sInfoInnerDiv");
                 loadCvBtn.onclick = getCVtoMyInfo;
                 logoDiv.onclick = () => loadCvBtn.click();//loadCvBtn.click;                
-                document.getElementById("loadingScreen").style.display="none";
+                document.getElementById("loadingScreen").style.display = "none";
             }
         };
         xhttp.open("GET", "userDataFromDBStudent", true)
@@ -403,7 +460,7 @@ window.onload = function () {
                 pdfSpace.standby = "Laddar cv..";
                 pdfSpace.className = "smoothTransition";
                 userInfoDiv.appendChild(pdfSpace);
-                
+
             }
             readCvData();
         }
@@ -497,74 +554,73 @@ window.onload = function () {
 
     function readCvData() {
         if (cvData && document.getElementById('pdfSpace')) {
-            document.getElementById('pdfSpace').data = cvData;      
+            document.getElementById('pdfSpace').data = cvData;
             document.getElementById('pdfSpace').height = "1000em";
 
             if (document.getElementById("loadCvBtn")) {
                 loadCvBtn = document.getElementById("loadCvBtn");
-                
+
             }
-            
+
             //console.log(cvData);
             loadCvBtn.innerHTML = "Stäng " + UploadOrSaved + " cv(pdf)";
 
             loadCvBtn.onclick = () => {
-                    document.getElementById('pdfSpace').data = "";
-                    document.getElementById('pdfSpace').height = "0em";
-                    loadCvBtn.onclick = readCvData;
-                    loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
+                document.getElementById('pdfSpace').data = "";
+                document.getElementById('pdfSpace').height = "0em";
+                loadCvBtn.onclick = readCvData;
+                loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
             }
         }
-        else if(!document.getElementById('pdfSpace'))
-        {
+        else if (!document.getElementById('pdfSpace')) {
             //logger.error("No pdf container", document.getElementById('pdfSpace'));
             console.error("No pdfSpace defined!")
         }
     }
 
     function saveProfile() {
-        if(document.getElementById("sPsw").value === document.getElementById("sPswConfirm").value){
+        if (document.getElementById("sPsw").value === document.getElementById("sPswConfirm").value) {
             let ListOfKeyWords = [];
             //console.log("CVDATA: " + cvData);
             console.log("Starting to save");
-        var userObj = {
-            name: document.getElementById("sFName").value,
-            lastname: document.getElementById("sLName").value,
-            city: document.getElementById("city").value,
-            ueducation: document.getElementById("sEdu").value,
-            uemail: document.getElementById("sEmail").value,
-            uname: document.getElementById("sUname").value,
-            password: document.getElementById("sPsw").value,
-            keywords: []
-        }
-        var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
-        for (i = 0; i < fullListToCheck.length; i++) {
-            if (fullListToCheck[i].checked)
-                ListOfKeyWords.push(fullListToCheck[i].id);
-        }
+            var userObj = {
+                name: document.getElementById("sFName").value,
+                lastname: document.getElementById("sLName").value,
+                city: document.getElementById("city").value,
+                ueducation: document.getElementById("sEdu").value,
+                uemail: document.getElementById("sEmail").value,
+                uname: document.getElementById("sUname").value,
+                password: document.getElementById("sPsw").value,
+                keywords: []
+            }
+            var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");
+            for (i = 0; i < fullListToCheck.length; i++) {
+                if (fullListToCheck[i].checked)
+                    ListOfKeyWords.push(fullListToCheck[i].id);
+            }
 
-        userObj.keywords = ListOfKeyWords;
-        userString = JSON.stringify(userObj);
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                if (this.response === "true") {
-                    loadMyInfo();
+            userObj.keywords = ListOfKeyWords;
+            userString = JSON.stringify(userObj);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    if (this.response === "true") {
+                        loadMyInfo();
+                    }
                 }
             }
+            xhttp.open("POST", "changeStudentInfo?userObj=" + userString, true);
+
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
+
+            xhttp.send("&cv=" + cvData);
         }
-        xhttp.open("POST", "changeStudentInfo?userObj=" + userString, true);
-
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
-
-        xhttp.send("&cv=" + cvData);
-    }
-        else{
-            if(!document.getElementById('error')){
+        else {
+            if (!document.getElementById('error')) {
                 document.getElementById("ErrorMessage").innerHTML += "<div id='error' style='color:red;padding-left:20em'>lösenord är olika!</div>";
             }
         }
-};
+    };
 
     function sendInterest(jobId) {
         //makeInterestBtn.removeEventListener("click", (e) => sendInterest(jobId));
@@ -672,7 +728,7 @@ window.onload = function () {
             //show list of searchwords
             document.getElementById("myUL").className = "show";
 
-            
+
             if (event.keyCode == 13) {
                 //hide list of searchwords
                 document.getElementById("myUL").className = "hide";
@@ -872,11 +928,11 @@ window.onload = function () {
             var outerDiv = document.createElement("div");
             var newh2 = document.createElement("h2");
             var newP = document.createElement("p");
-            if (currentPage.id=="recomendedJobBtn"){
-            newP.innerHTML = "Prova att ändra dina önskemål under \"Redigera Information\"";
-            newh2.innerHTML = "Du har inga matchande jobb.";
+            if (currentPage.id == "recomendedJobBtn") {
+                newP.innerHTML = "Prova att ändra dina önskemål under \"Redigera Information\"";
+                newh2.innerHTML = "Du har inga matchande jobb.";
             }
-            else{
+            else {
                 newP.innerHTML = "";
                 newh2.innerHTML = "Vi hittade inga jobb.";
             }
