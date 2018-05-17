@@ -111,7 +111,7 @@ window.onload = function () {
             var logginCompanyButton = document.getElementById("OKLogInComp");
             logginCompanyButton.addEventListener("click", LogInCompany);
 
-            var reglink = document.getElementById("regLinkC");
+            let reglink = document.getElementById("regLinkC");
             reglink.addEventListener("click", openRegisterCompanyModal);
 
             var companyPasswordTextfield = document.getElementById('cPsw');
@@ -119,6 +119,9 @@ window.onload = function () {
 
             dropDown("modal-test", true);
         });
+    }
+    function testClick(){
+        console.log("click");
     }
 
     function openLoginStudentModal() {
@@ -131,7 +134,7 @@ window.onload = function () {
             var logginStudentButton = document.getElementById("OKLogInStudent");
             logginStudentButton.addEventListener("click", LogInStudent);
 
-            var reglink = document.getElementById("regLinkS");
+            let reglink = document.getElementById("regLinkS");
             reglink.addEventListener("click", openRegisterStudentModal);
 
             var studentPasswordTextfield = document.getElementById('sPsw');
@@ -217,9 +220,41 @@ window.onload = function () {
             document.getElementById("forStudentsInfo").style.display = "block";
             var regStudLink = document.getElementById("regStudLink");
             regStudLink.addEventListener("click", openRegisterStudentModal);
+            faq();
         });
     }
+    function faq(){
+        
+        var faqContainer=document.getElementById("FAQStudent");
+        let h3=document.createElement("h3");
+        h3.innerHTML="Vanliga frågor och svar:";
+        faqContainer.appendChild(h3);
 
+        let i;
+        for(i=0;i<3;i++){
+        let question=document.createElement("p");
+        question.innerHTML="Fråga"+(i+1);
+       
+        let answere=document.createElement("p");
+        let div=document.createElement("div");
+        div.id="Fråga"+i;
+        answere.innerHTML="svar"+(i+1);
+        faqContainer.appendChild(question);
+        question.appendChild(div);
+        div.appendChild(answere);
+        question.addEventListener("click",(e) => showAnswere(div.id));
+        div.classList.add("hide");
+        }
+
+    }
+    function showAnswere(questionID){
+        if(document.getElementById(questionID).classList.contains("hide")){
+            document.getElementById(questionID).classList.remove("hide");
+        }
+        else{
+            document.getElementById(questionID).classList.add("hide");
+        }
+    }
     //#endregion
 
     //} var tvungen flytta denna till längst ner för vissa funtioner funkar inte

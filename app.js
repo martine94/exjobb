@@ -526,7 +526,14 @@ app.get('/userDataFromDBCompany', function (req, res) {
                 logger.warn('Could not find company in database');
                 res.send("false");
             } else {
-                logger.debug('Found company in database', result);
+                logger.silly('Found company in database', result);
+                
+                var crypt = require('crypto');
+                var key = crypt.createDecipher('aes-128-cbc', 'password');
+                var passw = result[0].password;
+                var pString = key.update(passw, 'hex', 'utf8');
+                pString += key.final('utf8');
+                result[0].password=pString;
                 res.send(result);
             }
         });
