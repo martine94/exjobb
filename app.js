@@ -175,7 +175,12 @@ app.get('/logginComp', urlEncodedParcer, function (req, res) {
             logger.warn('Login failed: No user match');
             res.send("false");
         } else {
-            if (result[0].password === req.query["password"]) {
+            var crypt = require('crypto');
+            var key = crypt.createDecipher('aes-128-cbc', 'password');
+            var passw = result[0].password;
+            var pString = key.update(passw, 'hex', 'utf8');
+            pString += key.final('utf8');
+            if (pString === req.query["password"]) {
                 logger.info('Login success');
                 req.session.user = "_id:" + result[0]._id;
                 res.send("true");
@@ -190,7 +195,6 @@ app.get('/logginComp', urlEncodedParcer, function (req, res) {
 app.get('/logginStudent', urlEncodedParcer, function (req, res) {
     logger.info('GET /logginStudent request');
     logger.debug('Username %s', req.query["_user"]);
-
     Mongo.findOne("student", { uname: req.query["_user"] }, function (result) {
         logger.silly('Loggin Company query result:', result);
 
@@ -198,7 +202,12 @@ app.get('/logginStudent', urlEncodedParcer, function (req, res) {
             logger.warn('Login failed: No user match');
             res.send("false");
         } else {
-            if (result[0].password === req.query["password"]) {
+        var crypt = require('crypto');
+        var key = crypt.createDecipher('aes-128-cbc', 'password');
+        var passw = result[0].password;
+        var pString = key.update(passw, 'hex', 'utf8');
+        pString += key.final('utf8');
+            if (pString === req.query["password"]) {
                 logger.info('Login success');
                 req.session.user = "_id:" + result[0]._id;
                 res.send("true");
@@ -214,7 +223,7 @@ app.get('/loggedIn', function (req, resp) {
     logger.info('GET /loggedIn request');
 
     if (req.session && req.session.user) {
-        logger.debug('Found session', req.session.user);
+        logger.silly('Found session', req.session.user);
         resp.end(JSON.stringify(req.session.user));
     } else {
         logger.warn('No session found', req.session);
@@ -230,7 +239,7 @@ app.get('/logout', function (req, resp) {
 
 function getUserID(req) {
     if (req.session && req.session.user) {
-        logger.debug('Found session', req.session.user);
+        logger.silly('Found session', req.session.user);
         var cookieStr = JSON.stringify(req.session.user);
         var modstr = cookieStr.replace(/["']/g, "");
         var split = modstr.split(",");
@@ -261,6 +270,12 @@ function getUser(req) {
 app.post('/register_student', urlEncodedParcer, function (req, resp) {
     logger.info('GET /register_student request');
 
+    var crypt = require('crypto');
+    var key = crypt.createCipher('aes-128-cbc','password');
+    var password = req.query["psw"];
+    var pString = key.update(password,'utf8','hex');
+    pString += key.final('hex');
+
     let response = {
         name: req.query["ufname"],
         lastname: req.query["ulname"],
@@ -268,7 +283,7 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
         ueducation: req.query["uedu"],
         uemail: req.query["uemail"],
         uname: req.query["uname"],
-        password: req.query["psw"],
+        password: pString,
         keywords: [],
         joblist: [],
         cv: req.query["cv"]
@@ -303,7 +318,7 @@ app.get('/userDataFromDBStudent', function (req, res) {
         logger.warn("Could not find user")
         res.send("false");
     } else {
-        logger.debug('Found user: %s', userID);
+        logger.silly('Found user: %s', userID);
         var ObjectId = require('mongodb').ObjectId;
         var o_id = new ObjectId(userID);
 
@@ -313,6 +328,13 @@ app.get('/userDataFromDBStudent', function (req, res) {
                 res.send("false");
             } else {
                 logger.silly('Found user', result);
+                var crypt = require('crypto');
+                var key = crypt.createDecipher('aes-128-cbc', 'password');
+                var passw = result[0].password;
+                var pString = key.update(passw, 'hex', 'utf8');
+                pString += key.final('utf8');
+                result[0].password=pString;
+                //console.log(result);
                 res.send(result);
             }
         });
@@ -323,6 +345,12 @@ app.post('/changeStudentInfo', urlEncodedParcer, function (req, res) {
     let userObj = JSON.parse(req.query["userObj"]);
     userObj["cv"] = req.body["cv"];
     try {
+        var crypt = require('crypto');
+        var key = crypt.createCipher('aes-128-cbc','password');
+        var password = userObj.password;
+        var pString = key.update(password,'utf8','hex');
+        pString += key.final('hex');
+        userObj.password = pString;
         let studentID = getUserID(req);
         Mongo.changeUserInfo('student', studentID, userObj, function (result) {
             if (result instanceof Error) {
@@ -401,14 +429,19 @@ app.get('/getStudentInterestMessages', function (req, res) {
 
 app.post('/changeCompanyInfo', urlEncodedParcer, function (req, res) {
     logger.info("POST /changeCompanyInfo request");
-
+    var crypt = require('crypto');
+    var key = crypt.createCipher('aes-128-cbc','password');
+    var password = req.query["psw"];
+    var pString = key.update(password,'utf8','hex');
+    pString += key.final('hex');
+    password = pString;
     var user = {
         companyName: req.query["cname"],
         companyAddress: req.query["caddress"],
         companyCity: req.query["ccity"],
         companyEmail: req.query["cemail"],
         userName: req.query["cuname"],
-        password: req.query["psw"],
+        password: password,
         website: req.query["cweb"],
         logoURL: req.query["clogo"],
         about: req.query["cAboutUs"]
@@ -438,13 +471,18 @@ app.post('/changeCompanyInfo', urlEncodedParcer, function (req, res) {
 app.post('/register_company', urlEncodedParcer, function (req, resp) {
     logger.info('POST /register_company request');
 
+    var crypt = require('crypto');
+    var key = crypt.createCipher('aes-128-cbc','password');
+    var password = req.query["psw"];
+    var pString = key.update(password,'utf8','hex');
+    pString += key.final('hex');
     var response = {
         companyName: req.query["cname"],
         companyAddress: req.query["caddress"],
         companyCity: req.query["ccity"],
         companyEmail: req.query["cemail"],
         userName: req.query["cuname"],
-        password: req.query["psw"],
+        password: pString,
         website: "",
         logoURL: "sad.png",
         about: ""

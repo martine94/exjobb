@@ -111,7 +111,7 @@ window.onload = function () {
             var logginCompanyButton = document.getElementById("OKLogInComp");
             logginCompanyButton.addEventListener("click", LogInCompany);
 
-            var reglink = document.getElementById("regLinkC");
+            let reglink = document.getElementById("regLinkC");
             reglink.addEventListener("click", openRegisterCompanyModal);
 
             var companyPasswordTextfield = document.getElementById('cPsw');
@@ -119,6 +119,9 @@ window.onload = function () {
 
             dropDown("modal-test", true);
         });
+    }
+    function testClick(){
+        console.log("click");
     }
 
     function openLoginStudentModal() {
@@ -131,7 +134,7 @@ window.onload = function () {
             var logginStudentButton = document.getElementById("OKLogInStudent");
             logginStudentButton.addEventListener("click", LogInStudent);
 
-            var reglink = document.getElementById("regLinkS");
+            let reglink = document.getElementById("regLinkS");
             reglink.addEventListener("click", openRegisterStudentModal);
 
             var studentPasswordTextfield = document.getElementById('sPsw');
