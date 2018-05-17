@@ -223,7 +223,7 @@ app.get('/loggedIn', function (req, resp) {
     logger.info('GET /loggedIn request');
 
     if (req.session && req.session.user) {
-        logger.debug('Found session', req.session.user);
+        logger.silly('Found session', req.session.user);
         resp.end(JSON.stringify(req.session.user));
     } else {
         logger.warn('No session found', req.session);
@@ -239,7 +239,7 @@ app.get('/logout', function (req, resp) {
 
 function getUserID(req) {
     if (req.session && req.session.user) {
-        logger.debug('Found session', req.session.user);
+        logger.silly('Found session', req.session.user);
         var cookieStr = JSON.stringify(req.session.user);
         var modstr = cookieStr.replace(/["']/g, "");
         var split = modstr.split(",");
@@ -318,7 +318,7 @@ app.get('/userDataFromDBStudent', function (req, res) {
         logger.warn("Could not find user")
         res.send("false");
     } else {
-        logger.debug('Found user: %s', userID);
+        logger.silly('Found user: %s', userID);
         var ObjectId = require('mongodb').ObjectId;
         var o_id = new ObjectId(userID);
 
@@ -334,7 +334,7 @@ app.get('/userDataFromDBStudent', function (req, res) {
                 var pString = key.update(passw, 'hex', 'utf8');
                 pString += key.final('utf8');
                 result[0].password=pString;
-                console.log(result);
+                //console.log(result);
                 res.send(result);
             }
         });
@@ -701,7 +701,6 @@ app.post('/changeExJobInfo', urlEncodedParcer, function (req, res) {
     var exjobb = JSON.parse(req.query["exJobb"]);
     try {
         let jobID = req.query["jobID"];
-
         logger.silly("Exjob info", exjobb);
         Mongo.changeExJobInfo(jobID, exjobb, function (result) {
             if (result instanceof Error) {
