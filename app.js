@@ -348,7 +348,6 @@ app.get('/userDataFromDBStudent', function (req, res) {
                 var pString = key.update(passw, 'hex', 'utf8');
                 pString += key.final('utf8');
                 result[0].password=pString;
-                //console.log(result);
                 res.send(result);
             }
         });

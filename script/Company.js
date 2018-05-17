@@ -696,6 +696,18 @@ window.onload = function () {
         xhttp.send();
     }
 
+    function removeError(){
+        if(document.getElementById("c_Psw") && document.getElementById("c_PswConfirm") 
+           && document.getElementById("error"))
+        {
+            document.getElementById("c_Psw").classList.remove("errInput");
+            document.getElementById("c_PswConfirm").classList.remove("errInput");
+            document.getElementById("error").remove();
+            document.getElementById("c_Psw").onkeyup = "";
+            document.getElementById("c_PswConfirm").onkeyup = "";   
+        }            
+    };
+
     function changeInfo() {
         if(document.getElementById("c_Psw").value === document.getElementById("c_PswConfirm").value){
         var cname = document.getElementById("c_Name").value;
@@ -718,10 +730,17 @@ window.onload = function () {
             }
         }
         xhttp.open("POST", "changeCompanyInfo?cname=" + cname + "&psw=" + psw + "&cuname=" + cuname + "&caddress=" + caddress + "&cemail=" + cemail + "&ccity=" + ccity + "&cweb=" + cweb + "&clogo=" + clogo + "&cAboutUs=" + cAboutUs, true);
-        xhttp.send();}
+        xhttp.send();
+        }
         else{
             if(!document.getElementById('error')){
-                document.getElementById("ErrorMessage").innerHTML += "<div id='error' style='color:red;padding-left:20em'>lösenord är olika!</div>";
+                document.getElementById("c_Psw").classList.add("errInput");
+                document.getElementById("c_PswConfirm").classList.add("errInput");                
+                
+                document.getElementById("c_Psw").onkeyup = () => {removeError();};
+                document.getElementById("c_PswConfirm").onkeyup = () => {removeError();}; //funkar inte av någon anledning
+                        
+                document.getElementById("ErrorMessage").innerHTML += "<span id='error' style='color:red;'>lösenord är olika!</span>";
             }
         }
     };

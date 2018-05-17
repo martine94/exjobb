@@ -578,6 +578,18 @@ window.onload = function () {
         }
     }
 
+    function removeError(){
+        if(document.getElementById("sPsw") && document.getElementById("sPswConfirm") 
+           && document.getElementById("error"))
+        {
+            document.getElementById("sPsw").classList.remove("errInput");
+            document.getElementById("sPswConfirm").classList.remove("errInput");
+            document.getElementById("error").remove();
+            document.getElementById("sPsw").onkeyup = "";
+            document.getElementById("sPswConfirm").onkeyup = "";   
+        }            
+    };
+
     function saveProfile() {
         if (document.getElementById("sPsw").value === document.getElementById("sPswConfirm").value) {
             let ListOfKeyWords = [];
@@ -613,11 +625,25 @@ window.onload = function () {
 
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
 
+<<<<<<< HEAD
             xhttp.send("&cv=" + cvData);
         }
         else {
             if (!document.getElementById('error')) {
                 document.getElementById("ErrorMessage").innerHTML += "<div id='error' style='color:red;padding-left:20em'>lösenord är olika!</div>";
+=======
+        xhttp.send("&cv=" + cvData);
+    }
+        else{
+            if(!document.getElementById('error')){
+
+                document.getElementById("sPsw").classList.add("errInput");
+                document.getElementById("sPswConfirm").classList.add("errInput");                
+                
+                document.getElementById("sPsw").onkeyup = () => {removeError();}; 
+                document.getElementById("sPswConfirm").onkeyup = () => {removeError();}; //funkar inte av någon anledning
+                document.getElementById("ErrorMessage").innerHTML += "<span id='error' style='color:red;'>lösenord är olika!</span>";
+>>>>>>> bc871caeee49cb889a0ced1c8a4526380a35f69f
             }
         }
     };
