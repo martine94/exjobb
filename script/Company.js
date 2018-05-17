@@ -659,6 +659,7 @@ window.onload = function () {
     }
 
     function changeInfo() {
+        if(document.getElementById("c_Psw").value === document.getElementById("c_PswConfirm").value){
         var cname = document.getElementById("c_Name").value;
         var cuname = document.getElementById("c_Uname").value;
         var cAboutUs = document.getElementById("about_Us").value;
@@ -677,10 +678,15 @@ window.onload = function () {
                     loadMyInfo();
                 }
             }
-        };
+        }
         xhttp.open("POST", "changeCompanyInfo?cname=" + cname + "&psw=" + psw + "&cuname=" + cuname + "&caddress=" + caddress + "&cemail=" + cemail + "&ccity=" + ccity + "&cweb=" + cweb + "&clogo=" + clogo + "&cAboutUs=" + cAboutUs, true);
-        xhttp.send();
-    }
+        xhttp.send();}
+        else{
+            if(!document.getElementById('error')){
+                document.getElementById("ErrorMessage").innerHTML += "<div id='error' style=''>Felaktigt lösenord</div>";
+            }
+        }
+    };
 
     function fillEditProfile() {
         var xhttp = new XMLHttpRequest();
