@@ -683,7 +683,7 @@ window.onload = function () {
         xhttp.send();}
         else{
             if(!document.getElementById('error')){
-                document.getElementById("ErrorMessage").innerHTML += "<div id='error' style=''>Felaktigt lösenord</div>";
+                document.getElementById("ErrorMessage").innerHTML += "<div id='error' style='color:red;padding-left:20em'>lösenord är olika!</div>";
             }
         }
     };
