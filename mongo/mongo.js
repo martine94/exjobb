@@ -41,16 +41,16 @@ module.exports = {
     logger.debug('Using collection %s, username %s and password %s', table, user, password);
 
     MongoClient.connect(url, function (error, db) {
-      if(error) throw error; 
-      
+      if (error) throw error;
+
       var dbo = db.db(database);
       var query = { userName: user, password: password };
 
       dbo.collection(table).find(query).toArray(function (error, result) {
-        if (error){
+        if (error) {
           db.close();
           throw error;
-        } 
+        }
 
         logger.silly('Loggin database result', result);
         db.close();
@@ -63,15 +63,15 @@ module.exports = {
     logger.info('Getting userdata from database');
 
     MongoClient.connect(url, function (error, db) {
-      if(error) throw error;
+      if (error) throw error;
 
       var dbo = db.db(db);
 
       dbo.collection('company').find().toArray(function (error, result) {
-        if (error){
+        if (error) {
           db.close();
           throw error;
-        } 
+        }
 
         logger.silly('Get user data from database result', result);
         db.close();
@@ -87,16 +87,16 @@ module.exports = {
     logger.debug('Using userID %s', userID);
 
     MongoClient.connect(url, function (error, db) {
-      if(error) throw error;
+      if (error) throw error;
 
       var dbo = db.db(database);
-      
+
       var ObjectId = require('mongodb').ObjectID;
       dbo.collection(table).update({ "_id": new ObjectId(userID) }, { $set: newValues }, function (err, result) {
-        if (error){
+        if (error) {
           db.close();
           throw error;
-        } 
+        }
 
         logger.silly('Changing user information in database result', result);
         db.close();
@@ -110,16 +110,16 @@ module.exports = {
     logger.silly('Using jobID %s, new values %s', jobID, newValues);
 
     MongoClient.connect(url, function (error, db) {
-      if(error) throw error;
+      if (error) throw error;
 
       var dbo = db.db(database);
       var ObjectId = require('mongodb').ObjectID;
 
       dbo.collection('job').update({ "_id": new ObjectId(jobID) }, { $set: newValues }, function (err, result) {
-        if (error){
+        if (error) {
           db.close();
           throw error;
-        } 
+        }
 
         logger.silly('Change exjob information in database result', result);
         db.close();
@@ -133,14 +133,14 @@ module.exports = {
     logger.debug('jobId %s', jobId);
 
     MongoClient.connect(url, function (error, db) {
-      if(error) throw error;
-       
+      if (error) throw error;
+
 
       var dbo = db.db(database);
       var ObjectId = require('mongodb').ObjectID;
 
       dbo.collection('job').find({ "_id": new ObjectId(jobId) }).toArray(function (error, result) {
-        if (error){
+        if (error) {
           db.close();
           throw error;
         }
@@ -152,31 +152,78 @@ module.exports = {
     });
   },
 
-  createKeywords: function(callback){
+  createKeywords: function (callback) {
     MongoClient.connect(url, function (err, db) {
-      if(err) throw err;
+      if (err) throw err;
       var dbo = db.db(database);
-      dbo.createCollection("keywords", function(err,res){
-        if(err) throw err;
+      dbo.createCollection("keywords", function (err, res) {
+        if (err) throw err;
       });
-      var Område=["Artificiell intelligens","Databaser","Maskininlärning","Robotik","Webbprogrammering","Kommunikationssystem"];
-      var Typ=["Dokumentation","Hårdvaruprojekt","Mjukvaruprojekt","Annat"];
-      var Operativsystem=["Android","IOS","Linux","Windows","Mac","Annat"];
-      var Programmeringsspråk=["Assembler","C","Csharp","Cpp","Java","Javascript","Python","Annat"];
-     // var docs=[Område,Typ,Operativsystem,Programmeringsspråk];
-      dbo.collection("keywords").insertOne({Område,Typ,Operativsystem,Programmeringsspråk},function(err,res){
-        if(err) throw err;
+      var Område = ["Artificiell intelligens", "Databaser", "Maskininlärning", "Robotik", "Webbprogrammering", "Kommunikationssystem"];
+      var Typ = ["Dokumentation", "Hårdvaruprojekt", "Mjukvaruprojekt", "Annat"];
+      var Operativsystem = ["Android", "IOS", "Linux", "Windows", "Mac", "Annat"];
+      var Programmeringsspråk = ["Assembler", "C", "Csharp", "Cpp", "Java", "Javascript", "Python", "Annat"];
+      // var docs=[Område,Typ,Operativsystem,Programmeringsspråk];
+      dbo.collection("keywords").insertOne({ Område, Typ, Operativsystem, Programmeringsspråk }, function (err, res) {
+        if (err) throw err;
       });
-      dbo.collection("keywords").findOne({},function(err,result){
-        if(err)throw err;
-        db.close(); 
+      dbo.collection("keywords").findOne({}, function (err, result) {
+        if (err) throw err;
+        db.close();
         callback(result);
       });
     });
   },
 
+  createFaq: function (placeQuery, collExists, callback) {
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db(database);
+      if (!collExists) {
+        dbo.createCollection("faq", function (err, res) {
+          if (err) throw err;
+        });
+        var place = "companyUtlogg";
+        var question = "Hur loggar jag in som företag?";
+        var answer = "Håll muspekaren över fliken 'logga in' högst upp i högra hörnet. <br> Klicka därefter på 'Företag' på menyn som fälls ned.<br>Fyll därefter i dina uppgifter och klicka på knappen 'LOGGA IN'.";
+        dbo.collection("faq").insertOne({ place, question, answer }, function (err, res) {
+          if (err) throw err;
+        });
+        var place = "companyUtlogg";
+        var question = "Hur registrerar jag ett företag?";
+        var answer = "Håll muspekaren över fliken 'Registrera' högst upp i högra hörnet.<br>Klicka därefter på 'Företag' på menyn som fälls ned.<br>Fyll därefter i dina uppgifter och klicka på knappen 'Registrera'.";
+        dbo.collection("faq").insertOne({ place, question, answer }, function (err, res) {
+          if (err) throw err;
+        });
+        var place = "studentUtlogg";
+        var question = "Hur registrerar jag ett studentkonto?";
+        var answer = "Håll muspekaren över fliken 'Registrera' högst upp i högra hörnet.<br>Klicka därefter på 'Student' på menyn som fälls ned.<br>Fyll därefter i dina uppgifter och klicka på knappen 'Registrera'.";
+        dbo.collection("faq").insertOne({ place, question, answer }, function (err, res) {
+          if (err) throw err;
+        });
+        var place = "studentUtlogg";
+        var question = "Hur loggar jag in som student?";
+        var answer = "Håll muspekaren över fliken 'logga in' högst upp i högra hörnet. <br> Klicka därefter på 'Student' på menyn som fälls ned.<br>Fyll därefter i dina uppgifter och klicka på knappen 'LOGGA IN'.";
+        dbo.collection("faq").insertOne({ place, question, answer }, function (err, res) {
+          if (err) throw err;
+        });
+        dbo.collection("faq").find({ place: placeQuery }).toArray( function (err, result) {
+          if (err) throw err;
+          db.close();
+          callback(result);
+        });
+      } else {
+        dbo.collection("faq").find({ place: placeQuery }).toArray( function (err, result) {
+          if (err) throw err;
+          db.close();
+          callback(result);
+        });
+      }
+    });
+  },
+
   findOne: function (table, query, callback) {
-    logger.silly('Finding one in table %s', table); 
+    logger.silly('Finding one in table %s', table);
 
     MongoClient.connect(url, function (error, db) {
       if (error) throw error;
@@ -184,7 +231,7 @@ module.exports = {
       var dbo = db.db(database);
 
       dbo.collection(table).find(query).toArray(function (error, result) {
-        if (error){
+        if (error) {
           db.close();
           throw error;
         }
@@ -204,8 +251,8 @@ module.exports = {
 
       var dbo = db.db(database);
 
-      dbo.collection(table).find({keywords:query}).toArray(function (error, result) {
-        if (error){
+      dbo.collection(table).find({ keywords: query }).toArray(function (error, result) {
+        if (error) {
           db.close();
           throw error;
         }
@@ -227,7 +274,7 @@ module.exports = {
       var dbo = db.db(database);
 
       dbo.collection('job').find({ companyID: query }).toArray(function (error, result) {
-        if (error){
+        if (error) {
           db.close();
           throw error;
         }
@@ -249,7 +296,7 @@ module.exports = {
       var dbo = db.db(database);
 
       dbo.collection("job").insertOne(exjobb, function (error, result) {
-        if (error){
+        if (error) {
           db.close();
           throw error;
         }
@@ -273,11 +320,11 @@ module.exports = {
       dbo.collection("company").ensureIndex({ userName: 1 }, { unique: true });
 
       dbo.collection("company").insertOne(company, function (error, result) {
-        if (error){
+        if (error) {
           db.close();
           throw error;
         }
-        
+
         logger.silly('Adding company to database result', result);
         db.close();
         callback(result);
@@ -296,7 +343,7 @@ module.exports = {
       var ObjectId = require('mongodb').ObjectID;
 
       dbo.collection('student').update({ "_id": new ObjectId(myQuery) }, { $set: newValues }, function (error, result) {
-        if (error){
+        if (error) {
           db.close();
           throw error;
         }
@@ -320,7 +367,7 @@ module.exports = {
       dbo.collection("student").ensureIndex({ uname: 1 }, { unique: true });
 
       dbo.collection("student").insertOne(student, function (error, result) {
-        if (error){
+        if (error) {
           db.close();
           throw error;
         }
@@ -343,7 +390,7 @@ module.exports = {
       var ObjectId = require('mongodb').ObjectID;
 
       dbo.collection('student').update({ "_id": new ObjectId(studentID) }, { $push: { joblist: { jobID, message } } }, function (err, result) {
-        if (error){
+        if (error) {
           db.close();
           throw error;
         }
@@ -367,7 +414,7 @@ module.exports = {
 
       dbo.collection('job').update({ "_id": new ObjectId(jobId) },
         { $push: { studentlist: { studentId, message } } }, function (error, result) {
-          if (error){
+          if (error) {
             db.close();
             throw error;
           }
@@ -424,8 +471,8 @@ module.exports = {
       var ObjectId = require('mongodb').ObjectID;
       var jobID = new ObjectId(jobId);
 
-      dbo.collection('job').remove({ '_id': jobID },function(error,obj){
-        if (error){
+      dbo.collection('job').remove({ '_id': jobID }, function (error, obj) {
+        if (error) {
           db.close();
           throw error;
         }
@@ -449,7 +496,7 @@ module.exports = {
 
       var dbo = db.db(database);
       dbo.collection('student').findOne({ _id: studentObjectId }, { projection: { _id: 0, joblist: 1 } }, function (error, result) {
-        if (error){
+        if (error) {
           db.close();
           throw error;
         }
@@ -480,76 +527,78 @@ module.exports = {
     });
   },
 
-  getStudentsById: function(idArray, callback){
+  getStudentsById: function (idArray, callback) {
     logger.info('Getting students by ids');
     logger.debug('Using idArray %j', idArray);
 
     var objectIdArray = makeObjectIdArray(idArray)
     MongoClient.connect(url, function (error, db) {
-      if(error) throw error;
+      if (error) throw error;
       var dbo = db.db(database);
-      dbo.collection('student').find({ _id: { $in : objectIdArray } }, 
-      { projection: { _id: 1, uemail: 1, cv: 1 } }).toArray(function (error, result) {
-        if (error){
-          db.close();
-          throw error;
-        }
+      dbo.collection('student').find({ _id: { $in: objectIdArray } },
+        { projection: { _id: 1, uemail: 1, cv: 1 } }).toArray(function (error, result) {
+          if (error) {
+            db.close();
+            throw error;
+          }
 
-        logger.silly('Getting students by ids result:', result);
-        db.close();
-        callback(result);
-      });
+          logger.silly('Getting students by ids result:', result);
+          db.close();
+          callback(result);
+        });
     });
   },
 
-  getJobsDescriptions: function(NumberOfJobs, callback){
+  getJobsDescriptions: function (NumberOfJobs, callback) {
     logger.debug('Get %s job descriptions', NumberOfJobs);
-  
+
     MongoClient.connect(url, function (error, db) {
       if (error) throw error;
-  
+
       var dbo = db.db("db");
-  
+
       dbo.collection("job").aggregate([
-        { '$project': {
-          'tile': 1,
-          'logoURL': 1,
-          'shortdesc': 1,
-          'popularity': {'$size': '$studentlist'}
-        }},
-        { '$sort': {'popularity': -1}}
+        {
+          '$project': {
+            'tile': 1,
+            'logoURL': 1,
+            'shortdesc': 1,
+            'popularity': { '$size': '$studentlist' }
+          }
+        },
+        { '$sort': { 'popularity': -1 } }
       ])
-      .limit(NumberOfJobs)
-      .toArray(function (error, result) {
-        if (error){
+        .limit(NumberOfJobs)
+        .toArray(function (error, result) {
+          if (error) {
+            db.close();
+            throw error;
+          }
+
+          logger.silly("Get job description result", result);
+
           db.close();
-          throw error;
-        }
-  
-        logger.silly("Get job description result", result);
-  
-        db.close();
-        callback(result);
-      });
+          callback(result);
+        });
     });
   },
 
-  getNumberOfJobs: function(callback) {
+  getNumberOfJobs: function (callback) {
     logger.debug('Get number of jobs');
-  
+
     MongoClient.connect(url, function (error, db) {
       if (error) throw error;
-  
+
       var dbo = db.db("db");
-  
+
       dbo.collection("job").count(function (error, result) {
-        if (error){
+        if (error) {
           db.close();
           throw error;
         }
-  
+
         logger.debug("Got %s jobs", result);
-  
+
         db.close();
         callback(result);
       });
@@ -565,15 +614,15 @@ function addInterestStudent(database, studentId, jobId, message, callback) {
   var studentObjectId = new ObjectId(studentId);
 
   database.collection('student').updateOne({ '_id': studentObjectId },
-  { $push: { joblist: { jobID: jobId, message: message } } }, function (error, result) {
-    if (error){
-      database.close();
-      throw error;
-    }
+    { $push: { joblist: { jobID: jobId, message: message } } }, function (error, result) {
+      if (error) {
+        database.close();
+        throw error;
+      }
 
-    logger.debug('Adding job to student joblist, result:', result.result);
-    callback(result);
-  });
+      logger.debug('Adding job to student joblist, result:', result.result);
+      callback(result);
+    });
 }
 
 function addInterestJob(database, studentId, jobId, message, callback) {
@@ -584,15 +633,15 @@ function addInterestJob(database, studentId, jobId, message, callback) {
   var jobObjectId = new ObjectId(jobId);
 
   database.collection('job').updateOne({ '_id': jobObjectId },
-  { $push: { studentlist: { studentID: studentId, message: message } } }, function (error, result) {
-    if (error){
-      database.close();
-      throw error;
-    }
+    { $push: { studentlist: { studentID: studentId, message: message } } }, function (error, result) {
+      if (error) {
+        database.close();
+        throw error;
+      }
 
-    logger.debug('Adding student to job studentlist, result:', result.result);
-    callback(result);
-  });
+      logger.debug('Adding student to job studentlist, result:', result.result);
+      callback(result);
+    });
 }
 
 //Vet inte om den fungerar..
@@ -606,7 +655,7 @@ function checkExistingInterest(database, studentId, jobId, callback) {
 
   database.collection('student').findOne({ _id: { $eq: studentObjectId }, joblist: { $elemMatch: { jobID: jobObjectId } } },
     function (error, result) {
-      if (error){
+      if (error) {
         database.close();
         throw error;
       }
@@ -625,7 +674,7 @@ function removeInterestFromStudent(database, studentId, jobId, callback) {
 
   database.collection('student').update({ '_id': studentObjectId },
     { $pull: { joblist: { jobID: jobId } } }, function (error, result) {
-      if (error){
+      if (error) {
         database.close();
         throw error;
       }
@@ -646,7 +695,7 @@ function findSpecificJob(jobId, callback) {
     var ObjectId = require('mongodb').ObjectID;
 
     dbo.collection('job').find({ "_id": new ObjectId(jobId) }).toArray(function (error, result) {
-      if (error){
+      if (error) {
         db.close();
         throw error;
       }
@@ -665,15 +714,15 @@ function removeInterestFromJob(database, jobId, studentId, callback) {
   var jobObjectId = new ObjectId(jobId);
 
   database.collection('job').update({ '_id': jobObjectId },
-  { $pull: { studentlist: { studentID: studentId } } }, function (error, result) {
-    if (error){
-      db.close();
-      throw error;
-    }
+    { $pull: { studentlist: { studentID: studentId } } }, function (error, result) {
+      if (error) {
+        db.close();
+        throw error;
+      }
 
-    logger.debug('Remove interest message from job.', result.result);
-    callback(result);
-  });
+      logger.debug('Remove interest message from job.', result.result);
+      callback(result);
+    });
 }
 
 function addStudent(student, callback) {
@@ -684,7 +733,7 @@ function addStudent(student, callback) {
     dbo.collection("student").ensureIndex({ _user: 1 }, { unique: true });
 
     dbo.collection("student").insertOne(student, function (error, result) {
-      if (error){
+      if (error) {
         db.close();
         throw error;
       }
@@ -703,7 +752,7 @@ function addCompany(company, callback) {
     dbo.collection("company").ensureIndex({ _user: 1 }, { unique: true });
 
     dbo.collection("company").insertOne(company, function (error, result) {
-      if (error){
+      if (error) {
         db.close();
         throw error;
       }
@@ -716,18 +765,18 @@ function addCompany(company, callback) {
   });
 }
 
-function makeObjectIdArray(idArray){
+function makeObjectIdArray(idArray) {
   var ObjectId = require('mongodb').ObjectID;
-  
+
   let objectIdArray = [];
-  for(let id in idArray){
+  for (let id in idArray) {
     objectIdArray.push(new ObjectId(idArray[id]));
   }
 
   return objectIdArray;
 }
 
-function getJobsDescriptions(NumberOfJobs, callback){
+function getJobsDescriptions(NumberOfJobs, callback) {
   logger.debug('Get %s job descriptions', NumberOfJobs);
 
   MongoClient.connect(url, function (error, db) {
@@ -736,26 +785,28 @@ function getJobsDescriptions(NumberOfJobs, callback){
     var dbo = db.db("db");
 
     dbo.collection("job").aggregate([
-      { '$project': {
-        'title': 1,
-        'logoURL': 1,
-        'shortdesc': 1,
-        'popularity': {'$size': '$studentlist'}
-      }},
-      { '$sort': {'popularity': -1}}
+      {
+        '$project': {
+          'title': 1,
+          'logoURL': 1,
+          'shortdesc': 1,
+          'popularity': { '$size': '$studentlist' }
+        }
+      },
+      { '$sort': { 'popularity': -1 } }
     ])
-    .limit(NumberOfJobs)
-    .toArray(function (error, result) {
-      if (error){
+      .limit(NumberOfJobs)
+      .toArray(function (error, result) {
+        if (error) {
+          db.close();
+          throw error;
+        }
+
+        logger.debug("Get job description result", result);
+
         db.close();
-        throw error;
-      }
-
-      logger.debug("Get job description result", result);
-
-      db.close();
-      callback(result);
-    });
+        callback(result);
+      });
   });
 }
 
