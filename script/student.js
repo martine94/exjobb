@@ -523,14 +523,14 @@ window.onload = function () {
     }
 
     function removeError(){
-        if(document.getElementById("c_Psw") && document.getElementById("c_PswConfirm") 
+        if(document.getElementById("sPsw") && document.getElementById("sPswConfirm") 
            && document.getElementById("error"))
         {
-            document.getElementById("c_Psw").classList.remove("errInput");
-            document.getElementById("c_PswConfirm").classList.remove("errInput");
+            document.getElementById("sPsw").classList.remove("errInput");
+            document.getElementById("sPswConfirm").classList.remove("errInput");
             document.getElementById("error").remove();
-            document.getElementById("c_Psw").onkeyup = "";
-            document.getElementById("c_PswConfirm").onkeyup = "";   
+            document.getElementById("sPsw").onkeyup = "";
+            document.getElementById("sPswConfirm").onkeyup = "";   
         }            
     };
 
@@ -577,9 +577,9 @@ window.onload = function () {
                 document.getElementById("sPsw").classList.add("errInput");
                 document.getElementById("sPswConfirm").classList.add("errInput");                
                 
-                document.getElementById("sPsw").onkeyup = () => {removeError();}; //funkar inte av någon anledning
+                document.getElementById("sPsw").onkeyup = () => {removeError();}; 
                 document.getElementById("sPswConfirm").onkeyup = () => {removeError();}; //funkar inte av någon anledning
-                document.getElementById("ErrorMessage").innerHTML += "<div id='error' style='color:red;padding-left:20em'>lösenord är olika!</div>";
+                document.getElementById("ErrorMessage").innerHTML += "<span id='error' style='color:red;'>lösenord är olika!</span>";
             }
         }
 };
