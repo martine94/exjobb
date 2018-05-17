@@ -682,6 +682,7 @@ window.onload = function () {
                     email: obj.companyEmail,
                     web: obj.website,
                     logo: obj.logoURL,
+                    password: obj.password,
                     uname: obj.userName,
                     about: obj.about
                 }
@@ -697,6 +698,7 @@ window.onload = function () {
         document.getElementById("c_Name").value += user.name;
         document.getElementById("c_Address").value += user.address;
         document.getElementById("c_City").value += user.city;
+        document.getElementById("c_Psw").value += user.password;
         document.getElementById("c_Email").value += user.email;
         document.getElementById("c_WebP").value += user.web;
         document.getElementById("c_Uname").value += user.uname;
