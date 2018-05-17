@@ -625,13 +625,6 @@ window.onload = function () {
 
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
 
-<<<<<<< HEAD
-            xhttp.send("&cv=" + cvData);
-        }
-        else {
-            if (!document.getElementById('error')) {
-                document.getElementById("ErrorMessage").innerHTML += "<div id='error' style='color:red;padding-left:20em'>lösenord är olika!</div>";
-=======
         xhttp.send("&cv=" + cvData);
     }
         else{
@@ -643,7 +636,6 @@ window.onload = function () {
                 document.getElementById("sPsw").onkeyup = () => {removeError();}; 
                 document.getElementById("sPswConfirm").onkeyup = () => {removeError();}; //funkar inte av någon anledning
                 document.getElementById("ErrorMessage").innerHTML += "<span id='error' style='color:red;'>lösenord är olika!</span>";
->>>>>>> bc871caeee49cb889a0ced1c8a4526380a35f69f
             }
         }
     };

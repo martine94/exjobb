@@ -604,7 +604,13 @@ var faqList=[
 
   {place:"studentInlogg",
   question:"Hur anmäler jag intresse till ett examensarbete?",
-  answer:"Du anmäler ditt intresse till ett examensarbete genom följande steg.<br> 1. Klicka på 'Bläddra examensarbete' eller 'Rekommenderade jobb'.<br>2. Klicka sedan 'Visa annons' på den annons du vill anmäla ditt intresse till.<br>3. Skriv sedan ett kort meddelande till företaget. Detta meddelande ger dig chansen att lämna ett första intryck hos företaget.<br>4. Klicka på 'Lämna intresseanmälan'."},
+  answer:"Du anmäler ditt intresse till ett examensarbete genom följande steg.<ol>"
+  +"<li>Klicka på 'Bläddra examensarbete' eller 'Rekommenderade jobb'.</li>"
+  +"<li>Klicka sedan 'Visa annons' på den annons du vill anmäla ditt intresse till.</li>"
+  +"<li>Skriv sedan ett kort meddelande till företaget. Detta meddelande ger dig chansen att lämna ett första intryck hos företaget.</li>"
+  +"<li>Klicka på 'Lämna intresseanmälan'.</li>"
+  +"</ol>"
+},
 
   {place:"studentInlogg",
   question:"Vad är 'Rekommenderade jobb'?",
@@ -616,7 +622,14 @@ var faqList=[
 
   {place:"studentInlogg",
   question:"Hur laddar jag upp mitt CV?",
-  answer:"Du kan ladda upp ditt CV med dessa steg.<br>1. Klicka på 'Redigera information'.<br>2. Klicka på 'Ladda upp cv(pdf)' under Personlig information.<br>3. Välj sedan ditt CV från din dator, detta cv måste vara av formatet .pdf.<br>4. Skriv sedan in ditt lösenord för att bekräfta att det är just du som utför förändringarna.<br>5. Klicka på 'Spara'."},
+  answer:"Du kan ladda upp ditt CV med dessa steg.<ol>"
+  +"<li>Klicka på 'Redigera information'.</li>"
+  +"<li>Klicka på 'Ladda upp cv(pdf)' under Personlig information.</li>"
+  +"<li>Välj sedan ditt CV från din dator, detta cv måste vara av formatet .pdf.</li>"
+  +"<li>Skriv sedan in ditt lösenord för att bekräfta att det är just du som utför förändringarna.</li>"
+  +"<li>Klicka på 'Spara'.</li>"
+  +"</ol>"
+},
 
   {place:"studentInlogg",
   question:"Hur tar jag bort ett anmält intresse?",
@@ -629,27 +642,74 @@ var faqList=[
 
   {place:"studentInlogg",
   question:"Hur avaktiverar jag mitt konot?",
-  answer:"Det kan du inte. <br>Ändra din utbildning till tom och skicka ett mail till oss på skynet@oru.se, så tar vi bort ditt konto åt dig."},
+  answer:"Det kan du inte. <br>Ändra din utbildning till 'TA BORT' och skicka ett mail till oss på skynet@oru.se, så tar vi bort ditt konto åt dig."},
 
   {place:"companyInlogg",
-  question:"1",
-  answer:"1"},
+  question:"Hur lägger jag upp ett examensarbete?",
+  answer:"Detta kan du göra genom följande steg.<ol>"
+  +"<li>Klicka på fliken 'Lägg till annons'.</li>"
+  +"<li>Fyll i den efterfrågade informationen i fälten.</li>"
+  +"<li>Var sedan noga med att kryssa i de områden arbetet kommer behandla. Dessa nyckelord matchas med studenternas intressen.</li>"
+  +"<li>Klicka 'Spara'.</li>"
+  +"</ol>"
+},
 
   {place:"companyInlogg",
-  question:"2",
-  answer:"2"},
+  question:"Hur redigerar jag informationen på ett uppladdat examensarbete?",
+  answer:"Detta gör du genom följande steg.<ol>"
+  +"<li>Klicka på 'Aktiva erbjudanden'</li>"
+  +"<li>Klicka sedan på 'Redigera' direkt, eller klicka på 'Visa annons' och sedan på 'Redigera'</li>"
+  +"<li>Fyll i efterfrågad information i fälten.</li>"
+  +"<li>Klicka på 'Spara'</li>"
+  +"</ol>"
+},
 
-  {place:"companyInlogg",
-  question:"3",
-  answer:"3"},
+{place:"companyInlogg",
+question:"Hur ser jag intresseanmälningar på ett examensarbete?",
+answer:"Detta gör du genom följande steg.<ol>"
++"<li>Klicka på 'Aktiva erbjudanden'</li>"
++"<li>Klicka sedan på 'Intresseanmälningar' direkt, eller klicka på 'Visa annons' och sedan på 'Visa intresseanmälningar'</li>"
++"<li>Här kan du se alla studenter som skickat en intresseanmälan. Finns det inget efter en vecka rekommenderar vi att ändra informationen om examensarbetet.</li>"
++"<li>För att se kontaktuppgifter och information om student. Klicka på knappen 'Visa CV'</li>"
++"</ol>"
+},
 
-  {place:"companyInlogg",
-  question:"4",
-  answer:"4"},
+{place:"companyInlogg",
+question:"Hur tar jag bort ett examensarbete?",
+answer:"Detta gör du genom följande steg.<ol>"
++"<li>Klicka på 'Aktiva erbjudanden'</li>"
++"<li>Klicka sedan på 'Visa annons'.</li>"
++"<li>Klicka sedan på 'Radera annons'</li>"
++"</ol>"
++"När du klickat på 'Radera annons' tas arbetet bort från din profil samt hos alla studenter som skickat intresseanmälan.<br>"
++"Borttagen annons kan ej återskapas."
+},
 
-  {place:"companyInlogg",
-  question:"5",
-  answer:"5"}
+{place:"companyInlogg",
+question:"Hur redigerar jag min information?",
+answer:"Detta gör du genom följande steg.<ol>"
++"<li>Klicka på 'Redigera information'</li>"
++"<li>Fyll sedan i efterfrågad information i fälten.</li>"
++"<li>Bekräfta din identitet genom att bekräfta ändringen med ditt lösenord.</li>"
++"<li>Klicka sedan på 'Spara'</li>"
++"</ol>"
+},
+
+{place:"companyInlogg",
+question:"Hur lägger jag till en logga?",
+answer:"Detta gör du genom följande steg.<ol>"
++"<li>Klicka på 'Redigera information'</li>"
++"<li>Fyll sedan i en länk till en bild på din logotype.</li>"
++"<li>Bekräfta din identitet genom att bekräfta ändringen med ditt lösenord.</li>"
++"<li>Klicka sedan på 'Spara'</li>"
++"</ol>"
+},
+
+{place:"companyInlogg",
+  question:"Hur avaktiverar jag mitt konot?",
+  answer:"Det kan du inte. <br>Ändra din profil 'Om Oss' till 'TA BORT' och skicka ett mail till oss på skynet@oru.se, så tar vi bort ditt konto åt dig."},
+
+
 ];
 
 function addInterestStudent(database, studentId, jobId, message, callback) {
