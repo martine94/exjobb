@@ -527,7 +527,7 @@ window.onload = function () {
             ueducation: document.getElementById("sEdu").value,
             uemail: document.getElementById("sEmail").value,
             uname: document.getElementById("sUname").value,
-            psw: document.getElementById("sPsw").value,
+            password: document.getElementById("sPsw").value,
             keywords: []
         }
         var fullListToCheck = document.getElementsByClassName("ChekedKeyWord");

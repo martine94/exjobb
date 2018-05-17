@@ -176,7 +176,7 @@ module.exports = {
   },
 
   findOne: function (table, query, callback) {
-    logger.info('Finding one in table %s', table);
+    logger.silly('Finding one in table %s', table); 
 
     MongoClient.connect(url, function (error, db) {
       if (error) throw error;
@@ -526,7 +526,7 @@ module.exports = {
           throw error;
         }
   
-        logger.debug("Get job description result", result);
+        logger.silly("Get job description result", result);
   
         db.close();
         callback(result);
