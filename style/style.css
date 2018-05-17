@@ -204,6 +204,9 @@ padding: 0.2em;
 		margin-left: 10%;
 		padding:0 1% 0 1%;
 	}
+	textarea{
+		resize: none;
+	}
 #searchInput {
 		background-image: url("https://www.shareicon.net/download/2015/10/03/110917_search_512x512.png");
 		background-position: 10px 10px;
