@@ -523,9 +523,10 @@ window.onload = function () {
     }
 
     function saveProfile() {
-        let ListOfKeyWords = [];
-        //console.log("CVDATA: " + cvData);
-        console.log("Starting to save");
+        if(document.getElementById("sPsw").value === document.getElementById("sPswConfirm").value){
+            let ListOfKeyWords = [];
+            //console.log("CVDATA: " + cvData);
+            console.log("Starting to save");
         var userObj = {
             name: document.getElementById("sFName").value,
             lastname: document.getElementById("sLName").value,
@@ -542,8 +543,6 @@ window.onload = function () {
                 ListOfKeyWords.push(fullListToCheck[i].id);
         }
 
-        for (a = 0; a < ListOfKeyWords.length; a++) {
-        }
         userObj.keywords = ListOfKeyWords;
         userString = JSON.stringify(userObj);
         var xhttp = new XMLHttpRequest();
@@ -553,13 +552,19 @@ window.onload = function () {
                     loadMyInfo();
                 }
             }
-        };
+        }
         xhttp.open("POST", "changeStudentInfo?userObj=" + userString, true);
 
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
 
         xhttp.send("&cv=" + cvData);
     }
+        else{
+            if(!document.getElementById('error')){
+                document.getElementById("ErrorMessage").innerHTML += "<div id='error' style='color:red;padding-left:20em'>lösenord är olika!</div>";
+            }
+        }
+};
 
     function sendInterest(jobId) {
         //makeInterestBtn.removeEventListener("click", (e) => sendInterest(jobId));
