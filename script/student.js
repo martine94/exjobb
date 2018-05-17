@@ -184,6 +184,7 @@ window.onload = function () {
                         if (p.innerHTML != "Annat") {
                             li.appendChild(p);
                             myUL.appendChild(li);
+                            p.addEventListener("click",(e) => keyWordToSearchValue(p.innerHTML));
                         }
                     }
                 }
@@ -192,6 +193,11 @@ window.onload = function () {
         };
         xhttp.open("GET", "keywords", true);
         xhttp.send();
+    }
+
+    function keyWordToSearchValue(word){
+        console.log("hej");
+        document.getElementById("searchInput").value=word;
     }
 
     function loadMyRecomendedJobs() {
@@ -637,14 +643,7 @@ window.onload = function () {
     function eventListenerOnSearch() {
         //Search bar in student cataloge
         searchInput = document.getElementById("searchInput");
-        //show list of searchwords
-        searchInput.addEventListener("focus", function (event) {
-            document.getElementById("myUL").className = "show";
-        });
-        //hide list of searchwords
-        searchInput.addEventListener("focusout", function (event) {
-            document.getElementById("myUL").className = "hide";
-        });
+
         //filter Search words
         searchInput.addEventListener("keyup", function (event) {
             var input, filter, ul, li, a, i;
@@ -665,7 +664,13 @@ window.onload = function () {
         });
         //search
         searchInput.addEventListener("keypress", function (event) {
+            //show list of searchwords
+            document.getElementById("myUL").className = "show";
+
+            
             if (event.keyCode == 13) {
+                //hide list of searchwords
+                document.getElementById("myUL").className = "hide";
                 document.getElementById("workAnnouncement").innerHTML = "<img class=\"loadingImg\" id=\"loadImg\" src=\"LoadingImg.svg\" position>";
                 if (searchInput.value == "") {
                     loadCatalog();
