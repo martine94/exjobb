@@ -13,7 +13,7 @@ window.onload = function () {
     var companyButton = document.getElementById("companyBtn");
     var studentButton = document.getElementById("studentBtn");
     var companyRegButton = document.getElementById("companyRegBtn");
-    
+
     var studentRegButton = document.getElementById("studentRegBtn");
     var companyLoginButton = document.getElementById("companyLoginBtn");
     var studentLoginButton = document.getElementById("studentLoginBtn");
@@ -28,7 +28,7 @@ window.onload = function () {
     logInContainer.addEventListener("mouseover", function () { dropDown("logInContainer", true); });
     logInContainer.addEventListener("mouseleave", function () { dropDown("logInContainer", false); });
     companyLoginButton.addEventListener("click", openLoginCompanyModal);
-    
+
     studentLoginButton.addEventListener("click", openLoginStudentModal);
 
     regButton.addEventListener("mouseover", function () { dropDown("registerContainer", true); });
@@ -115,12 +115,12 @@ window.onload = function () {
             reglink.addEventListener("click", openRegisterCompanyModal);
 
             var companyPasswordTextfield = document.getElementById('cPsw');
-            companyPasswordTextfield.addEventListener('keypress', (event) => { if(event.keyCode === 13) LogInCompany(); });
+            companyPasswordTextfield.addEventListener('keypress', (event) => { if (event.keyCode === 13) LogInCompany(); });
 
             dropDown("modal-test", true);
         });
     }
-    function testClick(){
+    function testClick() {
         console.log("click");
     }
 
@@ -138,7 +138,7 @@ window.onload = function () {
             reglink.addEventListener("click", openRegisterStudentModal);
 
             var studentPasswordTextfield = document.getElementById('sPsw');
-            studentPasswordTextfield.addEventListener('keypress', (event) => { if(event.keyCode === 13) LogInStudent(); });
+            studentPasswordTextfield.addEventListener('keypress', (event) => { if (event.keyCode === 13) LogInStudent(); });
 
             dropDown("modal-test", true);
         });
@@ -210,6 +210,7 @@ window.onload = function () {
             document.getElementById("forCompaniesInfo").style.display = "block";
             var regCompLink = document.getElementById("regCompanyLink");
             regCompLink.addEventListener("click", openRegisterCompanyModal);
+            faqRequest("companyUtlogg");
         });
     }
 
@@ -220,38 +221,45 @@ window.onload = function () {
             document.getElementById("forStudentsInfo").style.display = "block";
             var regStudLink = document.getElementById("regStudLink");
             regStudLink.addEventListener("click", openRegisterStudentModal);
-            faq();
+            faqRequest("studentUtlogg");
         });
     }
-    function faq(){
-        
-        var faqContainer=document.getElementById("FAQStudent");
-        let h3=document.createElement("h3");
-        h3.innerHTML="Vanliga frågor och svar:";
+    function faqRequest(place) {
+        ajaxRequest('GET', 'getFAQ?place=' + place, function (response) {
+            faq(response);
+        });
+    }
+    function faq(qas) {
+        qas = JSON.parse(qas);
+        console.log(qas);
+        console.log(qas.length);
+        var faqContainer = document.getElementById("FAQ");
+        let h3 = document.createElement("h3");
+        h3.innerHTML = "Vanliga frågor och svar:";
         faqContainer.appendChild(h3);
+        for (let i = 0; i < qas.length; ++i) {
+            let question = document.createElement("b");
+            question.innerHTML = qas[i].question+"<br>";
+            question.classList.add("pointer");
 
-        let i;
-        for(i=0;i<3;i++){
-        let question=document.createElement("p");
-        question.innerHTML="Fråga"+(i+1);
-       
-        let answere=document.createElement("p");
-        let div=document.createElement("div");
-        div.id="Fråga"+i;
-        answere.innerHTML="svar"+(i+1);
-        faqContainer.appendChild(question);
-        question.appendChild(div);
-        div.appendChild(answere);
-        question.addEventListener("click",(e) => showAnswere(div.id));
-        div.classList.add("hide");
+            let answer = document.createElement("p");
+            let div = document.createElement("div");
+            div.id = qas[i]._id;
+            answer.innerHTML =qas[i].answer;
+            faqContainer.appendChild(question);
+            faqContainer.appendChild(div);
+            div.appendChild(answer);
+            question.addEventListener("click", (e) => showAnswere(div.id));
+            div.classList.add("hide");
         }
+
 
     }
-    function showAnswere(questionID){
-        if(document.getElementById(questionID).classList.contains("hide")){
+    function showAnswere(questionID) {
+        if (document.getElementById(questionID).classList.contains("hide")) {
             document.getElementById(questionID).classList.remove("hide");
         }
-        else{
+        else {
             document.getElementById(questionID).classList.add("hide");
         }
     }
@@ -480,7 +488,7 @@ window.onload = function () {
             ajaxRequest('GET', 'getNumberOfJobs', function (response) {
                 var numberOfJobs = JSON.parse(response);
                 workAnnouncements(numberOfJobs, jobs);
-                document.getElementById("loadingScreen").style.display="none";
+                document.getElementById("loadingScreen").style.display = "none";
             });
 
         });

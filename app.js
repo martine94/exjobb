@@ -310,7 +310,21 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
         logger.error('Caught error', error);
     }
 });
-
+app.get('/getFAQ',urlEncodedParcer,function(req,res){
+    logger.info("GET /getFAQ request");
+    let place=req.query["place"];
+    Mongo.findOne("faq", {}, function (result) {
+        if (result.length === 0) {
+            Mongo.createFaq(place,false,function (result2) {
+                res.send(result2);
+            });
+        } else {
+            Mongo.createFaq(place,true,function (result2) {
+                res.send(result2);
+            });
+        }
+    });
+});
 app.get('/userDataFromDBStudent', function (req, res) {
     logger.info("GET /userDataFromDBStudent request");
     var userID = getUserID(req);
