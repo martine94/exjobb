@@ -628,7 +628,7 @@ var faqList=[
 
   {place:"studentInlogg",
   question:"Hur redigerar jag min information?",
-  answer:"Klicka på fliken 'Redigera information'.<br>Fyll sedan i dina uppgifter efter angiven efterfråga.<br>Bekräfta din identitet med att ange ditt lösenord.<br>Glöm inte att klicka 'Spara'"},
+  answer:"Klicka på fliken 'Redigera information'.<br>Fyll sedan i dina uppgifter efter angiven efterfrågan.<br>Bekräfta din identitet genom att ange samma lösenord i fälterna lösenord/bekräfta lösenord.<br>Glöm inte att klicka 'Spara'"},
 
 
   {place:"studentInlogg",

@@ -330,7 +330,7 @@ window.onload = function () {
                     id: obj[0]._id,
                     name: obj[0].name,
                     ulname: obj[0].lastname,
-                    city: obj[0].city, //for later...
+                    city: obj[0].city, 
                     edu: obj[0].ueducation,
                     email: obj[0].uemail,
                     uname: obj[0].uname,
@@ -542,11 +542,35 @@ window.onload = function () {
             fr = new FileReader();
             fr.onload = () => {
                 //do something with the file code
-                cvData = fr.result;
-                console.log("sucessfully stored file");
-                UploadOrSaved = "uppladdat";
-                loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
-                pdfStatus.innerHTML = "Glöm inte klicka spara för att ladda upp ditt cv!";
+                console.log(file.result);
+                
+                if(file.type !== "application/pdf" || file.size > 15000000)
+                {
+                    let errorMsg = "odefinerat fel!!"
+                  
+
+                    if(file.type !== "application/pdf"){
+                        errorMsg = "Ogiltigt CV!";
+                    }
+                    else if(file.size > 15000000)
+                    {
+                        errorMsg = "Max storlek är 15mb!";                        
+                    }
+
+                    pdfStatus.style.color = "red";   
+                    pdfStatus.innerHTML = errorMsg;
+                    loadCvBtn.innerHTML = "Öppna gammalt CV"
+                    UploadOrSaved = "gammalt";              
+                }
+                else
+                {
+                    cvData = fr.result;
+                    console.log("sucessfully stored file");
+                    UploadOrSaved = "uppladdat";
+                    loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
+                    pdfStatus.style.color = "black";                       
+                    pdfStatus.innerHTML = "Glöm inte klicka spara för att ladda upp ditt cv!";
+                }
             }
             fr.readAsDataURL(file);
         }
@@ -593,7 +617,7 @@ window.onload = function () {
     function saveProfile() {
         if (document.getElementById("sPsw").value === document.getElementById("sPswConfirm").value) {
             let ListOfKeyWords = [];
-            //console.log("CVDATA: " + cvData);
+           
             console.log("Starting to save");
             var userObj = {
                 name: document.getElementById("sFName").value,
@@ -626,7 +650,7 @@ window.onload = function () {
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded", "charset=utf-8");
 
         xhttp.send("&cv=" + cvData);
-    }
+        }
         else{
             if(!document.getElementById('error')){
 
@@ -682,7 +706,6 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                // document.getElementById("option-page-content").innerHTML = this.response;
                 var jobs = JSON.parse(this.response);
 
                 document.getElementById("logga").src = jobs[0].logoURL;
@@ -694,10 +717,9 @@ window.onload = function () {
                 var table = document.createElement("table");
                 keyWords.appendChild(table);
                 table.className = "tableKeywords";
-                // table.style="width:100%";
                 var thisRow = document.createElement("tr");
                 table.appendChild(thisRow);
-
+                console.log(jobs[0].keywords);
                 for (i = 0; i < jobs[0].keywords.length; ++i) {
                     if (i % 3 === 0) {
                         var newRow = document.createElement("tr");

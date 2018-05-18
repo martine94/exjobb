@@ -18,7 +18,7 @@
             <label class="alignRight" for="city">Stad:</label>
             <input class="width50 lowb" onkeyup="this.value = this.value.replace(/[#&%*+<>$¤£]/g, '')" type="text" id="city">
         </div>
-        <div>
+        <div id = "ErrorMessageCV">
             <p id="pdfStatus">Inget cv uppladdat</p>
             <button type="button" class="bColorBlue mediumBtn" onclick="document.getElementById('pdfUpload').click()">Ladda upp cv(pdf)</button>
             <input type="file" style="display: none" id="pdfUpload">
