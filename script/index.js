@@ -96,7 +96,9 @@ window.onload = function () {
         var password = document.getElementById("sPsw").value;
         let loginSBtn = document.getElementById("OKLogInStudent");
         loginSBtn.disabled=true;
-
+        let checkifvalidstr = String(password + username);
+        let invChar = /[#&%*+<>$¤£]/;
+        if(!checkifvalidstr.match(invChar)){
         ajaxRequest('GET', "logginStudent?_user=" + username + "&password=" + password, function (response) {
             if (response === "false") {
                 console.log("Fel användarnamn eller lösenord");
@@ -108,6 +110,11 @@ window.onload = function () {
                 dropDown("modal-test", false);
             }
         });
+    }
+        else{
+            document.getElementById("errLogIn").innerHTML = "Ogiltliga tecken!";
+            loginSBtn.disabled=false;
+        }
     }
 
     //#endregion
@@ -346,11 +353,23 @@ window.onload = function () {
     }
 
     function checkValidRegStudentInput() {
-
         let formInputs = getStudentForm();
+        var lockstring = formInputs["firstName"].getValue();
+        lockstring += formInputs["lastName"].getValue();
+        lockstring += formInputs["city"].getValue();
+        lockstring += formInputs["education"].getValue();
+        lockstring += formInputs["email"].getValue();
+        lockstring += formInputs["userName"].getValue();
+        lockstring += formInputs["password"].getValue();
+        if(checker(lockstring) === false){
+            document.getElementById("errorReg").innerHTML = "Ogiltliga tecken!";
+            okRegStudent.disabled=false;
+        }
+        else{
         var error = false;
         let okRegStudent=document.getElementById("okRegStudent");
         okRegStudent.disabled=true;
+        
 
         for (var key in formInputs) {
             if (!formInputs[key].checkValid()) {
@@ -373,12 +392,12 @@ window.onload = function () {
             document.getElementById("errorReg").innerHTML = "*Fel input " + "<br/>";
             okRegStudent.disabled=false;
         }
-        else {
+        if (!error) {
             document.getElementById("errorReg").innerHTML = "";
             register_student(formInputs);
         }
     }
-
+    }
     function createStudentRouteString(formInputs) {
         return "register_student?ufname=" + formInputs["firstName"].getValue() +
             "&ulname=" + formInputs["lastName"].getValue() +
@@ -436,6 +455,12 @@ window.onload = function () {
 
     function checkValidRegCompanyInput() {
         var formInputs = getCompanyForm();
+        var lockstr = formInputs["companyName"].getValue();
+        lockstr +=formInputs["password"].getValue();
+        lockstr += formInputs["userName"].getValue();
+        lockstr += formInputs["address"].getValue();
+        lockstr += formInputs["email"].getValue();
+        lockstr += formInputs["city"].getValue();
         console.log(formInputs);
         var error = false;
         let okRegComp=document.getElementById("okRegCompany");
@@ -457,7 +482,7 @@ window.onload = function () {
             formInputs["passwordConfirm"].element.value = "";
             error = true;
         }
-        if(checker(formInputs) === false){
+        if(checker(lockstr) === false){
             document.getElementById("errorReg").innerHTML = "Ogiltliga tecken!";
         
             let okRegComp=document.getElementById("okRegCompany");
@@ -577,18 +602,17 @@ window.onload = function () {
         xhttp.send();
     }
 
-    
     function checker(formInputs){
-    var userString = createCompanyRouteString(formInputs);
-    console.log(userString);
-    var invChar = /[#&%*+<>$¤£]/;
-    if(userString.match(invChar)){
-        return false; 
+        let invChar = /[#&%*+<>$¤£]/;
+        if(formInputs.match(invChar)){
+            return false; 
+        }
+        else{
+            return true;
+        } 
     }
-    else{
-        return true;
-    } 
-}
+
+
 
     //#endregion
 }

@@ -615,6 +615,7 @@ window.onload = function () {
     };
 
     function saveProfile() {
+        if(checker()){
         if (document.getElementById("sPsw").value === document.getElementById("sPswConfirm").value) {
             let ListOfKeyWords = [];
            
@@ -662,7 +663,11 @@ window.onload = function () {
                 document.getElementById("ErrorMessage").innerHTML += "<span id='error' style='color:red;'>lösenord är olika!</span>";
             }
         }
-    };
+    }
+    else{
+        document.getElementById("error").innerHTML = "Ogiltliga tecken!";
+    }
+};
 
     function sendInterest(jobId) {
         //makeInterestBtn.removeEventListener("click", (e) => sendInterest(jobId));
@@ -1028,6 +1033,23 @@ window.onload = function () {
             }
         }
     }
-
     loadMyInfo();
+    function checker(){
+        var checkstr;
+        checkstr+=document.getElementById("sFName").value;
+        checkstr+=document.getElementById("sLName").value;
+        checkstr+=document.getElementById("city").value;
+        checkstr+= document.getElementById("sEdu").value;
+        checkstr+= document.getElementById("sEmail").value;
+        checkstr+= document.getElementById("sUname").value;
+        checkstr+= document.getElementById("sPsw").value;
+        var invChar = /[#&%*+<>$¤£]/;
+        if(checkstr.match(invChar)){
+            return false; 
+        }
+        else{
+            return true;
+        } 
+    }
 }
+
