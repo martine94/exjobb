@@ -632,7 +632,7 @@ var faqList=[
 
 
   {place:"studentInlogg",
-  question:"Hur avaktiverar jag mitt konot?",
+  question:"Hur avaktiverar jag mitt kontot?",
   answer:"Det kan du inte. <br>Ändra din utbildning till 'TA BORT' och skicka ett mail till oss på skynet@oru.se, så tar vi bort ditt konto åt dig."},
 
   {place:"companyInlogg",
