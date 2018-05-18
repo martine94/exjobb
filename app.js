@@ -575,6 +575,38 @@ app.get("/getSpecPersons", urlEncodedParcer, function (req, res) {
 
 //#endregion
 
+//#region removeUser
+
+app.delete('/deleteCompany', function(req, res){
+    logger.info('Delete /deleteCompany request');
+
+    var userID = getUserID(req);
+    if (userID == "false") {
+        logger.warn('Could not find user');
+        res.send("false");
+    } else {
+        Mongo.removeCompany(userID, function(result){
+            res.redirect('/logout');
+        });
+    }
+});
+
+app.delete('/deleteStudent', function(req, res){
+    logger.info('Delete /deleteStudent request');
+
+    var userID = getUserID(req);
+    if (userID == "false") {
+        logger.warn('Could not find user');
+        res.send("false");
+    } else {
+        Mongo.removeStudent(userID, function(result){
+            res.redirect('/logout');
+        });
+    }
+});
+
+//#endregion
+
 //#region Jobs
 
 app.post('/addJobToDB', urlEncodedParcer, function (req, res) {

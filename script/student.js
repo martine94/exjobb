@@ -670,13 +670,18 @@ window.onload = function () {
 };
 
     function sendInterest(jobId) {
-        //makeInterestBtn.removeEventListener("click", (e) => sendInterest(jobId));
         var message = document.getElementById("Interestmessage").value;
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.response === "true") {
                     loadMyInterests();
+                }else{
+                   makeInterestBtn.addEventListener("click", function(){
+                    sendInterest(jobId);
+                    this.removeEventListener('click',arguments.callee);
+                });
+                    document.getElementById("warningTextInterestJob").innerHTML="Någonting gick fel, kontrollera din information och prova igen";
                 }
             }
         };
@@ -693,7 +698,11 @@ window.onload = function () {
                 getSpecificJob(jobId);
 
                 makeInterestBtn = document.getElementById("makeInterestSubmit");
-                makeInterestBtn.addEventListener("click", (e) => sendInterest(jobId));
+                // makeInterestBtn.addEventListener("click", (e) => sendInterest(jobId));
+                makeInterestBtn.addEventListener("click", function(){
+                    sendInterest(jobId);
+                    this.removeEventListener('click',arguments.callee);
+                });
                 if (val === '0') {
                     document.getElementById("interestDiv").style.display = "none";
                 }
@@ -724,7 +733,7 @@ window.onload = function () {
                 table.className = "tableKeywords";
                 var thisRow = document.createElement("tr");
                 table.appendChild(thisRow);
-                console.log(jobs[0].keywords);
+                //console.log(jobs[0].keywords);
                 for (i = 0; i < jobs[0].keywords.length; ++i) {
                     if (i % 3 === 0) {
                         var newRow = document.createElement("tr");

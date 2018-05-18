@@ -573,8 +573,47 @@ module.exports = {
         callback(result);
       });
     });
+  },
+
+  removeStudent: function(studentId, callback) {
+    logger.debug('Removing studentId %s from database', studentId);
+  
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
+  
+      var dbo = db.db(database);
+      
+      removeAllStudentInterestFromJob(dbo, studentId, function(result){
+        removeUserFromTable(dbo, 'student', studentId, function(result){
+          db.close();
+          callback(result);
+        });
+      });
+    });
+  },
+
+  removeCompany: function(companyId, callback){
+    logger.debug('Removing companyId %s from database', companyId);
+  
+    MongoClient.connect(url, function (error, db) {
+      if (error) throw error;
+  
+      var dbo = db.db(database);
+      
+      removeCompanyJobs(dbo, companyId, function(result){
+        let jobIdArray = makeJobIdArray(result);
+        removeJobsFromStudents(dbo, jobIdArray, function(result){
+          removeUserFromTable(dbo, 'company', companyId, function(result){
+            db.close();
+            callback(result);
+          });
+        });
+      });
+    });
   }
 };
+
+//#region faqList
 
 var faqList=[
   {place:"companyUtlogg",
@@ -702,6 +741,8 @@ answer:"Detta gör du genom följande steg.<ol>"
 
 
 ];
+
+//#endregion
 
 function addInterestStudent(database, studentId, jobId, message, callback) {
   logger.info('Adding interest to student');
@@ -907,4 +948,116 @@ function getJobsDescriptions(NumberOfJobs, callback) {
   });
 }
 
+function removeStudent(studentId, callback) {
+  logger.debug('Removing studentId %s from database', studentId);
 
+  MongoClient.connect(url, function (error, db) {
+    if (error) throw error;
+
+    var dbo = db.db(database);
+    
+    removeAllStudentInterestFromJob(dbo, studentId, function(result){
+      removeUserFromTable(dbo, 'student', studentId, function(result){
+        db.close();
+        callback(result);
+      });
+    });
+  });
+}
+
+function removeUserFromTable(database, table, userId, callback){
+  logger.info('Removing user %s from table %s', userId, table);
+
+  var ObjectId = require('mongodb').ObjectID;
+  var userObjectId = new ObjectId(userId);
+
+  database.collection(table).findOneAndDelete({ _id: userObjectId}, function(error, result){
+    if (error) {
+      database.close();
+      throw error;
+    }
+
+    logger.debug('Removing user %s from table %s result', userId, table , result.result);
+    callback(result);
+  });
+}
+
+function removeAllStudentInterestFromJob(database, studentId, callback) {
+  logger.info('Removing all student interest messages from jobs in database');
+  logger.debug('Using studentId %s', studentId);
+
+  database.collection('job').updateMany({ studentlist: { $elemMatch: {studentID: studentId}}},
+  { $pull: { studentlist: { studentID: studentId } } }, function (error, result) {
+    if (error) {
+      database.close();
+      throw error;
+    }
+
+    logger.debug('Removing all student interest messages from jobs in database result:', result.result);
+    callback(result);
+  });
+}
+
+function removeCompany(companyId, callback){
+  logger.debug('Removing companyId %s from database', companyId);
+
+  MongoClient.connect(url, function (error, db) {
+    if (error) throw error;
+
+    var dbo = db.db(database);
+    
+    removeCompanyJobs(dbo, companyId, function(result){
+      let jobIdArray = makeJobIdArray(result);
+      removeJobsFromStudents(dbo, jobIdArray, function(result){
+        removeUserFromTable(dbo, 'company', companyId, function(result){
+          db.close();
+          callback(result);
+        });
+      });
+    });
+  });
+}
+
+function removeCompanyJobs(database, companyId, callback) {
+  logger.info('Removing all company jobs in database');
+  logger.debug('Using companyId %s', companyId);
+
+  database.collection('job').find({ companyID: companyId }, { projection: { _id: 1 } }).toArray(function (error, result) {
+    if (error) {
+      database.close();
+      throw error;
+    }
+    database.collection('job').deleteMany({companyID: companyId});
+
+    logger.debug('Removing all company jobs in database result:', result);
+    callback(result);
+  });
+}
+
+function removeJobsFromStudents(database, jobsIdArray, callback) {
+  logger.info('Removing jobs from students');
+  logger.debug('Using jobsIdArray %j', jobsIdArray);
+
+  database.collection('student').updateMany({ joblist: { $elemMatch: { jobID: { $in: jobsIdArray } } } },
+  { $pull: { joblist: { jobID: { $in: jobsIdArray } } } }, function (error, result) {
+    if (error) {
+      database.close();
+      throw error;
+    }
+
+    logger.debug('Removing jobs from students result:', result.result);
+    callback(result);
+  });
+}
+
+function makeJobIdArray(mongoArrayResult){
+  let jobIdArray = [];
+
+  for(let jobId in mongoArrayResult){
+    logger.silly(typeof mongoArrayResult[jobId]._id.toHexString());
+    jobIdArray.push(mongoArrayResult[jobId]._id.toHexString());
+  }
+
+  logger.debug('makeJobIdArray result:', jobIdArray);
+  return jobIdArray;
+}
