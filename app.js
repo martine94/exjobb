@@ -602,7 +602,6 @@ app.post('/addJobToDB', urlEncodedParcer, function (req, res) {
                 exjobb.companyName = result[0].companyName;
                 exjobb.website = result[0].website;
                 exjobb.companyID = userID;
-
                 logger.debug('Adding job to database', exjobb);
                 try {
                     Mongo.addJob(exjobb, function (result) {
