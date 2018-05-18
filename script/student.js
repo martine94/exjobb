@@ -672,8 +672,7 @@ window.onload = function () {
                 if (this.response === "true") {
                     loadMyInterests();
                 }else{
-                   // makeInterestBtn.createEventListener("click", (e) => sendInterest(jobId));
-                   document.getElementById("makeInterestSubmit").addEventListener("click", function(){
+                   makeInterestBtn.addEventListener("click", function(){
                     sendInterest(jobId);
                     this.removeEventListener('click',arguments.callee);
                 });
