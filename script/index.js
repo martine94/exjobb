@@ -68,11 +68,15 @@ window.onload = function () {
     function LogInCompany() {
         var username = document.getElementById("cName").value;
         var password = document.getElementById("cPsw").value;
+        let loginCBtn = document.getElementById("OKLogInComp");
+        loginCBtn.disabled=true;
+
 
         ajaxRequest('GET', "logginComp?username=" + username + "&password=" + password, function (response) {
             if (response === "false") {
                 console.log("Fel användarnamn eller lösenord");
                 document.getElementById("errLogIn").innerHTML = "* Fel användarnamn eller lösenord";
+                loginCBtn.disabled=false;
             } else {
                 console.log("Du är nu inloggad");
                 window.location.replace("Company.html");
@@ -84,11 +88,14 @@ window.onload = function () {
     function LogInStudent() {
         var username = document.getElementById("sName").value;
         var password = document.getElementById("sPsw").value;
+        let loginSBtn = document.getElementById("OKLogInStudent");
+        loginSBtn.disabled=true;
 
         ajaxRequest('GET', "logginStudent?_user=" + username + "&password=" + password, function (response) {
             if (response === "false") {
                 console.log("Fel användarnamn eller lösenord");
                 document.getElementById("errLogIn").innerHTML = "* Fel användarnamn eller lösenord";
+                loginSBtn.disabled=false;
             } else {
                 console.log("Du är nu inloggad");
                 window.location.replace("Student.html");
@@ -110,9 +117,9 @@ window.onload = function () {
 
             var logginCompanyButton = document.getElementById("OKLogInComp");
             logginCompanyButton.addEventListener("click", LogInCompany);
-
+            
             let reglink = document.getElementById("regLinkC");
-            reglink.addEventListener("click", openRegisterCompanyModal);
+            reglink.addEventListener("click",openRegisterCompanyModal);
 
             var companyPasswordTextfield = document.getElementById('cPsw');
             companyPasswordTextfield.addEventListener('keypress', (event) => { if (event.keyCode === 13) LogInCompany(); });
@@ -336,6 +343,8 @@ window.onload = function () {
 
         let formInputs = getStudentForm();
         var error = false;
+        let okRegStudent=document.getElementById("okRegStudent");
+        okRegStudent.disabled=true;
 
         for (var key in formInputs) {
             if (!formInputs[key].checkValid()) {
@@ -356,6 +365,7 @@ window.onload = function () {
 
         if (error) {
             document.getElementById("errorReg").innerHTML = "*Fel input " + "<br/>";
+            okRegStudent.disabled=false;
         }
         else {
             document.getElementById("errorReg").innerHTML = "";
@@ -422,6 +432,8 @@ window.onload = function () {
         var formInputs = getCompanyForm();
         console.log(formInputs);
         var error = false;
+        let okRegComp=document.getElementById("okRegCompany");
+        okRegComp.disabled=true;
 
         for (var key in formInputs) {
             if (!formInputs[key].checkValid()) {
@@ -433,15 +445,16 @@ window.onload = function () {
             }
         }
 
-        if (error) {
-            document.getElementById("errorReg").innerHTML = "*Fel input " + "<br/>";
-        }
-
         if (formInputs["password"].getValue() != formInputs["passwordConfirm"].getValue()) {
             document.getElementById("errorReg").innerHTML += " *Lösenorden stämmer inte överens.";
             formInputs["password"].element.value = "";
             formInputs["passwordConfirm"].element.value = "";
             error = true;
+        }
+
+        if (error) {
+            document.getElementById("errorReg").innerHTML = "*Fel input " + "<br/>";
+            okRegComp.disabled=false;
         }
 
         if (!error) {
@@ -516,7 +529,7 @@ window.onload = function () {
             moreText.innerHTML = "För att se resterande jobb. <br>Var vänlig att <strong id=\"logInLink\" class=\"pointer\">Logga in</strong> eller <strong id=\"regLink\" class=\"pointer\">Registrera</strong> ett kostnadsfritt studentkonto.";
 
             var companyText = document.createElement("p");
-            companyText.innerHTML = "Företag kan lägga upp egna examensarbeten.<br>För att göra detta var vänlig att <strong id=\"logInLinkC\" class=\"pointer\">Logga in</strong> eller <strong id=\"regLinkC\" class=\"pointer\">Registrera</strong> ett kostnadsfritt företagskonto.";
+            companyText.innerHTML = "Företag kan lägga upp egna examensarbeten.<br>För att göra detta var vänlig att <strong id=\"logInLinkC\" class=\"pointer\">Logga in</strong> eller <strong id=\"registerLinkC\" class=\"pointer\">Registrera</strong> ett kostnadsfritt företagskonto.";
 
             document.getElementById('workAnnouncement').appendChild(moreText);
             document.getElementById('workAnnouncement').appendChild(companyText);
@@ -525,8 +538,8 @@ window.onload = function () {
             reglink.addEventListener("click", openRegisterStudentModal);
             var loginLink = document.getElementById("logInLink");
             loginLink.addEventListener("click", openLoginStudentModal);
-            var reglinkC = document.getElementById("regLinkC");
-            reglinkC.addEventListener("click", openRegisterCompanyModal);
+            var registerlinkC = document.getElementById("registerLinkC");
+            registerlinkC.addEventListener("click", openRegisterCompanyModal);
             var loginLinkC = document.getElementById("logInLinkC");
             loginLinkC.addEventListener("click", openLoginCompanyModal);
         });
