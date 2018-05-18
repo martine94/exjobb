@@ -9,8 +9,8 @@
                 <br>
                 <br>
                 <p id="errLogIn"></p>
-                <input class="width100" type="text" placeholder="Användarnamn" name="uname" id="cName" required>
-                <input class="width100" type="password" placeholder="Lösenord" name="psw" id="cPsw" required>
+                <input class="width100" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" type="text" placeholder="Användarnamn" name="uname" id="cName" required>
+                <input class="width100" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" type="password" placeholder="Lösenord" name="psw" id="cPsw" required>
                 <p>Har du inget konto? <strong id="regLinkC" class="pointer">Registrera</strong> ett kostnadsfritt!</p>
                 <button id="OKLogInComp" class="submitBtn bColorBlue" type="submit">LOGGA IN</button>
             </div>

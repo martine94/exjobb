@@ -8,15 +8,15 @@
             <h2>Lägg till examensarbete</h2>
             <div>
                 <label class="alignLeft" for="Title">Titel:</label>
-                <input class="width50 lowb" type="text" id="Headline">
+                <input class="width50 lowb" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" type="text" id="Headline">
             </div>
             <div>
                 <p>Kort beskrivning:</p>
-                <textarea class="descriptionBoxes" name="" id="shortSubject" maxlength="150"></textarea>
+                <textarea class="descriptionBoxes" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" name="" id="shortSubject" maxlength="150"></textarea>
             </div>
             <div>
                 <p>Fullständig beskrivning:</p>
-                <textarea class="descriptionBoxes" name="" id="Subject" maxlength="5000"></textarea>
+                <textarea class="descriptionBoxes" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" name="" id="Subject" maxlength="5000"></textarea>
             </div>
             <div>
                 <h3>Områden:</h3>

@@ -8,17 +8,17 @@
                         <br>
                         <p id="errorReg"></p>
                         <h3>Personlig information</h3>
-                        <input class="width100" type="text" placeholder="Förnamn" name="ufname" id="ufnameS" required>
-                        <input class="width100" type="text" placeholder="Efternamn" name="ulname" id="ulnameS" required>
-                        <input class="width100" type="text" placeholder="Stad" name="ucity" id="ucityS" required>
-                        <input class="width100" type="text" placeholder="Utbildning" name="ueducation" id="ueducationS" required>
+                        <input class="width100" type="text" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" placeholder="Förnamn" name="ufname" id="ufnameS" required>
+                        <input class="width100" type="text" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" placeholder="Efternamn" name="ulname" id="ulnameS" required>
+                        <input class="width100" type="text" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" placeholder="Stad" name="ucity" id="ucityS" required>
+                        <input class="width100" type="text" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" placeholder="Utbildning" name="ueducation" id="ueducationS" required>
                         
 
                         <h3>Användaruppgifter</h3>
-                        <input class="width100" type="text" placeholder="E-post" name="uemail" id="uemailS" required>
-                        <input class="width100" type="text" placeholder="Användarnamn" name="uname" id="unameS" required>
-                        <input class="width100" type="password" placeholder="Lösenord" name="psw" id="pswS" required>
-                        <input class="width100" type="password" placeholder="Upprepa lösenord" name="psw2" id="pswS2" required>
+                        <input class="width100" type="text" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" placeholder="E-post" name="uemail" id="uemailS" required>
+                        <input class="width100" type="text" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" placeholder="Användarnamn" name="uname" id="unameS" required>
+                        <input class="width100" type="password" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" placeholder="Lösenord" name="psw" id="pswS" required>
+                        <input class="width100" type="password" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" placeholder="Upprepa lösenord" name="psw2" id="pswS2" required>
 
                         <button id="okRegStudent" class="submitBtn bColorBlue" type="submit">Registrera</button>
                         </div>
