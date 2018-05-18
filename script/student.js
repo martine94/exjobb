@@ -671,6 +671,8 @@ window.onload = function () {
 
     function sendInterest(jobId) {
         var message = document.getElementById("Interestmessage").value;
+        var check = /[#&%*+<>$¤£]/;
+        if(!message.match(check)){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -684,10 +686,19 @@ window.onload = function () {
                     document.getElementById("warningTextInterestJob").innerHTML="Någonting gick fel, kontrollera din information och prova igen";
                 }
             }
-        };
+        }
         xhttp.open("POST", "addInterestMessage?jobID=" + jobId + "&message=" + message, true);
         xhttp.send();
     }
+    else{
+        document.getElementById("warningTextInterestJob").innerHTML="Felaktig input";
+        makeInterestBtn.addEventListener("click", function(){
+            sendInterest(jobId);
+            this.removeEventListener('click',arguments.callee);
+        })
+    }
+}
+
 
     function showMoreInfoBtn(jobId, val) {
         var xhttp = new XMLHttpRequest();
