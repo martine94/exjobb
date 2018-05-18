@@ -460,7 +460,7 @@ window.onload = function () {
 
     function register_company(formInputs) {
         var routeString = createCompanyRouteString(formInputs);
-
+        if(checker(routeString) === true){
         ajaxRequest('POST', routeString, function (response) {
             if (response === "false") {
                 console.log("Something went wrong.");
@@ -473,7 +473,12 @@ window.onload = function () {
             }
         });
     }
-
+    else{
+        document.getElementById("errorReg").innerHTML = "Ogiltliga tecken!";
+        
+    }
+    }
+    
     //#endregion
 
     //#region get exjobs list functions
@@ -553,6 +558,18 @@ window.onload = function () {
         xhttp.open(type, route, true);
         xhttp.send();
     }
+
+    
+    function checker(userString){
+    console.log(userString);
+    var invChar = /[#&%*+<>$¤£]/;
+    if(userString.match(invChar)){
+        return false; 
+    }
+    else{
+        return true;
+    } 
+}
 
     //#endregion
 }
