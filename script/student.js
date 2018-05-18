@@ -682,7 +682,6 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                // document.getElementById("option-page-content").innerHTML = this.response;
                 var jobs = JSON.parse(this.response);
 
                 document.getElementById("logga").src = jobs[0].logoURL;
@@ -694,10 +693,9 @@ window.onload = function () {
                 var table = document.createElement("table");
                 keyWords.appendChild(table);
                 table.className = "tableKeywords";
-                // table.style="width:100%";
                 var thisRow = document.createElement("tr");
                 table.appendChild(thisRow);
-
+                console.log(jobs[0].keywords);
                 for (i = 0; i < jobs[0].keywords.length; ++i) {
                     if (i % 3 === 0) {
                         var newRow = document.createElement("tr");
