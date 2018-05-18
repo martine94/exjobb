@@ -70,8 +70,9 @@ window.onload = function () {
         var password = document.getElementById("cPsw").value;
         let loginCBtn = document.getElementById("OKLogInComp");
         loginCBtn.disabled=true;
-
-
+        let checkifvalidstr = String(password + username);
+        let invChar = /[#&%*+<>$¤£]/;
+        if(!checkifvalidstr.match(invChar)){
         ajaxRequest('GET', "logginComp?username=" + username + "&password=" + password, function (response) {
             if (response === "false") {
                 console.log("Fel användarnamn eller lösenord");
@@ -83,6 +84,11 @@ window.onload = function () {
                 dropDown("modal-test", false);
             }
         });
+    }  
+    else{
+        document.getElementById("errLogIn").innerHTML = "Ogiltliga tecken!";
+        loginCBtn.disabled=false;
+    }
     }
 
     function LogInStudent() {
@@ -451,7 +457,12 @@ window.onload = function () {
             formInputs["passwordConfirm"].element.value = "";
             error = true;
         }
-
+        if(checker(formInputs) === false){
+            document.getElementById("errorReg").innerHTML = "Ogiltliga tecken!";
+        
+            let okRegComp=document.getElementById("okRegCompany");
+            okRegComp.disabled = false;
+        }
         if (error) {
             document.getElementById("errorReg").innerHTML = "*Fel input " + "<br/>";
             okRegComp.disabled=false;
@@ -473,7 +484,6 @@ window.onload = function () {
 
     function register_company(formInputs) {
         var routeString = createCompanyRouteString(formInputs);
-        if(checker(routeString) === true){
         ajaxRequest('POST', routeString, function (response) {
             if (response === "false") {
                 console.log("Something went wrong.");
@@ -485,11 +495,6 @@ window.onload = function () {
                 dropDown("modal-test", false);
             }
         });
-    }
-    else{
-        document.getElementById("errorReg").innerHTML = "Ogiltliga tecken!";
-        
-    }
     }
     
     //#endregion
@@ -573,7 +578,8 @@ window.onload = function () {
     }
 
     
-    function checker(userString){
+    function checker(formInputs){
+    var userString = createCompanyRouteString(formInputs);
     console.log(userString);
     var invChar = /[#&%*+<>$¤£]/;
     if(userString.match(invChar)){
