@@ -180,24 +180,15 @@ module.exports = {
       if (err) throw err;
       var dbo = db.db(database);
       if (!collExists) {
-        dbo.createCollection("faq", function (err, res) {
-          if (err) throw err;
-        });
         dbo.collection("faq").insertMany(faqList,function(err,res){
           if(err) throw err;
         });
-        dbo.collection("faq").find({ place: placeQuery }).toArray( function (err, result) {
-          if (err) throw err;
-          db.close();
-          callback(result);
-        });
-      } else {
-        dbo.collection("faq").find({ place: placeQuery }).toArray( function (err, result) {
-          if (err) throw err;
-          db.close();
-          callback(result);
-        });
       }
+        dbo.collection("faq").find({ place: placeQuery }).toArray( function (err, result) {
+          if (err) throw err;
+          db.close();
+          callback(result);
+        });
     });
   },
 
