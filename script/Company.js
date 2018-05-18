@@ -415,6 +415,7 @@ window.onload = function () {
             personDiv.style.borderColor = "lightblue";
             personDiv.style.borderLeft = "0.1em";
             personDiv.style.color = "black";
+            personDiv.style.padding="2%";
             personDiv.appendChild(document.createElement("br"));
             personDiv.innerHTML = "Person " + number;
             let row = document.createElement("hr");
@@ -435,6 +436,7 @@ window.onload = function () {
             txtArea.style.color = "black";
             txtArea.style.border = "solid 0.1em";
             txtArea.style.borderColor = "lightblue";
+            txtArea.style.margin="2%";
             let msg = document.createElement("p");
             for (let j = 0; j < num; j++) {
                 if (objList[i]._id === message[j].studentID) {
