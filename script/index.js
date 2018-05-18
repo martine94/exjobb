@@ -110,9 +110,9 @@ window.onload = function () {
 
             var logginCompanyButton = document.getElementById("OKLogInComp");
             logginCompanyButton.addEventListener("click", LogInCompany);
-
+            
             let reglink = document.getElementById("regLinkC");
-            reglink.addEventListener("click", openRegisterCompanyModal);
+            reglink.addEventListener("click",openRegisterCompanyModal);
 
             var companyPasswordTextfield = document.getElementById('cPsw');
             companyPasswordTextfield.addEventListener('keypress', (event) => { if (event.keyCode === 13) LogInCompany(); });
@@ -516,7 +516,7 @@ window.onload = function () {
             moreText.innerHTML = "För att se resterande jobb. <br>Var vänlig att <strong id=\"logInLink\" class=\"pointer\">Logga in</strong> eller <strong id=\"regLink\" class=\"pointer\">Registrera</strong> ett kostnadsfritt studentkonto.";
 
             var companyText = document.createElement("p");
-            companyText.innerHTML = "Företag kan lägga upp egna examensarbeten.<br>För att göra detta var vänlig att <strong id=\"logInLinkC\" class=\"pointer\">Logga in</strong> eller <strong id=\"regLinkC\" class=\"pointer\">Registrera</strong> ett kostnadsfritt företagskonto.";
+            companyText.innerHTML = "Företag kan lägga upp egna examensarbeten.<br>För att göra detta var vänlig att <strong id=\"logInLinkC\" class=\"pointer\">Logga in</strong> eller <strong id=\"registerLinkC\" class=\"pointer\">Registrera</strong> ett kostnadsfritt företagskonto.";
 
             document.getElementById('workAnnouncement').appendChild(moreText);
             document.getElementById('workAnnouncement').appendChild(companyText);
@@ -525,8 +525,8 @@ window.onload = function () {
             reglink.addEventListener("click", openRegisterStudentModal);
             var loginLink = document.getElementById("logInLink");
             loginLink.addEventListener("click", openLoginStudentModal);
-            var reglinkC = document.getElementById("regLinkC");
-            reglinkC.addEventListener("click", openRegisterCompanyModal);
+            var registerlinkC = document.getElementById("registerLinkC");
+            registerlinkC.addEventListener("click", openRegisterCompanyModal);
             var loginLinkC = document.getElementById("logInLinkC");
             loginLinkC.addEventListener("click", openLoginCompanyModal);
         });
