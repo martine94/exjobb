@@ -586,7 +586,8 @@ app.delete('/deleteCompany', function(req, res){
         res.send("false");
     } else {
         Mongo.removeCompany(userID, function(result){
-            res.redirect('/logout');
+            req.method = 'GET';
+            res.redirect(303, '/logout');
         });
     }
 });
@@ -600,7 +601,8 @@ app.delete('/deleteStudent', function(req, res){
         res.send("false");
     } else {
         Mongo.removeStudent(userID, function(result){
-            res.redirect('/logout');
+            req.method = 'GET';
+            res.redirect(303, '/logout');
         });
     }
 });
