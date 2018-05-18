@@ -318,7 +318,7 @@ app.get('/getFAQ',urlEncodedParcer,function(req,res){
         if (result.length === 0) {
             Mongo.createFaq(place,false,function (result2) {
                 res.send(result2);
-            });
+            });           
         } else {
             Mongo.createFaq(place,true,function (result2) {
                 res.send(result2);

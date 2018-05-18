@@ -180,24 +180,15 @@ module.exports = {
       if (err) throw err;
       var dbo = db.db(database);
       if (!collExists) {
-        dbo.createCollection("faq", function (err, res) {
-          if (err) throw err;
-        });
         dbo.collection("faq").insertMany(faqList,function(err,res){
           if(err) throw err;
         });
-        dbo.collection("faq").find({ place: placeQuery }).toArray( function (err, result) {
-          if (err) throw err;
-          db.close();
-          callback(result);
-        });
-      } else {
-        dbo.collection("faq").find({ place: placeQuery }).toArray( function (err, result) {
-          if (err) throw err;
-          db.close();
-          callback(result);
-        });
       }
+        dbo.collection("faq").find({ place: placeQuery }).toArray( function (err, result) {
+          if (err) throw err;
+          db.close();
+          callback(result);
+        });
     });
   },
 
@@ -641,7 +632,7 @@ var faqList=[
 
 
   {place:"studentInlogg",
-  question:"Hur avaktiverar jag mitt konot?",
+  question:"Hur avaktiverar jag mitt kontot?",
   answer:"Det kan du inte. <br>Ändra din utbildning till 'TA BORT' och skicka ett mail till oss på skynet@oru.se, så tar vi bort ditt konto åt dig."},
 
   {place:"companyInlogg",
