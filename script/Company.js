@@ -415,6 +415,7 @@ window.onload = function () {
             personDiv.style.borderColor = "lightblue";
             personDiv.style.borderLeft = "0.1em";
             personDiv.style.color = "black";
+            personDiv.style.padding="2%";
             personDiv.appendChild(document.createElement("br"));
             personDiv.innerHTML = "Person " + number;
             let row = document.createElement("hr");
@@ -435,6 +436,7 @@ window.onload = function () {
             txtArea.style.color = "black";
             txtArea.style.border = "solid 0.1em";
             txtArea.style.borderColor = "lightblue";
+            txtArea.style.margin="2%";
             let msg = document.createElement("p");
             for (let j = 0; j < num; j++) {
                 if (objList[i]._id === message[j].studentID) {
@@ -596,7 +598,8 @@ window.onload = function () {
         let savedJob = new exJob(title, shortde, longde, ListOfKeyWords);
         console.log(savedJob);
         var savedJob2 = JSON.stringify(savedJob);
-
+        var check = /[#&%*+<>$¤£]/;
+        if(!savedJob2.match(check)){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -609,7 +612,10 @@ window.onload = function () {
         };
         xhttp.open("POST", "addJobToDB?exJobb=" + savedJob2, true);
         xhttp.send();
-
+        }
+        else{
+            document.getElementById("error").innerHTML = "Ogiltliga tecken!"
+        }
     }
 
     function hoverNewExJob(element, show) {
@@ -709,6 +715,8 @@ window.onload = function () {
     };
 
     function changeInfo() {
+
+        if(checker()){
         if(document.getElementById("c_Psw").value === document.getElementById("c_PswConfirm").value){
         var cname = document.getElementById("c_Name").value;
         var cuname = document.getElementById("c_Uname").value;
@@ -743,8 +751,11 @@ window.onload = function () {
                 document.getElementById("ErrorMessage").innerHTML += "<span id='error' style='color:red;'>lösenord är olika!</span>";
             }
         }
+    }
+    else{
+        document.getElementById("error").innerHTML = "Ogiltliga tecken!";
+    }
     };
-
     function fillEditProfile() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function (res) {
@@ -909,6 +920,25 @@ window.onload = function () {
 
     loadMyInfo();
 
+    function checker(){
+        var checkstr;
+        checkstr += document.getElementById("c_Name").value;
+        checkstr += document.getElementById("c_Uname").value;
+        checkstr += document.getElementById("about_Us").value;
+        checkstr += document.getElementById("c_Psw").value;
+        checkstr += document.getElementById("c_City").value;
+        checkstr += document.getElementById("c_Email").value;
+        checkstr += document.getElementById("c_Address").value;
+        checkstr += document.getElementById("c_WebP").value;
+        checkstr += document.getElementById("c_Logo").value;
+        var invChar = /[#&%*+<>$¤£]/;
+        if(checkstr.match(invChar)){
+            return false; 
+        }
+        else{
+            return true;
+        } 
+    }
 }
 //#endregions
 
