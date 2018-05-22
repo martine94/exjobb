@@ -56,7 +56,7 @@ var logger = new (winston.Logger)({
         }),
         new (winston.transports.File)({
             name: 'error-file',
-            filename: 'applog-error.log',
+            filename: 'app-error.log',
             level: 'error'
         })
     ]
@@ -584,10 +584,16 @@ app.delete('/deleteCompany', function(req, res){
     if (userID == "false") {
         logger.warn('Could not find user');
         res.send("false");
-    } else {
-        Mongo.removeCompany(userID, function(result){
-            req.method = 'GET';
-            res.redirect(303, '/logout');
+    } 
+    else {  
+        Mongo.removeCompany(userID, function(error, result){
+            if(error){
+                logger.error('Caught Mongoerror, while trying to remove company %s', userID, error);
+                res.send('false');
+            }else{
+                req.method = 'GET';
+                res.redirect(303, '/logout');
+            }                 
         });
     }
 });
@@ -600,9 +606,15 @@ app.delete('/deleteStudent', function(req, res){
         logger.warn('Could not find user');
         res.send("false");
     } else {
-        Mongo.removeStudent(userID, function(result){
-            req.method = 'GET';
-            res.redirect(303, '/logout');
+        Mongo.removeStudent(userID, function(error, result){
+            if(error){
+                logger.error('Caught Mongoerror, while trying to remove student %s', userID, error);
+                res.send('false');
+            }
+            else{
+                req.method = 'GET';
+                res.redirect(303, '/logout');
+            }
         });
     }
 });

@@ -387,6 +387,7 @@ input[type=text],input[type=password]{
 	display: inline-block;
 	width: 140px;
 	text-align: right;
+	vertical-align: middle;
 }
 .close {
     color: #aaa;

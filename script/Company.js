@@ -710,7 +710,11 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                if ("true") {
+                if (this.response == 'false'){
+                    alert('Ops någonting oväntat har uppstått.\n'+
+                    'Vi kan för tillfället ej tabort ditt konto på grund av server problem.');
+                    console.log("Failed to remove company, check logs at the server.");
+                }else{
                     window.location.replace("index.html");
                 }
             }
