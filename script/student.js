@@ -491,20 +491,23 @@ window.onload = function () {
     }
 
     function removeStudent(){
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                if (this.response == 'false'){
-                    alert('Ops någonting oväntat har uppstått.\n'+
-                    'Vi kan för tillfället ej tabort ditt konto på grund av server problem.');
-                    console.log("Failed to remove student, check logs at the server.");
-                }else{
-                    window.location.replace("index.html");
+        if (confirm('Är du säker på att du vill radera ditt konto?')) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    if (this.response == 'false'){
+                        alert('Ops någonting oväntat har uppstått.\n'+
+                        'Vi kan för tillfället ej tabort ditt konto på grund av server problem.');
+                        console.log("Failed to remove student, check logs at the server.");
+                    }else{
+                        window.location.replace("index.html");
+                    }
                 }
             }
-        }
-        xhttp.open('DELETE', 'deleteStudent', true);
-        xhttp.send();
+            xhttp.open('DELETE', 'deleteStudent', true);
+            xhttp.send();
+        } 
+       
     }
 
     function hoverNewKeywords(element, show, connectedTo) {
