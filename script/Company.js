@@ -598,7 +598,7 @@ window.onload = function () {
         let savedJob = new exJob(title, shortde, longde, ListOfKeyWords);
         console.log(savedJob);
         var savedJob2 = JSON.stringify(savedJob);
-        var check = /[#&%*+<>$¤£]/;
+        var check = /[#&*+<>$¤£]/;
         if(!savedJob2.match(check)){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -776,7 +776,7 @@ window.onload = function () {
         }
     }
     else{
-        document.getElementById("error").innerHTML = "Ogiltliga tecken!";
+        document.getElementById("errorpsw").innerHTML = "Ogiltliga tecken!";
     }
     };
     function fillEditProfile() {

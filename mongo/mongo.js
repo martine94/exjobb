@@ -286,19 +286,30 @@ module.exports = {
       if (error) throw error;
 
       var dbo = db.db(database);
+      dbo.collection("company").findOne({ userName: company.userName }, function(error, result){
+        logger.debug('Adding company to database result', result);
+        if(!result){
+          dbo.collection("company").ensureIndex({ userName: 1 }, { unique: true });
 
-      dbo.collection("company").ensureIndex({ userName: 1 }, { unique: true });
-
-      dbo.collection("company").insertOne(company, function (error, result) {
-        if (error) {
-          db.close();
-          throw error;
+          dbo.collection("company").insertOne(company, function (error, result) {
+            if (error) {
+              logger.error('Error', error);
+              db.close();
+              throw error;
+            }
+    
+            logger.debug("Success");
+            db.close();
+            callback(result);
+          });
         }
-
-        logger.silly('Adding company to database result', result);
-        db.close();
-        callback(result);
+        else{
+          db.close();
+          logger.error('Error', error);
+          callback(new Error("Username is not unique."));
+        }
       });
+
     });
   },
 
@@ -334,18 +345,32 @@ module.exports = {
 
       var dbo = db.db(database);
 
-      dbo.collection("student").ensureIndex({ uname: 1 }, { unique: true });
+      
 
-      dbo.collection("student").insertOne(student, function (error, result) {
-        if (error) {
-          db.close();
-          throw error;
+      dbo.collection("student").findOne({ uname: student.uname }, function(error, result){
+        logger.debug('Adding student to database result', result);
+        if(!result){
+          dbo.collection("student").ensureIndex({ uname: 1 }, { unique: true });
+
+          dbo.collection("student").insertOne(student, function (error, result) {
+            if (error) {
+              logger.error('Error', error);
+              db.close();
+              throw error;
+            }
+    
+            logger.debug("Success");
+            db.close();
+            callback(result);
+          });
         }
-
-        logger.silly('Adding student to database result', result);
-        db.close();
-        callback(result);
+        else{
+          db.close();
+          logger.error('Error', error);
+          callback(new Error("Username is not unique."));
+        }
       });
+      
     });
   },
 
