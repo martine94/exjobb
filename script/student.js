@@ -255,6 +255,7 @@ window.onload = function () {
     function keyWordToSearchValue(word) {
         console.log("hej");
         document.getElementById("searchInput").value = word;
+        document.getElementById("searchInput").focus();
     }
 
     function loadMyRecomendedJobs() {
