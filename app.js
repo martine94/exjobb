@@ -296,9 +296,7 @@ app.post('/register_student', urlEncodedParcer, function (req, resp) {
         Mongo.addStudent(response, function (result) {
             if (result instanceof Error) {
                 logger.error('Error', result);
-                if (result.code === 11000) {
-                    resp.send("false");
-                }
+                resp.send("false");
             }
             else {
                 logger.debug('Successfully added an student');
@@ -508,9 +506,7 @@ app.post('/register_company', urlEncodedParcer, function (req, resp) {
         Mongo.addCompany(response, function (result) {
             if (result instanceof Error) {
                 logger.error("Error", result);
-                if (result.code === 11000) {
-                    resp.send("false");
-                }
+                resp.send("false");
             }
             else {
                 logger.debug('Successfully added a company');
