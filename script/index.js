@@ -414,6 +414,8 @@ window.onload = function () {
                 console.log("Something went wrong.");
                 document.getElementById("errorReg").innerHTML = "*Användarnamnet upptaget!";
                 document.getElementById("unameS").value = "";
+                let okRegStudent=document.getElementById("okRegStudent");
+                okRegStudent.disabled=false;
             } else {
                 console.log("You are now registered.");
                 window.location.replace("Student.html");
@@ -514,6 +516,8 @@ window.onload = function () {
                 console.log("Something went wrong.");
                 document.getElementById("errorReg").innerHTML = "*Användarnamnet är upptaget!";
                 formInputs["userName"].element.value = "";
+                let okRegComp=document.getElementById("okRegCompany");
+                okRegComp.disabled=false;
             } else {
                 console.log("You are now registered");
                 window.location.replace("Company.html");

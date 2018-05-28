@@ -776,7 +776,7 @@ window.onload = function () {
         }
     }
     else{
-        document.getElementById("error").innerHTML = "Ogiltliga tecken!";
+        document.getElementById("errorpsw").innerHTML = "Ogiltliga tecken!";
     }
     };
     function fillEditProfile() {
