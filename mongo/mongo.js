@@ -161,7 +161,7 @@ module.exports = {
       });
       var Område = ["Artificiell intelligens", "Databaser", "Maskininlärning", "Robotik", "Webbprogrammering", "Kommunikationssystem"];
       var Typ = ["Dokumentation", "Hårdvaruprojekt", "Mjukvaruprojekt", "Annat"];
-      var Operativsystem = ["Android", "IOS", "Linux", "Windows", "Mac", "Annat"];
+      var Operativsystem = ["Android", "IOS", "Linux", "Windows", "OS X", "Annat"];
       var Programmeringsspråk = ["Assembler", "C", "Csharp", "Cpp", "Java", "Javascript", "Python", "Annat"];
       // var docs=[Område,Typ,Operativsystem,Programmeringsspråk];
       dbo.collection("keywords").insertOne({ Område, Typ, Operativsystem, Programmeringsspråk }, function (err, res) {
