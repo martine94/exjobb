@@ -898,6 +898,9 @@ window.onload = function () {
         email.innerHTML = user.email;
         city.innerHTML = user.city;
         webpage.innerHTML = user.web;
+        if (!user.web.startsWith("http://")){
+            user.web = "http://"+user.web;
+        }
         webpage.href = user.web;
         address.innerHTML = user.address;
         logoDiv.appendChild(logo);

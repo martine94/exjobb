@@ -396,12 +396,12 @@ window.onload = function () {
                 let email = document.createElement("p");
                 let city = document.createElement("p");
                 let interestCount = document.createElement("p");
-                let warningText = document.createElement("p");
+                let warningDiv = document.createElement("div");
                 let logoDiv = document.createElement("div");
                 let otherInfoDiv = document.createElement("div");
                 let loadCvBtn = document.createElement("button");
                 let cvIcon = document.createElement("img");
-                warningText.id = "warningText";
+                warningDiv.id = "warningDiv";
                 otherInfoDiv.id = "otherInfoDiv";
                 loadCvBtn.id = "loadCvBtn";
                 loadCvBtn.className = "bColorBlue mediumBtn";
@@ -426,7 +426,7 @@ window.onload = function () {
                 otherInfoDiv.appendChild(city);
                 otherInfoDiv.appendChild(interestCount);
                 otherInfoDiv.appendChild(loadCvBtn);
-                otherInfoDiv.appendChild(warningText);
+                otherInfoDiv.appendChild(warningDiv);
                 infoDiv.appendChild(otherInfoDiv);
                 userInfoDiv.appendChild(infoDiv);
                 otherInfoDiv.classList.add("contactInfoDiv");
@@ -444,8 +444,16 @@ window.onload = function () {
     }
     function getCVtoMyInfo() {
         if (cvData == null) {
-            let warningText = document.getElementById("warningText");
-            warningText.innerHTML = "Du har inte laddat upp något cv.<br>Du kan göra detta under fliken<br><b>Redigera Information</b>."
+            let warningDiv = document.getElementById("warningDiv");
+            let noCV =document.createElement("p");
+            noCV.innerHTML= "Du har inte laddat upp något cv. Du kan göra detta under fliken<br>"
+            let clickToEdit=document.createElement("strong");
+            clickToEdit.id="clickToEdit";
+            clickToEdit.classList.add("pointer");
+            clickToEdit.innerHTML="Redigera information";
+            clickToEdit.addEventListener("click",loadEditMyProfile);
+            warningDiv.appendChild(noCV);// = noCV+clickToEdit;
+            warningDiv.appendChild(clickToEdit);
         }
         else {
             if (!document.getElementById("pdfSpace")) {
