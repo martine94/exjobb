@@ -445,6 +445,7 @@ window.onload = function () {
     function getCVtoMyInfo() {
         if (cvData == null) {
             let warningDiv = document.getElementById("warningDiv");
+            warningDiv.innerHTML="";
             let noCV =document.createElement("p");
             noCV.innerHTML= "Du har inte laddat upp något cv. Du kan göra detta under fliken<br>"
             let clickToEdit=document.createElement("strong");
