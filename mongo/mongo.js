@@ -26,7 +26,7 @@ var logger = new (winston.Logger)({
     }),
     new (winston.transports.File)({
       name: 'error-file',
-      filename: 'mongolog-error.log',
+      filename: 'mongo-error.log',
       level: 'error'
     })
   ]
@@ -579,14 +579,23 @@ module.exports = {
     logger.debug('Removing studentId %s from database', studentId);
   
     MongoClient.connect(url, function (error, db) {
-      if (error) throw error;
+      if (error){
+        callback(error);
+        return;
+      } 
   
       var dbo = db.db(database);
       
-      removeAllStudentInterestFromJob(dbo, studentId, function(result){
-        removeUserFromTable(dbo, 'student', studentId, function(result){
+      removeAllStudentInterestFromJob(dbo, studentId, function(error, result){
+        removeUserFromTable(dbo, 'student', studentId, function(error, result){
           db.close();
-          callback(result);
+          
+          if(error){
+            callback(error);
+            return;
+          }else{
+            callback(error, result);
+          }          
         });
       });
     });
@@ -596,19 +605,27 @@ module.exports = {
     logger.debug('Removing companyId %s from database', companyId);
   
     MongoClient.connect(url, function (error, db) {
-      if (error) throw error;
-  
+      if(error){
+        callback(error);
+        return;
+      }
       var dbo = db.db(database);
-      
-      removeCompanyJobs(dbo, companyId, function(result){
+    
+      removeCompanyJobs(dbo, companyId, function(error, result){
         let jobIdArray = makeJobIdArray(result);
-        removeJobsFromStudents(dbo, jobIdArray, function(result){
-          removeUserFromTable(dbo, 'company', companyId, function(result){
+        removeJobsFromStudents(dbo, jobIdArray, function(error, result){
+          removeUserFromTable(dbo, 'company', companyId, function(error, result){
             db.close();
-            callback(result);
+            
+            if(error){
+              callback(error);
+              return;
+            }else{
+              callback(error, result);
+            } 
           });
         });
-      });
+      });      
     });
   }
 };
@@ -948,23 +965,6 @@ function getJobsDescriptions(NumberOfJobs, callback) {
   });
 }
 
-function removeStudent(studentId, callback) {
-  logger.debug('Removing studentId %s from database', studentId);
-
-  MongoClient.connect(url, function (error, db) {
-    if (error) throw error;
-
-    var dbo = db.db(database);
-    
-    removeAllStudentInterestFromJob(dbo, studentId, function(result){
-      removeUserFromTable(dbo, 'student', studentId, function(result){
-        db.close();
-        callback(result);
-      });
-    });
-  });
-}
-
 function removeUserFromTable(database, table, userId, callback){
   logger.info('Removing user %s from table %s', userId, table);
 
@@ -974,11 +974,13 @@ function removeUserFromTable(database, table, userId, callback){
   database.collection(table).findOneAndDelete({ _id: userObjectId}, function(error, result){
     if (error) {
       database.close();
-      throw error;
+      logger.error('An error occured when removing user %s from table %s', userId, table, error);
+      callback(error);
+      return;
     }
 
     logger.debug('Removing user %s from table %s result', userId, table , result.result);
-    callback(result);
+    callback(error, result);
   });
 }
 
@@ -990,31 +992,13 @@ function removeAllStudentInterestFromJob(database, studentId, callback) {
   { $pull: { studentlist: { studentID: studentId } } }, function (error, result) {
     if (error) {
       database.close();
-      throw error;
+      logger.error('An error occured when removing student interest messages', error);
+      callback(error);
+      return;
     }
 
     logger.debug('Removing all student interest messages from jobs in database result:', result.result);
-    callback(result);
-  });
-}
-
-function removeCompany(companyId, callback){
-  logger.debug('Removing companyId %s from database', companyId);
-
-  MongoClient.connect(url, function (error, db) {
-    if (error) throw error;
-
-    var dbo = db.db(database);
-    
-    removeCompanyJobs(dbo, companyId, function(result){
-      let jobIdArray = makeJobIdArray(result);
-      removeJobsFromStudents(dbo, jobIdArray, function(result){
-        removeUserFromTable(dbo, 'company', companyId, function(result){
-          db.close();
-          callback(result);
-        });
-      });
-    });
+    callback(error, result);
   });
 }
 
@@ -1025,12 +1009,15 @@ function removeCompanyJobs(database, companyId, callback) {
   database.collection('job').find({ companyID: companyId }, { projection: { _id: 1 } }).toArray(function (error, result) {
     if (error) {
       database.close();
-      throw error;
+      logger.error('An error occured when removing company jobs', error);
+      callback(error);
+      return;
     }
+
     database.collection('job').deleteMany({companyID: companyId});
 
     logger.debug('Removing all company jobs in database result:', result);
-    callback(result);
+    callback(error, result);
   });
 }
 
@@ -1042,11 +1029,13 @@ function removeJobsFromStudents(database, jobsIdArray, callback) {
   { $pull: { joblist: { jobID: { $in: jobsIdArray } } } }, function (error, result) {
     if (error) {
       database.close();
-      throw error;
+      logger.error('An error occured when removing jobs from students', error);
+      callback(error);
+      return;
     }
 
     logger.debug('Removing jobs from students result:', result.result);
-    callback(result);
+    callback(error, result);
   });
 }
 

@@ -693,12 +693,33 @@ window.onload = function () {
                 interestArea.innerHTML = this.response;
                 var saveBtn = document.getElementById('saveBtn');
                 saveBtn.addEventListener("click", changeInfo);
+
                 var cancelBtn = document.getElementById('cancelBtn');
                 cancelBtn.addEventListener("click", loadMyInfo);
+
+                var removeCompanyBtn = document.getElementById('removeCompanyBtn');
+                removeCompanyBtn.addEventListener('click', removeCompany);
                 fillEditProfile();
             }
         };
         xhttp.open("GET", "loadFileCompany?p=" + '/myCompanyPages.html', true);
+        xhttp.send();
+    }
+
+    function removeCompany(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.response == 'false'){
+                    alert('Ops någonting oväntat har uppstått.\n'+
+                    'Vi kan för tillfället ej tabort ditt konto på grund av server problem.');
+                    console.log("Failed to remove company, check logs at the server.");
+                }else{
+                    window.location.replace("index.html");
+                }
+            }
+        }
+        xhttp.open('DELETE', 'deleteCompany', true);
         xhttp.send();
     }
 
@@ -940,5 +961,5 @@ window.onload = function () {
         } 
     }
 }
-//#endregions
+//#endregion
 

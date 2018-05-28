@@ -9,7 +9,7 @@
             <label class="alignRight" for="c_Name">Företagsnamn:</label>
             <input class="width50 lowb" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" type="text" id="c_Name">
         </div>
-            <label class="alignRight">Om oss:</label>
+            <label class="alignRight" style="vertical-align: top">Om oss:</label>
         
         <textarea class="width50" rows="10" cols="84" onkeyup="this.value = this.value.replace(/[#&%*<>$¤£]/g, '')" type="text" id="about_Us"></textarea>
         <br><br>
@@ -50,6 +50,11 @@
         <div id = "error"></div>
         <button class="btn1" id="saveBtn">Spara</button>
         <button class="btn1" id="cancelBtn">Avbryt</button>
+        <p class="hTextContainer bColorBlue">Tabort konto</p>
+        <div>
+            <p>Vill du tabort ditt konto? Tryck i sådantfall på knappen nedan.</p>
+            <button class="btn1" id="removeCompanyBtn">Tabort mitt konto</button>
+        </div>
     </div>
 </div>
 

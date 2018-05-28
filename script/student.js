@@ -255,6 +255,7 @@ window.onload = function () {
     function keyWordToSearchValue(word) {
         console.log("hej");
         document.getElementById("searchInput").value = word;
+        document.getElementById("searchInput").focus();
     }
 
     function loadMyRecomendedJobs() {
@@ -484,6 +485,26 @@ window.onload = function () {
         loadCvBtn.onclick = readCvData;
 
         cancelBtnStudent.addEventListener("click", (e) => loadMyInfo());
+
+        var removeStudentBtn = document.getElementById('removeStudentBtn');
+        removeStudentBtn.addEventListener('click', removeStudent);
+    }
+
+    function removeStudent(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.response == 'false'){
+                    alert('Ops någonting oväntat har uppstått.\n'+
+                    'Vi kan för tillfället ej tabort ditt konto på grund av server problem.');
+                    console.log("Failed to remove student, check logs at the server.");
+                }else{
+                    window.location.replace("index.html");
+                }
+            }
+        }
+        xhttp.open('DELETE', 'deleteStudent', true);
+        xhttp.send();
     }
 
     function hoverNewKeywords(element, show, connectedTo) {
