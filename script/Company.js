@@ -707,6 +707,7 @@ window.onload = function () {
     }
 
     function removeCompany(){
+        if (confirm('Är du säker på att du vill radera ditt konto?')) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -721,6 +722,7 @@ window.onload = function () {
         }
         xhttp.open('DELETE', 'deleteCompany', true);
         xhttp.send();
+    }
     }
 
     function removeError(){
@@ -898,6 +900,9 @@ window.onload = function () {
         email.innerHTML = user.email;
         city.innerHTML = user.city;
         webpage.innerHTML = user.web;
+        if (!user.web.startsWith("http://")){
+            user.web = "http://"+user.web;
+        }
         webpage.href = user.web;
         address.innerHTML = user.address;
         logoDiv.appendChild(logo);
