@@ -253,7 +253,6 @@ window.onload = function () {
     }
 
     function keyWordToSearchValue(word) {
-        console.log("hej");
         document.getElementById("searchInput").value = word;
         document.getElementById("searchInput").focus();
     }
@@ -275,7 +274,6 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                //document.getElementById("menu-page-content").innerHTML = this.response;
                 if (this.response.length > 0) {
                     let jobList = JSON.parse(this.response);
                     calculateJobRecommendation(jobList);
@@ -290,7 +288,6 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                //document.getElementById("menu-page-content").innerHTML = this.response;
                 if (this.response.length > 0) {
                     let user = JSON.parse(this.response);
                     let recommendationArray = [{}];
@@ -325,7 +322,6 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function (res) {
             if (this.readyState == 4 && this.status == 200) {
-                //removeBrace = this.responseText.replace(/[\[\]']+/g, "");
                 var obj = JSON.parse(this.response);
                 var user = {
                     id: obj[0]._id,
@@ -369,9 +365,7 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function (res) {
             if (this.readyState == 4 && this.status == 200) {
-                // removeBrace = this.responseText.replace(/[\[\]']+/g, "");
                 var obj = JSON.parse(this.response);
-                console.log(obj);
                 var user = {
                     id: obj[0]._id,
                     uname: obj[0].uname,
@@ -458,7 +452,6 @@ window.onload = function () {
         }
         else {
             if (!document.getElementById("pdfSpace")) {
-                console.log("click");
                 let pdfSpace = document.createElement("object");
                 let userInfoDiv = document.getElementById("menu-page-content");
                 pdfSpace.id = "pdfSpace";
@@ -507,7 +500,6 @@ window.onload = function () {
                     if (this.response == 'false'){
                         alert('Ops någonting oväntat har uppstått.\n'+
                         'Vi kan för tillfället ej tabort ditt konto på grund av server problem.');
-                        console.log("Failed to remove student, check logs at the server.");
                     }else{
                         window.location.replace("index.html");
                     }
@@ -520,7 +512,6 @@ window.onload = function () {
     }
 
     function hoverNewKeywords(element, show, connectedTo) {
-        // connectedTo.style.width = "244pt";
         if ((element.id !== "SaveExJob") && (element.id !== "KeyWordBtn")) {
             if (show === 0) {
                 element.className = "contentShow";
@@ -562,20 +553,15 @@ window.onload = function () {
         input = document.getElementById('pdfUpload');
 
         if (!input) {
-            console.error("can't find input element!");
         }
         else if (!input.files) {
-            console.error("this browser does not support the files property of input!");
         }
         else if (!input.files[0]) {
-            console.log("no file selected");
         }
         else {
             file = input.files[0];
             fr = new FileReader();
             fr.onload = () => {
-                //do something with the file code
-                console.log(file.result);
                 
                 if(file.type !== "application/pdf" || file.size > 15000000)
                 {
@@ -598,7 +584,6 @@ window.onload = function () {
                 else
                 {
                     cvData = fr.result;
-                    console.log("sucessfully stored file");
                     UploadOrSaved = "uppladdat";
                     loadCvBtn.innerHTML = "Öppna " + UploadOrSaved + " cv(pdf)";
                     pdfStatus.style.color = "black";                       
@@ -619,7 +604,6 @@ window.onload = function () {
 
             }
 
-            //console.log(cvData);
             loadCvBtn.innerHTML = "Stäng " + UploadOrSaved + " cv(pdf)";
 
             loadCvBtn.onclick = () => {
@@ -630,8 +614,6 @@ window.onload = function () {
             }
         }
         else if (!document.getElementById('pdfSpace')) {
-            //logger.error("No pdf container", document.getElementById('pdfSpace'));
-            console.error("No pdfSpace defined!")
         }
     }
 
@@ -652,7 +634,6 @@ window.onload = function () {
         if (document.getElementById("sPsw").value === document.getElementById("sPswConfirm").value) {
             let ListOfKeyWords = [];
            
-            console.log("Starting to save");
             var userObj = {
                 name: document.getElementById("sFName").value,
                 lastname: document.getElementById("sLName").value,
@@ -742,7 +723,6 @@ window.onload = function () {
                 getSpecificJob(jobId);
 
                 makeInterestBtn = document.getElementById("makeInterestSubmit");
-                // makeInterestBtn.addEventListener("click", (e) => sendInterest(jobId));
                 makeInterestBtn.addEventListener("click", function(){
                     sendInterest(jobId);
                     this.removeEventListener('click',arguments.callee);
@@ -777,7 +757,6 @@ window.onload = function () {
                 table.className = "tableKeywords";
                 var thisRow = document.createElement("tr");
                 table.appendChild(thisRow);
-                //console.log(jobs[0].keywords);
                 for (i = 0; i < jobs[0].keywords.length; ++i) {
                     if (i % 3 === 0) {
                         var newRow = document.createElement("tr");
@@ -794,7 +773,6 @@ window.onload = function () {
                 }
             }
         };
-        //Skriv en funktion som bara tar ut företagets jobbannonser
         xhttp.open("GET", "getSpecificJobFromDB?jobID=" + jobId, true);
         xhttp.send();
     }
@@ -846,7 +824,6 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                // document.getElementById("option-page-content").innerHTML = this.response;
                 var jobs = JSON.parse(this.response);
                 if (jobs.length === undefined || jobs.length == 0) {
                     document.getElementById("workAnnouncement").innerHTML = "Vi hittade inga jobb som matchade din sökning!";
@@ -881,10 +858,8 @@ window.onload = function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                // document.getElementById("option-page-content").innerHTML = this.response;
                 var jobs = JSON.parse(this.response);
                 filterAlreadySearchedJobs(jobs);
-                //workAnnouncements(jobs.length, jobs);
             }
         };
         xhttp.open("GET", "getJobsFromDB", true);
@@ -961,13 +936,13 @@ window.onload = function () {
             var outerDiv = document.createElement("div");
             outerDiv.className = "jobsSmall";
 
-            var top = document.createElement("div"); //topbar
+            var top = document.createElement("div"); 
             top.className = "jobTop";
 
-            var logo = document.createElement("img");//ladda in logga
+            var logo = document.createElement("img");
 
             logo.className = "jobLogo";
-            var header = document.createElement("div");//rubrik
+            var header = document.createElement("div");
             header.className = "jobHeader";
 
             var info = document.createElement("div");
@@ -996,7 +971,6 @@ window.onload = function () {
             myMsg.innerHTML = "Mitt meddelande: ";
             outerDiv.appendChild(myMsg);
 
-            //outerDiv.appendChild(document.createElement("hr"));
             outerDiv.appendChild(info);
             outerDiv.appendChild(document.createElement("br"));
             outerDiv.appendChild(document.createElement("br"));
@@ -1008,9 +982,9 @@ window.onload = function () {
             logo.appendChild(newlog);
             header.appendChild(newh1);
 
-            logo.src = jobb[0].logoURL; //ladda in logga
-            newh1.innerHTML = jobb[0].tile;//ladda in rubrik    
-            info.innerHTML = message;//ladda in beskrivning
+            logo.src = jobb[0].logoURL; 
+            newh1.innerHTML = jobb[0].tile;  
+            info.innerHTML = message;
             readBtn.addEventListener("click", (e) => showMoreInfoBtn(readBtn.id));
             removeBtn.addEventListener("click", (e) => removeInterest(removeBtn.id));
             let show = '0';
@@ -1044,13 +1018,13 @@ window.onload = function () {
                 var outerDiv = document.createElement("div");
                 outerDiv.className = "jobsSmall";
 
-                var top = document.createElement("div"); //topbar
+                var top = document.createElement("div");
                 top.className = "jobTop";
 
-                var logo = document.createElement("img");//ladda in logga
+                var logo = document.createElement("img");
 
                 logo.className = "jobLogo";
-                var header = document.createElement("div");//rubrik
+                var header = document.createElement("div");
                 header.className = "jobHeader";
 
                 var info = document.createElement("div");
@@ -1078,9 +1052,9 @@ window.onload = function () {
                 header.appendChild(newh1);
 
 
-                logo.src = jobb[i].logoURL; //ladda in logga
-                newh1.innerHTML = jobb[i].tile;//ladda in rubrik    
-                info.innerHTML = jobb[i].shortdesc;//ladda in beskrivning
+                logo.src = jobb[i].logoURL; 
+                newh1.innerHTML = jobb[i].tile; 
+                info.innerHTML = jobb[i].shortdesc;
                 let show = '1';
                 readBtn.addEventListener("click", (e) => showMoreInfoBtn(readBtn.id, show));
             }
