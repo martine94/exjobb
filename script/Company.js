@@ -181,9 +181,9 @@ window.onload = function () {
                 table.className = "tableKeywords";
                 var thisRow = document.createElement("tr");
                 table.appendChild(thisRow);
-                let newJobs=[];
-                for(let j=0;j<jobs[0].keywords.length;++j){
-                    if(jobs[0].keywords[j]!="Annat"){
+                let newJobs = [];
+                for (let j = 0; j < jobs[0].keywords.length; ++j) {
+                    if (jobs[0].keywords[j] != "Annat") {
                         newJobs.push(jobs[0].keywords[j]);
                     }
                 }
@@ -235,59 +235,70 @@ window.onload = function () {
         var loadingImage = document.getElementById("loadImg");
         loadingImage.style.display = 'none';
         workAnnouncement.innerHTML = "";
-        for (var i = 0; i < num; i++) {
-
+        if (num === 0 || num === undefined) {
             var outerDiv = document.createElement("div");
+            var newh2 = document.createElement("h2");
+            var newP = document.createElement("p");
+            newP.innerHTML = "";
+            newh2.innerHTML = "Du har inte lagt upp några examensarbeten.";
+            outerDiv.appendChild(newh2);
+            outerDiv.appendChild(newP);
             outerDiv.className = "jobsSmall";
-
-            var top = document.createElement("div"); 
-            top.className = "jobTop";
-
-            var logo = document.createElement("img");
-
-            logo.className = "jobLogo";
-            var header = document.createElement("div");
-            header.className = "jobHeader";
-
-
-            var newlog = document.createElement("p");
-            newlog.innerHTML = "logga";
-            var newh1 = document.createElement("h2");
-
-            let readBtn = document.createElement("button");
-            readBtn.innerHTML = "Visa annons";
-            readBtn.id = jobb[i]._id;
-            let interestBtn = document.createElement("button");
-            interestBtn.innerHTML = "Intresseanmälningar";
-            let changeBtn = document.createElement("button");
-            changeBtn.innerHTML = "Redigera";
-            changeBtn.className = ("floatRight");
-
             workAnnouncement.appendChild(outerDiv);
-            workAnnouncement.appendChild(document.createElement("br"));
-            outerDiv.appendChild(top);
+        } else {
+            for (var i = 0; i < num; i++) {
 
-            outerDiv.appendChild(readBtn);
-            outerDiv.appendChild(interestBtn);
-            outerDiv.appendChild(changeBtn);
+                var outerDiv = document.createElement("div");
+                outerDiv.className = "jobsSmall";
 
-            outerDiv.appendChild(document.createElement("br"));
-            outerDiv.appendChild(document.createElement("br"));
+                var top = document.createElement("div");
+                top.className = "jobTop";
 
-            top.appendChild(logo);
-            top.appendChild(header);
-            logo.appendChild(newlog);
-            header.appendChild(newh1);
+                var logo = document.createElement("img");
 
-            logo.src = jobb[i].logoURL; 
-            newh1.innerHTML = jobb[i].tile;    
-            readBtn.addEventListener("click", (e) => loadShowExJob(readBtn.id));
-            readBtn.classList.add("btn1");
-            changeBtn.addEventListener("click", (e) => loadChangeExJob(readBtn.id));
-            changeBtn.classList.add("btn1");
-            interestBtn.addEventListener("click", (e) => loadInterests(readBtn.id));
-            interestBtn.classList.add("btn1");
+                logo.className = "jobLogo";
+                var header = document.createElement("div");
+                header.className = "jobHeader";
 
+
+                var newlog = document.createElement("p");
+                newlog.innerHTML = "logga";
+                var newh1 = document.createElement("h2");
+
+                let readBtn = document.createElement("button");
+                readBtn.innerHTML = "Visa annons";
+                readBtn.id = jobb[i]._id;
+                let interestBtn = document.createElement("button");
+                interestBtn.innerHTML = "Intresseanmälningar";
+                let changeBtn = document.createElement("button");
+                changeBtn.innerHTML = "Redigera";
+                changeBtn.className = ("floatRight");
+
+                workAnnouncement.appendChild(outerDiv);
+                workAnnouncement.appendChild(document.createElement("br"));
+                outerDiv.appendChild(top);
+
+                outerDiv.appendChild(readBtn);
+                outerDiv.appendChild(interestBtn);
+                outerDiv.appendChild(changeBtn);
+
+                outerDiv.appendChild(document.createElement("br"));
+                outerDiv.appendChild(document.createElement("br"));
+
+                top.appendChild(logo);
+                top.appendChild(header);
+                logo.appendChild(newlog);
+                header.appendChild(newh1);
+
+                logo.src = jobb[i].logoURL;
+                newh1.innerHTML = jobb[i].tile;
+                readBtn.addEventListener("click", (e) => loadShowExJob(readBtn.id));
+                readBtn.classList.add("btn1");
+                changeBtn.addEventListener("click", (e) => loadChangeExJob(readBtn.id));
+                changeBtn.classList.add("btn1");
+                interestBtn.addEventListener("click", (e) => loadInterests(readBtn.id));
+                interestBtn.classList.add("btn1");
+            }
         }
     }
     function SetCurrentPage(currentPageBtn) {
@@ -411,7 +422,7 @@ window.onload = function () {
             personDiv.style.borderColor = "lightblue";
             personDiv.style.borderLeft = "0.1em";
             personDiv.style.color = "black";
-            personDiv.style.padding="2%";
+            personDiv.style.padding = "2%";
             personDiv.appendChild(document.createElement("br"));
             personDiv.innerHTML = "Person " + number;
             let row = document.createElement("hr");
@@ -432,7 +443,7 @@ window.onload = function () {
             txtArea.style.color = "black";
             txtArea.style.border = "solid 0.1em";
             txtArea.style.borderColor = "lightblue";
-            txtArea.style.margin="2%";
+            txtArea.style.margin = "2%";
             let msg = document.createElement("p");
             for (let j = 0; j < num; j++) {
                 if (objList[i]._id === message[j].studentID) {
@@ -589,19 +600,19 @@ window.onload = function () {
         let savedJob = new exJob(title, shortde, longde, ListOfKeyWords);
         var savedJob2 = JSON.stringify(savedJob);
         var check = /[#&*+<>$¤£]/;
-        if(!savedJob2.match(check)){
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                if ("true") {
-                    loadMyOffers();
+        if (!savedJob2.match(check)) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    if ("true") {
+                        loadMyOffers();
+                    }
                 }
-            }
-        };
-        xhttp.open("POST", "addJobToDB?exJobb=" + savedJob2, true);
-        xhttp.send();
+            };
+            xhttp.open("POST", "addJobToDB?exJobb=" + savedJob2, true);
+            xhttp.send();
         }
-        else{
+        else {
             document.getElementById("error").innerHTML = "Ogiltliga tecken!"
         }
     }
@@ -690,77 +701,76 @@ window.onload = function () {
         xhttp.send();
     }
 
-    function removeCompany(){
+    function removeCompany() {
         if (confirm('Är du säker på att du vill radera ditt konto?')) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                if (this.response == 'false'){
-                    alert('Ops någonting oväntat har uppstått.\n'+
-                    'Vi kan för tillfället ej ta bort ditt konto på grund av server problem.');
-                }else{
-                    window.location.replace("index.html");
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    if (this.response == 'false') {
+                        alert('Ops någonting oväntat har uppstått.\n' +
+                            'Vi kan för tillfället ej ta bort ditt konto på grund av server problem.');
+                    } else {
+                        window.location.replace("index.html");
+                    }
                 }
             }
+            xhttp.open('DELETE', 'deleteCompany', true);
+            xhttp.send();
         }
-        xhttp.open('DELETE', 'deleteCompany', true);
-        xhttp.send();
-    }
     }
 
-    function removeError(){
-        if(document.getElementById("c_Psw") && document.getElementById("c_PswConfirm") 
-           && document.getElementById("error"))
-        {
+    function removeError() {
+        if (document.getElementById("c_Psw") && document.getElementById("c_PswConfirm")
+            && document.getElementById("error")) {
             document.getElementById("c_Psw").classList.remove("errInput");
             document.getElementById("c_PswConfirm").classList.remove("errInput");
             document.getElementById("error").remove();
             document.getElementById("c_Psw").onkeyup = "";
-            document.getElementById("c_PswConfirm").onkeyup = "";   
-        }            
+            document.getElementById("c_PswConfirm").onkeyup = "";
+        }
     };
 
     function changeInfo() {
 
-        if(checker()){
-        if(document.getElementById("c_Psw").value === document.getElementById("c_PswConfirm").value){
-        var cname = document.getElementById("c_Name").value;
-        var cuname = document.getElementById("c_Uname").value;
-        var cAboutUs = document.getElementById("about_Us").value;
-        var psw = document.getElementById("c_Psw").value;
-        var ccity = document.getElementById("c_City").value;
-        var cemail = document.getElementById("c_Email").value;
-        var caddress = document.getElementById("c_Address").value;
-        var cweb = document.getElementById("c_WebP").value;
-        var clogo = document.getElementById("c_Logo").value;
+        if (checker()) {
+            if (document.getElementById("c_Psw").value === document.getElementById("c_PswConfirm").value) {
+                var cname = document.getElementById("c_Name").value;
+                var cuname = document.getElementById("c_Uname").value;
+                var cAboutUs = document.getElementById("about_Us").value;
+                var psw = document.getElementById("c_Psw").value;
+                var ccity = document.getElementById("c_City").value;
+                var cemail = document.getElementById("c_Email").value;
+                var caddress = document.getElementById("c_Address").value;
+                var cweb = document.getElementById("c_WebP").value;
+                var clogo = document.getElementById("c_Logo").value;
 
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                interestArea.innerHTML = this.response;
-                if ("true") {
-                    loadMyInfo();
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        interestArea.innerHTML = this.response;
+                        if ("true") {
+                            loadMyInfo();
+                        }
+                    }
+                }
+                xhttp.open("POST", "changeCompanyInfo?cname=" + cname + "&psw=" + psw + "&cuname=" + cuname + "&caddress=" + caddress + "&cemail=" + cemail + "&ccity=" + ccity + "&cweb=" + cweb + "&clogo=" + clogo + "&cAboutUs=" + cAboutUs, true);
+                xhttp.send();
+            }
+            else {
+                if (!document.getElementById('error')) {
+                    document.getElementById("c_Psw").classList.add("errInput");
+                    document.getElementById("c_PswConfirm").classList.add("errInput");
+
+                    document.getElementById("c_Psw").onkeyup = () => { removeError(); };
+                    document.getElementById("c_PswConfirm").onkeyup = () => { removeError(); };
+
+                    document.getElementById("ErrorMessage").innerHTML += "<span id='error' style='color:red;'>lösenord är olika!</span>";
                 }
             }
         }
-        xhttp.open("POST", "changeCompanyInfo?cname=" + cname + "&psw=" + psw + "&cuname=" + cuname + "&caddress=" + caddress + "&cemail=" + cemail + "&ccity=" + ccity + "&cweb=" + cweb + "&clogo=" + clogo + "&cAboutUs=" + cAboutUs, true);
-        xhttp.send();
+        else {
+            document.getElementById("errorpsw").innerHTML = "Ogiltliga tecken!";
         }
-        else{
-            if(!document.getElementById('error')){
-                document.getElementById("c_Psw").classList.add("errInput");
-                document.getElementById("c_PswConfirm").classList.add("errInput");                
-                
-                document.getElementById("c_Psw").onkeyup = () => {removeError();};
-                document.getElementById("c_PswConfirm").onkeyup = () => {removeError();}; 
-                        
-                document.getElementById("ErrorMessage").innerHTML += "<span id='error' style='color:red;'>lösenord är olika!</span>";
-            }
-        }
-    }
-    else{
-        document.getElementById("errorpsw").innerHTML = "Ogiltliga tecken!";
-    }
     };
     function fillEditProfile() {
         var xhttp = new XMLHttpRequest();
@@ -808,7 +818,6 @@ window.onload = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var jobs = JSON.parse(this.response);
                 workAnnouncements(jobs.length, jobs);
-
             }
         };
         xhttp.open("GET", "getCompanyJobsFromDB", true);
@@ -878,8 +887,8 @@ window.onload = function () {
         email.innerHTML = user.email;
         city.innerHTML = user.city;
         webpage.innerHTML = user.web;
-        if (!user.web.startsWith("http://")){
-            user.web = "http://"+user.web;
+        if (!user.web.startsWith("http://")) {
+            user.web = "http://" + user.web;
         }
         webpage.href = user.web;
         address.innerHTML = user.address;
@@ -923,7 +932,7 @@ window.onload = function () {
 
     loadMyInfo();
 
-    function checker(){
+    function checker() {
         var checkstr;
         checkstr += document.getElementById("c_Name").value;
         checkstr += document.getElementById("c_Uname").value;
@@ -935,12 +944,12 @@ window.onload = function () {
         checkstr += document.getElementById("c_WebP").value;
         checkstr += document.getElementById("c_Logo").value;
         var invChar = /[#&%*+<>$¤£]/;
-        if(checkstr.match(invChar)){
-            return false; 
+        if (checkstr.match(invChar)) {
+            return false;
         }
-        else{
+        else {
             return true;
-        } 
+        }
     }
 }
 //#endregion
