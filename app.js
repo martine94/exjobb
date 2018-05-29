@@ -23,14 +23,12 @@ app.use(session({
     duration: 30 * 60 * 1000,
     activeDuration: 5 * 60 * 1000,
 }));
-var cookieParser = require('cookie-parser');
 
 //Path - för att hämta sökvägen för projektet
 var path = require('path');
 
 //Serverns ip-address
-var ipAdress = "127.0.0.1:2000"; //Används om man vill köra lokalt
-//dgustafsson.ml buggar ibland, kör med 90.231.125.248
+var ipAdress = "127.0.0.1:2000";
 //var ipAdress="dgustafsson.ml";
 //var ipAdress="90.231.125.248:2000";
 var serverAddress = "http://" + ipAdress;
