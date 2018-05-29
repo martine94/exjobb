@@ -432,7 +432,7 @@ window.onload = function () {
             let divInfo = document.createElement("div");
             let shortDescript = document.createElement("p");
             shortDescript.style.outlineColor = "brown";
-            shortDescript.innerHTML = "Kort meddelande: ";
+            shortDescript.innerHTML = "Kort meddelande från student: ";
             divInfo.appendChild(shortDescript);
             personDiv.appendChild(divInfo);
             personDiv.className = "jobsSmall";
@@ -457,7 +457,9 @@ window.onload = function () {
             txtArea.className = "jobInfo";
             txtArea.style.padding = "1%";
             let CVbtn = document.createElement("button");
-            CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov";
+            //CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov";
+            CVbtn.classList.add("btn1");
+            CVbtn.classList.add("floatRight");
             if (objList[i].cv) {
                 CVbtn.addEventListener("click", (e) => loadCV(pdfObject));
                 CVbtn.innerHTML = "CV";
