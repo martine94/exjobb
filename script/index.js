@@ -44,7 +44,6 @@ window.onload = function () {
 
     //Search bar is not implemented yet.
     searchInput.addEventListener("keypress", function (event) {
-        console.log(event.keyCode);
         if (event.keyCode == 13) {
             //sök efter jobb
 
@@ -75,11 +74,9 @@ window.onload = function () {
         if(!checkifvalidstr.match(invChar)){
         ajaxRequest('GET', "logginComp?username=" + username + "&password=" + password, function (response) {
             if (response === "false") {
-                console.log("Fel användarnamn eller lösenord");
                 document.getElementById("errLogIn").innerHTML = "* Fel användarnamn eller lösenord";
                 loginCBtn.disabled=false;
             } else {
-                console.log("Du är nu inloggad");
                 window.location.replace("Company.html");
                 dropDown("modal-test", false);
             }
@@ -101,11 +98,9 @@ window.onload = function () {
         if(!checkifvalidstr.match(invChar)){
         ajaxRequest('GET', "logginStudent?_user=" + username + "&password=" + password, function (response) {
             if (response === "false") {
-                console.log("Fel användarnamn eller lösenord");
                 document.getElementById("errLogIn").innerHTML = "* Fel användarnamn eller lösenord";
                 loginSBtn.disabled=false;
             } else {
-                console.log("Du är nu inloggad");
                 window.location.replace("Student.html");
                 dropDown("modal-test", false);
             }
@@ -141,7 +136,6 @@ window.onload = function () {
         });
     }
     function testClick() {
-        console.log("click");
     }
 
     function openLoginStudentModal() {
@@ -281,7 +275,7 @@ window.onload = function () {
     }
     //#endregion
 
-    //} var tvungen flytta denna till längst ner för vissa funtioner funkar inte
+
 
     //#region shared register functions
 
@@ -411,13 +405,11 @@ window.onload = function () {
     function register_student(formInputs) {
         ajaxRequest('POST', createStudentRouteString(formInputs), function (response) {
             if (response === "false") {
-                console.log("Something went wrong.");
                 document.getElementById("errorReg").innerHTML = "*Användarnamnet upptaget!";
                 document.getElementById("unameS").value = "";
                 let okRegStudent=document.getElementById("okRegStudent");
                 okRegStudent.disabled=false;
             } else {
-                console.log("You are now registered.");
                 window.location.replace("Student.html");
                 dropDown("modal-test", false);
             }
@@ -463,7 +455,6 @@ window.onload = function () {
         lockstr += formInputs["address"].getValue();
         lockstr += formInputs["email"].getValue();
         lockstr += formInputs["city"].getValue();
-        console.log(formInputs);
         var error = false;
         let okRegComp=document.getElementById("okRegCompany");
         okRegComp.disabled=true;
@@ -513,13 +504,11 @@ window.onload = function () {
         var routeString = createCompanyRouteString(formInputs);
         ajaxRequest('POST', routeString, function (response) {
             if (response === "false") {
-                console.log("Something went wrong.");
                 document.getElementById("errorReg").innerHTML = "*Användarnamnet är upptaget!";
                 formInputs["userName"].element.value = "";
                 let okRegComp=document.getElementById("okRegCompany");
                 okRegComp.disabled=false;
             } else {
-                console.log("You are now registered");
                 window.location.replace("Company.html");
                 dropDown("modal-test", false);
             }
