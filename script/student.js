@@ -500,7 +500,7 @@ window.onload = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     if (this.response == 'false'){
                         alert('Ops någonting oväntat har uppstått.\n'+
-                        'Vi kan för tillfället ej tabort ditt konto på grund av server problem.');
+                        'Vi kan för tillfället ej ta bort ditt konto på grund av server problem.');
                     }else{
                         window.location.replace("index.html");
                     }
