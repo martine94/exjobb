@@ -395,6 +395,7 @@ window.onload = function () {
                 let otherInfoDiv = document.createElement("div");
                 let loadCvBtn = document.createElement("button");
                 let cvIcon = document.createElement("img");
+                edu.id="eduIDStudentProfile";
                 warningDiv.id = "warningDiv";
                 otherInfoDiv.id = "otherInfoDiv";
                 loadCvBtn.id = "loadCvBtn";
@@ -757,17 +758,23 @@ window.onload = function () {
                 table.className = "tableKeywords";
                 var thisRow = document.createElement("tr");
                 table.appendChild(thisRow);
-                for (i = 0; i < jobs[0].keywords.length; ++i) {
+                let newJobs=[];
+                for(let j=0;j<jobs[0].keywords.length;++j){
+                    if(jobs[0].keywords[j]!="Annat"){
+                        newJobs.push(jobs[0].keywords[j]);
+                    }
+                }
+                for (i = 0; i < newJobs.length; ++i) {
                     if (i % 3 === 0) {
                         var newRow = document.createElement("tr");
                         thisRow = newRow;
                         table.appendChild(thisRow);
                         var t = document.createElement("td");
-                        t.innerHTML = jobs[0].keywords[i];
+                        t.innerHTML = newJobs[i];
                         thisRow.appendChild(t);
                     } else {
                         var td = document.createElement("td");
-                        td.innerHTML = jobs[0].keywords[i];
+                        td.innerHTML = newJobs[i];
                         thisRow.appendChild(td);
                     }
                 }
