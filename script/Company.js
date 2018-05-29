@@ -458,7 +458,7 @@ window.onload = function () {
             txtArea.style.padding = "1%";
             let CVbtn = document.createElement("button");
             //CVbtn.className = "bColorBlue mediumBtn floatRight darkerBlueOnHov";
-            CVbtn.classList.add("btn1");
+            CVbtn.classList.add("btn2");
             CVbtn.classList.add("floatRight");
             if (objList[i].cv) {
                 CVbtn.addEventListener("click", (e) => loadCV(pdfObject));

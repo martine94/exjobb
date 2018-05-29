@@ -71,6 +71,16 @@ p.r1{
 	border:none;
 	outline: none;
 }
+.btn2{
+	color:white;
+	background-color: rgb(74,150,205);
+	margin:0.2em;
+	width:100pt;
+	font-family: Open Sans;
+	padding: 0.3em 0.9em 0.3em 0.9em;
+	border:none;
+	outline: none;
+}
 .keywordBtn{
 	color:white;
 	background-color: rgb(74,150,205);
@@ -292,6 +302,7 @@ padding: 5%;
 }
 .showDropDownMenu:hover,
 .btn1:hover,
+.btn2:hover,
 .keywordBtn:hover,
 .submitBtn:hover,
 .mediumBtn:hover,
