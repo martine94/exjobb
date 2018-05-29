@@ -942,7 +942,6 @@ window.onload = function () {
         checkstr += document.getElementById("c_Email").value;
         checkstr += document.getElementById("c_Address").value;
         checkstr += document.getElementById("c_WebP").value;
-        checkstr += document.getElementById("c_Logo").value;
         var invChar = /[#&%*+<>$¤£]/;
         if (checkstr.match(invChar)) {
             return false;
